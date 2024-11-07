@@ -40,3 +40,22 @@ NHQ在基础数据集上为每个对象添加属性，如为 SIFT1M 上的每张
 | Paper      | [paper_attribute.tar.gz](https://drive.google.com/file/d/1arpB0oZne3tmRCUfTfzQmIfvWVP_kuKY/view) | [label_paper_groundtruth.ivecs](https://drive.google.com/file/d/1arpB0oZne3tmRCUfTfzQmIfvWVP_kuKY/view) |
 | BIGANN100M | [bigann100m_attribute.tar.gz](https://drive.google.com/file/d/1arpB0oZne3tmRCUfTfzQmIfvWVP_kuKY/view) | label_bigann100m_groundtruth.ivecs                           |
 ---
+
+#### Filtered−DiskANN 数据集使用说明
+
+[代码仓库](https://github.com/Microsoft/DiskANN)
+
+[论文](https://harsha-simhadri.org/pubs/Filtered-DiskANN23.pdf)
+
+Attributes查询标签是单标签
+
+groundtruth由代码中compute_groundtruth_for_filters生成
+
+| Dataset | Filtered−DiskANN Attributes Download                         |
+| ------- | ------------------------------------------------------------ |
+| SIFT1M  | [sift_attribute.tar.gz](https://drive.google.com/file/d/1HV97n6IvotW9jwZlC4vy-uOLtaiCDDF7/view?usp=drive_link) |
+| GIST1M  | [gist_attribute.tar.gz](https://drive.google.com/file/d/1tG2_XD9iWh-yBzFsroGq_5qwOZUT5A5Q/view?usp=drive_link) |
+| GloVe   | [glove-100_attribute.tar.gz](https://drive.google.com/file/d/1Hhec4cdb3epvwIfuzjjoY-Quim5kPMGe/view?usp=drive_link) |
+| Audio   | [audio_attribute.tar.gz](https://drive.google.com/file/d/1_6WFWUTsimcqjfm5UCwYlYu3OqTZF6Yi/view?usp=drive_link) |
+| Msong   | [msong_attribute.tar.gz](https://drive.google.com/file/d/1JB8erGu2m3SB-vv23bRWYAElYBPnFadU/view?usp=drive_link) |
+| Paper   | [paper_attribute.tar.gz](https://drive.google.com/file/d/1s8xUZD6mx3JvuHJXPcRRSqkxAXuiyagg/view?usp=drive_link) |
