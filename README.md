@@ -88,4 +88,13 @@ query.10k.fbin： https://zenodo.org/records/11090378/files/webvid.query.10k.fbi
 
 gt.10k.ibin： https://zenodo.org/records/11090378/files/webvid.gt.10k.ibin
 
+### HQANN 数据集使用说明
+[论文](https://dl.acm.org/doi/10.1145/3511808.3557610)
 
+HQANN在基础数据集上添加属性，基础数据集如SIFT、GIST等，属性采用NHQ中的属性文件
+
+| Dataset | Filtered−DiskANN Attributes Download                         |
+| ------- | ------------------------------------------------------------ |
+| SIFT1M  | [sift_attribute.tar.gz](https://drive.google.com/file/d/1HV97n6IvotW9jwZlC4vy-uOLtaiCDDF7/view?usp=drive_link) |
+| GIST1M  | [gist_attribute.tar.gz](https://drive.google.com/file/d/1tG2_XD9iWh-yBzFsroGq_5qwOZUT5A5Q/view?usp=drive_link) |
+| GloVe   | [glove-100_attribute.tar.gz](https://drive.google.com/file/d/1Hhec4cdb3epvwIfuzjjoY-Quim5kPMGe/view?usp=drive_link) |
