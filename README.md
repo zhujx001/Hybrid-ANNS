@@ -98,3 +98,10 @@ HQANN在基础数据集上添加属性，基础数据集如SIFT、GIST等，属�
 | SIFT1M  | [sift_attribute.tar.gz](https://drive.google.com/file/d/1HV97n6IvotW9jwZlC4vy-uOLtaiCDDF7/view?usp=drive_link) |
 | GIST1M  | [gist_attribute.tar.gz](https://drive.google.com/file/d/1tG2_XD9iWh-yBzFsroGq_5qwOZUT5A5Q/view?usp=drive_link) |
 | GloVe   | [glove-100_attribute.tar.gz](https://drive.google.com/file/d/1Hhec4cdb3epvwIfuzjjoY-Quim5kPMGe/view?usp=drive_link) |
+
+### VBASE数据集
+[论文](https://www.usenix.org/conference/osdi23/presentation/zhang-qianxi)
+
+[代码](https://github.com/microsoft/MSVBASE.git)
+
+VBASE的数据集闭源了，将使用开源数据集实验
