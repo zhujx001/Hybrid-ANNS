@@ -91,7 +91,7 @@ gt.10k.ibin： https://zenodo.org/records/11090378/files/webvid.gt.10k.ibin
 [代码仓库](https://github.com/TAG-Research/ACORN)
 [论文](https://dl.acm.org/doi/pdf/10.1145/3654923)
 
-| Dataset | Filtered−DiskANN Attributes Download                         |
+| Dataset | Download                         |
 | ------- | -------------------------------------------------------------------------------------------------------------- |
 | SIFT1M  | [sift1m.tar.gz](https://drive.google.com/drive/folders/1DH3O9d_Cj_KGN8p8tHNXLdf-MG9voamv) |
 | Paper   | [paper.tar.gz](https://drive.google.com/drive/folders/1IiuuWTmxWlBlz42RrvMmv4D0iwBMZjWd) |
