@@ -156,7 +156,53 @@ NHQ 提出了融合距离来实现原生的混合查询框架，融合距离定�
 论文提出的融合距离，实现了原生的混合查询框架，适用于大部分PG图，同时正对PG图，又提出了新的边缘选择策略以及路由策略，以此来加快搜索，二者结合，再最终的实验表现上有着很好的结果。但NHQ考虑的设置是每个数据点实际上只有一个相关的过滤器标签，即一一类标签下，各标签点的集合不相交，这种情况可以通过每个过滤器的单独标准 ANNS 索引来处理。此外，这种技术在缩放到每个点多个过滤器/标签时可能无效，而不显著影响召回。如果索引中的一个点有三个过滤器标签，而查询只有一个，则其他两个标签中的距离会对总的距离产生不利影响。
 
 
+{\section{VBASE系统}}
+{\subsection{1.概述}}
+本文介绍了VBASE系统，它基于PostgreSQL数据库，它能够高效支持包含近似相似性搜索和关系运算符的复杂查询。论文发现，向量索引系统普遍遵循一种两阶段模式，并用数学公式的形式，正式定义了松弛单调性的概念，它抽象了大多数现有向量索引的核心遍历模式。借助松弛单调性，VBASE构建了一个统一的查询执行引擎，它基于Next接口而非TopK接口，以支持向量和标量索引的遍历。同时，该引擎通过松弛单调性推导出通用的终止条件，从而能够及时停止查询执行。此外，凭借松弛单调性，VBASE甚至可以支持以前系统无法处理的近似查询类型，并展现出更优的查询性能和准确性。
+{\subsection{2.实现细节}}
+{\subsubsection{2.1 Relax Monotonicity Definition}}
+论文展示了几种向量索引，包括基于图结构的（如hnsw）和基于分区的（如FAISS IVFFlat），他们的遍历过程都满足两阶段的性质，第一阶段，尽管向量距离波动较大，但索引遍历大致接近目标向量区域。在第二阶段，索引遍历趋于稳定，并以近似方式逐渐远离目标向量区域。且不仅仅是这两种索引结构，凡是经过精心设计的向量索引都应该满足两阶段。
+基于两阶段遍历模式，我们可以正式定义松弛单调性，如图\ref{fig:3}，用以判断向量索引遍历是否进入了第二阶段。
 
+正式地，\( R_q \)，即\( q \)邻域的半径，被定义为：
+\begin{equation}
+    R_q = \max\left(\text{TopE}\left(\left\{\text{Distance}(q, v_j) \mid j \in [1, s - 1] \right\}\right)\right)\tag{1}
+\end{equation}
+
+\( M_{q}^{s} \) 被定义为在最近 \( w \) 步内遍历的所有向量到 \( q \) 的中位距离，即遍历窗口：
+\begin{equation}
+    M_{q}^{s} = \text{Median}\left(\left\{\text{Distance}(q, v_i) \mid i \in [s - w + 1, s]\right\}\right) \tag{2}
+\end{equation}
+
+结合公式 (1) 和公式 (2)，我们定义松弛单调性（Relaxed Monotonicity）为：
+\begin{equation}
+    \exists s, \ M_{q}^{t} \geq R_{q}, \ \forall t \geq s. \tag{3}
+\end{equation}
+\begin{figure}[!th]
+\begin{center}
+\includegraphics[width=5in]{Relaxed Monotonicity.png}
+\caption{{ An Illustration of Relaxed Monotonicity’s intuition.}}
+\label{fig:3}
+\end{center}
+\end{figure}
+{\subsubsection{2.2 Unified Query Execution Engine}}
+借助松弛单调性，VBASE在传统数据库引擎的基础上构建了一个统一的查询执行引擎。VBASE完全遵循Volcano模型，重用了传统的Open、Next和Close接口，无需对传统的索引进行修改。对于仅支持TopK接口的向量索引，VBASE进行简单调整，使其能够公开内部索引遍历过程，以符合VBASE的Next接口。
+
+统一引擎为向量查询带来了新的优化机会，例如，VBASE可以在索引遍历过程中进行过滤，而不是在TopK之后再过滤，通过灵活的终止条件（用于TopK或范围查询）提高效率。一旦索引遍历通过上游索引扫描操作符中的松弛单调性检查，并且优先队列中填满了K个向量，TopK查询即终止。
+
+{\subsection{3.优点}}
+1. VBASE克服了TopK接口的限制，将属性过滤融入索引遍历过程
+
+2. 提出松弛单调性的概念，揭示了优秀向量索引设计的核心以及其在实践中有效运作的原因。
+
+3. 证明了VBASE的统一引擎和向量索引的TopK-only方法等效的结构
+
+4. VBASE原生支持了多列向量查询和范围过滤查询，这是之前的向量数据库系统所不支持的
+
+{\subsection{4.缺点}}
+1. 一经编译，就不允许调参来修改向量索引的性能
+
+2. 实现复杂度高，VBASE的参数（例如遍历窗口 w 和候选结果数量 E）需要根据数据分布和查询需求进行调整，这可能需要多次调试和优化。
 
 
 % {\sihao \kaishu 参照以下提纲撰写，要求内容翔实、清晰，层次分明，标题突出。{\color{MsBlue} \bfseries 请勿删除或改动下述提纲标题及括号中的文字。}}
