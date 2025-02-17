@@ -14,6 +14,7 @@
 
 问题划分文档：https://www.yuque.com/g/passers-gexqk/amxlgr/xoc8zk8xs2zgyqqs/collaborator/join?token=SZvbcblJwL7fo7Bk&source=doc_collaborator&goto=%2Fpassers-gexqk%2Famxlgr%2Fxoc8zk8xs2zgyqqs%2Fedit# 邀请你共同编辑文档《问题划分》
 
+论文阅读文档：https://www.yuque.com/g/passers-gexqk/amxlgr/bkg13oixmzcecui7/collaborator/join?token=u4duSXKmYSXalucQ&source=doc_collaborator&goto=%2Fpassers-gexqk%2Famxlgr%2Fbkg13oixmzcecui7%2Fedit# 邀请你共同编辑文档《论文阅读》
 
 
 标签设置文档：https://www.yuque.com/g/passers-gexqk/amxlgr/izdnyuoepfglffbo/collaborator/join?token=iQClGjt7WHTH0wWX&source=doc_collaborator&goto=%2Fpassers-gexqk%2Famxlgr%2Fizdnyuoepfglffbo%2Fedit# 邀请你共同编辑文档《标签设置》
