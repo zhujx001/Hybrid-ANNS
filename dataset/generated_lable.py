@@ -1,7 +1,7 @@
 import numpy as np
 from scipy import stats
 import pandas as pd
-
+import os
 class LabelGenerator:
     def __init__(self, n_samples):
         self.n_samples = n_samples
@@ -145,8 +145,12 @@ class LabelGenerator:
         return labels.astype(int)
     
     def save_labels(self, labels, filename):
-        """保存标签到文本文件"""
-        np.savetxt(filename, labels, fmt='%d', delimiter=' ')
+      # """保存标签到文本文件"""
+    # 确保label文件夹存在
+      os.makedirs('label', exist_ok=True)
+    # 将文件保存到label文件夹中
+      filepath = os.path.join('label', filename)
+      np.savetxt(filepath, labels, fmt='%d', delimiter=' ')
 
 class QueryGenerator:
     def __init__(self, dataset_labels, label_ranges):
@@ -233,18 +237,21 @@ class QueryGenerator:
         return queries
     
     def save_queries(self, queries, base_filename):
-        """保存查询集到文本文件"""
-        for name, query in queries:
-            filename = f"{base_filename}_{name}.txt"
-            if query.ndim == 1:
-                np.savetxt(filename, query.reshape(-1, 1), fmt='%d', delimiter=' ')
-            else:
-                np.savetxt(filename, query, fmt='%d', delimiter=' ')
+    # """保存查询集到文本文件"""
+    # 确保label文件夹存在
+      os.makedirs('label', exist_ok=True)
+      for name, query in queries:
+        # 将文件保存到label文件夹中
+        filename = os.path.join('label', f"{base_filename}_{name}.txt")
+        if query.ndim == 1:
+            np.savetxt(filename, query.reshape(-1, 1), fmt='%d', delimiter=' ')
+        else:
+            np.savetxt(filename, query, fmt='%d', delimiter=' ')
 
 # 使用示例
 if __name__ == "__main__":
     # 生成数据集标签
-    n_samples = 100000
+    n_samples = 1000000
     generator = LabelGenerator(n_samples)
     dataset_labels = generator.generate_all_labels()
     
@@ -252,7 +259,7 @@ if __name__ == "__main__":
     generator.save_labels(dataset_labels, "dataset_labels.txt")
     
     # 生成并保存所有查询集
-    n_queries = 1000
+    n_queries = 10000
     query_generator = QueryGenerator(dataset_labels, generator.label_ranges)
     queries = query_generator.generate_all_queries(n_queries)
     query_generator.save_queries(queries, "query")
