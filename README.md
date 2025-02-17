@@ -1,3 +1,23 @@
+# 维护说明
+
+## 论文
+
+阅读新的论文之后，将论文标题**添加到论文汇总文档**，说明论文思路，如果论文当中提出了新的比较指标，或者其他一些值得借鉴的东西，将其添加到待处理文档。包括论文当中新的比较指标，如果论文无法添加到目前的论文框架，请在待处理文档说明原因，建议
+
+论文汇总文档：https://www.yuque.com/g/passers-gexqk/amxlgr/cy14f6qo5cx5usqf/collaborator/join?token=YneAwzjaBgOB2LvK&source=doc_collaborator&goto=%2Fpassers-gexqk%2Famxlgr%2Fcy14f6qo5cx5usqf%2Fedit# 邀请你共同编辑文档《论文汇总》
+
+
+
+待处理文档：https://www.yuque.com/g/passers-gexqk/amxlgr/ms5w5brveuw8wqnu/collaborator/join?token=ZzIrMd6RgAqZtF9D&source=doc_collaborator&goto=%2Fpassers-gexqk%2Famxlgr%2Fms5w5brveuw8wqnu%2Fedit# 邀请你共同编辑文档《待处理》
+
+
+
+问题划分文档：https://www.yuque.com/g/passers-gexqk/amxlgr/xoc8zk8xs2zgyqqs/collaborator/join?token=SZvbcblJwL7fo7Bk&source=doc_collaborator&goto=%2Fpassers-gexqk%2Famxlgr%2Fxoc8zk8xs2zgyqqs%2Fedit# 邀请你共同编辑文档《问题划分》
+
+
+
+标签设置文档：https://www.yuque.com/g/passers-gexqk/amxlgr/izdnyuoepfglffbo/collaborator/join?token=iQClGjt7WHTH0wWX&source=doc_collaborator&goto=%2Fpassers-gexqk%2Famxlgr%2Fizdnyuoepfglffbo%2Fedit# 邀请你共同编辑文档《标签设置》
+
 # 实验结果存储说明文档
 
 ## 1. 范围过滤实验（Range Filter）
