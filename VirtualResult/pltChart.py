@@ -685,6 +685,205 @@ def plot_selectivity_experiments(all_data, output_dir):
             os.makedirs(os.path.dirname(save_path), exist_ok=True)
             plt.savefig(save_path, dpi=300, bbox_inches='tight')
             plt.close()
+# 6. 数据集对算法的影响
+def plot_dataset_effect(all_data, output_dir):
+    # 常用查询集 - 使用对应的实验可以比较不同数据集下的表现
+    # 单标签查询集（基本查询）
+    single_label_query = "1"
+    # 不同选择性查询集（每个数据集选择对应的：1%, 25%, 50%, 75%）
+    selectivity_queries = ["3_1", "3_2", "3_3", "3_4"]
+    # 多标签查询集
+    multi_label_query = "6"
+    
+    # 获取所有数据集和算法
+    datasets = set(k[0] for k in all_data.keys())
+    all_algorithms = set()
+    
+    for key, data_list in all_data.items():
+        for df in data_list:
+            if 'Algorithm' in df.columns:
+                all_algorithms.add(df['Algorithm'].iloc[0])
+    
+    # 1. 同一算法在不同数据集的单标签查询表现
+    for algorithm in all_algorithms:
+        plt.figure(figsize=(12, 8))
+        
+        legend_handles = []
+        legend_labels = []
+        
+        for i, dataset in enumerate(sorted(datasets)):
+            key = (dataset, single_label_query)
+            if key in all_data:
+                for df in all_data[key]:
+                    if 'Algorithm' in df.columns and df['Algorithm'].iloc[0] == algorithm:
+                        # 计算帕累托前沿
+                        pareto_df = compute_pareto_frontier(df, 'Recall', 'QPS', maximize_x=True, maximize_y=True)
+                        
+                        if not pareto_df.empty:
+                            line, = plt.plot(pareto_df['Recall'], pareto_df['QPS'], marker='o', linestyle='-', 
+                                    color=colors[i % len(colors)])
+                            legend_handles.append(line)
+                            legend_labels.append(f"{dataset}")
+        
+        plt.xlabel('Recall', fontsize=12)
+        plt.ylabel('QPS', fontsize=12)
+        plt.title(f"{algorithm} - Performance on different datasets (single label search)", fontsize=14)
+        plt.grid(True, alpha=0.3)
+        
+        # 使用手动添加的图例
+        if legend_handles:
+            plt.legend(legend_handles, legend_labels, fontsize=10)
+            # 保存图表
+            save_path = os.path.join(output_dir, f"{algorithm}_datasets_comparison_single_label.png")
+            os.makedirs(os.path.dirname(save_path), exist_ok=True)
+            plt.savefig(save_path, dpi=300, bbox_inches='tight')
+        plt.close()
+    
+    # 2. 同一算法在不同数据集的多标签查询表现
+    for algorithm in all_algorithms:
+        plt.figure(figsize=(12, 8))
+        
+        legend_handles = []
+        legend_labels = []
+        
+        for i, dataset in enumerate(sorted(datasets)):
+            key = (dataset, multi_label_query)
+            if key in all_data:
+                for df in all_data[key]:
+                    if 'Algorithm' in df.columns and df['Algorithm'].iloc[0] == algorithm:
+                        # 计算帕累托前沿
+                        pareto_df = compute_pareto_frontier(df, 'Recall', 'QPS', maximize_x=True, maximize_y=True)
+                        
+                        if not pareto_df.empty:
+                            line, = plt.plot(pareto_df['Recall'], pareto_df['QPS'], marker='o', linestyle='-', 
+                                    color=colors[i % len(colors)])
+                            legend_handles.append(line)
+                            legend_labels.append(f"{dataset}")
+        
+        plt.xlabel('Recall', fontsize=12)
+        plt.ylabel('QPS', fontsize=12)
+        plt.title(f"{algorithm} - Performance on different datasets (multi-label search)", fontsize=14)
+        plt.grid(True, alpha=0.3)
+        
+        # 使用手动添加的图例
+        if legend_handles:
+            plt.legend(legend_handles, legend_labels, fontsize=10)
+            # 保存图表
+            save_path = os.path.join(output_dir, f"{algorithm}_datasets_comparison_multi_label.png")
+            os.makedirs(os.path.dirname(save_path), exist_ok=True)
+            plt.savefig(save_path, dpi=300, bbox_inches='tight')
+        plt.close()
+    
+    # 3. 在不同选择性下，各数据集的表现对比
+    for selectivity_idx, selectivity_query in enumerate(selectivity_queries):
+        selectivity_values = {"3_1": "1%", "3_2": "25%", "3_3": "50%", "3_4": "75%"}
+        selectivity = selectivity_values.get(selectivity_query, selectivity_query)
+        
+        # 对每个算法绘制不同数据集在此选择性下的表现
+        for algorithm in all_algorithms:
+            plt.figure(figsize=(12, 8))
+            
+            legend_handles = []
+            legend_labels = []
+            
+            for i, dataset in enumerate(sorted(datasets)):
+                key = (dataset, selectivity_query)
+                if key in all_data:
+                    for df in all_data[key]:
+                        if 'Algorithm' in df.columns and df['Algorithm'].iloc[0] == algorithm:
+                            # 计算帕累托前沿
+                            pareto_df = compute_pareto_frontier(df, 'Recall', 'QPS', maximize_x=True, maximize_y=True)
+                            
+                            if not pareto_df.empty:
+                                line, = plt.plot(pareto_df['Recall'], pareto_df['QPS'], marker='o', linestyle='-', 
+                                        color=colors[i % len(colors)])
+                                legend_handles.append(line)
+                                legend_labels.append(f"{dataset}")
+            
+            plt.xlabel('Recall', fontsize=12)
+            plt.ylabel('QPS', fontsize=12)
+            plt.title(f"{algorithm} - Performance on different datasets (selectivity {selectivity})", fontsize=14)
+            plt.grid(True, alpha=0.3)
+            
+            # 使用手动添加的图例
+            if legend_handles:
+                plt.legend(legend_handles, legend_labels, fontsize=10)
+                # 保存图表
+                save_path = os.path.join(output_dir, f"{algorithm}_datasets_comparison_selectivity_{selectivity_query}.png")
+                os.makedirs(os.path.dirname(save_path), exist_ok=True)
+                plt.savefig(save_path, dpi=300, bbox_inches='tight')
+            plt.close()
+    
+    # 4. 不同数据集的各算法对比大图（合并显示）
+    # 单标签情况
+    for dataset in datasets:
+        plt.figure(figsize=(12, 8))
+        
+        legend_handles = []
+        legend_labels = []
+        
+        for i, algorithm in enumerate(sorted(all_algorithms)):
+            key = (dataset, single_label_query)
+            if key in all_data:
+                for df in all_data[key]:
+                    if 'Algorithm' in df.columns and df['Algorithm'].iloc[0] == algorithm:
+                        # 计算帕累托前沿
+                        pareto_df = compute_pareto_frontier(df, 'Recall', 'QPS', maximize_x=True, maximize_y=True)
+                        
+                        if not pareto_df.empty:
+                            line, = plt.plot(pareto_df['Recall'], pareto_df['QPS'], marker='o', linestyle='-', 
+                                    color=colors[i % len(colors)])
+                            legend_handles.append(line)
+                            legend_labels.append(f"{algorithm}")
+        
+        plt.xlabel('Recall', fontsize=12)
+        plt.ylabel('QPS', fontsize=12)
+        plt.title(f"{dataset} - Comparison of all algorithms (single label search)", fontsize=14)
+        plt.grid(True, alpha=0.3)
+        
+        # 使用手动添加的图例
+        if legend_handles:
+            plt.legend(legend_handles, legend_labels, fontsize=10)
+            # 保存图表
+            save_path = os.path.join(output_dir, f"{dataset}_all_algorithms_comparison_single_label.png")
+            os.makedirs(os.path.dirname(save_path), exist_ok=True)
+            plt.savefig(save_path, dpi=300, bbox_inches='tight')
+        plt.close()
+    
+    # 多标签情况
+    for dataset in datasets:
+        plt.figure(figsize=(12, 8))
+        
+        legend_handles = []
+        legend_labels = []
+        
+        for i, algorithm in enumerate(sorted(all_algorithms)):
+            key = (dataset, multi_label_query)
+            if key in all_data:
+                for df in all_data[key]:
+                    if 'Algorithm' in df.columns and df['Algorithm'].iloc[0] == algorithm:
+                        # 计算帕累托前沿
+                        pareto_df = compute_pareto_frontier(df, 'Recall', 'QPS', maximize_x=True, maximize_y=True)
+                        
+                        if not pareto_df.empty:
+                            line, = plt.plot(pareto_df['Recall'], pareto_df['QPS'], marker='o', linestyle='-', 
+                                    color=colors[i % len(colors)])
+                            legend_handles.append(line)
+                            legend_labels.append(f"{algorithm}")
+        
+        plt.xlabel('Recall', fontsize=12)
+        plt.ylabel('QPS', fontsize=12)
+        plt.title(f"{dataset} - Comparison of all algorithms (multi-label search)", fontsize=14)
+        plt.grid(True, alpha=0.3)
+        
+        # 使用手动添加的图例
+        if legend_handles:
+            plt.legend(legend_handles, legend_labels, fontsize=10)
+            # 保存图表
+            save_path = os.path.join(output_dir, f"{dataset}_all_algorithms_comparison_multi_label.png")
+            os.makedirs(os.path.dirname(save_path), exist_ok=True)
+            plt.savefig(save_path, dpi=300, bbox_inches='tight')
+        plt.close()
 def main():
     # 创建输出目录
     output_dirs = create_output_dirs()
