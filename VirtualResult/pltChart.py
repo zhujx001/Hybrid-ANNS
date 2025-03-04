@@ -5,6 +5,7 @@ import numpy as np
 import glob
 import re
 from matplotlib.font_manager import FontProperties
+import colorsys
 
 # 解决中文显示问题
 plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
@@ -17,8 +18,77 @@ plt.style.use('ggplot')
 # 定义数据路径
 data_path = "/data/result"
 
-# 定义颜色映射
-colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf']
+# 预定义一组美观且具有高对比度的基础颜色
+BASE_COLORS = [
+    '#1f77b4',  # 蓝色
+    '#ff7f0e',  # 橙色
+    '#2ca02c',  # 绿色
+    '#d62728',  # 红色
+    '#9467bd',  # 紫色
+    '#8c564b',  # 棕色
+    '#e377c2',  # 粉色
+    '#7f7f7f',  # 灰色
+    '#bcbd22',  # 黄绿色
+    '#17becf',  # 青色
+    '#1a55FF',  # 亮蓝色
+    '#FF4444',  # 亮红色
+    '#47D147',  # 亮绿色
+    '#AA44FF',  # 亮紫色
+    '#FF9933',  # 亮橙色
+    '#33CCFF',  # 天蓝色
+]
+
+def generate_distinct_colors(n):
+    """
+    生成n个具有高对比度的不同颜色
+    
+    策略：
+    1. 首先使用预定义的基础颜色
+    2. 如果需要更多颜色，则通过调整色相、饱和度和明度生成
+    3. 确保相邻颜色有足够的区分度
+    """
+    colors = BASE_COLORS.copy()
+    
+    if n <= len(colors):
+        return colors[:n]
+    
+    # 需要生成额外的颜色
+    additional_colors_needed = n - len(colors)
+    
+    # 使用黄金分割比来生成分散的色相值
+    golden_ratio = 0.618033988749895
+    hue = 0.
+    
+    for i in range(additional_colors_needed):
+        hue = (hue + golden_ratio) % 1.0
+        # 使用较高的饱和度和明度以确保颜色鲜艳
+        saturation = 0.7 + (i % 3) * 0.1  # 在0.7-0.9之间变化
+        value = 0.8 + (i % 2) * 0.1       # 在0.8-0.9之间变化
+        
+        rgb = colorsys.hsv_to_rgb(hue, saturation, value)
+        # 转换为16进制颜色代码
+        hex_color = '#{:02x}{:02x}{:02x}'.format(
+            int(rgb[0] * 255),
+            int(rgb[1] * 255),
+            int(rgb[2] * 255)
+        )
+        colors.append(hex_color)
+    
+    return colors
+
+# 生成100个不同的颜色
+colors = generate_distinct_colors(100)
+
+# 将算法分组（16位和非16位）
+def group_algorithms(algorithms):
+    alg_16bit = []
+    alg_other = []
+    for alg in algorithms:
+        if alg.endswith('-16'):
+            alg_16bit.append(alg)
+        else:
+            alg_other.append(alg)
+    return alg_16bit, alg_other
 
 # 获取所有结果文件
 def get_all_result_files():
@@ -129,47 +199,102 @@ def compute_pareto_frontier(df, x_col, y_col, maximize_x=True, maximize_y=True):
 
 # 绘制QPS vs Recall图（使用帕累托前沿）
 def plot_qps_vs_recall(data_list, title, save_path, figsize=(12, 8)):
-    plt.figure(figsize=figsize)
-    
-    legend_handles = []
-    legend_labels = []
-    
-    for i, df in enumerate(data_list):
-        # 获取算法名称
+    # 获取所有算法
+    all_algorithms = set()
+    for df in data_list:
         if 'Algorithm' in df.columns:
-            algorithm = df['Algorithm'].iloc[0]
-        else:
-            algorithm = f"Algorithm {i+1}"
+            all_algorithms.add(df['Algorithm'].iloc[0])
+    
+    # 分组算法
+    alg_16bit, alg_other = group_algorithms(all_algorithms)
+    
+    # 如果两组都有算法，则绘制两张图
+    if alg_16bit and alg_other:
+        # 绘制16位算法图
+        plt.figure(figsize=figsize)
+        legend_handles = []
+        legend_labels = []
         
-        # 确保Recall和QPS列存在
-        if 'Recall' in df.columns and 'QPS' in df.columns:
-            # 计算帕累托前沿
-            # 对于QPS vs Recall，我们希望Recall越高越好，QPS越高越好
-            # 但当Recall增加时，QPS通常会降低，所以我们计算"反向"的帕累托前沿
+        for i, df in enumerate([d for d in data_list if d['Algorithm'].iloc[0] in alg_16bit]):
+            algorithm = df['Algorithm'].iloc[0]
             pareto_df = compute_pareto_frontier(df, 'Recall', 'QPS', maximize_x=True, maximize_y=True)
             
             if not pareto_df.empty:
-                # 绘制帕累托前沿的折线图
                 line, = plt.plot(pareto_df['Recall'], pareto_df['QPS'], marker='o', linestyle='-', 
                         color=colors[i % len(colors)])
-                
-                # 单独添加图例
                 legend_handles.append(line)
                 legend_labels.append(algorithm)
+        
+        plt.xlabel('Recall', fontsize=12)
+        plt.ylabel('QPS', fontsize=12)
+        plt.title(f"{title} (16-bit algorithms)", fontsize=14)
+        plt.grid(True, alpha=0.3)
+        
+        if legend_handles:
+            plt.legend(legend_handles, legend_labels, fontsize=10)
+        
+        # 保存16位算法图
+        save_path_16 = save_path.replace('.png', '_16bit.png')
+        os.makedirs(os.path.dirname(save_path_16), exist_ok=True)
+        plt.savefig(save_path_16, dpi=300, bbox_inches='tight')
+        plt.close()
+        
+        # 绘制其他算法图
+        plt.figure(figsize=figsize)
+        legend_handles = []
+        legend_labels = []
+        
+        for i, df in enumerate([d for d in data_list if d['Algorithm'].iloc[0] in alg_other]):
+            algorithm = df['Algorithm'].iloc[0]
+            pareto_df = compute_pareto_frontier(df, 'Recall', 'QPS', maximize_x=True, maximize_y=True)
+            
+            if not pareto_df.empty:
+                line, = plt.plot(pareto_df['Recall'], pareto_df['QPS'], marker='o', linestyle='-', 
+                        color=colors[i % len(colors)])
+                legend_handles.append(line)
+                legend_labels.append(algorithm)
+        
+        plt.xlabel('Recall', fontsize=12)
+        plt.ylabel('QPS', fontsize=12)
+        plt.title(f"{title} (other algorithms)", fontsize=14)
+        plt.grid(True, alpha=0.3)
+        
+        if legend_handles:
+            plt.legend(legend_handles, legend_labels, fontsize=10)
+        
+        # 保存其他算法图
+        save_path_other = save_path.replace('.png', '_other.png')
+        os.makedirs(os.path.dirname(save_path_other), exist_ok=True)
+        plt.savefig(save_path_other, dpi=300, bbox_inches='tight')
+        plt.close()
     
-    plt.xlabel('Recall', fontsize=12)
-    plt.ylabel('QPS', fontsize=12)
-    plt.title(title, fontsize=14)
-    plt.grid(True, alpha=0.3)
-    
-    # 使用手动添加的图例
-    if legend_handles:
-        plt.legend(legend_handles, legend_labels, fontsize=10)
-    
-    # 保存图表
-    os.makedirs(os.path.dirname(save_path), exist_ok=True)
-    plt.savefig(save_path, dpi=300, bbox_inches='tight')
-    plt.close()
+    else:
+        # 如果只有一组算法，则绘制单张图
+        plt.figure(figsize=figsize)
+        legend_handles = []
+        legend_labels = []
+        
+        for i, df in enumerate(data_list):
+            algorithm = df['Algorithm'].iloc[0]
+            pareto_df = compute_pareto_frontier(df, 'Recall', 'QPS', maximize_x=True, maximize_y=True)
+            
+            if not pareto_df.empty:
+                line, = plt.plot(pareto_df['Recall'], pareto_df['QPS'], marker='o', linestyle='-', 
+                        color=colors[i % len(colors)])
+                legend_handles.append(line)
+                legend_labels.append(algorithm)
+        
+        plt.xlabel('Recall', fontsize=12)
+        plt.ylabel('QPS', fontsize=12)
+        plt.title(title, fontsize=14)
+        plt.grid(True, alpha=0.3)
+        
+        if legend_handles:
+            plt.legend(legend_handles, legend_labels, fontsize=10)
+        
+        os.makedirs(os.path.dirname(save_path), exist_ok=True)
+        plt.savefig(save_path, dpi=300, bbox_inches='tight')
+        plt.close()
 
 # 创建输出目录
 def create_output_dirs():
@@ -180,7 +305,7 @@ def create_output_dirs():
         "plots/4_multi_label_performance",
         "plots/5_selectivity",
         "plots/6_dataset_effect",
-        "plots/7_memory_usage"
+       
     ]
     
     for d in dirs:
@@ -685,6 +810,7 @@ def plot_selectivity_experiments(all_data, output_dir):
             os.makedirs(os.path.dirname(save_path), exist_ok=True)
             plt.savefig(save_path, dpi=300, bbox_inches='tight')
             plt.close()
+
 # 6. 数据集对算法的影响
 def plot_dataset_effect(all_data, output_dir):
     # 常用查询集 - 使用对应的实验可以比较不同数据集下的表现
@@ -884,6 +1010,7 @@ def plot_dataset_effect(all_data, output_dir):
             os.makedirs(os.path.dirname(save_path), exist_ok=True)
             plt.savefig(save_path, dpi=300, bbox_inches='tight')
         plt.close()
+
 def main():
     # 创建输出目录
     output_dirs = create_output_dirs()
