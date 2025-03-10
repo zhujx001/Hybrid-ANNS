@@ -196,8 +196,6 @@ def compute_pareto_frontier(df, x_col, y_col, maximize_x=True, maximize_y=True):
         return df.loc[indices].sort_values(by=x_col, ascending=True)
     else:
         return pd.DataFrame()
-
-# 绘制QPS vs Recall图（使用帕累托前沿）
 def plot_qps_vs_recall(data_list, title, save_path, figsize=(12, 8)):
     # 获取所有算法
     all_algorithms = set()
@@ -218,19 +216,37 @@ def plot_qps_vs_recall(data_list, title, save_path, figsize=(12, 8)):
         for i, df in enumerate([d for d in data_list if d['Algorithm'].iloc[0] in alg_16bit]):
             algorithm = df['Algorithm'].iloc[0]
             pareto_df = compute_pareto_frontier(df, 'Recall', 'QPS', maximize_x=True, maximize_y=True)
-            
             if not pareto_df.empty:
-                line, = plt.plot(pareto_df['Recall'], pareto_df['QPS'], marker='o', linestyle='-', 
-                        color=colors[i % len(colors)])
+                line, = plt.plot(pareto_df['Recall'], pareto_df['QPS'], marker='o', linestyle='-', color=colors[i % len(colors)])
                 legend_handles.append(line)
                 legend_labels.append(algorithm)
         
         plt.xlabel('Recall', fontsize=12)
         plt.ylabel('QPS', fontsize=12)
-        plt.title(f"{title} (16-bit algorithms)", fontsize=14)
+        plt.title(f"{title} (16-Thread algorithms)", fontsize=14)
         plt.grid(True, alpha=0.3)
         
+        # 设置y轴为对数刻度，从10^2开始
+        plt.yscale('log', base=10)
+        plt.ylim(bottom=10**2)
+        
+        # 设置x轴范围从0.6开始，步长0.05
+        plt.xlim(0.6, 1.0)
+        plt.xticks(np.arange(0.6, 1.05, 0.05))
+        
+        # 添加0.95垂直参考线
+        plt.axvline(x=0.95, color='r', linestyle='--', alpha=0.7, label='Recall=0.95')
+        
+        # 自定义y轴刻度标签为10^n格式
+        from matplotlib.ticker import LogFormatterSciNotation, LogLocator
+        formatter = LogFormatterSciNotation(base=10)
+        plt.gca().yaxis.set_major_formatter(formatter)
+        plt.gca().yaxis.set_major_locator(LogLocator(base=10))
+        
         if legend_handles:
+            # 将参考线添加到图例中
+            legend_handles.append(plt.Line2D([0], [0], color='r', linestyle='--', alpha=0.7))
+            legend_labels.append('Recall=0.95')
             plt.legend(legend_handles, legend_labels, fontsize=10)
         
         # 保存16位算法图
@@ -247,10 +263,8 @@ def plot_qps_vs_recall(data_list, title, save_path, figsize=(12, 8)):
         for i, df in enumerate([d for d in data_list if d['Algorithm'].iloc[0] in alg_other]):
             algorithm = df['Algorithm'].iloc[0]
             pareto_df = compute_pareto_frontier(df, 'Recall', 'QPS', maximize_x=True, maximize_y=True)
-            
             if not pareto_df.empty:
-                line, = plt.plot(pareto_df['Recall'], pareto_df['QPS'], marker='o', linestyle='-', 
-                        color=colors[i % len(colors)])
+                line, = plt.plot(pareto_df['Recall'], pareto_df['QPS'], marker='o', linestyle='-', color=colors[i % len(colors)])
                 legend_handles.append(line)
                 legend_labels.append(algorithm)
         
@@ -259,7 +273,26 @@ def plot_qps_vs_recall(data_list, title, save_path, figsize=(12, 8)):
         plt.title(f"{title} (other algorithms)", fontsize=14)
         plt.grid(True, alpha=0.3)
         
+        # 设置y轴为对数刻度，从10^2开始
+        plt.yscale('log', base=10)
+        plt.ylim(bottom=10**2)
+        
+        # 设置x轴范围从0.6开始，步长0.05
+        plt.xlim(0.6, 1.0)
+        plt.xticks(np.arange(0.6, 1.05, 0.05))
+        
+        # 添加0.95垂直参考线
+        plt.axvline(x=0.95, color='r', linestyle='--', alpha=0.7, label='Recall=0.95')
+        
+        # 自定义y轴刻度标签为10^n格式
+        formatter = LogFormatterSciNotation(base=10)
+        plt.gca().yaxis.set_major_formatter(formatter)
+        plt.gca().yaxis.set_major_locator(LogLocator(base=10))
+        
         if legend_handles:
+            # 将参考线添加到图例中
+            legend_handles.append(plt.Line2D([0], [0], color='r', linestyle='--', alpha=0.7))
+            legend_labels.append('Recall=0.95')
             plt.legend(legend_handles, legend_labels, fontsize=10)
         
         # 保存其他算法图
@@ -267,7 +300,6 @@ def plot_qps_vs_recall(data_list, title, save_path, figsize=(12, 8)):
         os.makedirs(os.path.dirname(save_path_other), exist_ok=True)
         plt.savefig(save_path_other, dpi=300, bbox_inches='tight')
         plt.close()
-    
     else:
         # 如果只有一组算法，则绘制单张图
         plt.figure(figsize=figsize)
@@ -277,10 +309,8 @@ def plot_qps_vs_recall(data_list, title, save_path, figsize=(12, 8)):
         for i, df in enumerate(data_list):
             algorithm = df['Algorithm'].iloc[0]
             pareto_df = compute_pareto_frontier(df, 'Recall', 'QPS', maximize_x=True, maximize_y=True)
-            
             if not pareto_df.empty:
-                line, = plt.plot(pareto_df['Recall'], pareto_df['QPS'], marker='o', linestyle='-', 
-                        color=colors[i % len(colors)])
+                line, = plt.plot(pareto_df['Recall'], pareto_df['QPS'], marker='o', linestyle='-', color=colors[i % len(colors)])
                 legend_handles.append(line)
                 legend_labels.append(algorithm)
         
@@ -289,13 +319,32 @@ def plot_qps_vs_recall(data_list, title, save_path, figsize=(12, 8)):
         plt.title(title, fontsize=14)
         plt.grid(True, alpha=0.3)
         
+        # 设置y轴为对数刻度，从10^2开始
+        plt.yscale('log', base=10)
+        plt.ylim(bottom=10**2)
+        
+        # 设置x轴范围从0.6开始，步长0.05
+        plt.xlim(0.6, 1.0)
+        plt.xticks(np.arange(0.6, 1.05, 0.05))
+        
+        # 添加0.95垂直参考线
+        plt.axvline(x=0.95, color='r', linestyle='--', alpha=0.7, label='Recall=0.95')
+        
+        # 自定义y轴刻度标签为10^n格式
+        from matplotlib.ticker import LogFormatterSciNotation, LogLocator
+        formatter = LogFormatterSciNotation(base=10)
+        plt.gca().yaxis.set_major_formatter(formatter)
+        plt.gca().yaxis.set_major_locator(LogLocator(base=10))
+        
         if legend_handles:
+            # 将参考线添加到图例中
+            legend_handles.append(plt.Line2D([0], [0], color='r', linestyle='--', alpha=0.7))
+            legend_labels.append('Recall=0.95')
             plt.legend(legend_handles, legend_labels, fontsize=10)
         
         os.makedirs(os.path.dirname(save_path), exist_ok=True)
         plt.savefig(save_path, dpi=300, bbox_inches='tight')
         plt.close()
-
 # 创建输出目录
 def create_output_dirs():
     dirs = [
