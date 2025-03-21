@@ -212,7 +212,7 @@ def superscript(n):
 def plot_all_datasets_comparison(all_data):
     query_set = '1' # 这里假设我们只关心查询集1
     datasets = ['sift', 'gist', 'glove-100', 'audio', 'msong', 'enron']
-    single_thread_algs = ['UNG', 'NHQ', 'StitchedVamana', 'CAPS', 'FilteredVamana', 'faiss+HQI_Batch', 'ACORN-gama', 'ACORN-1', 'faiss','milvus', 'vbase', 'pase']
+    single_thread_algs = ['UNG', 'NHQ', 'StitchedVamana', 'CAPS', 'FilteredVamana', 'faiss+HQI_Batch', 'ACORN-γ', 'ACORN-1', 'faiss','milvus', 'vbase', 'pase']
 
     # 创建全局颜色字典，确保同一算法无论单线程还是16线程都使用相同颜色
    
@@ -323,7 +323,7 @@ def plot_all_datasets_comparison(all_data):
 def plot_multi_thread_comparison(all_data):
     query_set = '1'
     datasets = ['sift', 'gist', 'glove-100', 'audio', 'msong', 'enron']
-    multi_thread_algs = ['puck-16', 'UNG-16', 'parlayivf-16', 'CAPS-16', 'StitchedVamana-16', 'FilteredVamana-16', 'ACORN-gama-16', 'ACORN-1-16', 'faiss-16', 'milvus-16', 'vbase-16', 'pase-16']
+    multi_thread_algs = ['puck-16', 'UNG-16', 'parlayivf-16', 'CAPS-16', 'StitchedVamana-16', 'FilteredVamana-16', 'ACORN-γ-16', 'ACORN-1-16', 'faiss-16', 'milvus-16', 'vbase-16', 'pase-16']
 
     print("多线程图表绘制:", datasets)
     

@@ -229,7 +229,7 @@ def plot_all_datasets_comparison(all_data):
     plotted_algs = set()
     
     # 为构造统一图例，使用集合记录在当前图中出现的基础算法名称
-    single_thread_algs = ['UNG', 'NHQ', 'StitchedVamana', 'CAPS', 'FilteredVamana', 'faiss+HQI_Batch', 'ACORN-gama', 'ACORN-1', 'faiss','milvus', 'vbase', 'pase']
+    single_thread_algs = ['UNG', 'NHQ', 'StitchedVamana', 'CAPS', 'FilteredVamana', 'faiss+HQI_Batch', 'ACORN-γ', 'ACORN-1', 'faiss','milvus', 'vbase', 'pase']
 
     # print(all_data[('sift', '5_1')][0]['Algorithm'].iloc[0])
     # 遍历所有算法
@@ -348,7 +348,7 @@ def plot_multi_thread_comparison(all_data):
     plotted_algs = set()
     
     # 多线程算法列表
-    multi_thread_algs = ['puck-16', 'UNG-16', 'parlayivf-16', 'CAPS', 'DiskANN-s-16', 'DiskANN-f-16', 'ACORN-gama-16', 'ACORN-1-16', 'faiss-16', 'milvus-16', 'vbase-16', 'pase-16']
+    multi_thread_algs = ['puck-16', 'UNG-16', 'parlayivf-16', 'CAPS', 'StitchedVamana-16', 'FilteredVamana-16', 'ACORN-γ-16', 'ACORN-1-16', 'faiss-16', 'milvus-16', 'vbase-16', 'pase-16']
     
     # 遍历所有算法
     for col, alg in enumerate(multi_thread_algs):

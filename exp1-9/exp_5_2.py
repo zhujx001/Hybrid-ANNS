@@ -221,188 +221,6 @@ def superscript(n):
     }
     return ''.join(superscript_map[digit] for digit in str(n))
 
-# 初始化算法样式（颜色、线型、标记）
-def initialize_algorithm_styles(all_data, query_set="1"):
-    """为所有算法分配一致的视觉样式（颜色、线型、标记）"""
-    global ALGORITHM_STYLES
-    
-    # 收集所有基本算法名称（移除"-16"后缀）
-    base_algorithms = set()
-    for key, data_list in all_data.items():
-        if key[1] == query_set:
-            for df in data_list:
-                if 'Algorithm' in df.columns:
-                    alg_name = df['Algorithm'].iloc[0]
-                    # 对于16线程算法，提取基本算法名（移除-16后缀）
-                    base_name = alg_name.replace('-16', '')
-                    base_algorithms.add(base_name)
-    
-    # 为每个算法分配一致的视觉样式
-    for i, alg in enumerate(sorted(base_algorithms, key=str.lower)):
-        ALGORITHM_STYLES[alg] = {
-            'color': colors[i % len(colors)],
-            'linestyle': line_styles[i % len(line_styles)],
-            'marker': markers[i % len(markers)]
-        }
-    
-    return ALGORITHM_STYLES
-
-# 通用绘图函数
-def plot_5_1_comparison(all_data, thread_mode="single", _query_set="3", figsize=(20, 5.8)):
-    """
-    绘制单线程或16线程的QPS vs Recall性能对比图
-    
-    参数:
-    all_data: 所有数据的字典
-    thread_mode: "single"表示单线程图，"multi"表示16线程图
-    query_set: 查询集编号
-    figsize: 图表尺寸
-    
-    返回:
-    fig: matplotlib图表对象
-    """
-    # datasets = sorted(set(k[0] for k in all_data.keys() if k[1].startswith(query_set + "_") or k[1] == query_set))
-    dataset = "sift"
-    query_sets = sorted(set(k[1] for k in all_data.keys() if k[1].startswith(_query_set + "_") or k[1] == _query_set))
-    
-    # 创建图表
-    fig = plt.figure(figsize=figsize)
-    
-    # 调整间距
-    gs = GridSpec(1, len(query_sets), figure=fig, wspace=0.15, top=0.72, bottom=0.2)
-    
-    # 收集当前图表中的算法
-    current_algorithms = {}
-    
-    # 遍历所有数据集
-    for col, query_set in enumerate(query_sets):
-        if query_set is None or (dataset, query_set) not in all_data:
-            continue
-        
-        # 获取数据列表
-        data_list = all_data[(dataset, query_set)]
-        
-        # 分组算法
-        all_algorithms = set(df['Algorithm'].iloc[0] for df in data_list if 'Algorithm' in df.columns)
-        alg_16Thread, alg_single = group_algorithms(all_algorithms)
-        
-        # 根据线程模式选择要绘制的算法
-        selected_algorithms = alg_single if thread_mode == "single" else alg_16Thread
-        
-        # 创建子图
-        ax = fig.add_subplot(gs[0, col])
-        
-        # 收集Y轴数据
-        y_data_list = []
-        
-        # 绘制算法数据
-        for df in [d for d in data_list if d['Algorithm'].iloc[0] in selected_algorithms]:
-            algorithm = df['Algorithm'].iloc[0]
-            
-            # 处理算法名和样式
-            if thread_mode == "multi":
-                base_name = algorithm.replace('-16', '')
-                label = base_name
-            else:
-                base_name = algorithm
-                label = algorithm
-            
-            # 获取算法样式
-            style = ALGORITHM_STYLES.get(base_name, {
-                'color': colors[0],
-                'linestyle': line_styles[0],
-                'marker': markers[0]
-            })
-            
-            # 记录此算法已在图中
-            current_algorithms[label] = style['color']
-            
-            # 计算并绘制帕累托前沿
-            pareto_df = compute_pareto_frontier(df, 'Recall', 'QPS')
-            
-            if not pareto_df.empty:
-                filtered_df = pareto_df[pareto_df['Recall'] >= 0.7]
-                if not filtered_df.empty:
-                    x_data = filtered_df['Recall'].tolist()
-                    y_data = filtered_df['QPS'].tolist()
-                    y_data_list.append(y_data)
-                    
-                    # 绘制线条
-                    ax.plot(x_data, y_data,
-                            marker=style['marker'], 
-                            linestyle=style['linestyle'], 
-                            label=label, 
-                            color=style['color'],
-                            **plot_params)
-                    
-        # 设置轴刻度标签字体大小
-        ax.tick_params(axis='both', labelsize=16)
-        
-        # 设置y轴范围和刻度
-        y_min, y_max, y_ticks, y_tick_labels = get_y_range_and_ticks(y_data_list)
-        
-        # 设置y轴为对数刻度并调整范围
-        ax.set_yscale('log')
-        ax.set_ylim(y_min, y_max)
-        
-        # 只显示主刻度
-        ax.yaxis.set_major_locator(plt.FixedLocator(y_ticks))
-        ax.yaxis.set_minor_locator(plt.NullLocator())
-        ax.set_yticklabels(y_tick_labels)
-        
-        # 设置x轴范围
-        ax.set_xlim(0.7, 1.01)
-        # ax.set_box_aspect(1)
-        
-        # 参考线和网格
-        ax.axvline(x=0.95, color='gray', linestyle='--', alpha=0.7)
-        ax.grid(True, linestyle=':', alpha=0.6)
-        
-        # 设置x轴标签
-        label_index = chr(97 + col)  # 97是ASCII码中'a'的值
-
-        formatted_label = f"({label_index}) Recall@10 ({selectivity_mapping[query_set]})"
-
-        ax.set_xlabel(formatted_label, 
-                     fontproperties=libertine_font,
-                     fontsize=20,
-                     fontweight='bold')
-        
-        # 仅第一列显示y轴标签
-        if col == 0:
-            ax.set_ylabel("QPS", fontsize=18)
-        else:
-            ax.set_ylabel("")
-    
-    # 添加图例
-    legend_elements = []
-    for alg, color in sorted(current_algorithms.items(), key=lambda x: x[0].lower()):
-        base_alg = alg.replace('-16', '') if thread_mode == "multi" else alg
-        style = ALGORITHM_STYLES.get(base_alg, {
-            'color': color,
-            'linestyle': line_styles[0],
-            'marker': markers[0]
-        })
-        
-        legend_elements.append(plt.Line2D([0], [0], 
-                                        color=style['color'], 
-                                        marker=style['marker'], 
-                                        linestyle=style['linestyle'], 
-                                        label=alg,
-                                        **plot_legend_params))
-    
-    if legend_elements:
-        leg = fig.legend(handles=legend_elements, 
-                        loc='upper center', 
-                        bbox_to_anchor=(0.515, 0.88),
-                        ncol=min(6, len(legend_elements)),
-                        fontsize=16,
-                        frameon=False)
-    
-    # 调整布局
-    plt.tight_layout(rect=[0, 0.0, 1, 1.0])
-    
-    return fig
 
 # 绘制所有数据集的QPS vs Recall对比图
 def plot_5_2_1_comparison(all_data):
@@ -410,7 +228,7 @@ def plot_5_2_1_comparison(all_data):
 
     query_set = ['3_1', '3_2', '3_3', '3_4'] # 这里假设我们只关心查询集1
     datasets = 'sift'
-    single_thread_algs = ['ACORN-1', 'CAPS', 'StitchedVamana', 'UNG','puck-16', 'parlayivf-16']
+    single_thread_algs = ['ACORN-1', 'CAPS', 'StitchedVamana', 'UNG', 'faiss', 'faiss+HQI_Batch','puck-16', 'parlayivf-16']
     
     # 创建全局颜色字典，确保同一算法无论单线程还是16线程都使用相同颜色
    
@@ -422,10 +240,10 @@ def plot_5_2_1_comparison(all_data):
         algorithm_line_styles[query] = line_styles[i % len(line_styles)]
         algorithm_markers[query] = markers[i % len(markers)]
 
-    fig = plt.figure(figsize=(34, 4.6))
+    fig = plt.figure(figsize=(40, 3.8))
     
     # 调整上下间距，给图例留出空间
-    gs = GridSpec(1, 6, figure=fig, wspace=0.15, hspace=0.25,  top=0.85, bottom=0.1)
+    gs = GridSpec(1, 8, figure=fig, wspace=0.15, hspace=0.25,  top=0.85, bottom=0.1)
 
     plotted_algs = set()
     
@@ -437,8 +255,8 @@ def plot_5_2_1_comparison(all_data):
     for col, alg in enumerate(single_thread_algs):
 
         # 绘制单线程图 (第一行)
-        row = col // 6
-        col = col % 6
+        row = col // 8
+        col = col % 8
         ax_single = fig.add_subplot(gs[row, col])
 
         # 收集单线程图的Y轴数据，为每个算法单独收集
@@ -460,7 +278,7 @@ def plot_5_2_1_comparison(all_data):
             pareto_df = compute_pareto_frontier(df, 'Recall', 'QPS')
             if not pareto_df.empty:
                 # 过滤 Recall 小于0.7以及等于1.01的数据
-                filtered_df = pareto_df[(pareto_df['Recall'] >= 0.6)]
+                filtered_df = pareto_df[(pareto_df['Recall'] >= 0.7)]
                 if not filtered_df.empty:
                     x_data = filtered_df['Recall'].tolist()
                     y_data = filtered_df['QPS'].tolist()
@@ -476,29 +294,29 @@ def plot_5_2_1_comparison(all_data):
         ax_single.yaxis.set_major_locator(plt.FixedLocator(y_ticks_single))
         ax_single.yaxis.set_minor_locator(plt.NullLocator())
         ax_single.set_yticklabels(y_tick_labels_single)
-        ax_single.tick_params(axis='both', labelsize=16)
+        ax_single.tick_params(axis='both', labelsize=18)
 
         # 设置x轴范围为0.7到1.01，但仅显示刻度至1.0
-        ax_single.set_xlim(0.6, 1.01)
-        ax_single.set_xticks([0.6, 0.7, 0.8, 0.9, 1.0])
-        ax_single.set_xticklabels([f"{tick:.1f}" for tick in [0.6, 0.7, 0.8, 0.9, 1.0]])
+        ax_single.set_xlim(0.7, 1.01)
+        ax_single.set_xticks([0.7, 0.8, 0.9, 1.0])
+        ax_single.set_xticklabels([f"{tick:.1f}" for tick in [0.7, 0.8, 0.9, 1.0]])
 
         ax_single.axvline(x=0.95, color='gray', linestyle='--', alpha=0.7)
         ax_single.grid(True, linestyle=':', alpha=0.6)
 
         # 设置x轴标签
-        label_index = chr(97 + row*6 + col)  # 97是ASCII码中'a'的值
+        label_index = chr(97 + row*8 + col)  # 97是ASCII码中'a'的值
         l = f"({label_index}) Recall@10 ({alg})"
         ax_single.set_xlabel(l, 
                          #fontfamily='Linux Libertine O',  # 字体家族
                          fontproperties=libertine_font,
-                         fontsize=20,         # 字体大小
+                         fontsize=22,         # 字体大小
                          fontweight='bold')   # 字体粗细
         
         
         # 仅第一显示y轴标签
         if col == 0:
-            ax_single.set_ylabel("QPS", fontsize=16)
+            ax_single.set_ylabel("QPS", fontsize=18)
         else:
             ax_single.set_ylabel("")
 
@@ -509,8 +327,8 @@ def plot_5_2_1_comparison(all_data):
     
     if legend_elements:
         leg = fig.legend(handles=legend_elements, loc='upper center',
-                         bbox_to_anchor=(0.5, 0.97), ncol=min(15, len(legend_elements)),
-                         fontsize=17, frameon=False)
+                         bbox_to_anchor=(0.5, 1.05), ncol=min(15, len(legend_elements)),
+                         fontsize=22, frameon=False)
         leg.get_title().set_fontweight('bold')
     
     # plt.suptitle("QPS vs Recall Perrison Across Datasets", fontsize=16, y=1.02)
@@ -534,17 +352,18 @@ def plot_5_2_2_comparison(all_data):
         algorithm_markers[query] = markers[i % len(markers)]  
     
     # 调整图形尺寸
-    fig = plt.figure(figsize=(22, 4.2))
+    fig = plt.figure(figsize=(34, 4.6))
     
     # 调整上下间距，给图例留出空间
-    gs = GridSpec(1, 4, figure=fig, wspace=0.25, hspace=0.2, top=0.85, bottom=0.15)
+    gs = GridSpec(1, 6, figure=fig, wspace=0.25, hspace=0.2, top=0.85, bottom=0.15)
     plotted_algs = set()
     
     # 多线程算法列表
-    multi_thread_algs = ['NHQ', 'FilteredVamana', 'vbase', 'pase']
+    alg_set_1 = ['NHQ', 'FilteredVamana', 'vbase', 'pase']
+    alg_set_2 = ['milvus', 'ACORN-γ']
     
     # 遍历所有算法
-    for col, alg in enumerate(multi_thread_algs):
+    for col, alg in enumerate(alg_set_1):
         # 绘制多线程图
         row = 0
         col = col % 4
@@ -610,174 +429,13 @@ def plot_5_2_2_comparison(all_data):
         # 增大刻度字体大小
         ax_multi.tick_params(axis='both', which='major', labelsize=14)
 
-    # 创建统一图例，增大字体大小
-    legend_elements = []
-    for query in query_set:
-        legend_elements.append(plt.Line2D([0], [0], color=algorithm_colors[query], 
-                                         marker=algorithm_markers[query], 
-                                         linestyle=algorithm_line_styles[query],
-                                         label=selectivity_mapping[query], 
-                                         **plot_legend_params))
-    
-    if legend_elements:
-        leg = fig.legend(handles=legend_elements, loc='upper center',
-                       bbox_to_anchor=(0.5, 0.97), ncol=min(4, len(legend_elements)),
-                       fontsize=17, frameon=False)  # 增大图例字体大小
-        leg.get_title().set_fontweight('bold')
-    
-    plt.tight_layout(rect=[0, 0.05, 1, 0.9])  # 调整边距
-
-    return fig
-def plot_5_2_3_comparison(all_data):
-    query_set = ['3_1', '3_2', '3_3', '3_4']
-    datasets = 'sift'
-    
-    algorithm_colors = {}
-    algorithm_line_styles = {}
-    algorithm_markers = {}
-    for i, query in enumerate(query_set):
-        algorithm_colors[query] = colors[i % len(colors)]
-        algorithm_line_styles[query] = line_styles[i % len(line_styles)]
-        algorithm_markers[query] = markers[i % len(markers)]  
-    
-    # 调整图形尺寸
-    fig = plt.figure(figsize=(13, 5))
-    
-    # 调整上下间距，给图例留出空间
-    gs = GridSpec(1, 2, figure=fig, wspace=0.25, hspace=0.2, top=0.85, bottom=0.15)
-    plotted_algs = set()
-    
-    # 多线程算法列表
-    multi_thread_algs = ['milvus', 'ACORN-gama']
-    
-    # 遍历所有算法
-    for col, alg in enumerate(multi_thread_algs):
-        # 绘制多线程图
+    for col, alg in enumerate(alg_set_2):
         row = 0
-        col = col % 2
+        col = col + 4
         ax_multi = fig.add_subplot(gs[row, col])
 
         # 收集多线程图的Y轴数据
         multi_thread_y_data = []
-
-        for query in query_set:
-            key = (datasets, query)
-            if key not in all_data:
-                continue
-            
-            data_list = all_data[key]
-            df = None
-            for d in data_list:
-                if d['Algorithm'].iloc[0] == alg:
-                    df = d
-            
-            color = algorithm_colors[query]
-            linestyle = algorithm_line_styles[query]
-            marker = algorithm_markers[query]
-            if df is not None:
-                pareto_df = compute_pareto_frontier(df, 'Recall', 'QPS')
-                if not pareto_df.empty:
-                    # 过滤 Recall 小于0.7以及等于1.01的数据
-                    filtered_df = pareto_df[(pareto_df['Recall'] >= 0.6)]
-                    if not filtered_df.empty:
-                        x_data = filtered_df['Recall'].tolist()
-                        y_data = filtered_df['QPS'].tolist()
-                        multi_thread_y_data.append(y_data)
-                        ax_multi.plot(x_data, y_data, marker=marker,linestyle=linestyle, label=datasets, color=color, **plot_params)
-                        plotted_algs.add(datasets)
-
-        # 设置多线程图的y轴范围和刻度
-        y_min_multi, y_max_multi, y_ticks_multi, y_tick_labels_multi = get_y_range_and_ticks(multi_thread_y_data)
-        ax_multi.set_yscale('log')
-        ax_multi.set_ylim(y_min_multi, y_max_multi)
-        ax_multi.yaxis.set_major_locator(plt.FixedLocator(y_ticks_multi))
-        ax_multi.yaxis.set_minor_locator(plt.NullLocator())
-        ax_multi.set_yticklabels(y_tick_labels_multi)
-
-        # 设置x轴范围为0.7到1.01，但仅显示刻度至1.0
-        ax_multi.set_xlim(0.6, 1.01)
-        ax_multi.set_xticks([0.6, 0.7, 0.8, 0.9, 1.0])
-        ax_multi.set_xticklabels([f"{tick:.1f}" for tick in [0.6, 0.7, 0.8, 0.9, 1.0]])
-        ax_multi.axvline(x=0.95, color='gray', linestyle='--', alpha=0.7)
-        ax_multi.grid(True, linestyle=':', alpha=0.6)
-        # 设置x轴标签
-        label_index = chr(97 + col)  # 97是ASCII码中'a'的值
-        l = f"({label_index}) Recall@10 ({alg})"
-        ax_multi.set_xlabel(l, 
-                         fontproperties=libertine_font,
-                         fontsize=18,        # 增大字体大小
-                         fontweight='bold')
-        
-        # 仅第一个子图显示y轴标签，并且增大字体大小
-        if col == 0:
-            ax_multi.set_ylabel("QPS", fontsize=16)  # 增大字体大小
-        else:
-            ax_multi.set_ylabel("")
-            
-        # 增大刻度字体大小
-        ax_multi.tick_params(axis='both', which='major', labelsize=14)
-
-    # 创建统一图例，增大字体大小
-    legend_elements = []
-    for query in query_set:
-        legend_elements.append(plt.Line2D([0], [0], color=algorithm_colors[query], 
-                                         marker=algorithm_markers[query], 
-                                         linestyle=algorithm_line_styles[query],
-                                         label=selectivity_mapping[query], 
-                                         **plot_params))
-    
-    if legend_elements:
-        leg = fig.legend(handles=legend_elements, loc='upper center',
-                       bbox_to_anchor=(0.5, 0.95), ncol=min(4, len(legend_elements)),
-                       fontsize=16, frameon=False)  # 增大图例字体大小
-        leg.get_title().set_fontweight('bold')
-    
-    plt.tight_layout(rect=[0, 0.05, 1, 0.9])  # 调整边距
-
-    return fig
-
-def plot_5_2_4_comparison(all_data):
-    query_set_1 = ['3_1', '3_2', '3_3', '3_4']
-    query_set_2 = ['7_1', '7_2', '7_3', '7_4']
-    datasets = 'sift'
-    
-    algorithm_colors = {}
-    algorithm_line_styles = {}
-    algorithm_markers = {}
-    for i, query in enumerate(query_set_1):
-        algorithm_colors[query] = colors[i % len(colors)]
-        algorithm_line_styles[query] = line_styles[i % len(line_styles)]
-        algorithm_markers[query] = markers[i % len(markers)]  
-
-    for i, query in enumerate(query_set_2):
-        algorithm_colors[query] = colors[i % len(colors)]
-        algorithm_line_styles[query] = line_styles[i % len(line_styles)]
-        algorithm_markers[query] = markers[i % len(markers)]  
-    
-    # 调整图形尺寸
-    fig = plt.figure(figsize=(22, 4.2))
-    
-    # 调整上下间距，给图例留出空间
-    gs = GridSpec(1, 4, figure=fig, wspace=0.25, hspace=0.2, top=0.85, bottom=0.15)
-    plotted_algs = set()
-    
-    # 多线程算法列表
-    multi_thread_algs = ['faiss', 'faiss','faiss+HQI_Batch','faiss+HQI_Batch']
-    
-    # 遍历所有算法
-    for col, alg in enumerate(multi_thread_algs):
-        # 绘制多线程图
-        row = 0
-        col = col % 4
-        ax_multi = fig.add_subplot(gs[row, col])
-
-        # 收集多线程图的Y轴数据
-        multi_thread_y_data = []
-        query_set = []
-        if col % 2 == 0:
-            query_set = query_set_1
-        else:    
-            query_set = query_set_2
 
         for query in query_set:
             key = (datasets, query)
@@ -834,26 +492,12 @@ def plot_5_2_4_comparison(all_data):
             ax_multi.set_ylabel("")
             
         # 增大刻度字体大小
-        ax_multi.tick_params(axis='both', which='major', labelsize=14)
-
-    # 创建统一图例，增大字体大小
-    legend_elements = []
-    for query in query_set_1:
-        legend_elements.append(plt.Line2D([0], [0], color=algorithm_colors[query], 
-                                         marker=algorithm_markers[query], 
-                                         linestyle=algorithm_line_styles[query],
-                                         label=selectivity_mapping[query], 
-                                         **plot_legend_params))
-    
-    if legend_elements:
-        leg = fig.legend(handles=legend_elements, loc='upper center',
-                       bbox_to_anchor=(0.5, 0.97), ncol=min(4, len(legend_elements)),
-                       fontsize=17, frameon=False)  # 增大图例字体大小
-        leg.get_title().set_fontweight('bold')
+        ax_multi.tick_params(axis='both', which='major', labelsize=14)        
     
     plt.tight_layout(rect=[0, 0.05, 1, 0.9])  # 调整边距
 
     return fig
+
 
 print("加载数据文件...")
 all_data = load_all_data()
@@ -863,66 +507,8 @@ if not all_data:
 else:
     total_files = sum(len(data_list) for data_list in all_data.values())
     print(f"成功加载数据，共有 {total_files} 个数据文件。")
-    
-        # 初始化所有算法的样式
-    print("初始化算法样式...")
-    initialize_algorithm_styles(all_data)
 
-    
-    save_path = "/data/plots/exp1/exp_5_1_"  # 请修改为实际路径
-    query_set = "3"  # 绘制查询集1的图表
-    if query_set == "3":
-        label_mode = "_SingleLabel"
-        index = 1
-    elif query_set == "7":  
-        label_mode = "_MultiLabel"
-        index = 3
-    # 创建单线程对比图
-    print("创建单线程对比图...")
-    fig_single = plot_5_1_comparison(all_data, thread_mode="single", _query_set= query_set)
-    plt.savefig(save_path + str(index) + label_mode + "_1thread.svg", dpi=300, bbox_inches='tight')
-    plt.savefig(save_path + str(index) + label_mode + "_1thread.pdf", dpi=300, bbox_inches='tight')
-    plt.show()
-    plt.close(fig_single)
-    # 创建16线程对比图
-    print("创建16线程对比图...")
-    fig_multi = plot_5_1_comparison(all_data, thread_mode="multi", _query_set= query_set)    
-    plt.savefig(save_path + str(index+1) + label_mode + "_16thread.svg", dpi=300, bbox_inches='tight')
-    plt.savefig(save_path + str(index+1) + label_mode + "_16thread.pdf", dpi=300, bbox_inches='tight')
-    plt.show()
-    plt.close(fig_multi)
-    
-    print("图表已创建并保存！")
-
-    query_set = "7"  # 绘制查询集1的图表
-    if query_set == "3":
-        label_mode = "_SingleLabel"
-        index = 1
-    elif query_set == "7":  
-        label_mode = "_MultiLabel"
-        index = 3
-    # 创建单线程对比图
-    print("创建单线程对比图...")
-    fig_single = plot_5_1_comparison(all_data, thread_mode="single", _query_set= query_set)
-    plt.savefig(save_path + str(index) + label_mode + "_1thread.svg", dpi=300, bbox_inches='tight')
-    plt.savefig(save_path + str(index) + label_mode + "_1thread.pdf", dpi=300, bbox_inches='tight')
-    plt.show()
-    plt.close(fig_single)
-    # 创建16线程对比图
-    print("创建16线程对比图...")
-    fig_multi = plot_5_1_comparison(all_data, thread_mode="multi", _query_set= query_set)    
-    plt.savefig(save_path + str(index+1) + label_mode + "_16thread.svg", dpi=300, bbox_inches='tight')
-    plt.savefig(save_path + str(index+1) + label_mode + "_16thread.pdf", dpi=300, bbox_inches='tight')
-    plt.show()
-    plt.close(fig_multi)
-    print("图表已创建并保存！")
-
-
-
-
-
-
-    save_path = "/data/plots/exp1/"  # 请修改为实际路径
+    save_path = "/data/plots/exp/"  # 请修改为实际路径
 
     print("创建单线程对比图...")
     fig1 = plot_5_2_1_comparison(all_data)
@@ -934,16 +520,6 @@ else:
     fig2 = plot_5_2_2_comparison(all_data)
     plt.savefig(save_path + "exp_5_2_2.svg", bbox_inches='tight')
     plt.savefig(save_path + "exp_5_2_2.pdf", bbox_inches='tight')
-    plt.show()
-
-    fig3 = plot_5_2_3_comparison(all_data)
-    plt.savefig(save_path + "exp_5_2_3.svg", bbox_inches='tight')
-    plt.savefig(save_path + "exp_5_2_3.pdf", bbox_inches='tight')
-    plt.show()
-
-    fig4 = plot_5_2_4_comparison(all_data)
-    plt.savefig(save_path + "exp_5_2_4.svg", bbox_inches='tight')
-    plt.savefig(save_path + "exp_5_2_4.pdf", bbox_inches='tight')
     plt.show()
     
     print("图表已创建并保存！")

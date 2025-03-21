@@ -1,4 +1,4 @@
-'''实验一/四绘图代码'''
+'''实验五绘图代码'''
 import os
 import pandas as pd
 import numpy as np
@@ -35,6 +35,7 @@ plot_params = {
     'markersize': 4,                # 标记大小
     'markerfacecolor': (1, 1, 1, 0.8),     # 标记填充颜色（白色）
     'markeredgewidth': 1,         # 标记边缘宽度
+    'alpha': 0.9,                 # 透明度
     'linewidth': 1.2           # 线条粗细
 }
 
@@ -43,6 +44,17 @@ plot_params_Legend = {
     'markerfacecolor': (1, 1, 1, 0.8),     # 标记填充颜色（白色）
     'markeredgewidth': 1,         # 标记边缘宽度
     'linewidth': 1.2           # 线条粗细
+}
+
+selectivity_mapping = {
+    '3_1': 'selectivity 1%',
+    '3_2': 'selectivity 25%',
+    '3_3': 'selectivity 50%',
+    '3_4': 'selectivity 75%',
+    '7_1': 'selectivity 1%',
+    '7_2': 'selectivity 25%',
+    '7_3': 'selectivity 50%',
+    '7_4': 'selectivity 75%',
 }
 
 # 全局字典存储所有算法的样式信息
@@ -111,6 +123,8 @@ def load_all_data():
     return all_data
 
 # 计算稀疏化的帕累托前沿
+# threshold_y_ratio是相对阈值，表示相邻点的y值比例变化至少为(1+threshold_y_ratio)
+# def compute_pareto_frontier(df, x_col, y_col, threshold_x=0.02, threshold_y_ratio=0.5):     # 多标签参数
 def compute_pareto_frontier(df, x_col, y_col, threshold_x=0.025, threshold_y_ratio=5):   # 单标签参数
     """
     计算帕累托前沿，并进行稀疏化处理，确保点在x轴和y轴（对数空间）的间距不小于给定阈值
@@ -174,8 +188,6 @@ def compute_pareto_frontier(df, x_col, y_col, threshold_x=0.025, threshold_y_rat
         return df.loc[indices].sort_values(by=x_col, ascending=True)
     else:
         return pd.DataFrame()
-    
-
 
 # 获取y轴范围和刻度
 def get_y_range_and_ticks(y_data_list):
@@ -245,7 +257,7 @@ def initialize_algorithm_styles(all_data, query_set="1"):
     return ALGORITHM_STYLES
 
 # 通用绘图函数
-def plot_dataset_comparison(all_data, thread_mode="single", query_set="1", figsize=(30, 5)):
+def plot_dataset_comparison(all_data, thread_mode="single", _query_set="3", figsize=(20, 5.8)):
     """
     绘制单线程或16线程的QPS vs Recall性能对比图
     
@@ -258,27 +270,22 @@ def plot_dataset_comparison(all_data, thread_mode="single", query_set="1", figsi
     返回:
     fig: matplotlib图表对象
     """
-    datasets = sorted(set(k[0] for k in all_data.keys() if k[1] == query_set))
-    
-    # 如果数据集少于6个，补充到6个
-    if len(datasets) < 6:
-        datasets = datasets + [None] * (6 - len(datasets))
-    # 如果数据集多于6个，只取前6个
-    elif len(datasets) > 6:
-        datasets = datasets[:6]
+    # datasets = sorted(set(k[0] for k in all_data.keys() if k[1].startswith(query_set + "_") or k[1] == query_set))
+    dataset = "sift"
+    query_sets = sorted(set(k[1] for k in all_data.keys() if k[1].startswith(_query_set + "_") or k[1] == _query_set))
     
     # 创建图表
     fig = plt.figure(figsize=figsize)
     
     # 调整间距
-    gs = GridSpec(1, len(datasets), figure=fig, wspace=0.15, top=0.72, bottom=0.2)
+    gs = GridSpec(1, len(query_sets), figure=fig, wspace=0.15, top=0.72, bottom=0.2)
     
     # 收集当前图表中的算法
     current_algorithms = {}
     
     # 遍历所有数据集
-    for col, dataset in enumerate(datasets):
-        if dataset is None or (dataset, query_set) not in all_data:
+    for col, query_set in enumerate(query_sets):
+        if query_set is None or (dataset, query_set) not in all_data:
             continue
         
         # 获取数据列表
@@ -336,6 +343,9 @@ def plot_dataset_comparison(all_data, thread_mode="single", query_set="1", figsi
                             label=label, 
                             color=style['color'],
                             **plot_params)
+                    
+        # 设置轴刻度标签字体大小
+        ax.tick_params(axis='both', labelsize=16)
         
         # 设置y轴范围和刻度
         y_min, y_max, y_ticks, y_tick_labels = get_y_range_and_ticks(y_data_list)
@@ -351,6 +361,7 @@ def plot_dataset_comparison(all_data, thread_mode="single", query_set="1", figsi
         
         # 设置x轴范围
         ax.set_xlim(0.7, 1.01)
+        # ax.set_box_aspect(1)
         
         # 参考线和网格
         ax.axvline(x=0.95, color='gray', linestyle='--', alpha=0.7)
@@ -358,16 +369,17 @@ def plot_dataset_comparison(all_data, thread_mode="single", query_set="1", figsi
         
         # 设置x轴标签
         label_index = chr(97 + col)  # 97是ASCII码中'a'的值
-   
-        formatted_label = f"({label_index}) Recall@10 ({dataset})"
+
+        formatted_label = f"({label_index}) Recall@10 ({selectivity_mapping[query_set]})"
+
         ax.set_xlabel(formatted_label, 
                      fontproperties=libertine_font,
-                     fontsize=14,
+                     fontsize=20,
                      fontweight='bold')
         
         # 仅第一列显示y轴标签
         if col == 0:
-            ax.set_ylabel("QPS", fontsize=12)
+            ax.set_ylabel("QPS", fontsize=18)
         else:
             ax.set_ylabel("")
     
@@ -389,11 +401,11 @@ def plot_dataset_comparison(all_data, thread_mode="single", query_set="1", figsi
                                         **plot_params_Legend))
     
     if legend_elements:
-        leg = fig.legend(handles=legend_elements,
+        leg = fig.legend(handles=legend_elements, 
                         loc='upper center', 
-                        bbox_to_anchor=(0.5, 0.8),
-                        ncol=min(14, len(legend_elements)),
-                        fontsize=12,
+                        bbox_to_anchor=(0.515, 0.88),
+                        ncol=min(6, len(legend_elements)),
+                        fontsize=16,
                         frameon=False)
     
     # 调整布局
@@ -417,43 +429,33 @@ def main():
     print("初始化算法样式...")
     initialize_algorithm_styles(all_data)
 
-    query_set = "1"  # 绘制查询集1的图表
-    save_path = "/data/plots/"  # 请修改为实际路径
-    
-    # 创建单线程对比图
-    print(f"创建查询集 {query_set} 的单线程对比图...")
-    fig_single = plot_dataset_comparison(all_data, thread_mode="single", query_set= query_set)
-    plt.savefig(save_path + "exp_1_1.svg", dpi=300, bbox_inches='tight')
-    plt.savefig(save_path + "exp_1_1.pdf", dpi=300, bbox_inches='tight')
-    plt.show()
-    plt.close(fig_single)
-    
-    # 创建16线程对比图
-    print(f"创建查询集 {query_set} 的16线程对比图...")
-    fig_multi = plot_dataset_comparison(all_data, thread_mode="multi", query_set= query_set)    
-    plt.savefig(save_path + "exp_1_2.svg", dpi=300, bbox_inches='tight')
-    plt.savefig(save_path + "exp_1_2.pdf", dpi=300, bbox_inches='tight')
-    plt.show()
-    plt.close(fig_multi)
-    print("图表已创建并保存！")
+    query_set = "3"  # 绘制查询集1的图表
+    save_path = "/home/ykw/study/Hybrid-ANNS/faiss/plots/labelFilter/exp/exp_5_1_"  # 请修改为实际路径
 
-    query_set = "6"  # 绘制查询集1的图表
+    if query_set == "3":
+        label_mode = "_SingleLabel"
+        index = 1
+    elif query_set == "7":  
+        label_mode = "_MultiLabel"
+        index = 3
+    
     
     # 创建单线程对比图
-    print(f"创建查询集 {query_set} 的单线程对比图...")
-    fig_single = plot_dataset_comparison(all_data, thread_mode="single", query_set= query_set)
-    plt.savefig(save_path + "exp_4_1.svg", dpi=300, bbox_inches='tight')
-    plt.savefig(save_path + "exp_4_1.pdf", dpi=300, bbox_inches='tight')
+    print("创建单线程对比图...")
+    fig_single = plot_dataset_comparison(all_data, thread_mode="single", _query_set= query_set)
+    plt.savefig(save_path + str(index) + label_mode + "_1thread.svg", dpi=300, bbox_inches='tight')
+    plt.savefig(save_path + str(index) + label_mode + "_1thread.pdf", dpi=300, bbox_inches='tight')
     plt.show()
     plt.close(fig_single)
     
     # 创建16线程对比图
-    print(f"创建查询集 {query_set} 的16线程对比图...")
-    fig_multi = plot_dataset_comparison(all_data, thread_mode="multi", query_set= query_set)    
-    plt.savefig(save_path + "exp_4_2.svg", dpi=300, bbox_inches='tight')
-    plt.savefig(save_path + "exp_4_2.pdf", dpi=300, bbox_inches='tight')
+    print("创建16线程对比图...")
+    fig_multi = plot_dataset_comparison(all_data, thread_mode="multi", _query_set= query_set)    
+    plt.savefig(save_path + str(index+1) + label_mode + "_16thread.svg", dpi=300, bbox_inches='tight')
+    plt.savefig(save_path + str(index+1) + label_mode + "_16thread.pdf", dpi=300, bbox_inches='tight')
     plt.show()
     plt.close(fig_multi)
+    
     print("图表已创建并保存！")
 
 if __name__ == "__main__":

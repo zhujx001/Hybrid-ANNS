@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import glob
+import matplotlib.font_manager as fm
 import re
 
 # 解决中文显示问题
@@ -16,12 +17,16 @@ plt.style.use('default')  # 使用默认风格，白色背景
 # 定义数据路径
 data_path = "/data/result"
 
+# 创建一个字体对象，指定字体文件的路径
+libertine_font = fm.FontProperties(
+    fname='/usr/share/fonts/opentype/linux-libertine/LinLibertine_R.otf')
+
 # 为每个算法定义唯一的颜色（标准版本和16位版本使用相同颜色）
 ALGORITHM_COLORS = {
     'ACORN-1': '#1f77b4',       # 蓝色
     'ACORN-1-16': '#1f77b4',    # 蓝色
-    'ACORN-gama': '#ff7f0e',    # 橙色
-    'ACORN-gama-16': '#ff7f0e', # 橙色
+    'ACORN-γ': '#ff7f0e',    # 橙色
+    'ACORN-γ-16': '#ff7f0e', # 橙色
     'FilteredVamana': '#2ca02c',     # 绿色
     'FilteredVamana-16': '#2ca02c',  # 绿色
     'StitchedVamana': '#d62728',     # 红色
@@ -49,10 +54,10 @@ DATASET_MARKERS = {
 }
 
 plot_params = {
-    'markersize': 5,                # 标记大小
+    'markersize': 7,                # 标记大小
     'markerfacecolor': (1, 1, 1, 0.8),     # 标记填充颜色（白色）
     'markeredgewidth': 2,         # 标记边缘宽度
-    'linewidth': 1.2        # 线条粗细
+    'linewidth': 1.4        # 线条粗细
 }
 
 # 获取实验结果文件
@@ -60,7 +65,7 @@ def get_result_files():
     # 目标算法列表，添加了puck-16
     target_algorithms = [
         'ACORN-1', 'ACORN-1-16', 
-        'ACORN-gama', 'ACORN-gama-16', 
+        'ACORN-γ', 'ACORN-γ-16', 
         'FilteredVamana', 'FilteredVamana-16',
         'StitchedVamana', 'StitchedVamana-16',
         'NHQ', 'parlayivf-16', 'puck-16',
@@ -222,6 +227,14 @@ def superscript(n):
     return ''.join(superscript_map[digit] for digit in str(n))
 
 def plot_comparison_charts(all_data):
+    # NEW: Create sets to collect all unique algorithms and datasets
+    all_algorithms = set()
+    all_datasets = set(['sift_1', 'sift_2_1', 'sift_2_2'])
+    
+    # NEW: First pass - collect all algorithms
+    for group in ['single_thread', 'multi_thread']:
+        for df in all_data[group]:
+            all_algorithms.add(df['Algorithm'].iloc[0])
     
     # 绘制单线程算法的对比图
     if all_data['single_thread']:
@@ -239,6 +252,7 @@ def plot_comparison_charts(all_data):
                 grouped_data[algorithm] = {}
             
             grouped_data[algorithm][dataset] = df
+        
         
         # 收集y轴数据用于自动确定范围
         y_data_list = []
@@ -269,9 +283,9 @@ def plot_comparison_charts(all_data):
         
         # 在x=0.95处添加灰色虚线，与exp_1.py保持一致的样式
         plt.axvline(x=0.95, color='gray', linestyle='--', alpha=0.7)
-        plt.tick_params(axis='both', labelsize=20)
-        plt.xlabel('Recall@10', fontsize=20)
-        plt.ylabel('QPS', fontsize=20)
+        plt.tick_params(axis='both', labelsize=36)
+        plt.xlabel('Recall@10', fontsize=50, fontproperties=libertine_font)
+        plt.ylabel('QPS', fontsize=38)
         # plt.title('SIFT Dataset - Experiment 2 - Single Thread Algorithms', fontsize=16)
         plt.grid(True, linestyle=':', alpha=0.6)
         
@@ -287,9 +301,9 @@ def plot_comparison_charts(all_data):
         plt.xticks([0.6, 0.7, 0.8, 0.9, 1.0])
         plt.gca().set_xticklabels([f"{tick:.1f}" for tick in [0.6, 0.7, 0.8, 0.9, 1.0]])
         
-        if legend_handles:
-            # 创建具有多列的图例，使其更紧凑
-            plt.legend(legend_handles, legend_labels, fontsize=12, loc='best', ncol=3)
+        # if legend_handles:
+        #     # 创建具有多列的图例，使其更紧凑
+        #     plt.legend(legend_handles, legend_labels, fontsize=12, loc='best', ncol=3)
         
         # 保存为矢量图格式（SVG）
         save_path_svg = os.path.join("/data/plots/exp","exp_2_1.svg")
@@ -347,9 +361,9 @@ def plot_comparison_charts(all_data):
         
         # 在x=0.95处添加灰色虚线，与exp_1.py保持一致的样式
         plt.axvline(x=0.95, color='gray', linestyle='--', alpha=0.7)
-        plt.tick_params(axis='both', labelsize=20)
-        plt.xlabel('Recall@10', fontsize=20)
-        plt.ylabel('QPS', fontsize=20)
+        plt.tick_params(axis='both', labelsize=36)
+        plt.xlabel('Recall@10', fontsize=50, fontproperties=libertine_font)
+        plt.ylabel('QPS', fontsize=38)
         # plt.title('SIFT Dataset - Experiment 2 - 16-Thread Algorithms', fontsize=16)
         plt.grid(True, linestyle=':', alpha=0.6)
         
@@ -365,9 +379,9 @@ def plot_comparison_charts(all_data):
         plt.xticks([0.6, 0.7, 0.8, 0.9, 1.0])
         plt.gca().set_xticklabels([f"{tick:.1f}" for tick in [0.6, 0.7, 0.8, 0.9, 1.0]])
         
-        if legend_handles:
-            # 创建具有多列的图例，使其更紧凑
-            plt.legend(legend_handles, legend_labels, fontsize=12, loc='best', ncol=3)
+        # if legend_handles:
+        #     # 创建具有多列的图例，使其更紧凑
+        #     plt.legend(legend_handles, legend_labels, fontsize=12, loc='best', ncol=3)
         
         # 保存为矢量图格式（SVG）
         save_path_svg = os.path.join("/data/plots/exp","exp_2_2.svg")
@@ -377,6 +391,57 @@ def plot_comparison_charts(all_data):
              
         plt.close()
         print(f"16-thread algorithms comparison chart saved as vector graphic to {save_path_svg}")
+    create_separate_legend(all_algorithms, all_datasets)
+
+def create_separate_legend(algorithms, datasets):
+    """
+    Creates a separate figure with only the legend for the experiment 2 charts
+    
+    Parameters:
+        algorithms: List of algorithm names to include
+        datasets: List of dataset names to include
+    """
+    plt.figure(figsize=(14, 3))  # Wide, short figure for the legend only
+    
+    # Create dummy lines for each algorithm and dataset combination
+    legend_handles = []
+    legend_labels = []
+    
+    # Filter the algorithms to keep only non-16 versions (except for puck-16 and parlayivf-16)
+    filtered_algorithms = []
+    for algorithm in sorted(algorithms):
+        # Keep if it's not a -16 version OR if it's specifically puck-16 or parlayivf-16
+        if not algorithm.endswith('-16') or algorithm in ['puck-16', 'parlayivf-16']:
+            filtered_algorithms.append(algorithm)
+    
+    # Create legend entries for filtered algorithms
+    for algorithm in filtered_algorithms:
+        for dataset in datasets:
+            # Create a dummy line with the correct style
+            line = plt.Line2D([0], [0], 
+                            marker=DATASET_MARKERS.get(dataset, 'o'),
+                            linestyle=DATASET_LINESTYLES.get(dataset, '-'), 
+                            color=ALGORITHM_COLORS.get(algorithm, '#000000'),
+                            **plot_params)
+            legend_handles.append(line)
+            display_dataset = dataset.replace('sift_', '')
+            legend_labels.append(f"{algorithm} ({display_dataset})")
+    
+    # Create just the legend - CHANGED: frameon=False to remove the border
+    legend = plt.legend(legend_handles, legend_labels, fontsize=16, 
+                       loc='center', ncol=4, frameon=False)
+    
+    # Remove everything except the legend
+    plt.axis('off')
+    
+    # Save legend as separate files
+    save_path_svg = os.path.join("/data/plots/exp", "exp_2_legend.svg")
+    save_path_pdf = os.path.join("/data/plots/exp", "exp_2_legend.pdf")
+    plt.savefig(save_path_svg, format='svg', dpi=300, bbox_inches='tight')
+    plt.savefig(save_path_pdf, format='pdf', dpi=300, bbox_inches='tight')
+    
+    plt.close()
+    print(f"Separate legend saved to {save_path_svg}")
 
 def main():
     print("Loading data files for SIFT dataset experiments...")
@@ -392,6 +457,8 @@ def main():
     
     print("Generating comparison charts...")
     plot_comparison_charts(all_data)
+
+
     
     print("All charts generated successfully!")
 
