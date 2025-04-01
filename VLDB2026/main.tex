@@ -99,7 +99,7 @@
 \begin{abstract}
 Recent studies demonstrate the significant practical value of hybrid queries, which integrate vector search with structured filters (e.g., attribute and range filtering) for refined retrieval.
 However, current evaluations lack unified benchmarking standards and systematic assessment methodologies. Existing studies not only fail to cover mainstream algorithms but also omit systematic comparisons or in-depth analyses of different methods. To address this issue, we design a complete evaluation framework for hybrid queries. Our study introduces 15 hybrid query algorithms and systematically classifies them based on multiple dimensions such as index organization and filtering strategy, providing a reference for the categorization of hybrid queries. In the experiments, for attribute filtering, we construct standarded attribute sets, enabling a unified comparison of algorithms in terms of index construction efficiency, query performance, and robustness. For range filtering, we systematically evaluate algorithm performance across these 3 metrics through controlled variation of query ranges. Additionally, we conduct an in-depth analysis of the experimental results based on the underlying principles of the algorithms. The extensive experimental results reveal the strengths and weaknesses of each algorithm. Based on these findings, we develop a set of practical guidelines for algorithm selection, offering reliable references for different application scenarios. Furthermore, we identify potential directions for improvement to address the current limitations of these algorithms.
-%\vspace{-0.2cm}
+
 \end{abstract}
 
 
@@ -124,7 +124,7 @@ However, current evaluations lack unified benchmarking standards and systematic 
 %%% do not modify the following VLDB block %%
 %%% VLDB block start %%%
 \ifdefempty{\vldbavailabilityurl}{}{
-	\vspace{.3cm}
+
 	\begingroup\small\noindent\raggedright\textbf{PVLDB Artifact Availability:}\\
 	The source code, data, and/or other artifacts have been made available at \url{\vldbavailabilityurl}.
 	\endgroup
@@ -141,11 +141,11 @@ Nevertheless, as application scenarios grow increasingly complex, simple ANN sea
 
 \begin{figure*}
     \centering
-    \setlength{\abovecaptionskip}{0cm}
-    \setlength{\belowcaptionskip}{-0.4cm}
+%    \setlength{\abovecaptionskip}{0cm}
+%    \setlength{\belowcaptionskip}{-0.4cm}
     \includegraphics[width=\textwidth]{figures/hybrid ANNS.pdf}
     \caption{Hybrid query example}
-    % \vspace{-10pt} % 调整这个值来缩小空隙
+   
     \label{fig:hybrid ANNS}
 \end{figure*}
 \subsection{Motivation}
@@ -212,13 +212,12 @@ Similar to the conventional ANN search, most existing studies focus on approxima
 
 Current hybrid query methods mainly adopt graph-based ~\cite{nsw,kgraph,nsg,fanng,ngt} or Inverted File Index (IVF)-based \cite{PQ} index organization. We briefly introduce the fundamental principles of these 2 types in the following.
 
-\vspace{1em}
 \noindent\textbf{\underline{Graph.}}
 Graph-based ANN search algorithms accelerate queries by building graph indexes on datasets. As illustrated in Figure~\ref{fig:graph}, each data point in the dataset corresponds to a point in the graph, and neighboring vertices (e.g., $a$ and $b$) are connected via edges based on their distance $\textit{dist}(a, b)$. In the graph index, each point maintains connections only to its nearest neighbors to preserve query efficiency. For instance, in Figure~\ref{fig:graph}, the gray point $c$ is connected to 5 neighbors $(a, b, d, e, f)$ and can traverse to them via corresponding edges.
 
 Given a query point $q$, the graph-based ANN search typically follows a greedy search strategy to find the $k$ nearest neighbors. For illustration, consider the case where $k = 1$ (i.e., 1NN): The algorithm initiates the search from an entry point (the gray point $c$). If there exists a neighbor $n$ (the point $f$) of the current point such that $\textit{dist}(n, q) < \textit{dist}(c, q)$, the algorithm updates the current point to $n$. This process is iteratively repeated—always moving to the neighbor closest to $q$—until no neighbor is found that is closer than the current point. The final point reached (the blue point $j$) is returned as the approximate nearest neighbor of $q$.
 
-\vspace{1em}
+
 \noindent\textbf{\underline{IVF.}} IVF-based ANN search algorithms improve computational efficiency by partitioning the dataset into clusters and restricting the search to clusters nearest to the query point. Specifically, as shown in Figure~\ref{fig:ivf}, IVF first selects a subset of data points and applies a clustering algorithm (e.g., K-Means) to obtain a set of centroids $(C_0, C_1, ..., C_6)$, each representing a distinct cluster. Every data point (gray dots) is then assigned to the cluster corresponding to its nearest centroid based on the distance metric, thereby forming the index structure.
 
 During the query process, given a query point $q$, the algorithm computes distances between $q$ and all centroids, selects a small number of the closest centroids ($C_0, C_1, C_2$), and then performs a search only within the associated clusters to identify the approximate nearest neighbors.
@@ -226,8 +225,7 @@ During the query process, given a query point $q$, the algorithm computes distan
 \begin{figure}
     \begin{subfigure}{0.60\columnwidth}
         \centering
-        \setlength{\abovecaptionskip}{0cm}
-        \setlength{\belowcaptionskip}{-0.3cm}
+       
         \includegraphics[width=\linewidth]{figures/graph.pdf}
         \caption{Graph Index}
         \label{fig:graph}
@@ -235,17 +233,16 @@ During the query process, given a query point $q$, the algorithm computes distan
     \hfill
     \begin{subfigure}{0.38\columnwidth}
         \centering
-        \setlength{\abovecaptionskip}{0cm}
-        \setlength{\belowcaptionskip}{-0.3cm}
+      
         \includegraphics[width=\linewidth]{figures/ivf.pdf}
         \caption{IVF Index}
         \label{fig:ivf}
     \end{subfigure}
-    % \vspace{-10pt} % 调整这个值来缩小空隙
-    \setlength{\abovecaptionskip}{0cm}
-    \setlength{\belowcaptionskip}{0.2cm}
+ 
+%    \setlength{\abovecaptionskip}{0cm}
+%    \setlength{\belowcaptionskip}{0.2cm}
     \caption{Graph index and IVF index}
-    % \vspace{-2em} % 调整这个值来缩小空隙
+   
 \end{figure}
 
 
@@ -255,7 +252,6 @@ During the query process, given a query point $q$, the algorithm computes distan
 \setlength{\floatsep}{0cm}
 \begin{table*}[t]
 	\centering
-        \setlength{\abovecaptionskip}{0.05cm}
         %\setlength{\belowcaptionskip}{-0.3cm}
         
 	\caption{Comparison of AF-ANN search algorithms}
@@ -277,7 +273,7 @@ During the query process, given a query point $q$, the algorithm computes distan
 		\hline
 	\end{tabular}
 
-    \vspace{0.2em}
+  
 	\centering
     \footnotesize{
 	\begin{minipage}{\linewidth}
@@ -293,22 +289,21 @@ During the query process, given a query point $q$, the algorithm computes distan
 		\textit{Complex Boolean} refers to whether the algorithm supports advanced Boolean logic beyond just AND and OR, such as NOT or combinations like (A AND B) OR (C AND NOT D). 
 		\textit{Dynamic} indicates whether the algorithm supports the operation of dynamically inserting data points.
 	\end{minipage}}
-    \vspace{-0.5cm}
+  
 \end{table*}
 
 
 We provide an overview and analysis of 15 hybrid query methods, all drawn from recent studies, and collectively referred to as algorithms in the following. Specifically, Section~3.1 describes methods for attribute filtering, Section~3.2 discusses those for range filtering, and Section~3.3 introduces vector libraries and databases that support both attribute filtering and range filtering.
 
-\vspace{-10pt}
+
 \subsection{Attribute-Filtering Algorithms}
 
 We summarize 6 attribute-filtering algorithms and provide an intuitive comparison in Table~\ref{tab:compair_1}.
 
-\vspace{1em}
 \noindent\textbf{\underline{NHQ \cite{NHQ}.}}  
 Traditional attribute-filtering algorithms usually perform attribute constraints and ANN search separately. In contrast, NHQ is the first to implement simultaneous filtering, integrating both aspects into a unified framework. NHQ constructs an index based on a nearest neighbor graph and introduces a fusion distance that jointly captures vector similarity and attribute similarity. Leveraging this fusion distance, NHQ unifies vector similarity and attribute matching into a single comprehensive similarity measure and builds the graph accordingly. During the query process, NHQ efficiently prunes irrelevant edges via this composite index, enabling fast retrieval of results that satisfy both vector similarity and attribute constraints.
 
-\vspace{1em}
+
 \noindent\textbf{\underline{Filtered-DiskANN \cite{Filtered-diskann}.}}  
 The effectiveness of NHQ may degrade when the number of attributes changes, as it affects the fusion distance computation. Filtered-DiskANN addresses this limitation.
 
@@ -320,13 +315,13 @@ Filtered-DiskANN proposes 2 index variants:
 
 A key limitation of Filtered-DiskANN is that while it supports both single-attribute and multi-attribute filtering, it only supports the Boolean OR logic for multi-attribute filtering, lacking support for Boolean AND logic.
 
-\vspace{1em}
+
 \noindent\textbf{\underline{CAPS \cite{CAPS}.}} As graph-based methods, NHQ and Filtered-DiskANN often result in large index sizes. CAPS addresses this issue by being the first simultaneous filtering algorithm based on spatial partitioning, significantly reducing index size.
 
 CAPS introduces a hierarchical sub-partitioning algorithm inspired by Huffman trees, termed the Attribute Frequency Tree (AFT), to overcome the coarse granularity of traditional IVF-based methods. CAPS adopts a two-level partitioning strategy:  
 1) The first level clusters vectors based on similarity using K-Means or learning-based methods such as BLISS. 2) Within each cluster, AFT partitions data further based on attribute frequencies, enabling finer-grained indexing and improving query efficiency.
 
-\vspace{1em}
+
 \noindent\textbf{\underline{ACORN \cite{ACORN}.}}  
 Above simultaneous filtering methods struggle with large-scale, unbounded, or unknown predicate sets.
 %The above simultaneous filtering methods are less effective in scenarios involving large-scale, unbounded, or unknown predicate sets, where a predicate refers to a condition or rule used for filtering. 
@@ -339,7 +334,7 @@ ACORN includes 2 index variants:
 1) \textbf{ACORN-$\gamma$}, which expands neighbor lists during construction, increasing memory usage for higher performance.  
 2) \textbf{ACORN-1}, which extends neighbor lists by considering second-hop neighbors during search, reducing index size with minor performance loss.
 
-\vspace{1em}
+
 \noindent\textbf{\underline{UNG \cite{UNG}.}} Graph-based methods (NHQ, Filtered-DiskANN, ACO-\\RN) do not guarantee result completeness, while CAPS lacks robustness when base and query vectors differ in attribute cardinality. UNG is proposed to overcome both limitations.
 
 UNG is a unified framework that integrates diverse graph-based ANN indexes for hybrid query. It first groups the dataset by attribute sets, ensuring that vectors in each group share identical attributes. Then, it constructs a Label Navigating Graph (LNG) to encode inclusion relationships among attribute sets. Within each group, UNG builds graph-based ANN indexes (e.g., Vamana, HNSW) and connects them via cross-group edges to enable efficient cross-group search.
@@ -350,7 +345,7 @@ UNG supports Boolean filtering with 2 modes:
 
 
 
-\vspace{1em}
+
 \noindent\textbf{\underline{Puck \cite{puck}.}}  
 While simultaneous filtering performs well in most scenarios, it may underperform when only a small portion of data satisfies attribute constraints. In such cases, a pre-filtering strategy—applying attribute constraints prior to ANN search—can be more effective.
 
@@ -362,9 +357,9 @@ Developed by Baidu, Puck utilizes two-level quantization for indexing. It mainta
 \setlength{\floatsep}{0cm}
 \begin{table}[t]
 	\centering
-        \setlength{\abovecaptionskip}{0.05cm}
+%        \setlength{\abovecaptionskip}{0.05cm}
         %\setlength{\belowcaptionskip}{-0.3cm}
-        \setlength{\textfloatsep}{0cm}
+%        \setlength{\textfloatsep}{0cm}
 	\caption{Comparison of RF-ANN search algorithms}
 	\small	% 只会影响当前组的内容
 	\label{tab:range_algo}
@@ -380,7 +375,7 @@ Developed by Baidu, Puck utilizes two-level quantization for indexing. It mainta
 		\hline
 	\end{tabular}
 
-    \vspace{0.2em} % 调整间距
+  
 	\footnotesize{
             \begin{minipage}{\linewidth}
             \textsuperscript{Y} Support, 
@@ -396,19 +391,19 @@ Developed by Baidu, Puck utilizes two-level quantization for indexing. It mainta
 
 We introduce 5 representative range-filtering algorithms and present a comparative overview in Table~\ref{tab:range_algo}.
 
-\vspace{1em}
+
 \noindent\textbf{\underline{SeRF \cite{serf}.}}  
 Conventional RF-ANN search approaches typically follow one of two paradigms: 1) Conducting ANN search first followed by attribute-based filtering. 2) Filtering the dataset based on attribute ranges before performing ANN search. However, both approaches suffer from suboptimal performance. Building a separate neighbor graph (e.g., HNSW) for each attribute range could ensure efficient querying but incurs an $O(n^2)$ cost in constructing and storing $n$ graphs. Since many edges are shared across these graphs, SeRF introduces a validity-range aware design where each edge records the interval in which it is valid, indicating in which subgraphs the edge remains valid. This compresses $n$ graphs into a single unified graph, maintaining search effectiveness while significantly reducing memory and index construction overhead.
 
-\vspace{1em}
+
 \noindent\textbf{\underline{WinFilter \cite{winFilter}.}}  
 Unlike SeRF, which focuses on graph compression, WinFilter proposes a structural partitioning framework called the $\beta$-Window Search Tree ($\beta$-WST). After the dataset is sorted by attribute values, it is partitioned into multiple intervals and organized into a tree structure. Each node in the tree corresponds to an attribute range and maintains a local ANN index (e.g., Vamana). For a range-filtering query, WinFilter only searches within nodes overlapping the query range and merges partial results. With a tree height of $O(\log n)$, each query accesses at most $O(\log n)$ sub-indexes, resulting in significant speedups.
 
-\vspace{1em}
+
 \noindent\textbf{\underline{iRange \cite{iRangeGraph}.}}  
 To address the query efficiency degradation caused by the graph compression in SeRF, iRange adopts a more flexible strategy. Rather than prebuilding indexes for all possible ranges, it dynamically assembles a query-specific subgraph at runtime. iRange partitions the dataset into intervals based on attribute values and independently constructs a local graph for each interval, storing only edge information. During the query process, the relevant local graphs overlapping with the query range are merged into a temporary search graph, and a pruning strategy is applied to enable efficient search.
 
-\vspace{1em}
+
 \noindent\textbf{\underline{DSG \cite{DSG}.}}   
 Most RF-ANN search methods, such as iRange and WinFilter, are designed for static datasets. SeRF allows incremental insertion but requires ordered attributes. DSG introduces the first dynamic RF-ANN framework supporting data insertion with unordered attributes while maintaining efficient range filtering.
 DSG relies on two data structures: 1) A rectangle tree partitions query space into rectangular regions, each corresponding to a group of queries sharing nearest neighbors. 2) A dynamic segment graph is a neighbor graph where each edge is annotated with its valid attribute range.
@@ -416,7 +411,7 @@ With these structures, only few regions need updates when inserting new data. Du
 
 
 
-\vspace{1em}
+
 \noindent\textbf{\underline{UNIFY \cite{UNIFY}.}}  
 Unlike DSG, which relies on rectangle trees and range-aware edges, UNIFY adopts a segmentation-based approach and proposes a range query index structure. UNIFY introduces the Segmented Inclusive Graph (SIG), which partitions the dataset into segments by attribute and constructs an independent neighbor graph for each segment. These segment graphs are then integrated into a unified global graph. SIG adheres to a graph inclusiveness principle: any query subgraph can be composed from existing segment graphs, avoiding the need for range-specific index construction. Its hierarchical variant, HSIG, enhances SIG by incorporating the multilayer design of HNSW, skip lists, and edge bitmaps for efficient range localization and post-filtering pruning. UNIFY supports 3 filtering strategies—pre-filtering, post-filtering, and  simultaneous filtering—enabling robust and flexible performance across diverse application scenarios.
 
@@ -426,7 +421,7 @@ Unlike DSG, which relies on rectangle trees and range-aware edges, UNIFY adopts 
 
 The vector libraries and databases discussed in the following are not explicitly designed for hybrid query, but they support both attribute filtering and range filtering. Additionally, all the functionalities shown in Table 1 are also supported.
 
-\vspace{1em}
+
 \noindent\textbf{\underline{Faiss \cite{Faiss}.}} Faiss is a library designed for efficient similarity search and clustering of dense vectors. It supports various indexing structures, including IVF, Product Quantization (PQ) \cite{PQ}, and HNSW.
 
 In hybrid query scenarios, Faiss supports vector search with an ID selector, which is a bitmap aligned with the dataset size. Users can generate this selector by first applying custom attribute filtering methods. During the query process, Faiss excludes vectors based on the selector, enabling efficient integration of attribute filtering with ANN search.
@@ -437,19 +432,19 @@ In hybrid query scenarios, Faiss supports vector search with an ID selector, whi
 % Since this paper does not focus on query workload optimization, we adopt only the batch optimization strategy in our analysis.
 In addition, we adopt the batch optimization strategy of HQI~\cite{HQI} for the IVF index in Faiss. This strategy groups queries with the same filter conditions, performs filtering once per group, and then uses efficient matrix operations to perform batch vector similarity calculations.
 
-\vspace{1em}
+
 \noindent\textbf{\underline{PASE \cite{pase}.}}  
 PASE is a vector indexing plugin for the PostgreSQL database \cite{postgresql13.4}, supporting two index types: IVF\_Flat \cite{johnson2019billion} and HNSW. By leveraging database capabilities, PASE enables both attribute filtering and range filtering. We focus on the post-filtering strategy based on HNSW, which facilitate comparison with other methods.
 
 When a query request is received, PASE first obtains a candidate set using the HNSW index. It then applies the filtering conditions from the WHERE clause to refine the results. However, since the candidate set has a fixed size, low-selectivity filters may result in fewer than $k$ results being returned.
 
-\vspace{1em}
+
 \noindent\textbf{\underline{VBASE \cite{vbase}.}}  
 Similar to PASE, VBASE is a PostgreSQL-based vector indexing plugin supporting HNSW, SPTAG~\cite{sptag}, and SPANN~\cite{spann}. We focus on HNSW-based search.
 
 VBASE adopts a post-filtering strategy. However, it employs an iterative filtering mechanism: during index traversal, each node is immediately checked against the WHERE clause, and non-matching nodes are discarded. This avoids the issue in PASE where the final result set may contain fewer than $k$ results.
 
-\vspace{1em}
+
 \noindent\textbf{\underline{Milvus \cite{milvus}.}}  
 Unlike PASE and VBASE, which are database extensions, Milvus is an open-source vector database purpose-built for large-scale similarity search. It supports multiple index types, including HNSW, IVF\_Flat, and IVF\_PQ, and provides extensive optimization for real-world deployment.
 
@@ -470,7 +465,7 @@ Table~\ref{tab:datasets_combined} summarizes the key characteristics of all data
 \setlength{\floatsep}{0cm}
 \begin{table}[t]
 \centering
-% \vspace{-6pt} % 调整这个值来缩小空隙
+
 \setlength{\abovecaptionskip}{0.05cm}
 \setlength{\textfloatsep}{0.cm}
 \caption{Datassets}
@@ -535,41 +530,41 @@ We summarize the multi-threading capabilities of each algorithm in Table~\ref{ta
 % \subsubsection{\textbf{Attribute Filtering}}
 \begin{figure}[t]
     \centering
-        \setlength{\abovecaptionskip}{0.3cm}
-        \setlength{\belowcaptionskip}{0cm}
+%        \setlength{\abovecaptionskip}{0.3cm}
+%        \setlength{\belowcaptionskip}{0cm}
 
     % 上面的图例，居中并可通过 hspace 调整左右位置
     \hspace*{15pt} % 可调整的参数，负值左移，正值右移，例如 -20pt 或 20pt
     \includegraphics[width=0.94\columnwidth]{figures/indexData/legend_only.pdf} % 图例图片路径
-    \vspace{-12pt} % 使用负值拉近两张图的距离，可以根据需要调整
+  
     
     \begin{subfigure}{\columnwidth}
         \centering
-        \setlength{\abovecaptionskip}{0cm}
-        
-        \setlength{\belowcaptionskip}{-0.3cm}
+%        \setlength{\abovecaptionskip}{0cm}
+%        
+%        \setlength{\belowcaptionskip}{-0.3cm}
         \includegraphics[width=\linewidth]{figures/indexData/exp_7_build_time_comparison_query1.pdf}
         \caption{Index construction time}
         \label{fig:build_time_comparison_query1}
     \end{subfigure}
     
-    \vspace{0.3cm} % 增加间距
+   
 
     \begin{subfigure}{\columnwidth}
         \centering
-        \setlength{\abovecaptionskip}{0cm}
-        \setlength{\belowcaptionskip}{-0.3cm}
+%        \setlength{\abovecaptionskip}{0cm}
+%        \setlength{\belowcaptionskip}{-0.3cm}
         \includegraphics[width=\linewidth]{figures/indexData/exp_7_index_size_mb_comparison_query1.pdf}
         \caption{Index size}
         \label{fig:index_size_mb_comparison_query1}
     \end{subfigure}
 
-    \vspace{0.3cm} % 增加间距
+  
 
     \begin{subfigure}{\columnwidth}
         \centering
-        \setlength{\abovecaptionskip}{0cm}
-        \setlength{\belowcaptionskip}{-0.3cm}
+%        \setlength{\abovecaptionskip}{0cm}
+%        \setlength{\belowcaptionskip}{-0.3cm}
         \includegraphics[width=\linewidth]{figures/indexData/exp_7_memory_mb_comparison_query1.pdf}
         \caption{Peak memory usage}
         \label{fig:memory_mb_comparison_query1}
@@ -585,8 +580,8 @@ To investigate the performance of different attribute filtering algorithms durin
 
 \begin{figure*}
     \centering
-        \setlength{\abovecaptionskip}{0cm}
-    \setlength{\belowcaptionskip}{-0.4cm}
+%        \setlength{\abovecaptionskip}{0cm}
+%    \setlength{\belowcaptionskip}{-0.4cm}
     \includegraphics[width=\textwidth]{figures/exp/exp_1_1_SingleLabel_1thread.pdf}
     \caption{Single-Attribute Building and Query (single thread) }
     \label{fig:exp_1_1_SingleLabel_1thread}
@@ -594,8 +589,8 @@ To investigate the performance of different attribute filtering algorithms durin
 
 \begin{figure*}
     \centering
-    \setlength{\abovecaptionskip}{0cm}
-    \setlength{\belowcaptionskip}{-0.4cm}
+%    \setlength{\abovecaptionskip}{0cm}
+%    \setlength{\belowcaptionskip}{-0.4cm}
     \includegraphics[width=\textwidth]{figures/exp/exp_1_2_SingleLabel_16thread.pdf}
     \caption{Single-Attribute Building and Query (16 threads)}
     \label{fig:exp_1_2_SingleLabel_16thread}
@@ -652,12 +647,12 @@ In database systems (VBASE, PASE, Milvus), when the system builds both B+ tree a
 
 \begin{figure}[th]
     \centering
-    \setlength{\abovecaptionskip}{0cm}
-    \setlength{\belowcaptionskip}{-0.1cm}
+%    \setlength{\abovecaptionskip}{0cm}
+%    \setlength{\belowcaptionskip}{-0.1cm}
     % 上面的图例，居中并可通过 hspace 调整左右位置
     \hspace*{15pt} % 可调整的参数，负值左移，正值右移，例如 -20pt 或 20pt
     \includegraphics[width=0.98\columnwidth]{figures/exp/exp_2_legend.pdf} % 图例图片路径
-    \vspace{-10pt} % 使用负值拉近两张图的距离，可以根据需要调整
+  
     
     % 下面的子图，居中显示
     \includegraphics[width=0.8\columnwidth]{figures/exp/exp_2_1.pdf}
@@ -677,8 +672,8 @@ As shown in Figur \ref{fig:exp_2_1}, Puck achieves the best query performance, s
 
 \begin{figure*}
         \centering
-        \setlength{\abovecaptionskip}{0cm}
-        \setlength{\belowcaptionskip}{-0.4cm}
+%        \setlength{\abovecaptionskip}{0cm}
+%        \setlength{\belowcaptionskip}{-0.4cm}
         \includegraphics[width=\textwidth]{figures/exp/exp_4_1_MultiLabel_1thread.pdf}
         \caption{Multi-attribute build and query (single thread)}
         \label{fig:exp_4_1_MultiLabel_1thread}
@@ -686,8 +681,8 @@ As shown in Figur \ref{fig:exp_2_1}, Puck achieves the best query performance, s
 
 \begin{figure*}
         \centering
-        \setlength{\abovecaptionskip}{0cm}
-        \setlength{\belowcaptionskip}{-0.4cm}
+%        \setlength{\abovecaptionskip}{0cm}
+%        \setlength{\belowcaptionskip}{-0.4cm}
         \includegraphics[width=\textwidth]{figures/exp/exp_3_1.pdf}
         \caption{Effect of attribute distribution on query performance (single thread)}
         \label{fig:exp_3_1}
@@ -721,8 +716,8 @@ In contrast, VBASE exhibits the weakest robustness. As a post-filtering system, 
 
 \begin{figure}
     \centering
-    \setlength{\abovecaptionskip}{0cm}
-    \setlength{\belowcaptionskip}{-0.1cm}
+%    \setlength{\abovecaptionskip}{0cm}
+%    \setlength{\belowcaptionskip}{-0.1cm}
     \includegraphics[width=\columnwidth]{figures/exp/exp_5_1_1_SingleLabel_1thread.pdf}
     \caption{Effect of Single-Attribute Selectivity on Query}
     \label{fig:exp_5_1_1_SingleLabel_1thread}
@@ -746,8 +741,8 @@ This advantage stems from its pre-filtering strategy. Pre-filtering strategy sig
     % 第一行：单独一张大图
     \begin{subfigure}{\textwidth}
         \centering
-        \setlength{\abovecaptionskip}{0cm}
-        \setlength{\belowcaptionskip}{0cm}
+%        \setlength{\abovecaptionskip}{0cm}
+%        \setlength{\belowcaptionskip}{0cm}
         \includegraphics[width=\textwidth]{figures/exp/exp_5_2_1.pdf}
         \caption{Algorithms optimized for low AS levels.}
         \label{fig:exp_5_2_1}
@@ -758,8 +753,8 @@ This advantage stems from its pre-filtering strategy. Pre-filtering strategy sig
     % 第二行：两张子图，左侧宽度是右侧的两倍
     \begin{subfigure}{0.66\textwidth} % 2/3 宽度
         \centering
-        \setlength{\abovecaptionskip}{0cm}
-        \setlength{\belowcaptionskip}{0cm}
+%        \setlength{\abovecaptionskip}{0cm}
+%        \setlength{\belowcaptionskip}{0cm}
         \includegraphics[width=\textwidth]{figures/exp/exp_5_2_2.pdf}
         \caption{Algorithms optimized for high AS levels.}
         \label{fig:exp_5_2_2}
@@ -767,15 +762,15 @@ This advantage stems from its pre-filtering strategy. Pre-filtering strategy sig
     \hfill % 增加水平间距
     \begin{subfigure}{0.33\textwidth} % 1/3 宽度
         \centering
-        \setlength{\abovecaptionskip}{0cm}
-        \setlength{\belowcaptionskip}{0cm}
+%        \setlength{\abovecaptionskip}{0cm}
+%        \setlength{\belowcaptionskip}{0cm}
         \includegraphics[width=\textwidth]{figures/exp/exp_5_2_3.pdf}
         \caption{Algorithms insensitive to AS level.}
         \label{fig:exp_5_2_3}
     \end{subfigure}
     
-    \setlength{\abovecaptionskip}{0cm}
-    \setlength{\belowcaptionskip}{-0.4cm}
+%    \setlength{\abovecaptionskip}{0cm}
+%    \setlength{\belowcaptionskip}{-0.4cm}
     \caption{Different AS under the same algorithm}
     \label{fig:exp_5_2_combined}
 \end{figure*}
@@ -805,8 +800,8 @@ Milvus is mainly limited by system-level communication overhead, such as API lat
 
 \begin{figure*}
     \centering
-    \setlength{\abovecaptionskip}{0cm}
-    \setlength{\belowcaptionskip}{-0.4cm}
+%    \setlength{\abovecaptionskip}{0cm}
+%    \setlength{\belowcaptionskip}{-0.4cm}
     \includegraphics[width=\textwidth]{figures/exp/exp_6_1.pdf}
     \caption{Effect of dataset on Query}
     \label{fig:exp_6_1}
@@ -818,7 +813,7 @@ Milvus is mainly limited by system-level communication overhead, such as API lat
 \centering
 \setlength{\abovecaptionskip}{0.05cm}
 \caption{Time and space overhead of range filtering index construction}
-% \vspace{-7pt}
+
 \label{tab:Range Filtered}
 \resizebox{\columnwidth}{!}{
 \begin{tabular}{l l c c c c c }
@@ -886,8 +881,8 @@ In contrast, iRange achieves the lowest peak memory usage on WIT. It pre-builds 
 
 \begin{figure*}[htbp]
   \centering
-  \setlength{\abovecaptionskip}{0cm}
-    \setlength{\belowcaptionskip}{-0.4cm}
+%  \setlength{\abovecaptionskip}{0cm}
+%    \setlength{\belowcaptionskip}{-0.4cm}
   \includegraphics[width=\textwidth]{figures/exp/exp_8_2.pdf}
   \caption{RF-ANN search }
   \label{fig:exp_8_2}
@@ -917,8 +912,8 @@ It is important to note that this range query experiment is conducted under a fu
 % \end{figure*}
 \begin{figure*}[htbp]
     \centering
-    \setlength{\abovecaptionskip}{0cm}
-    \setlength{\belowcaptionskip}{-0.5cm}
+%    \setlength{\abovecaptionskip}{0cm}
+%    \setlength{\belowcaptionskip}{-0.5cm}
     \includegraphics[width=\textwidth]{figures/exp/exp_8_3.pdf}
     \caption{Dataset Effect on RF-ANN Search}
     \label{fig:exp_8_3}
@@ -965,7 +960,7 @@ S7: High-Recall Querying & UNG & WinFilter \\
 \end{tabular}
 }
 \label{tab:algo_scenarios}
-\vspace{-0.1cm}
+
 \end{table}
 
 
