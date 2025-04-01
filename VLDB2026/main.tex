@@ -25,7 +25,7 @@
 \newcommand\vldbauthors{\authors}
 \newcommand\vldbtitle{\shorttitle} 
 % leave empty if no availability url should be set
-\newcommand\vldbavailabilityurl{URL_TO_YOUR_ARTIFACTS}
+\newcommand\vldbavailabilityurl{https://github.com/zhujx001/Hybrid-ANNS-Experiment}
 % whether page numbers should be shown or not, use 'plain' for review versions, 'empty' for camera ready
 \newcommand\vldbpagestyle{plain} 
 
@@ -111,24 +111,23 @@ However, current evaluations lack unified benchmarking standards and systematic 
 \begingroup\small\noindent\raggedright\textbf{PVLDB Reference Format:}\\
 \vldbauthors. \vldbtitle. PVLDB, \vldbvolume(\vldbissue): \vldbpages, \vldbyear.\\
 \href{https://doi.org/\vldbdoi}{doi:\vldbdoi}
-\vspace{-0.1cm}
 \endgroup
 \begingroup
 \renewcommand\thefootnote{}\footnote{\noindent
-This work is licensed under the Creative Commons BY-NC-ND 4.0 International License. Visit \url{https://creativecommons.org/licenses/by-nc-nd/4.0/} to view a copy of this license. For any use beyond those covered by this license, obtain permission by emailing \href{mailto:info@vldb.org}{info@vldb.org}. Copyright is held by the owner/author(s). Publication rights licensed to the VLDB Endowment. \\
-\raggedright Proceedings of the VLDB Endowment, Vol. \vldbvolume, No. \vldbissue\ %
-ISSN 2150-8097. \\
-\href{https://doi.org/\vldbdoi}{doi:\vldbdoi} \\
+	This work is licensed under the Creative Commons BY-NC-ND 4.0 International License. Visit \url{https://creativecommons.org/licenses/by-nc-nd/4.0/} to view a copy of this license. For any use beyond those covered by this license, obtain permission by emailing \href{mailto:info@vldb.org}{info@vldb.org}. Copyright is held by the owner/author(s). Publication rights licensed to the VLDB Endowment. \\
+	\raggedright Proceedings of the VLDB Endowment, Vol. \vldbvolume, No. \vldbissue\ %
+	ISSN 2150-8097. \\
+	\href{https://doi.org/\vldbdoi}{doi:\vldbdoi} \\
 }\addtocounter{footnote}{-1}\endgroup
 %%% VLDB block end %%%
 
 %%% do not modify the following VLDB block %%
 %%% VLDB block start %%%
 \ifdefempty{\vldbavailabilityurl}{}{
-\vspace{.3cm}
-\begingroup\small\noindent\raggedright\textbf{PVLDB Artifact Availability:}\\
-The source code, data, and/or other artifacts have been made available at \url{https://github.com/zhujx001/Hybrid-ANNS}.
-\endgroup
+	\vspace{.3cm}
+	\begingroup\small\noindent\raggedright\textbf{PVLDB Artifact Availability:}\\
+	The source code, data, and/or other artifacts have been made available at \url{\vldbavailabilityurl}.
+	\endgroup
 }
 %%% VLDB block end %%%
 
@@ -784,7 +783,6 @@ This advantage stems from its pre-filtering strategy. Pre-filtering strategy sig
 
 According to the query performance trends of different algorithms under varying AS levels, we categorize the algorithms into 3 groups:
 
-\par
 (1) \textit{Algorithms optimized for low AS levels.}  
 This group includes ACORN-1, CAPS, StitchedVamana, UNG, Faiss, Puck, and Faiss+HQI\_Batch, as illustrated in Figure~\ref{fig:exp_5_2_1}.
 
