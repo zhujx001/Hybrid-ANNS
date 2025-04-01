@@ -3,9 +3,8 @@
 % The ACM Latex guide provides further information about the ACM template
 
 \documentclass[sigconf, nonacm]{acmart}
-\usepackage{fontspec}
+%\usepackage{fontspec}
 \usepackage{balance}
-% \usepackage{xeCJK}
 \usepackage{enumitem}
 \usepackage{multirow}
 % \usepackage{svg} % For SVG support
@@ -32,7 +31,7 @@
 \newcommand\vldbpagestyle{plain} 
 
 \begin{document}
-\begin{sloppypar}
+%\begin{sloppypar}
     
 
 \title{An Experimental Evaluation of Hybrid Query Algorithms}
@@ -67,14 +66,12 @@
  \institution{Huazhong University of Science and Technology}
 }
 
-\author{xxxxxxxx}
+\author{Yan Li}
 \affiliation{%
- \institution{Huazhong University of Science and Technology}
+ \institution{Wuhan University of Technology}
 }
 
-
-
-\author{xxxxxxxx}
+\author{Bolong Zheng}
 \affiliation{%
  \institution{Huazhong University of Science and Technology}
 }
@@ -101,11 +98,9 @@
 % The abstract is a short summary of the work to be presented in the
 % article.
 \begin{abstract}
-% Approximate Nearest Neighbor (ANN) search is a foundational technique in fields such as recommendation systems and information retrieval. However, in practical applications, users not only expect search results to be similar to the query in vector space but also to satisfy specific constraints, such as price ranges or categories. To meet these demands, researchers have proposed various hybrid query algorithms, including attribute filtering and range filtering. However, especially for attribute filtering, existing datasets often lack attribute values, and different researchers use varied testing configurations with simplified attribute value settings in their evaluations. Therefore, we select multiple real-world datasets and generate rich attribute values for various query scenarios, establishing a unified and comprehensive evaluation framework to compare these algorithms. Our study establishes a systematic taxonomy of hybrid query algorithms, exhaustively evaluates their time-space tradeoffs, performance, and robustness, and ultimately provides practical recommendations for different application scenarios.
-
 Recent studies demonstrate the significant practical value of hybrid queries, which integrate vector search with structured filters (e.g., attribute and range filtering) for refined retrieval.
 However, current evaluations lack unified benchmarking standards and systematic assessment methodologies. Existing studies not only fail to cover mainstream algorithms but also omit systematic comparisons or in-depth analyses of different methods. To address this issue, we design a complete evaluation framework for hybrid queries. Our study introduces 15 hybrid query algorithms and systematically classifies them based on multiple dimensions such as index organization and filtering strategy, providing a reference for the categorization of hybrid queries. In the experiments, for attribute filtering, we construct standarded attribute sets, enabling a unified comparison of algorithms in terms of index construction efficiency, query performance, and robustness. For range filtering, we systematically evaluate algorithm performance across these 3 metrics through controlled variation of query ranges. Additionally, we conduct an in-depth analysis of the experimental results based on the underlying principles of the algorithms. The extensive experimental results reveal the strengths and weaknesses of each algorithm. Based on these findings, we develop a set of practical guidelines for algorithm selection, offering reliable references for different application scenarios. Furthermore, we identify potential directions for improvement to address the current limitations of these algorithms.
-\vspace{-0.2cm}
+%\vspace{-0.2cm}
 \end{abstract}
 
 
@@ -990,10 +985,7 @@ Table~\ref{tab:algo_scenarios} also presents the application scenarios for range
 
 \subsection{Challenges}
 \subsubsection{\textbf{Attribute Filtering}}
-%修改语序
-Most existing attribute-filtering algorithms are graph-based, %and 
-they typically outperform other methods in terms of query accuracy and efficiency. However, graph-based algorithms often incur high indexing costs and significant memory overhead. In contrast, IVF algorithms  generally consume less memory but suffer from limited performance. Filtered−DiskANN leverages disk-based storage, making it more suitable for extremely large-scale datasets even in memory-constrained environments. Moreover, the index construction phase of graph-based algorithms is computationally intensive. Therefore, exploring GPU-based acceleration for graph construction and vector computation during indexing is promising. It can significantly improve the performance of graph-based methods.
-
+Most existing attribute-filtering algorithms are graph-based, they typically outperform other methods in terms of query accuracy and efficiency. However, graph-based algorithms often incur high indexing costs and significant memory overhead. In contrast, IVF algorithms generally consume less memory but suffer from limited performance. Filtered-DiskANN leverages disk-based storage, making it more suitable for extremely large-scale datasets even in memory-constrained environments. Moreover, the index construction phase of graph-based algorithms is computationally intensive. Therefore, exploring GPU-based acceleration for graph construction and vector computation during indexing is promising. It can significantly improve the performance of graph-based methods.
 
 Furthermore, current attribute-filtering algorithms offer limited support for complex filtering conditions. For example, Filtered-DiskANN  supports single-attribute filtering, and in multi-attribute scenarios, it only supports OR conditions between attributes. 
 %The original implementations of 
@@ -1020,6 +1012,6 @@ In this paper, we evaluate various hybrid query methods, including different alg
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{sample}
-\end{sloppypar}
+%\end{sloppypar}
 \end{document}
 \endinput
