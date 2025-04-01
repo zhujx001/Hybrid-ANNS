@@ -31,9 +31,8 @@
 
 \begin{document}
 %\begin{sloppypar}
-    
 
-\title{An Experimental Evaluation of Hybrid Query Algorithms}
+\title{An Experimental Evaluation of Hybrid Vector Search (EA\&B)}
 
 \author{Jiaxu Zhu}
 \affiliation{%
@@ -157,7 +156,6 @@ Despite BigANN 2023 \cite{bigann2023} evaluates the performance of some algorith
 3) It does not evaluate algorithm performance under different attribute distributions. However, variations in attribute distribution may directly affect the filtering strategies and index construction efficiency of hybrid query algorithms.
 
 Moreover, aside from BigANN, there is currently a lack of systematic evaluation specifically targeting hybrid query algorithms. To fill this gap, we conduct a comprehensive experimental evaluation of hybrid query algorithms, analyzing the index construction costs and query efficiency across different scenarios. Additionally, we further assess the robustness of each algorithm under varying conditions.
-
 
 
 \subsection{Our Contributions}
@@ -404,18 +402,13 @@ Conventional RF-ANN search approaches typically follow one of two paradigms: 1) 
 \noindent\textbf{\underline{WinFilter \cite{winFilter}.}}  
 Unlike SeRF, which focuses on graph compression, WinFilter proposes a structural partitioning framework called the $\beta$-Window Search Tree ($\beta$-WST). After the dataset is sorted by attribute values, it is partitioned into multiple intervals and organized into a tree structure. Each node in the tree corresponds to an attribute range and maintains a local ANN index (e.g., Vamana). For a range-filtering query, WinFilter only searches within nodes overlapping the query range and merges partial results. With a tree height of $O(\log n)$, each query accesses at most $O(\log n)$ sub-indexes, resulting in significant speedups.
 
-
 \noindent\textbf{\underline{iRange \cite{iRangeGraph}.}}  
 To address the query efficiency degradation caused by the graph compression in SeRF, iRange adopts a more flexible strategy. Rather than prebuilding indexes for all possible ranges, it dynamically assembles a query-specific subgraph at runtime. iRange partitions the dataset into intervals based on attribute values and independently constructs a local graph for each interval, storing only edge information. During the query process, the relevant local graphs overlapping with the query range are merged into a temporary search graph, and a pruning strategy is applied to enable efficient search.
-
 
 \noindent\textbf{\underline{DSG \cite{DSG}.}}   
 Most RF-ANN search methods, such as iRange and WinFilter, are designed for static datasets. SeRF allows incremental insertion but requires ordered attributes. DSG introduces the first dynamic RF-ANN framework supporting data insertion with unordered attributes while maintaining efficient range filtering.
 DSG relies on two data structures: 1) A rectangle tree partitions query space into rectangular regions, each corresponding to a group of queries sharing nearest neighbors. 2) A dynamic segment graph is a neighbor graph where each edge is annotated with its valid attribute range.
 With these structures, only few regions need updates when inserting new data. During the query process, the system considers only edges valid for current attribute range, boosting efficiency.
-
-
-
 
 \noindent\textbf{\underline{UNIFY \cite{UNIFY}.}}  
 Unlike DSG, which relies on rectangle trees and range-aware edges, UNIFY adopts a segmentation-based approach and proposes a range query index structure. UNIFY introduces the Segmented Inclusive Graph (SIG), which partitions the dataset into segments by attribute and constructs an independent neighbor graph for each segment. These segment graphs are then integrated into a unified global graph. SIG adheres to a graph inclusiveness principle: any query subgraph can be composed from existing segment graphs, avoiding the need for range-specific index construction. Its hierarchical variant, HSIG, enhances SIG by incorporating the multilayer design of HNSW, skip lists, and edge bitmaps for efficient range localization and post-filtering pruning. UNIFY supports 3 filtering strategies—pre-filtering, post-filtering, and  simultaneous filtering—enabling robust and flexible performance across diverse application scenarios.
@@ -783,7 +776,7 @@ This advantage stems from its pre-filtering strategy. Pre-filtering strategy sig
 According to the query performance trends of different algorithms under varying AS levels, we categorize the algorithms into 3 groups:
 
 (1) \textit{Algorithms optimized for low AS levels.}  
-This group includes ACORN-1, CAPS, StitchedVamana, UNG, Faiss, Puck, and Faiss+HQI\_Batch, as illustrated in Figure~\ref{fig:exp_5_2_1}.
+This group includes ACORN-1, Faiss+HQI\_Batch, StitchedVamana, UNG, Faiss, Puck, and CAPS, as illustrated in Figure~\ref{fig:exp_5_2_1}.
 
 ACORN-1 performs well in low AS scenarios because fewer nodes share the same attribute. This increases the average degree of retained nodes and improves graph connectivity. CAPS efficiently skips irrelevant subpartitions, reducing computational overhead. However, as AS increases, it must process more subpartitions and handle a larger dataset. StitchedVamana optimizes local adjacency using independent subgraphs, enabling fast localization at low AS. However, at higher AS levels, it requires broader global exploration. UNG, Faiss, and Puck all use pre-filtering strategies to shrink the search space in low AS conditions, leading to better performance.
 
