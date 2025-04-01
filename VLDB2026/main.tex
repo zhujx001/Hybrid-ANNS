@@ -141,8 +141,8 @@ Nevertheless, as application scenarios grow increasingly complex, simple ANN sea
 
 \begin{figure*}
     \centering
-%    \setlength{\abovecaptionskip}{0cm}
-%    \setlength{\belowcaptionskip}{-0.4cm}
+    \setlength{\abovecaptionskip}{0.1cm}
+    \setlength{\belowcaptionskip}{-0.2cm}
     \includegraphics[width=\textwidth]{figures/hybrid ANNS.pdf}
     \caption{Hybrid query example}
    
@@ -239,8 +239,8 @@ During the query process, given a query point $q$, the algorithm computes distan
         \label{fig:ivf}
     \end{subfigure}
  
-%    \setlength{\abovecaptionskip}{0cm}
-%    \setlength{\belowcaptionskip}{0.2cm}
+    \setlength{\abovecaptionskip}{0.1cm}
+    \setlength{\belowcaptionskip}{0.2cm}
     \caption{Graph index and IVF index}
    
 \end{figure}
@@ -253,7 +253,8 @@ During the query process, given a query point $q$, the algorithm computes distan
 \begin{table*}[t]
 	\centering
         %\setlength{\belowcaptionskip}{-0.3cm}
-        
+      \setlength{\abovecaptionskip}{0.1cm}
+     \setlength{\belowcaptionskip}{-0.2cm}
 	\caption{Comparison of AF-ANN search algorithms}
 	\small
 	\label{tab:compair_1}
@@ -271,12 +272,16 @@ During the query process, given a query point $q$, the algorithm computes distan
         % ParlayANN & Graph+IVF & B & N & N & Y & N & N & Y \\
 		
 		\hline
+
 	\end{tabular}
 
   
 	\centering
+%	 \setlength{\abovecaptionskip}{0cm}
+%	\setlength{\belowcaptionskip}{0.1cm}
     \footnotesize{
 	\begin{minipage}{\linewidth}
+		\vspace{0.1cm}
 		\textsuperscript{A} Post-filtering, 
 		\textsuperscript{B} Pre-filtering, 
 		\textsuperscript{C} Simultaneous filtering, 
@@ -289,7 +294,7 @@ During the query process, given a query point $q$, the algorithm computes distan
 		\textit{Complex Boolean} refers to whether the algorithm supports advanced Boolean logic beyond just AND and OR, such as NOT or combinations like (A AND B) OR (C AND NOT D). 
 		\textit{Dynamic} indicates whether the algorithm supports the operation of dynamically inserting data points.
 	\end{minipage}}
-  
+  \vspace{-0.3cm}
 \end{table*}
 
 
@@ -357,9 +362,9 @@ Developed by Baidu, Puck utilizes two-level quantization for indexing. It mainta
 \setlength{\floatsep}{0cm}
 \begin{table}[t]
 	\centering
-%        \setlength{\abovecaptionskip}{0.05cm}
-        %\setlength{\belowcaptionskip}{-0.3cm}
-%        \setlength{\textfloatsep}{0cm}
+        \setlength{\abovecaptionskip}{0.1cm}
+        \setlength{\belowcaptionskip}{-0.1cm}
+        \setlength{\textfloatsep}{0.1cm}
 	\caption{Comparison of RF-ANN search algorithms}
 	\small	% 只会影响当前组的内容
 	\label{tab:range_algo}
@@ -530,8 +535,8 @@ We summarize the multi-threading capabilities of each algorithm in Table~\ref{ta
 % \subsubsection{\textbf{Attribute Filtering}}
 \begin{figure}[t]
     \centering
-%        \setlength{\abovecaptionskip}{0.3cm}
-%        \setlength{\belowcaptionskip}{0cm}
+        \setlength{\abovecaptionskip}{0.3cm}
+        \setlength{\belowcaptionskip}{0cm}
 
     % 上面的图例，居中并可通过 hspace 调整左右位置
     \hspace*{15pt} % 可调整的参数，负值左移，正值右移，例如 -20pt 或 20pt
@@ -540,9 +545,8 @@ We summarize the multi-threading capabilities of each algorithm in Table~\ref{ta
     
     \begin{subfigure}{\columnwidth}
         \centering
-%        \setlength{\abovecaptionskip}{0cm}
-%        
-%        \setlength{\belowcaptionskip}{-0.3cm}
+        \setlength{\abovecaptionskip}{0cm}
+        \setlength{\belowcaptionskip}{-0.1cm}
         \includegraphics[width=\linewidth]{figures/indexData/exp_7_build_time_comparison_query1.pdf}
         \caption{Index construction time}
         \label{fig:build_time_comparison_query1}
@@ -552,8 +556,8 @@ We summarize the multi-threading capabilities of each algorithm in Table~\ref{ta
 
     \begin{subfigure}{\columnwidth}
         \centering
-%        \setlength{\abovecaptionskip}{0cm}
-%        \setlength{\belowcaptionskip}{-0.3cm}
+        \setlength{\abovecaptionskip}{0cm}
+        \setlength{\belowcaptionskip}{-0.1cm}
         \includegraphics[width=\linewidth]{figures/indexData/exp_7_index_size_mb_comparison_query1.pdf}
         \caption{Index size}
         \label{fig:index_size_mb_comparison_query1}
@@ -563,8 +567,8 @@ We summarize the multi-threading capabilities of each algorithm in Table~\ref{ta
 
     \begin{subfigure}{\columnwidth}
         \centering
-%        \setlength{\abovecaptionskip}{0cm}
-%        \setlength{\belowcaptionskip}{-0.3cm}
+        \setlength{\abovecaptionskip}{0cm}
+        \setlength{\belowcaptionskip}{-0.1cm}
         \includegraphics[width=\linewidth]{figures/indexData/exp_7_memory_mb_comparison_query1.pdf}
         \caption{Peak memory usage}
         \label{fig:memory_mb_comparison_query1}
@@ -647,8 +651,8 @@ In database systems (VBASE, PASE, Milvus), when the system builds both B+ tree a
 
 \begin{figure}[th]
     \centering
-%    \setlength{\abovecaptionskip}{0cm}
-%    \setlength{\belowcaptionskip}{-0.1cm}
+    \setlength{\abovecaptionskip}{0.1cm}
+    \setlength{\belowcaptionskip}{-0.1cm}
     % 上面的图例，居中并可通过 hspace 调整左右位置
     \hspace*{15pt} % 可调整的参数，负值左移，正值右移，例如 -20pt 或 20pt
     \includegraphics[width=0.98\columnwidth]{figures/exp/exp_2_legend.pdf} % 图例图片路径
@@ -672,8 +676,8 @@ As shown in Figur \ref{fig:exp_2_1}, Puck achieves the best query performance, s
 
 \begin{figure*}
         \centering
-%        \setlength{\abovecaptionskip}{0cm}
-%        \setlength{\belowcaptionskip}{-0.4cm}
+        \setlength{\abovecaptionskip}{0.1cm}
+        \setlength{\belowcaptionskip}{-0.4cm}
         \includegraphics[width=\textwidth]{figures/exp/exp_4_1_MultiLabel_1thread.pdf}
         \caption{Multi-attribute build and query (single thread)}
         \label{fig:exp_4_1_MultiLabel_1thread}
@@ -681,8 +685,8 @@ As shown in Figur \ref{fig:exp_2_1}, Puck achieves the best query performance, s
 
 \begin{figure*}
         \centering
-%        \setlength{\abovecaptionskip}{0cm}
-%        \setlength{\belowcaptionskip}{-0.4cm}
+\setlength{\abovecaptionskip}{0.1cm}
+\setlength{\belowcaptionskip}{-0.4cm}
         \includegraphics[width=\textwidth]{figures/exp/exp_3_1.pdf}
         \caption{Effect of attribute distribution on query performance (single thread)}
         \label{fig:exp_3_1}
@@ -716,8 +720,8 @@ In contrast, VBASE exhibits the weakest robustness. As a post-filtering system, 
 
 \begin{figure}
     \centering
-%    \setlength{\abovecaptionskip}{0cm}
-%    \setlength{\belowcaptionskip}{-0.1cm}
+    \setlength{\abovecaptionskip}{0.1cm}
+    \setlength{\belowcaptionskip}{-0.1cm}
     \includegraphics[width=\columnwidth]{figures/exp/exp_5_1_1_SingleLabel_1thread.pdf}
     \caption{Effect of Single-Attribute Selectivity on Query}
     \label{fig:exp_5_1_1_SingleLabel_1thread}
