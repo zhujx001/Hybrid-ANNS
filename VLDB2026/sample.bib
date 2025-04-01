@@ -1,0 +1,955 @@
+
+% Journals
+
+% First the Full Name is given, then the abbreviation used in the AMS Math
+% Reviews, with an indication if it could not be found there.
+% Note the 2nd overwrites the 1st, so swap them if you want the full name.
+
+ %{AMS}
+ @String{AMSTrans = "American Mathematical Society Translations" }
+ @String{AMSTrans = "Amer. Math. Soc. Transl." }
+ @String{BullAMS = "Bulletin of the American Mathematical Society" }
+ @String{BullAMS = "Bull. Amer. Math. Soc." }
+ @String{ProcAMS = "Proceedings of the American Mathematical Society" }
+ @String{ProcAMS = "Proc. Amer. Math. Soc." }
+ @String{TransAMS = "Transactions of the American Mathematical Society" }
+ @String{TransAMS = "Trans. Amer. Math. Soc." }
+
+ %ACM
+ @String{CACM = "Communications of the {ACM}" }
+ @String{CACM = "Commun. {ACM}" }
+ @String{CompServ = "Comput. Surveys" }
+ @String{JACM = "J. ACM" }
+ @String{ACMMathSoft = "{ACM} Transactions on Mathematical Software" }
+ @String{ACMMathSoft = "{ACM} Trans. Math. Software" }
+ @String{SIGNUM = "{ACM} {SIGNUM} Newsletter" }
+ @String{SIGNUM = "{ACM} {SIGNUM} Newslett." }
+
+ @String{AmerSocio = "American Journal of Sociology" }
+ @String{AmerStatAssoc = "Journal of the American Statistical Association" }
+ @String{AmerStatAssoc = "J. Amer. Statist. Assoc." }
+ @String{ApplMathComp = "Applied Mathematics and Computation" }
+ @String{ApplMathComp = "Appl. Math. Comput." }
+ @String{AmerMathMonthly = "American Mathematical Monthly" }
+ @String{AmerMathMonthly = "Amer. Math. Monthly" }
+ @String{BIT = "{BIT}" }
+ @String{BritStatPsych = "British Journal of Mathematical and Statistical
+          Psychology" }
+ @String{BritStatPsych = "Brit. J. Math. Statist. Psych." }
+ @String{CanMathBull = "Canadian Mathematical Bulletin" }
+ @String{CanMathBull = "Canad. Math. Bull." }
+ @String{CompApplMath = "Journal of Computational and Applied Mathematics" }
+ @String{CompApplMath = "J. Comput. Appl. Math." }
+ @String{CompPhys = "Journal of Computational Physics" }
+ @String{CompPhys = "J. Comput. Phys." }
+ @String{CompStruct = "Computers and Structures" }
+ @String{CompStruct = "Comput. \& Structures" }
+ @String{CompJour = "The Computer Journal" }
+ @String{CompJour = "Comput. J." }
+ @String{CompSysSci = "Journal of Computer and System Sciences" }
+ @String{CompSysSci = "J. Comput. System Sci." }
+ @String{Computing = "Computing" }
+ @String{ContempMath = "Contemporary Mathematics" }
+ @String{ContempMath = "Contemp. Math." }
+ @String{Crelle = "Crelle's Journal" }
+ @String{GiornaleMath = "Giornale di Mathematiche" }
+ @String{GiornaleMath = "Giorn. Mat." } % didn't find in AMS MR., ibid.
+
+ %IEEE
+ @String{Computer = "{IEEE} Computer" }
+ @String{IEEETransComp = "{IEEE} Transactions on Computers" }
+ @String{IEEETransComp = "{IEEE} Trans. Comput." }
+ @String{IEEETransAC = "{IEEE} Transactions on Automatic Control" }
+ @String{IEEETransAC = "{IEEE} Trans. Automat. Control" }
+ @String{IEEESpec = "{IEEE} Spectrum" } % didn't find in AMS MR
+ @String{ProcIEEE = "Proceedings of the {IEEE}" }
+ @String{ProcIEEE = "Proc. {IEEE}" } % didn't find in AMS MR
+ @String{IEEETransAeroElec = "{IEEE} Transactions on Aerospace and Electronic
+     Systems" }
+ @String{IEEETransAeroElec = "{IEEE} Trans. Aerospace Electron. Systems" }
+
+ @String{IMANumerAna = "{IMA} Journal of Numerical Analysis" }
+ @String{IMANumerAna = "{IMA} J. Numer. Anal." }
+ @String{InfProcLet = "Information Processing Letters" }
+ @String{InfProcLet = "Inform. Process. Lett." }
+ @String{InstMathApp = "Journal of the Institute of Mathematics and
+     its Applications" }
+ @String{InstMathApp = "J. Inst. Math. Appl." }
+ @String{IntControl = "International Journal of Control" }
+ @String{IntControl = "Internat. J. Control" }
+ @String{IntNumerEng = "International Journal for Numerical Methods in
+     Engineering" }
+ @String{IntNumerEng = "Internat. J. Numer. Methods Engrg." }
+ @String{IntSuper = "International Journal of Supercomputing Applications" }
+ @String{IntSuper = "Internat. J. Supercomputing Applic." } % didn't find
+%% in AMS MR
+ @String{Kibernetika = "Kibernetika" }
+ @String{JResNatBurStand = "Journal of Research of the National Bureau
+     of Standards" }
+ @String{JResNatBurStand = "J. Res. Nat. Bur. Standards" }
+ @String{LinAlgApp = "Linear Algebra and its Applications" }
+ @String{LinAlgApp = "Linear Algebra Appl." }
+ @String{MathAnaAppl = "Journal of Mathematical Analysis and Applications" }
+ @String{MathAnaAppl = "J. Math. Anal. Appl." }
+ @String{MathAnnalen = "Mathematische Annalen" }
+ @String{MathAnnalen = "Math. Ann." }
+ @String{MathPhys = "Journal of Mathematical Physics" }
+ @String{MathPhys = "J. Math. Phys." }
+ @String{MathComp = "Mathematics of Computation" }
+ @String{MathComp = "Math. Comp." }
+ @String{MathScand = "Mathematica Scandinavica" }
+ @String{MathScand = "Math. Scand." }
+ @String{TablesAidsComp = "Mathematical Tables and Other Aids to Computation" }
+ @String{TablesAidsComp = "Math. Tables Aids Comput." }
+ @String{NumerMath = "Numerische Mathematik" }
+ @String{NumerMath = "Numer. Math." }
+ @String{PacificMath = "Pacific Journal of Mathematics" }
+ @String{PacificMath = "Pacific J. Math." }
+ @String{ParDistComp = "Journal of Parallel and Distributed Computing" }
+ @String{ParDistComp = "J. Parallel and Distrib. Comput." } % didn't find
+%% in AMS MR
+ @String{ParComputing = "Parallel Computing" }
+ @String{ParComputing = "Parallel Comput." }
+ @String{PhilMag = "Philosophical Magazine" }
+ @String{PhilMag = "Philos. Mag." }
+ @String{ProcNAS = "Proceedings of the National Academy of Sciences
+                    of the USA" }
+ @String{ProcNAS = "Proc. Nat. Acad. Sci. U. S. A." }
+ @String{Psychometrika = "Psychometrika" }
+ @String{QuartMath = "Quarterly Journal of Mathematics, Oxford, Series (2)" }
+ @String{QuartMath = "Quart. J. Math. Oxford Ser. (2)" }
+ @String{QuartApplMath = "Quarterly of Applied Mathematics" }
+ @String{QuartApplMath = "Quart. Appl. Math." }
+ @String{RevueInstStat = "Review of the International Statisical Institute" }
+ @String{RevueInstStat = "Rev. Inst. Internat. Statist." }
+
+ %SIAM
+ @String{JSIAM = "Journal of the Society for Industrial and Applied
+     Mathematics" }
+ @String{JSIAM = "J. Soc. Indust. Appl. Math." }
+ @String{JSIAMB = "Journal of the Society for Industrial and Applied
+     Mathematics, Series B, Numerical Analysis" }
+ @String{JSIAMB = "J. Soc. Indust. Appl. Math. Ser. B Numer. Anal." }
+ @String{SIAMAlgMeth = "{SIAM} Journal on Algebraic and Discrete Methods" }
+ @String{SIAMAlgMeth = "{SIAM} J. Algebraic Discrete Methods" }
+ @String{SIAMAppMath = "{SIAM} Journal on Applied Mathematics" }
+ @String{SIAMAppMath = "{SIAM} J. Appl. Math." }
+ @String{SIAMComp = "{SIAM} Journal on Computing" }
+ @String{SIAMComp = "{SIAM} J. Comput." }
+ @String{SIAMMatrix = "{SIAM} Journal on Matrix Analysis and Applications" }
+ @String{SIAMMatrix = "{SIAM} J. Matrix Anal. Appl." }
+ @String{SIAMNumAnal = "{SIAM} Journal on Numerical Analysis" }
+ @String{SIAMNumAnal = "{SIAM} J. Numer. Anal." }
+ @String{SIAMReview = "{SIAM} Review" }
+ @String{SIAMReview = "{SIAM} Rev." }
+ @String{SIAMSciStat = "{SIAM} Journal on Scientific and Statistical
+     Computing" }
+ @String{SIAMSciStat = "{SIAM} J. Sci. Statist. Comput." }
+
+ @String{SoftPracExp = "Software Practice and Experience" }
+ @String{SoftPracExp = "Software Prac. Experience" } % didn't find in AMS MR
+ @String{StatScience = "Statistical Science" }
+ @String{StatScience = "Statist. Sci." }
+ @String{Techno = "Technometrics" }
+ @String{USSRCompMathPhys = "{USSR} Computational Mathematics and Mathematical
+     Physics" }
+ @String{USSRCompMathPhys = "{U. S. S. R.} Comput. Math. and Math. Phys." }
+ @String{VLSICompSys = "Journal of {VLSI} and Computer Systems" }
+ @String{VLSICompSys = "J. {VLSI} Comput. Syst." }
+ @String{ZAngewMathMech = "Zeitschrift fur Angewandte Mathematik und
+     Mechanik" }
+ @String{ZAngewMathMech = "Z. Angew. Math. Mech." }
+ @String{ZAngewMathPhys = "Zeitschrift fur Angewandte Mathematik und Physik" }
+ @String{ZAngewMathPhys = "Z. Angew. Math. Phys." }
+
+% Publishers % ================================================= |
+
+ @String{Academic = "Academic Press" }
+ @String{ACMPress = "{ACM} Press" }
+ @String{AdamHilger = "Adam Hilger" }
+ @String{AddisonWesley = "Addison-Wesley" }
+ @String{AllynBacon = "Allyn and Bacon" }
+ @String{AMS = "American Mathematical Society" }
+ @String{Birkhauser = "Birkha{\"u}ser" }
+ @String{CambridgePress = "Cambridge University Press" }
+ @String{Chelsea = "Chelsea" }
+ @String{ClaredonPress = "Claredon Press" }
+ @String{DoverPub = "Dover Publications" }
+ @String{Eyolles = "Eyolles" }
+ @String{HoltRinehartWinston = "Holt, Rinehart and Winston" }
+ @String{Interscience = "Interscience" }
+ @String{JohnsHopkinsPress = "The Johns Hopkins University Press" }
+ @String{JohnWileySons = "John Wiley and Sons" }
+ @String{Macmillan = "Macmillan" }
+ @String{MathWorks = "The Math Works Inc." }
+ @String{McGrawHill = "McGraw-Hill" }
+ @String{NatBurStd = "National Bureau of Standards" }
+ @String{NorthHolland = "North-Holland" }
+ @String{OxfordPress = "Oxford University Press" }  %address Oxford or London?
+ @String{PergamonPress = "Pergamon Press" }
+ @String{PlenumPress = "Plenum Press" }
+ @String{PrenticeHall = "Prentice-Hall" }
+ @String{SIAMPub = "{SIAM} Publications" }
+ @String{Springer = "Springer-Verlag" }
+ @String{TexasPress = "University of Texas Press" }
+ @String{VanNostrand = "Van Nostrand" }
+ @String{WHFreeman = "W. H. Freeman and Co." }
+
+%Entries
+
+@inproceedings{vbase,
+	title={$\{$VBASE$\}$: Unifying Online Vector Similarity Search and Relational Queries via Relaxed Monotonicity},
+	author={Zhang, Qianxi and Xu, Shuotao and Chen, Qi and Sui, Guoxin and Xie, Jiadong and Cai, Zhizhen and Chen, Yaoqi and He, Yinxuan and Yang, Yuqing and Yang, Fan and others},
+	booktitle={17th USENIX Symposium on Operating Systems Design and Implementation (OSDI 23)},
+	pages={377--395},
+	year={2023},
+}
+
+@misc{VectorDBBench,
+  author       = {Zilliz Tech},
+  title        = {VectorDBBench: A Benchmark for Vector Databases},
+  year         = {2024},
+  howpublished = {\url{https://github.com/zilliztech/VectorDBBench}}
+}
+
+@inproceedings{pase,
+  title={Pase: Postgresql ultra-high-dimensional approximate nearest neighbor search extension},
+  author={Yang, Wen and Li, Tao and Fang, Gai and Wei, Hong},
+  booktitle={Proceedings of the 2020 ACM SIGMOD international conference on management of data},
+  pages={2241--2253},
+  year={2020}
+}
+
+@inproceedings{milvus,
+  title={Milvus: A purpose-built vector data management system},
+  author={Wang, Jianguo and Yi, Xiaomeng and Guo, Rentong and Jin, Hai and Xu, Peng and Li, Shengjun and Wang, Xiangyu and Guo, Xiangzhou and Li, Chengming and Xu, Xiaohai and others},
+  booktitle={Proceedings of the 2021 International Conference on Management of Data},
+  pages={2614--2627},
+  year={2021}
+}
+
+@article{hnsw,
+  title={Efficient and robust approximate nearest neighbor search using hierarchical navigable small world graphs},
+  author={Malkov, Yu A and Yashunin, Dmitry A},
+  journal={IEEE transactions on pattern analysis and machine intelligence},
+  volume={42},
+  number={4},
+  pages={824--836},
+  year={2018},
+  publisher={IEEE}
+}
+
+@article{diskann,
+  title={Diskann: Fast accurate billion-point nearest neighbor search on a single node},
+  author={Jayaram Subramanya, Suhas and Devvrit, Fnu and Simhadri, Harsha Vardhan and Krishnawamy, Ravishankar and Kadekodi, Rohan},
+  journal={Advances in neural information processing Systems},
+  volume={32},
+  year={2019}
+}
+
+@ARTICLE{PQ,
+  author={Jégou, Herve and Douze, Matthijs and Schmid, Cordelia},
+  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence}, 
+  title={Product Quantization for Nearest Neighbor Search}, 
+  year={2011},
+  volume={33},
+  number={1},
+  pages={117-128},
+  keywords={Quantization;Nearest neighbor searches;Indexing;Neural networks;Euclidean distance;File systems;Scalability;Image databases;Permission;Electronic mail;High-dimensional indexing;image indexing;very large databases;approximate search.},
+  doi={10.1109/TPAMI.2010.57}}
+
+@article{faiss,
+      title={The Faiss library},
+      author={Matthijs Douze and Alexandr Guzhva and Chengqi Deng and Jeff Johnson and Gergely Szilvasy and Pierre-Emmanuel Mazaré and Maria Lomeli and Lucas Hosseini and Hervé Jégou},
+      year={2024},
+      eprint={2401.08281},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG}
+}
+
+@article{HQI,
+author = {Mohoney, Jason and Pacaci, Anil and Chowdhury, Shihabur Rahman and Mousavi, Ali and Ilyas, Ihab F. and Minhas, Umar Farooq and Pound, Jeffrey and Rekatsinas, Theodoros},
+title = {High-Throughput Vector Similarity Search in Knowledge Graphs},
+year = {2023},
+issue_date = {June 2023},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {1},
+number = {2},
+url = {https://doi.org/10.1145/3589777},
+doi = {10.1145/3589777},
+month = jun,
+articleno = {197},
+numpages = {25},
+keywords = {batch processing, hybrid vector similarity search, vector query processing}
+}
+
+@article{iRangeGraph,
+author = {Xu, Yuexuan and Gao, Jianyang and Gou, Yutong and Long, Cheng and Jensen, Christian S.},
+title = {iRangeGraph: Improvising Range-dedicated Graphs for Range-filtering Nearest Neighbor Search},
+year = {2024},
+issue_date = {December 2024},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {2},
+number = {6},
+url = {https://doi.org/10.1145/3698814},
+doi = {10.1145/3698814},
+month = dec,
+articleno = {239},
+numpages = {26},
+keywords = {high-dimensional vector, range-filtering approximate nearest neighbor search}
+}
+
+@article{serf,
+  title={SeRF: segment graph for range-filtering approximate nearest neighbor search},
+  author={Zuo, Chaoji and Qiao, Miao and Zhou, Wenchao and Li, Feifei and Deng, Dong},
+  journal={Proceedings of the ACM on Management of Data},
+  volume={2},
+  number={1},
+  pages={1--26},
+  year={2024},
+  publisher={ACM New York, NY, USA}
+}
+@article{UNG,
+  title={Navigating Labels and Vectors: A Unified Approach to Filtered Approximate Nearest Neighbor Search},
+  author={Cai, Yuzheng and others},
+  journal={Proceedings of the ACM on Management of Data},
+  volume={2},
+  number={6},
+  pages={1--27},
+  year={2024},
+  publisher={ACM New York, NY, USA}
+}
+@article{Filtered-diskann,
+  title={Filtered-diskann: Graph algorithms for approximate nearest neighbor search with filters},
+  author={Gollapudi, Siddharth and others},
+  journal={Proceedings of the ACM Web Conference},
+  year={2023},
+  publisher={ACM New York, NY, USA}
+}
+@article{CAPS,
+  title={CAPS: A practical partition index for filtered similarity search},
+  author={Gupta, Gaurav and others},
+  journal={arXiv preprint arXiv:2308.15014},
+  year={2023}
+}
+@article{UNIFY,
+  title={UNIFY: Unified Index for Range Filtered Approximate Nearest Neighbors Search},
+  author={Liang, Anqi and Zhang, Pengcheng and Yao, Bin and Chen, Zhongpu and Song, Yitong and Cheng, Guangxu},
+  journal={arXiv preprint arXiv:2412.02448},
+  year={2024}
+}
+@inproceedings{LID2,
+  title={Estimating local intrinsic dimensionality},
+  author={Amsaleg, Laurent and Chelly, Oussama and Furon, Teddy and Girard, St{\'e}phane and Houle, Michael E and Kawarabayashi, Ken-ichi and Nett, Michael},
+  booktitle={Proceedings of the 21th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining},
+  pages={29--38},
+  year={2015}
+}
+@article{Lid,
+  title={Approximate nearest neighbor search on high dimensional data—experiments, analyses, and improvement},
+  author={Li, Wen and Zhang, Ying and Sun, Yifang and Wang, Wei and Li, Mingjie and Zhang, Wenjie and Lin, Xuemin},
+  journal={IEEE Transactions on Knowledge and Data Engineering},
+  volume={32},
+  number={8},
+  pages={1475--1488},
+  year={2019},
+  publisher={IEEE}
+}
+@article{NHQ,
+  title={An efficient and robust framework for approximate nearest neighbor search with attribute constraint},
+  author={Wang, Mengzhao and Lv, Lingwei and Xu, Xiaoliang and Wang, Yuxiang and Yue, Qiang and Ni, Jiongkang},
+  journal={Advances in Neural Information Processing Systems},
+  volume={36},
+  pages={15738--15751},
+  year={2023}
+}
+@article{winFilter,
+  title={An efficient and robust framework for approximate nearest neighbor search with attribute constraint},
+  author={Wang, Mengzhao and Lv, Lingwei and Xu, Xiaoliang and Wang, Yuxiang and Yue, Qiang and Ni, Jiongkang},
+  journal={Advances in Neural Information Processing Systems},
+  volume={36},
+  pages={15738--15751},
+  year={2023}
+}
+@article{DSG,
+  title={Dynamic Range-Filtering Approximate Nearest Neighbor Search},
+  author={Peng, Zhencan and Qiao, Miao and Zhou, Wenchao and Li, Feifei and Deng, Dong}
+}
+@inproceedings{dimcurse,
+  title={Approximate nearest neighbors: towards removing the curse of dimensionality},
+  author={Indyk, Piotr and Motwani, Rajeev},
+  booktitle={Proceedings of the thirtieth annual ACM symposium on Theory of computing},
+  pages={604--613},
+  year={1998}
+}
+@article{oodgap,
+  title={Mind the gap: Understanding the modality gap in multi-modal contrastive representation learning},
+  author={Liang, Victor Weixin and Zhang, Yuhui and Kwon, Yongchan and Yeung, Serena and Zou, James Y},
+  journal={Advances in Neural Information Processing Systems},
+  volume={35},
+  pages={17612--17625},
+  year={2022}
+}
+@article{ood-yourdataisnotperfect,
+  title={Your data is not perfect: Towards cross-domain out-of-distribution detection in class-imbalanced data},
+  author={Fang, Xiang and Easwaran, Arvind and Genest, Blaise and Suganthan, Ponnuthurai Nagaratnam},
+  journal={Expert Systems with Applications},
+  volume={267},
+  pages={126031},
+  year={2025},
+  publisher={Elsevier}
+}
+
+  title={Ood-diskann: Efficient and scalable graph anns for out-of-distribution queries},
+  author={Jaiswal, Shikhar and Krishnaswamy, Ravishankar and Garg, Ankit and Simhadri, Harsha Vardhan and Agrawal, Sheshansh},
+  journal={arXiv preprint arXiv:2211.12850},
+  year={2022}
+}
+@article{ood-mindthegap,
+  title={Mind the gap: Understanding the modality gap in multi-modal contrastive representation learning},
+  author={Liang, Victor Weixin and Zhang, Yuhui and Kwon, Yongchan and Yeung, Serena and Zou, James Y},
+  journal={Advances in Neural Information Processing Systems},
+  volume={35},
+  pages={17612--17625},
+  year={2022}
+}
+@article{tian2023approximate,
+  title={Approximate Nearest Neighbor Search in High Dimensional Vector Databases: Current Research and Future Directions},
+  author={Tian, Yao and Yue, Ziyang and Zhang, Ruiyuan and Zhao, Xi and Zheng, Bolong and Zhou, Xiaofang},
+  journal={IEEE Data Eng. Bull.},
+  year={2023}
+}
+@article{roargraph,
+  title={RoarGraph: A Projected Bipartite Graph for Efficient Cross-Modal Approximate Nearest Neighbor Search},
+  author={Chen, Meng and Zhang, Kai and He, Zhenying and Jing, Yinan and Wang, X Sean},
+  journal={Proceedings of the VLDB Endowment},
+  volume={17},
+  number={11},
+  pages={2735--2749},
+  year={2024},
+  publisher={VLDB Endowment}
+}
+@article{HCNNG,
+  title={Hierarchical Clustering-Based Graphs for Large Scale Approximate Nearest Neighbor Search},
+  author={Munoz, Javier Vargas and Goncalves, Marcos A and Dias, Zanoni and Torres, Ricardo da S and others},
+  journal={VLDB},
+  year={2019},
+}
+@misc{pynndescent,
+  author       = {Leland McInnes},
+  title        = {PyNNDescent for Fast Approximate Nearest Neighbors},
+  year         = {2020},
+  howpublished = {\url{https://pynndescent.readthedocs.io/en/latest/}},
+  note         = {Accessed: 2022-12-15}
+}
+
+@misc{puck,
+  author = {Baidu},
+  title = {Puck: A High-Performance ANN Search Framework},
+  howpublished = {\url{https://github.com/baidu/puck}},
+  year = {2023},
+}
+@article{paylayann,
+    author = {Manohar M. D. and Shen Z. and Blelloch G. and et al.},
+    title = {ParlayANN: Scalable and Deterministic Parallel  Graph-Based Approximate Nearest Neighbor Search Algorithms},
+    journal = {Proceedings of the 29th ACM SIGPLAN Annual Symposium on Principles and Practice of Parallel Programming},
+    year = {2024},
+    pages = {270--285}
+}
+
+@article{bigann2023,
+  title={Results of the Big ANN: NeurIPS'23 competition},
+  author={Simhadri, Harsha Vardhan and Aum{\"u}ller, Martin and Ingber, Amir and Douze, Matthijs and Williams, George and Manohar, Magdalen Dobson and Baranchuk, Dmitry and Liberty, Edo and Liu, Frank and Landrum, Ben and others},
+  journal={arXiv preprint arXiv:2409.17424},
+  year={2024}
+}
+
+@article{ood-diskann,
+  title        = {OOD-DiskANN: Efficient and Scalable Graph ANNS for Out-of-Distribution Queries},
+  author       = {Shikhar Jaiswal and Ravishankar Krishnaswamy and Ankit Garg and Harsha Vardhan Simhadri and Sheshansh Agrawal},
+  year         = {2022},
+  journal      = {CoRR},
+  volume       = {abs/2211.12850},
+  doi          = {10.48550/arXiv.2211.12850},
+  url          = {https://doi.org/10.48550/arXiv.2211.12850},
+  archivePrefix= {arXiv},
+  eprint       = {2211.12850}
+}
+
+@article{ACORN,
+  title={Acorn: Performant and predicate-agnostic search over vector embeddings and structured data},
+  author={Patel, Liana and Kraft, Peter and Guestrin, Carlos and Zaharia, Matei},
+  journal={Proceedings of the ACM on Management of Data},
+  volume={2},
+  number={3},
+  pages={1--27},
+  year={2024},
+  publisher={ACM New York, NY, USA}
+}
+@article{analyticdb,
+  title={AnalyticDB-V: a hybrid analytical engine towards query fusion for structured and unstructured data},
+  author={Wei, Chuangxian and Wu, Bin and Wang, Sheng and Lou, Renjie and Zhan, Chaoqun and Li, Feifei and Cai, Yuanzhe},
+  journal={Proceedings of the VLDB Endowment},
+  volume={13},
+  number={12},
+  pages={3152--3165},
+  year={2020},
+  publisher={VLDB Endowment},
+  doi={10.14778/3415478.3415541},
+  url={https://doi.org/10.14778/3415478.3415541}
+}
+
+@misc{filteredVectorSearch,
+  title={Filtered Vector Search},
+  author={{Weaviate}},
+  year={n. d.},
+  howpublished={\url{https://weaviate.io/developers/weaviate/concepts/prefiltering}},
+  note={Accessed: 2023-03-21}
+}
+
+@article{monolith,
+  title={Monolith: real time recommendation system with collisionless embedding table},
+  author={Liu, Zhuoran and Zou, Leqi and Zou, Xuan and Wang, Caihua and Zhang, Biao and Tang, Da and Zhu, Bolin and Zhu, Yijie and Wu, Peng and Wang, Ke and others},
+  journal={arXiv preprint arXiv:2209.07663},
+  year={2022}
+}
+
+@inproceedings{Airbnb,
+author = {Haldar, Malay and Abdool, Mustafa and Ramanathan, Prashant and Xu, Tao and Yang, Shulin and Duan, Huizhong and Zhang, Qing and Barrow-Williams, Nick and Turnbull, Bradley C. and Collins, Brendan M. and Legrand, Thomas},
+title = {Applying Deep Learning to Airbnb Search},
+year = {2019},
+isbn = {9781450362016},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3292500.3330658},
+doi = {10.1145/3292500.3330658},
+booktitle = {Proceedings of the 25th ACM SIGKDD International Conference on Knowledge Discovery \& Data Mining},
+pages = {1927–1935},
+numpages = {9},
+keywords = {search ranking, e-commerce, deep learning},
+location = {Anchorage, AK, USA},
+series = {KDD '19}
+}
+
+@inproceedings{Related_Pins_at_Pinterest,
+author = {Liu, David C. and Rogers, Stephanie and Shiau, Raymond and Kislyuk, Dmitry and Ma, Kevin C. and Zhong, Zhigang and Liu, Jenny and Jing, Yushi},
+title = {Related Pins at Pinterest: The Evolution of a Real-World Recommender System},
+year = {2017},
+isbn = {9781450349147},
+publisher = {International World Wide Web Conferences Steering Committee},
+address = {Republic and Canton of Geneva, CHE},
+url = {https://doi.org/10.1145/3041021.3054202},
+doi = {10.1145/3041021.3054202},
+booktitle = {Proceedings of the 26th International Conference on World Wide Web Companion},
+pages = {583–592},
+numpages = {10},
+keywords = {recommendation systems, learning to rank, engineering challenges},
+location = {Perth, Australia},
+series = {WWW '17 Companion}
+}
+
+@inproceedings{okura2017embedding,
+  title={Embedding-based news recommendation for millions of users},
+  author={Okura, Shumpei and Tagami, Yukihiro and Ono, Shingo and Tajima, Akira},
+  booktitle={Proceedings of the 23rd ACM SIGKDD international conference on knowledge discovery and data mining},
+  pages={1933--1942},
+  year={2017}
+}
+
+@inproceedings{pal2020pinnersage,
+  title={Pinnersage: Multi-modal user embedding framework for recommendations at pinterest},
+  author={Pal, Aditya and Eksombatchai, Chantat and Zhou, Yitong and Zhao, Bo and Rosenberg, Charles and Leskovec, Jure},
+  booktitle={Proceedings of the 26th ACM SIGKDD International Conference on Knowledge Discovery \& Data Mining},
+  pages={2311--2320},
+  year={2020}
+}
+
+@inproceedings{wang2018billion,
+  title={Billion-scale commodity embedding for e-commerce recommendation in alibaba},
+  author={Wang, Jizhe and Huang, Pipei and Zhao, Huan and Zhang, Zhibo and Zhao, Binqiang and Lee, Dik Lun},
+  booktitle={Proceedings of the 24th ACM SIGKDD international conference on knowledge discovery \& data mining},
+  pages={839--848},
+  year={2018}
+}
+
+@inproceedings{wang2012scalable,
+  title={Scalable k-nn graph construction for visual descriptors},
+  author={Wang, Jing and Wang, Jingdong and Zeng, Gang and Tu, Zhuowen and Gan, Rui and Li, Shipeng},
+  booktitle={2012 IEEE Conference on Computer Vision and Pattern Recognition},
+  pages={1106--1113},
+  year={2012},
+  organization={IEEE}
+}
+
+
+@inproceedings{JD-e-commerce,
+  title={The design and implementation of a real time visual search system on JD e-commerce platform},
+  author={Li, J. and Liu, H. and Gui, C. and Chen, J. and Ni, Z. and Wang, N. and Chen, Y.},
+  booktitle={Proceedings of the 19th International Middleware Conference},
+  pages={9--16},
+  year={2018}
+}
+
+@inproceedings{vo2019composing,
+  title={Composing text and image for image retrieval - an empirical odyssey},
+  author={Vo, N. and Jiang, L. and Sun, C. and Murphy, K. and Li, L. and Fei-Fei, L. and Hays, J.},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  pages={6439--6448},
+  year={2019}
+}
+@inproceedings{qin2021highdimensional,
+  title={High-dimensional similarity query processing for data science},
+  author={Qin, J. and Wang, W. and Xiao, C. and Zhang, Y. and Wang, Y.},
+  booktitle={Proceedings of the 27th ACM SIGKDD Conference on Knowledge Discovery and Data Mining (SIGKDD)},
+  pages={4062--4063},
+  year={2021}
+}
+@inproceedings{silpaanan2008optimised,
+  title={Optimised kd-trees for fast image descriptor matching},
+  author={Silpa-Anan, C. and Hartley, R. I.},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  year={2008}
+}
+@article{arora2018hdindex,
+  title={Hd-index: Pushing the scalability-accuracy boundary for approximate knn search in high-dimensional spaces},
+  author={Arora, A. and Sinha, S. and Kumar, P. and Bhattacharya, A.},
+  journal={Proceedings of the VLDB Endowment (PVLDB)},
+  volume={11},
+  number={8},
+  pages={906--919},
+  year={2018}
+}
+@article{muja2014scalable,
+  title={Scalable nearest neighbor algorithms for high dimensional data},
+  author={Muja, M. and Lowe, D. G.},
+  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI)},
+  volume={36},
+  number={11},
+  pages={2227--2240},
+  year={2014}
+}
+@article{gong2020idec,
+  title={Idec: Indexable distance estimating codes for approximate nearest neighbor search},
+  author={Gong, L. and Wang, H. and Ogihara, M. and Xu, J.},
+  journal={Proceedings of the VLDB Endowment (PVLDB)},
+  volume={13},
+  number={9},
+  pages={1483--1497},
+  year={2020}
+}
+@inproceedings{li2020ioefficient,
+  title={I/O efﬁcient approximate nearest neighbour search based on learned functions},
+  author={Li, M. and Zhang, Y. and Sun, Y. and Wang, W. and Tsang, I. W. and Lin, X.},
+  booktitle={Proceedings of the IEEE International Conference on Data Engineering (ICDE)},
+  pages={289--300},
+  year={2020}
+}
+@inproceedings{guo2020accelerating,
+  title={Accelerating large-scale inference with anisotropic vector quantization},
+  author={Guo, R. and Sun, P. and Lindgren, E. and Geng, Q. and Simcha, D. and Chern, F. and Kumar, S.},
+  booktitle={Proceedings of the International Conference on Machine Learning (ICML)},
+  pages={3887--3896},
+  year={2020}
+}
+@article{andre2015cache,
+  title={Cache locality is not enough: High-performance nearest neighbor search with product quantization fast scan},
+  author={Andr{\'e}, F. and Kermarrec, A. and Scouarnec, N. L.},
+  journal={Proceedings of the VLDB Endowment (PVLDB)},
+  volume={9},
+  number={4},
+  pages={288--299},
+  year={2015}
+}
+@inproceedings{benchmarkindex,
+  title={Benchmarking nearest neighbor search: influence of local intrinsic dimensionality and result diversity in real-world datasets},
+  author={Aum{\"u}ller, Martin and Ceccarello, Matteo},
+  booktitle={Proceedings of the 1st Workshop on Evaluation and Experimental Design in Data Mining and Machine Learningco-located with SIAM International Conference on Data Mining (SDM 2019)},
+  volume={2436},
+  pages={14--23},
+  year={2019},
+  organization={CEUR-WS}
+}
+@article{fu2021high,
+  title={High dimensional similarity search with satellite system graph: Efficiency, scalability, and unindexed query compatibility},
+  author={Fu, C. and Wang, C. and Cai, D.},
+  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI)},
+  year={2021}
+}
+@article{malkov2020efficient,
+  title={Efficient and robust approximate nearest neighbor search using hierarchical navigable small world graphs},
+  author={Malkov, Y. A. and Yashunin, D. A.},
+  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI)},
+  volume={42},
+  number={4},
+  pages={824--836},
+  year={2020}
+}
+@inproceedings{ren2020hmann,
+  title={HM-ANN: Efficient billion-point nearest neighbor search on heterogeneous memory},
+  author={Ren, J. and Zhang, M. and Li, D.},
+  booktitle={Proceedings of the 34th Conference on Neural Information Processing Systems (NeurIPS)},
+  year={2020}
+}
+@misc{texttoimage,
+  author={Babenko, Artem and Baranchuk, Dmitry},
+  title={Text-to-Image dataset for billion-scale similarity search},
+  year={2021},
+  howpublished={\url{https://research.yandex.com/datasets/text-to-image-dataset-for-billion-scale-similarity-search}},
+  note={Retrieved August 23, 2023}
+}
+@inproceedings{webrid,
+  title={Frozen in Time: A Joint Video and Image Encoder for End-to-End Retrieval},
+  author={Bain, Max and Nagrani, Arsha and Varol, G{\"u}l and Zisserman, Andrew},
+  booktitle={Proceedings of the IEEE International Conference on Computer Vision (ICCV)},
+  year={2021}
+}
+@article{compare,
+  title={A comprehensive survey and experimental comparison of graph-based approximate nearest neighbor search},
+  author={Wang, Mengzhao and Xu, Xiaoliang and Yue, Qiang and Wang, Yuxiang},
+  journal={arXiv preprint arXiv:2101.12631},
+  year={2021}
+}
+@article{survey,
+  title={Survey of vector database management systems},
+  author={Pan, James Jie and Wang, Jianguo and Li, Guoliang},
+  journal={The VLDB Journal},
+  volume={33},
+  number={5},
+  pages={1591--1615},
+  year={2024},
+  publisher={Springer}
+}
+@article{AIRSHIP,
+  title={Constrained Approximate Similarity Search on Proximity Graph},
+  author={Zhao, Weijie and Tan, Shulong and Li, Ping},
+  year={2022},
+  month={Oct}
+}
+@inproceedings{HQANN,
+  title={HQANN: Efficient and robust similarity search for hybrid queries with structured and unstructured constraints},
+  author={Wu, Wei and He, Junlin and Qiao, Yu and Fu, Guoheng and Liu, Li and Yu, Jin},
+  booktitle={Proceedings of the 31st ACM International Conference on Information and Knowledge Management (CIKM)},
+  pages={4580--4584},
+  year={2022}
+}
+
+@misc{postgresql13.4,
+  author = {{PostgreSQL Global Development Group}},
+  title = {{PostgreSQL}},
+  version = {13.4},
+  howpublished = {\url{https://github.com/postgres/postgres/tree/REL_13_4}},
+  year = {2020}
+}
+@article{glove,
+  title={Approximate nearest neighbor search on high dimensional data—experiments, analyses, and improvement},
+  author={Li, Wen and Zhang, Ying and Sun, Yifang and Wang, Wei and Li, Mingjie and Zhang, Wenjie and Lin, Xuemin},
+  journal={IEEE Transactions on Knowledge and Data Engineering},
+  volume={32},
+  number={8},
+  pages={1475--1488},
+  year={2019},
+  publisher={IEEE}
+}
+
+@article{nsw,
+  title={Approximate nearest neighbor algorithm based on navigable small world graphs},
+  author={Malkov, Yury and Ponomarenko, Alexander and Logvinov, Andrey and Krylov, Vladimir},
+  journal={Information Systems},
+  volume={45},
+  pages={61--68},
+  year={2014},
+  publisher={Elsevier}
+}
+
+@article{spann,
+  title={Spann: Highly-efficient billion-scale approximate nearest neighborhood search},
+  author={Chen, Qi and Zhao, Bing and Wang, Haidong and Li, Mingqin and Liu, Chuanjie and Li, Zengzhong and Yang, Mao and Wang, Jingdong},
+  journal={Advances in Neural Information Processing Systems},
+  volume={34},
+  pages={5199--5212},
+  year={2021}
+}
+
+@misc{sptag,
+  author = {Qi Chen and Haidong Wang and Mingqin Li and Gang Ren and Scarlett Li and Jeffery Zhu and Jason Li and Chuanjie Liu and Lintao Zhang and Jingdong Wang},
+  title = {SPTAG: A library for fast approximate nearest neighbor search},
+  year = {2018},
+  howpublished = {\url{https://github.com/microsoft/SPTAG}},
+}
+@inproceedings{1998approximate,
+  title={Approximate nearest neighbors: towards removing the curse of dimensionality},
+  author={Indyk, Piotr and Motwani, Rajeev},
+  booktitle={Proceedings of the thirtieth annual ACM symposium on Theory of computing},
+  pages={604--613},
+  year={1998}
+}
+@inproceedings{1998quantitative,
+  title={A quantitative analysis and performance study for similarity-search methods in high-dimensional spaces},
+  author={Weber, Roger and Schek, Hans-J{\"o}rg and Blott, Stephen},
+  booktitle={VLDB},
+  volume={98},
+  pages={194--205},
+  year={1998}
+}
+@article{kd-tree,
+  title={Multidimensional binary search trees used for associative searching},
+  author={Bentley, Jon Louis},
+  journal={Communications of the ACM},
+  volume={18},
+  number={9},
+  pages={509--517},
+  year={1975},
+  publisher={ACM New York, NY, USA}
+}
+@article{balltree,
+  title={Five balltree construction algorithms},
+  author={Omohundro, Stephen M},
+  year={1989},
+  publisher={Citeseer}
+}
+@article{2017billion,
+  title={Billion-scale similarity search with GPUs},
+  author={Johnson, Jeff and Douze, Matthijs and J{\'e}gou, Herv{\'e}},
+  journal={arXiv preprint arXiv:1702.08734},
+  year={2017}
+}
+@misc{msong2011,
+  author = {{Anon}},
+  year = {2011},
+  title = {Million Song Dataset Benchmarks},
+  howpublished = {\url{http://www.ifs.tuwien.ac.at/mir/msd/}}
+}
+
+@misc{audio_unknown,
+  author = {{Anon}},
+  year = {unknown},
+  title = {TIMIT Audio},
+  howpublished = {\url{https://www.cs.princeton.edu/cass/demos.htm}}
+}
+
+@misc{sift2010,
+  author = {{Anon}},
+  year = {2010},
+  title = {Datasets for approximate nearest neighbor search},
+  howpublished = {\url{http://corpus-texmex.irisa.fr/}}
+}
+
+@misc{glove2015,
+  author = {Pennington, Jeffrey and Socher, Richard and Manning, Christopher D.},
+  year = {2015},
+  title = {GloVe: Global Vectors for Word Representation},
+  howpublished = {\url{https://nlp.stanford.edu/projects/glove/}}
+}
+
+@misc{enron2015,
+  author = {Stewart, Russell and Manning, Christopher and Pennington, Jeffrey},
+  year = {2015},
+  title = {Enron Email Dataset},
+  howpublished = {\url{https://www.cs.cmu.edu/~./enron/}}
+}
+@misc{wit_dataset,
+  title={WIT: Wikipedia-based Image Text Dataset},
+  url={https://github.com/google-research-datasets/wit}
+}
+@misc{youtube8m_dataset,
+  title={YouTube-8M: A Large-Scale Video Classification Benchmark},
+  url={https://research.google.com/youtube8m/download.html}
+}
+@misc{yandex_deep_dataset,
+  author = {Dmitry Baranchuk and Artem Babenko},
+  title = {Benchmarks for Billion-Scale Similarity Search},
+  url = {https://research.yandex.com/blog/benchmarks-for-billion-scale-similarity-search},
+  note = {DEEP dataset description and download information}
+}
+
+@inproceedings{kgraph,
+  title={Efficient k-nearest neighbor graph construction for generic similarity measures},
+  author={Dong, Wei and Moses, Charikar and Li, Kai},
+  booktitle={Proceedings of the 20th international conference on World wide web},
+  pages={577--586},
+  year={2011}
+}
+@article{nsg,
+  title={Fast approximate nearest neighbor search with the navigating spreading-out graph},
+  author={Fu, Cong and Xiang, Chao and Wang, Changxu and Cai, Deng},
+  journal={arXiv preprint arXiv:1707.00143},
+  year={2017}
+}
+
+@inproceedings{fanng,
+  title={Fanng: Fast approximate nearest neighbour graphs},
+  author={Harwood, Ben and Drummond, Tom},
+  booktitle={Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition},
+  pages={5713--5722},
+  year={2016}
+}
+
+@inproceedings{ngt,
+  title={Pruned bi-directed k-nearest neighbor graph for proximity search},
+  author={Iwasaki, Masajiro},
+  booktitle={International Conference on Similarity Search and Applications},
+  pages={20--33},
+  year={2016},
+  organization={Springer}
+}
+@article{cover1967nearest,
+  title={Nearest neighbor pattern classification},
+  author={Cover, Thomas and Hart, Peter},
+  journal={IEEE transactions on information theory},
+  volume={13},
+  number={1},
+  pages={21--27},
+  year={1967},
+  publisher={IEEE}
+}
+@inproceedings{weber1998quantitative,
+  title={A quantitative analysis and performance study for similarity-search methods in high-dimensional spaces},
+  author={Weber, Roger and Schek, Hans-J{\"o}rg and Blott, Stephen},
+  booktitle={Proceedings of the 24rd International Conference on Very Large Data Bases (VLDB)},
+  pages={194--205},
+  year={1998},
+  organization={Morgan Kaufmann}
+}
+@inproceedings{arya1998optimal,
+  title={An optimal algorithm for approximate nearest neighbor searching fixed dimensions},
+  author={Arya, Sunil and Mount, David M and Netanyahu, Nathan S and Silverman, Ruth and Wu, Angela Y},
+  booktitle={Proceedings of the ninth annual ACM-SIAM symposium on Discrete algorithms},
+  pages={573--582},
+  year={1998}
+}
+@article{beis1997shape,
+  title={Shape indexing using approximate nearest-neighbour search in high-dimensional spaces},
+  author={Beis, Jeffrey S and Lowe, David G},
+  journal={CVPR},
+  pages={1000--1006},
+  year={1997}
+}
+@inproceedings{gionis1999similarity,
+  title={Similarity search in high dimensions via hashing},
+  author={Gionis, Aristides and Indyk, Piotr and Motwani, Rajeev},
+  booktitle={VLDB},
+  volume={99},
+  pages={518--529},
+  year={1999}
+}
+@article{malkov2018efficient,
+  title={Efficient and robust approximate nearest neighbor search using hierarchical navigable small world graphs},
+  author={Malkov, Yu A and Yashunin, Dmitry A},
+  journal={IEEE TPAMI},
+  volume={42},
+  number={4},
+  pages={824--836},
+  year={2018}
+}
+@article{johnson2019billion,
+  title={Billion-scale similarity search with GPUs},
+  author={Johnson, Jeff and Douze, Matthijs and J{\'e}gou, Herv{\'e}},
+  journal={IEEE Transactions on Big Data},
+  volume={7},
+  number={3},
+  pages={535--547},
+  year={2019},
+  doi={10.1109/TBDATA.2019.2921572}
+}
