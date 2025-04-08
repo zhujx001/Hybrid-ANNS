@@ -608,7 +608,7 @@ As shown in the Figure~\ref{fig:index_size_mb_comparison_query1}, PASE exhibits 
 
 
 \textit{\textbf{Peak memory usage.}}
-As shown in Figure~\ref{fig:memory_mb_comparison_query1}, on small-scale datasets, all methods except NHQ exhibit low memory usage. The substantially higher memory consumption of NHQ is attributed to its graph construction procedure, which requires loading the entire dataset into memory. On large-scale datasets, CPAS exhibits slightly lower memory usage compared to other algorithms. Due to their special characteristics, databases are not included in the peak memory usage testing during index construction.
+As shown in Figure~\ref{fig:memory_mb_comparison_query1}, on small-scale datasets, all methods except NHQ exhibit low memory usage. This is because NHQ adopts the kgraph approach for index construction, which requires loading the entire graph data into memory and maintaining a complete graph structure, leading to relatively high memory overhead. On large-scale datasets, CPAS exhibits slightly lower memory usage compared to other algorithms. Due to their special characteristics, databases are not included in the peak memory usage testing during index construction.
 
 
 
@@ -974,7 +974,7 @@ Table~\ref{tab:algo_scenarios} also presents the application scenarios for range
 
 \subsection{Challenges}
 \subsubsection{\textbf{Attribute Filtering}}
-Most existing attribute-filtering algorithms are graph-based, they typically outperform other methods in terms of query accuracy and efficiency. However, graph-based algorithms often incur high indexing costs and significant memory overhead. In contrast, IVF algorithms generally consume less memory but suffer from limited performance. Filtered-DiskANN leverages disk-based storage, making it more suitable for extremely large-scale datasets even in memory-constrained environments. Moreover, the index construction phase of graph-based algorithms is computationally intensive. Therefore, exploring GPU-based acceleration for graph construction and vector computation during indexing is promising. It can significantly improve the performance of graph-based methods.
+Most existing attribute-filtering algorithms are graph-based, they typically outperform other methods in terms of query accuracy and efficiency. Filtered-DiskANN leverages disk-based storage, making it more suitable for extremely large-scale datasets even in memory-constrained environments. Moreover, the index construction phase of graph-based algorithms is computationally intensive. Therefore, exploring GPU-based acceleration for graph construction and vector computation during indexing is promising. It can significantly improve the performance of graph-based methods.
 
 Furthermore, current attribute-filtering algorithms offer limited support for complex filtering conditions. For example, Filtered-DiskANN  supports single-attribute filtering, and in multi-attribute scenarios, it only supports OR conditions between attributes. 
 %The original implementations of 
