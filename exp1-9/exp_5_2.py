@@ -16,39 +16,47 @@ data_path = "/data/result"  # 请修改为实际路径
 libertine_font = fm.FontProperties(
     fname='/usr/share/fonts/opentype/linux-libertine/LinLibertine_R.otf')
 # 基础颜色列表
-colors = [
-    '#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', 
-    '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf',
-    '#1a55FF', '#FF4444', '#47D147', '#AA44FF', '#FF9933',
-    '#66CCCC', '#CC99FF', '#FF66B2', '#99CC00', '#47d147'
+colors = [ # 主色系（增强饱和度）
+ '#F39C12', # 深邃蓝（原#5E81AC提纯）
+ '#6EC1E0', # 电光冰蓝（原#88C0D0去灰）
+ '#E74C3C', # 警报红（原#BF616A加深）
+
+ '#2ECC71', # 翡翠绿
+
+ # 辅助色（强化对比）
+ '#48D1CC', # 土耳其蓝
+ '#9B59B6', # 宝石紫（原#B48EAD增饱和）
+ '#E67E22', # 南瓜橙（替换原#D08770）
+ '#8FCB6B', # 苹果绿（原#A3BE8C增艳）
+ '#3498DB', # 荧光蓝（原#81A1C1提亮）
 ]
 
 plot_params = {
-    'markersize': 4,                # 标记大小
-    'markerfacecolor': (1, 1, 1, 0.8),     # 标记填充颜色（白色）
-    'markeredgewidth': 1,         # 标记边缘宽度
-    'linewidth': 1.2           # 线条粗细
-}
-
-plot_legend_params = {
     'markersize': 6,                # 标记大小
     'markerfacecolor': (1, 1, 1, 0.8),     # 标记填充颜色（白色）
     'markeredgewidth': 1,         # 标记边缘宽度
     'linewidth': 1.2           # 线条粗细
 }
 
+plot_legend_params = {
+    'markersize': 8,                # 标记大小
+    'markerfacecolor': (1, 1, 1, 0.8),     # 标记填充颜色（白色）
+    'markeredgewidth': 1,         # 标记边缘宽度
+    'linewidth': 1.2           # 线条粗细
+}
+
 line_styles = ['-', '--', '-.', '-', '--', '-.', '-', '--', '-.', '-', '--', '-.']
-markers = ['o', 's', '^', 'D', 'v', 'p', 'h', 'X', '*', '+', 'x', '|', '1', '2', '3', '4']
+markers = ['o', 's', '^', 'D', 'v', 'p', 'h', 'X', '*', 'P', 'x', 'd', '8', 'H', '6', '4']
 
 selectivity_mapping = {
-    '3_1': 'selectivity 1%',
-    '3_2': 'selectivity 25%',
-    '3_3': 'selectivity 50%',
-    '3_4': 'selectivity 75%',
-    '7_1': 'selectivity 1%',
-    '7_2': 'selectivity 25%',
-    '7_3': 'selectivity 50%',
-    '7_4': 'selectivity 75%',
+    '3_1': 'AS 1%',
+    '3_2': 'AS 25%',
+    '3_3': 'AS 50%',
+    '3_4': 'AS 75%',
+    '7_1': 'AS 1%',
+    '7_2': 'AS 25%',
+    '7_3': 'AS 50%',
+    '7_4': 'AS 75%',
 }
 
 # 全局字典存储所有算法的样式信息
@@ -228,7 +236,7 @@ def plot_5_2_1_comparison(all_data):
 
     query_set = ['3_1', '3_2', '3_3', '3_4'] # 这里假设我们只关心查询集1
     datasets = 'sift'
-    single_thread_algs = ['ACORN-1', 'CAPS', 'StitchedVamana', 'UNG', 'faiss', 'faiss+HQI_Batch','puck-16', 'parlayivf-16']
+    single_thread_algs = ['ACORN-1', 'CAPS', 'StitchedVamana', 'UNG', 'Faiss', 'Faiss+HQI_Batch','Puck']
     
     # 创建全局颜色字典，确保同一算法无论单线程还是16线程都使用相同颜色
    
@@ -240,10 +248,10 @@ def plot_5_2_1_comparison(all_data):
         algorithm_line_styles[query] = line_styles[i % len(line_styles)]
         algorithm_markers[query] = markers[i % len(markers)]
 
-    fig = plt.figure(figsize=(40, 3.8))
+    fig = plt.figure(figsize=(38, 4.1))
     
     # 调整上下间距，给图例留出空间
-    gs = GridSpec(1, 8, figure=fig, wspace=0.15, hspace=0.25,  top=0.85, bottom=0.1)
+    gs = GridSpec(1, 7, figure=fig, wspace=0.15, hspace=0.25,  top=0.85, bottom=0.1)
 
     plotted_algs = set()
     
@@ -255,8 +263,8 @@ def plot_5_2_1_comparison(all_data):
     for col, alg in enumerate(single_thread_algs):
 
         # 绘制单线程图 (第一行)
-        row = col // 8
-        col = col % 8
+        row = col // 7
+        col = col % 7
         ax_single = fig.add_subplot(gs[row, col])
 
         # 收集单线程图的Y轴数据，为每个算法单独收集
@@ -359,8 +367,8 @@ def plot_5_2_2_comparison(all_data):
     plotted_algs = set()
     
     # 多线程算法列表
-    alg_set_1 = ['NHQ', 'FilteredVamana', 'vbase', 'pase']
-    alg_set_2 = ['milvus', 'ACORN-γ']
+    alg_set_1 = ['NHQ', 'FilteredVamana', 'VBASE', 'PASE']
+    alg_set_2 = ['Milvus', 'ACORN-γ']
     
     # 遍历所有算法
     for col, alg in enumerate(alg_set_1):
