@@ -847,6 +847,7 @@ SIFT1M and Msong are similar datasets, with the key difference being that SIFT1M
 
 Most algorithms struggle to achieve high recall on GloVe, because it has the highest LID. Compare to other algorithms, the 4 algorithms (UNG, Faiss, CAPS, and Milvus) manage to maintain relatively high recall, demonstrating better adaptability to complex datasets. Notably, although vanilla Faiss performs worse on SIFT1M compared to Enron dataset, Faiss+HQI\_Batch outperforms on SIFT1M. Because batch optimization in HQI reduces query overhead and increases throughput.
 
+%添加t2i
 
 \subsection{Range Filtering}
 Although the libraries and databases mentioned above can also implement range filtering, the results are poor, so we only compare 5 range-filtering algorithms.
