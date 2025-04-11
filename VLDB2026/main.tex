@@ -263,7 +263,7 @@
 			NHQ & Graph & C & Y & N& N& N & N & N \\
 			FilteredVamana & Graph & C & N & Y & Y & N & Y & Y \\
 			StitchedVamana & Graph & C & N & Y & Y & N & N & Y  \\
-			CAPS & IVF & C & Y & N & N & N & Y & Y \\
+			CAPS & IVF & C & Y & N & Y & N & Y & Y \\
 			ACORN & Graph & B & Y & Y & Y & Y & Y & Y \\
 			UNG & Graph & B & Y & Y & Y & N & Y & Y \\ 
 			Puck & IVF & B & Y & Y & Y & N & Y & Y \\
@@ -338,7 +338,7 @@
 	2) \textbf{ACORN-1}, which extends neighbor lists by considering second-hop neighbors during search, reducing index size with minor performance loss.
 	
 	
-	\noindent\textbf{\underline{UNG \cite{UNG}.}} Graph-based methods (NHQ, Filtered-DiskANN, ACO-\\RN) do not guarantee result completeness, while CAPS lacks robustness when base and query vectors differ in attribute cardinality. UNG is proposed to overcome both limitations.
+	\noindent\textbf{\underline{UNG \cite{UNG}.}} Graph-based methods (NHQ, Filtered-DiskANN, ACO-\\RN) do not guarantee result completeness. UNG is proposed to overcome both limitations.
 	
 	UNG is a unified framework that integrates diverse graph-based ANN indexes for hybrid query. It first groups the dataset by attribute sets, ensuring that vectors in each group share identical attributes. Then, it constructs a Label Navigating Graph (LNG) to encode inclusion relationships among attribute sets. Within each group, UNG builds graph-based ANN indexes (e.g., Vamana, HNSW) and connects them via cross-group edges to enable efficient cross-group search.
 	
@@ -640,7 +640,7 @@
 	\textit{\textbf{Multi-Attribute Building and Single-Attribute Query.}}
 	In this scenario, the index is constructed using multiple attributes but applies filtering condition on only one attribute during the query process.
 	
-	In database systems (VBASE, PASE, Milvus), when the system builds both B+ tree and vector indexes, queries typically utilize only the B+ tree. Faiss offers an ID filtering mechanism, it operates solely during query execution and does not influence index building. CAPS requires that the number of attributes in a query match those used during index construction. ACORN-1 and ACORN-\(\gamma\) are specifically designed for single-attribute indexing. Hence, they are excluded from this comparison.
+	In database systems (VBASE, PASE, Milvus), when the system builds both B+ tree and vector indexes, queries typically utilize only the B+ tree. Faiss offers an ID filtering mechanism, it operates solely during query execution and does not influence index building. ACORN-1 and ACORN-\(\gamma\) are specifically designed for single-attribute indexing. Hence, they are excluded from this comparison.
 	
 	\begin{figure}[th]
 		\centering
@@ -978,7 +978,7 @@ Most existing attribute-filtering algorithms are graph-based, they typically out
 
 Furthermore, current attribute-filtering algorithms offer limited support for complex filtering conditions. For example, Filtered-DiskANN  supports single-attribute filtering, and in multi-attribute scenarios, it only supports OR conditions between attributes. 
 %The original implementations of 
-NHQ and CAPS impose strict constraints on the number of base and query attributes and only support AND conditions. While UNG is relatively flexible—supporting both AND and OR logic—it still lacks support for arbitrary Boolean expressions (e.g., combinations of AND and OR). The lack of flexible Boolean filtering remains a key challenge, limiting the practicality of hybrid query methods in real-world systems with diverse and complex query requirements.
+NHQ imposes strict constraints on the number of base and query attributes and only support AND conditions. While UNG is relatively flexible—supporting both AND and OR logic—it still lacks support for arbitrary Boolean expressions (e.g., combinations of AND and OR). The lack of flexible Boolean filtering remains a key challenge, limiting the practicality of hybrid query methods in real-world systems with diverse and complex query requirements.
 
 \subsubsection{\textbf{Range Filtering}}
 
