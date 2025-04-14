@@ -898,6 +898,16 @@
 	
 	SeRF exhibits relatively weak overall performance, with a significant drop in recall under small-range query scenarios. This suggests that while its compressed graph structure is space-efficient, it has a substantial negative impact on query performance.
 	
+%	 修改此处
+	ACORN performs similarly on both large and small range queries, but its overall performance is worse than the other methods.
+	
+	For third-party libraries and databases, Figure~\ref{fig:exp_8_2} shows that Faiss performs well in range filtering and even outperforms some specialized range query algorithms in certain cases. Faiss performs better in small-range filtering scenarios because it searches over the filtered vectors. With a smaller range, fewer points remain after filtering, resulting in lower computational cost. In addition, the performance of Faiss is influenced by data dimensionality; it tends to work better on low-dimensional datasets.
+	
+	Vector databases also show relatively poor performance on range queries. Among them, Milvus performs better than the others, even surpassing ACORN under high recall settings. PASE performs poorly on small-range queries, with recall lower than 0.1, so it does not appear in Figure~\ref{fig:exp_8_2}. VPASE also performs better on large-range queries, but compared to PASE, its performance on small ranges is significantly better, achieving higher recall despite very low QPS.
+
+	
+	
+	
 	It is important to note that this range query experiment is conducted under a fully static setting. Under such conditions, UNIFY, iRange, SeRF, and WinFilter require the dataset to be sorted by attribute prior to index construction. In contrast, DSG  support dynamic index construction with unordered attribute insertions, making them more suitable for streaming or incremental data scenarios. This flexibility highlights their superior extensibility in real-world applications.
 	\subsubsection{Robustness.}
 	
