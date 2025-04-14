@@ -16,35 +16,21 @@ data_path = "/data/rangefilter/result"  # 请修改为实际路径
 libertine_font = fm.FontProperties(
     fname='/usr/share/fonts/opentype/linux-libertine/LinLibertine_R.otf')
 # 基础颜色列表
-colors = [ # 主色系（增强饱和度）
- '#F39C12', # 深邃蓝（原#5E81AC提纯）
- '#6EC1E0', # 电光冰蓝（原#88C0D0去灰）
- '#E74C3C', # 警报红（原#BF616A加深）
-
- 
- 
- # 扩展高冲击力颜色
- '#34495E', # 钢蓝灰（原#4C566A微调）
-
- '#2ECC71', # 翡翠绿
-
- # 辅助色（强化对比）
- '#48D1CC', # 土耳其蓝
- '#9B59B6', # 宝石紫（原#B48EAD增饱和）
- '#E67E22', # 南瓜橙（替换原#D08770）
- '#8FCB6B', # 苹果绿（原#A3BE8C增艳）
- '#3498DB', # 荧光蓝（原#81A1C1提亮）
+colors = [
+    '#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', 
+    '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf',
+    '#1a55FF', '#FF4444', '#47D147', '#AA44FF', '#FF9933'
 ]
 
 plot_params = {
-    'markersize': 6,                # 标记大小
+    'markersize': 4,                # 标记大小
     'markerfacecolor': (1, 1, 1, 0.8),     # 标记填充颜色（白色）
     'markeredgewidth': 1,         # 标记边缘宽度
     'linewidth': 1.2           # 线条粗细
 }
 
 plot_legend_params = {
-    'markersize': 8,                # 标记大小
+    'markersize': 6,                # 标记大小
     'markerfacecolor': (1, 1, 1, 0.8),     # 标记填充颜色（白色）
     'markeredgewidth': 1,         # 标记边缘宽度
     'linewidth': 1.2           # 线条粗细
@@ -360,15 +346,8 @@ def plot_3_4_comparison(all_data):
 # 创建一个新的函数用于绘制多线程算法图表
 def plot_1_6_comparison(all_data):
     range_set = ['range_2', 'range_8']
-    alg_set = ['DSG', 'IRange', 'SeRF', 'UNIFY', 'WinFilter','ACORN-1', 'ACORN-γ', 'Faiss', 'Milvus', 'VBASE','PASE']
+    alg_set = ['DSG', 'IRange', 'SeRF', 'UNIFY', 'WinFilter']
     datasets = ['wit', 'deep', 'yt8m']
-    
-    # 为图例创建格式化后的数据集名称映射
-    dataset_display_names = {
-        'wit': 'WIT',
-        'deep': 'Deep',
-        'yt8m': 'YT-Audio'
-    }
     
     algorithm_colors = {}
     algorithm_line_styles = {}
@@ -378,13 +357,13 @@ def plot_1_6_comparison(all_data):
         algorithm_line_styles[alg] = line_styles[i % len(line_styles)]
         algorithm_markers[alg] = markers[i % len(markers)]  
     
-    # 创建一个1行6列的大图，使用更宽的比例
+    # 创建一个2行6列的大图，使用更宽的比例
     fig = plt.figure(figsize=(30, 4.4))
     
     # 调整上下间距，给图例留出空间
     gs = GridSpec(1, 6, figure=fig, wspace=0.15, hspace=0.25, height_ratios=[1], top=0.80, bottom=0.1)
     # 定义每列的range fraction标签
-    range_labels = [r"$2^{-2}$", r"$2^{-8}$"]
+    range_labels = [r"range fraction: $2^{-2}$", r"range fraction: $2^{-8}$"]    
     # 遍历所有算法
     for idx_dataset, dataset in enumerate(datasets):
         for idx_range, range_val in enumerate(range_set):
@@ -402,25 +381,18 @@ def plot_1_6_comparison(all_data):
                 for d in data_list:
                     if d['Algorithm'].iloc[0] == alg:
                         df = d
-                        break  # 找到匹配的算法后跳出循环
-                
-                if df is None:  # 如果没有找到匹配的算法，跳过
-                    continue
-                    
                 color = algorithm_colors[alg]
                 linestyle = algorithm_line_styles[alg]
                 marker = algorithm_markers[alg]    
                 pareto_df = compute_pareto_frontier(df, 'Recall', 'QPS')
                 if not pareto_df.empty:
-                    # 过滤 Recall 小于0.4的数据
+                    # 过滤 Recall 小于0.7以及等于1.01的数据
                     filtered_df = pareto_df[(pareto_df['Recall'] >= 0.4)]
                     if not filtered_df.empty:
                         x_data = filtered_df['Recall'].tolist()
                         y_data = filtered_df['QPS'].tolist()
                         single_thread_y_data.append(y_data)
-                        ax_single.plot(x_data, y_data, marker=marker, linestyle=linestyle, 
-                                      label=alg, color=color, **plot_params)  # 使用alg作为标签
-            
+                        ax_single.plot(x_data, y_data, marker=marker,linestyle=linestyle, label=datasets, color=color, **plot_params)       
             # 添加range fraction标签到子图顶部
             ax_single.set_title(range_labels[idx_range], fontsize=16, fontweight='normal', pad=10)
             # 设置单线程图的y轴范围和刻度
@@ -442,11 +414,9 @@ def plot_1_6_comparison(all_data):
             ax_single.grid(True, linestyle=':', alpha=0.6)
 
             # 添加Recall@10标签
-            # 设置x轴标签
+        # 设置x轴标签
             label_index = chr(97 + col)  # 97是ASCII码中'a'的值
-            # 使用格式化后的数据集名称
-            formatted_dataset = dataset_display_names[dataset]
-            formatted_label = f"({label_index}) Recall@10 ({formatted_dataset})"
+            formatted_label = f"({label_index}) Recall@10 ({dataset})"
             ax_single.set_xlabel(formatted_label, 
                             fontproperties=libertine_font,
                             fontsize=20,
@@ -460,12 +430,8 @@ def plot_1_6_comparison(all_data):
     # 创建算法图例
     legend_elements = []
     for alg in alg_set:
-        legend_elements.append(plt.Line2D([0], [0], 
-                                         color=algorithm_colors[alg], 
-                                         marker=algorithm_markers[alg], 
-                                         linestyle=algorithm_line_styles[alg],
-                                         label=alg, 
-                                         **plot_legend_params))
+        legend_elements.append(plt.Line2D([0], [0], color=algorithm_colors[alg], marker=algorithm_markers[alg], linestyle=algorithm_line_styles[alg],
+                                            label=alg, **plot_legend_params))
     
     if legend_elements:
         leg = fig.legend(handles=legend_elements, loc='upper center',

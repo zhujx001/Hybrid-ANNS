@@ -15,37 +15,29 @@ data_path = "/data/result"  # 请修改为实际路径
 
 libertine_font = fm.FontProperties(
     fname='/usr/share/fonts/opentype/linux-libertine/LinLibertine_R.otf')
-colors = [ # 主色系（增强饱和度）
- '#F39C12', # 深邃蓝（原#5E81AC提纯）
- '#6EC1E0', # 电光冰蓝（原#88C0D0去灰）
- '#E74C3C', # 警报红（原#BF616A加深）
-
- '#2ECC71', # 翡翠绿
-
- # 辅助色（强化对比）
- '#48D1CC', # 土耳其蓝
- '#9B59B6', # 宝石紫（原#B48EAD增饱和）
- '#E67E22', # 南瓜橙（替换原#D08770）
- '#8FCB6B', # 苹果绿（原#A3BE8C增艳）
- '#3498DB', # 荧光蓝（原#81A1C1提亮）
+# 基础颜色列表
+colors = [
+    '#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', 
+    '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf',
+    '#1a55FF', '#FF4444', '#47D147', '#AA44FF', '#FF9933'
 ]
 
 plot_params = {
-    'markersize': 6,                # 标记大小
+    'markersize': 4,                # 标记大小
     'markerfacecolor': (1, 1, 1, 0.8),     # 标记填充颜色（白色）
     'markeredgewidth': 1,         # 标记边缘宽度
     'linewidth': 1.2           # 线条粗细
 }
 
 plot_legend_params = {
-    'markersize': 8,                # 标记大小
+    'markersize': 6,                # 标记大小
     'markerfacecolor': (1, 1, 1, 0.8),     # 标记填充颜色（白色）
     'markeredgewidth': 1,         # 标记边缘宽度
     'linewidth': 1.2           # 线条粗细
 }
 
 line_styles = ['-', '--', '-.', '-', '--', '-.', '-', '--', '-.', '-', '--', '-.']
-markers = ['o', 's', '^', 'D', 'v', 'p', 'h', 'X', '*', 'P', 'x', 'd', '8', 'H', '6', '4']
+markers = ['o', 's', '^', 'D', 'v', 'p', 'h', 'X', '*', '+', 'x', '|', '1', '2', '3', '4']
 
 # 将算法分组（单线程和16线程）
 def group_algorithms(algorithms):
@@ -237,8 +229,9 @@ def plot_all_datasets_comparison(all_data):
     plotted_algs = set()
     
     # 为构造统一图例，使用集合记录在当前图中出现的基础算法名称
-    single_thread_algs = single_thread_algs = ['ACORN-1','ACORN-γ', 'CAPS', 'Faiss', 'Faiss+HQI_Batch', 'FilteredVamana', 'Milvus', 'NHQ', 'Puck', 'StitchedVamana', 'UNG', 'VBASE']
+    single_thread_algs = ['UNG', 'NHQ', 'StitchedVamana', 'CAPS', 'FilteredVamana', 'faiss+HQI_Batch', 'ACORN-γ', 'ACORN-1', 'faiss','milvus', 'vbase', 'pase']
 
+    # print(all_data[('sift', '5_1')][0]['Algorithm'].iloc[0])
     # 遍历所有算法
     for col, alg in enumerate(single_thread_algs):
 
@@ -266,7 +259,7 @@ def plot_all_datasets_comparison(all_data):
             pareto_df = compute_pareto_frontier(df, 'Recall', 'QPS')
             if not pareto_df.empty:
                 # 过滤 Recall 小于0.7以及等于1.01的数据
-                filtered_df = pareto_df[(pareto_df['Recall'] >= 0.8)]
+                filtered_df = pareto_df[(pareto_df['Recall'] >= 0.7)]
                 if not filtered_df.empty:
                     x_data = filtered_df['Recall'].tolist()
                     y_data = filtered_df['QPS'].tolist()
@@ -285,9 +278,9 @@ def plot_all_datasets_comparison(all_data):
         ax_single.tick_params(axis='both', labelsize=16)
 
         # 设置x轴范围为0.7到1.01，但仅显示刻度至1.0
-        ax_single.set_xlim(0.8, 1.01)
-        ax_single.set_xticks([0.8, 0.9, 1.0])
-        ax_single.set_xticklabels([f"{tick:.1f}" for tick in [0.8, 0.9, 1.0]])
+        ax_single.set_xlim(0.7, 1.01)
+        ax_single.set_xticks([0.7, 0.8, 0.9, 1.0])
+        ax_single.set_xticklabels([f"{tick:.1f}" for tick in [0.7, 0.8, 0.9, 1.0]])
 
         ax_single.axvline(x=0.95, color='gray', linestyle='--', alpha=0.7)
         ax_single.grid(True, linestyle=':', alpha=0.6)
@@ -466,5 +459,12 @@ else:
     plt.savefig(save_path_pdf, format='pdf', bbox_inches='tight')
     plt.close(fig1)
     
+    print("创建多线程对比图...")
+    fig2 = plot_multi_thread_comparison(all_data)
+    save_path_svg = os.path.join("/data/plots/exp","exp_3_2.svg")
+    save_path_pdf = os.path.join("/data/plots/exp","exp_3_2.pdf")
+    plt.savefig(save_path_svg, format="svg", bbox_inches='tight')
+    plt.savefig(save_path_pdf, format='pdf', bbox_inches='tight')
+    plt.show()
     
     print("图表已创建并保存！")
