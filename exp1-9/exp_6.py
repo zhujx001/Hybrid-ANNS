@@ -18,17 +18,13 @@ libertine_font = fm.FontProperties(
     fname='/usr/share/fonts/opentype/linux-libertine/LinLibertine_R.otf')
 
 colors = [ # 主色系（增强饱和度）
- '#F39C12', # 深邃蓝（原#5E81AC提纯）
- '#6EC1E0', # 电光冰蓝（原#88C0D0去灰）
- '#E74C3C', # 警报红（原#BF616A加深）
- '#2ECC71', # 翡翠绿
-
- # 辅助色（强化对比）
- '#48D1CC', # 土耳其蓝
- '#9B59B6', # 宝石紫（原#B48EAD增饱和）
- '#E67E22', # 南瓜橙（替换原#D08770）
- '#8FCB6B', # 苹果绿（原#A3BE8C增艳）
- '#3498DB', # 荧光蓝（原#81A1C1提亮）
+'#E74C3C', #(Alert Red)
+'#F39C12', #(Orange)
+'#2ECC71', #(Emerald Green)
+'#9B59B6', #(Gem Purple)
+'#48D1CC', #(Turquoise)
+'#3498DB', #(Fluorescent Blue)
+'#34495E', #(Steel Blue Gray)
 ]
 
 # 扩展线型和标记列表
@@ -218,7 +214,7 @@ def superscript(n):
 # 绘制所有数据集的QPS vs Recall对比图
 def plot_all_datasets_comparison(all_data):
     query_set = '1' # 这里假设我们只关心查询集1
-    datasets = ['sift', 'gist', 'glove-100', 'audio', 'msong', 'enron']
+    datasets = ['sift', 'gist', 'glove-100', 'audio', 'msong', 'enron', 'text2image']
     single_thread_algs = single_thread_algs = ['ACORN-1','ACORN-γ', 'CAPS', 'Faiss', 'Faiss+HQI_Batch', 'FilteredVamana', 'Milvus', 'NHQ', 'Puck', 'StitchedVamana', 'UNG', 'VBASE']
 
     # 为图例创建格式化后的数据集名称映射
@@ -228,7 +224,8 @@ def plot_all_datasets_comparison(all_data):
         'glove-100': 'GloVe',
         'audio': 'Audio',
         'msong': 'Msong',
-        'enron': 'Enron'
+        'enron': 'Enron',
+        'text2image': 'Text2Image'
     }
     
     # 预处理：收集所有算法并为它们分配统一的颜色、线型和标记
@@ -578,12 +575,12 @@ else:
     plt.savefig(save_path_pdf, format='pdf', bbox_inches='tight')
     plt.close(fig1)
     
-    print("创建多线程对比图...")
-    fig2 = plot_multi_thread_comparison(all_data)
-    save_path_svg = os.path.join("/data/plots/exp","exp_6_2.svg")
-    save_path_pdf = os.path.join("/data/plots/exp","exp_6_2.pdf")
-    plt.savefig(save_path_svg, format="svg", bbox_inches='tight')
-    plt.savefig(save_path_pdf, format='pdf', bbox_inches='tight')
-    plt.show()
+    # print("创建多线程对比图...")
+    # fig2 = plot_multi_thread_comparison(all_data)
+    # save_path_svg = os.path.join("/data/plots/exp","exp_6_2.svg")
+    # save_path_pdf = os.path.join("/data/plots/exp","exp_6_2.pdf")
+    # plt.savefig(save_path_svg, format="svg", bbox_inches='tight')
+    # plt.savefig(save_path_pdf, format='pdf', bbox_inches='tight')
+    # plt.show()
     
     print("图表已创建并保存！")

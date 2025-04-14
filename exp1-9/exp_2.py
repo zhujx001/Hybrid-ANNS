@@ -28,6 +28,7 @@ ALGORITHM_COLORS = {
     'NHQ': '#8FCB6B',           # 紫色
     'Puck': '#E74C3C',          # 粉色
     'UNG': '#34495E',           # 灰色
+    'CAPS': '#9B59B6',          # 橙色
 }
 
 # 为不同的数据集定义不同的线型
@@ -56,7 +57,7 @@ def get_result_files():
         'FilteredVamana',
         'StitchedVamana',
         'NHQ', 'Puck',
-        'UNG',
+        'UNG', 'CAPS'
     ]
     
     result_files = []
@@ -331,7 +332,9 @@ def create_standalone_legend():
     
     column3_items = [
         ('UNG', 'sift_1'),
-        ('UNG', 'sift_2_1')
+        ('UNG', 'sift_2_1'),
+        ('CAPS', 'sift_1'),
+        ('CAPS', 'sift_2_1')
     ]
     
     # Create three separate legend objects with much wider spacing

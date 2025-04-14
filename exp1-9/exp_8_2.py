@@ -232,12 +232,13 @@ def superscript(n):
 def plot_2_5_comparison(all_data):
     range_set = ['range_2', 'range_8']
     alg_set = ['DSG', 'IRange', 'SeRF', 'UNIFY', 'WinFilter','ACORN-1', 'ACORN-γ', 'Faiss', 'Milvus', 'VBASE']
-    datasets = ['wit', 'deep', 'yt8m']
+    datasets = ['wit', 'deep', 'yt8m', 'text2image']
     # 为图例创建格式化后的数据集名称映射
     dataset_display_names = {
         'wit': 'WIT',
         'deep': 'Deep',
-        'yt8m': 'YT-Audio'
+        'yt8m': 'YT-Audio',
+        'text2image': 'Text2Image'
     }
     
     dataset_colors = {}
@@ -353,7 +354,7 @@ else:
     print(f"成功加载数据，共有 {total_files} 个数据文件。")
     
     
-    print("创建1x5对比图...")
+    print("创建2x5对比图...")
     fig2 = plot_2_5_comparison(all_data)
     # save_path_svg = os.path.join("exp_8_2.svg")
     save_path_svg = os.path.join("/data/plots/exp","exp_8_3.svg")
