@@ -1,3 +1,4 @@
+'''实验一/四绘图代码'''
 import os
 import pandas as pd
 import numpy as np
@@ -18,11 +19,23 @@ libertine_font = fm.FontProperties(
     fname='/usr/share/fonts/opentype/linux-libertine/LinLibertine_R.otf')
 
 # 基础颜色列表
-colors = [
-    '#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', 
-    '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf',
-    '#1a55FF', '#FF4444', '#CC79A7', '#AA44FF', '#FF9933',
-    '#66CCCC', '#CC99FF', '#FF66B2', '#99CC00', '#47d147'
+colors = [ # 主色系（增强饱和度）
+ '#F39C12', # 深邃蓝（原#5E81AC提纯）
+ '#6EC1E0', # 电光冰蓝（原#88C0D0去灰）
+ '#F39C12', # 亮橙
+ '#E74C3C', # 警报红（原#BF616A加深）
+ 
+ # 扩展高冲击力颜色
+ '#34495E', # 钢蓝灰（原#4C566A微调）
+
+ '#2ECC71', # 翡翠绿
+
+ # 辅助色（强化对比）
+ '#48D1CC', # 土耳其蓝
+ '#9B59B6', # 宝石紫（原#B48EAD增饱和）
+ '#E67E22', # 南瓜橙（替换原#D08770）
+ '#8FCB6B', # 苹果绿（原#A3BE8C增艳）
+ '#3498DB', # 荧光蓝（原#81A1C1提亮）
 ]
 
 
@@ -31,14 +44,14 @@ line_styles = ['-', '--', '-.', '-', '--', '-.', '-', '--', '-.', '-', '--', '-.
 markers = ['o', 's', '^', 'D', 'v', 'p', 'h', 'X', '*', '+', 'x', '|', '1', '2', '3', '4']
 
 plot_params = {
-    'markersize': 4,                # 标记大小
+    'markersize': 6,                # 标记大小
     'markerfacecolor': (1, 1, 1, 0.8),     # 标记填充颜色（白色）
     'markeredgewidth': 1,         # 标记边缘宽度
     'linewidth': 1.2           # 线条粗细
 }
 
 plot_params_Legend = {
-    'markersize': 6,                # 标记大小
+    'markersize': 8,                # 标记大小
     'markerfacecolor': (1, 1, 1, 0.8),     # 标记填充颜色（白色）
     'markeredgewidth': 1,         # 标记边缘宽度
     'linewidth': 1.2           # 线条粗细
@@ -107,7 +120,7 @@ def load_all_data():
     return all_data
 
 # 计算稀疏化的帕累托前沿
-def compute_pareto_frontier(df, x_col, y_col, threshold_x=0.025, threshold_y_ratio=5):   # 单标签参数
+def compute_pareto_frontier(df, x_col, y_col, threshold_x=0.05, threshold_y_ratio=5):   # 单标签参数
     """
     计算帕累托前沿，并进行稀疏化处理，确保点在x轴和y轴（对数空间）的间距不小于给定阈值
     
@@ -298,7 +311,7 @@ def plot_dataset_comparison(all_data, thread_mode="multi", figsize=(10, 4.5)):
                         pareto_df = compute_pareto_frontier(df, 'Recall', 'QPS')
 
                         if not pareto_df.empty:
-                            filtered_df = pareto_df[pareto_df['Recall'] >= 0.7]
+                            filtered_df = pareto_df[pareto_df['Recall'] >= 0.3]
                             if not filtered_df.empty:
                                 x_data = filtered_df['Recall'].tolist()
                                 y_data = filtered_df['QPS'].tolist()
@@ -328,7 +341,7 @@ def plot_dataset_comparison(all_data, thread_mode="multi", figsize=(10, 4.5)):
         ax.set_yticklabels(y_tick_labels)
         
         # 设置x轴范围
-        ax.set_xlim(0.7, 1.01)
+        ax.set_xlim(0.3, 1.01)
         # ax.set_xticks([0.0, 0.2, 0.4, 0.6, 0.8, 1.0])
         
         # 网格线
@@ -345,14 +358,24 @@ def plot_dataset_comparison(all_data, thread_mode="multi", figsize=(10, 4.5)):
         else:
             ax.set_ylabel("")
     
-    # 添加图例
     legend_elements = []
+    # Create a mapping for algorithm name display
+    alg_display_names = {
+        'ParDiskANN': 'parlaydiskann',
+        'ParHNSW': 'parlayhnsw',
+        'ParHCNNG': 'parlayhcnng',
+        'ParPyNNDescent': 'parlaypynn'
+    }
+    
     for alg, style in sorted(current_algorithms.items(), key=lambda x: x[0].lower()):
+        # Use the mapped name if available, otherwise use the original name
+        display_name = alg_display_names.get(alg, alg)
+        
         legend_elements.append(plt.Line2D([0], [0], 
                                        color=style['color'], 
                                        marker=style['marker'], 
                                        linestyle=style['linestyle'], 
-                                       label=alg,
+                                       label=display_name,
                                        **plot_params_Legend))
     
     if legend_elements:
@@ -384,13 +407,13 @@ def main():
     # 初始化所有算法的样式
     print("初始化算法样式...")
 
-    save_path = "/home/ykw/study/Hybrid-ANNS/faiss/plots/ood/"  # 请修改为实际路径
+    save_path = ""  # 请修改为实际路径
     
     # 创建16线程对比图
     print("创建16线程对比图...")
-    fig_multi = plot_dataset_comparison(all_data, thread_mode="multi")    
-    plt.savefig(save_path + "exp_16thread.svg", dpi=300, bbox_inches='tight')
-    plt.savefig(save_path + "exp_16thread.pdf", dpi=300, bbox_inches='tight')
+    fig_multi = plot_dataset_comparison(all_data, thread_mode="multi")
+    plt.savefig(save_path + "exp_9_16thread.svg", dpi=300, bbox_inches='tight')
+    plt.savefig(save_path + "exp_9_16thread.pdf", dpi=300, bbox_inches='tight')
     plt.show()
     plt.close(fig_multi)
     

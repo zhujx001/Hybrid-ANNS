@@ -23,38 +23,27 @@ libertine_font = fm.FontProperties(
 
 # 为每个算法定义唯一的颜色（标准版本和16位版本使用相同颜色）
 ALGORITHM_COLORS = {
-    'ACORN-1': '#1f77b4',       # 蓝色
-    'ACORN-1-16': '#1f77b4',    # 蓝色
-    'ACORN-γ': '#ff7f0e',    # 橙色
-    'ACORN-γ-16': '#ff7f0e', # 橙色
-    'FilteredVamana': '#2ca02c',     # 绿色
-    'FilteredVamana-16': '#2ca02c',  # 绿色
-    'StitchedVamana': '#d62728',     # 红色
-    'StitchedVamana-16': '#d62728',  # 红色
-    'NHQ': '#9467bd',           # 紫色
-    'parlayivf-16': '#8c564b',     # 棕色
-    # 'puck': '#e377c2',          # 粉色
-    'puck-16': '#e377c2',       # 粉色 (添加puck-16)
-    'UNG': '#7f7f7f',           # 灰色
-    'UNG-16': '#7f7f7f',        # 灰色
+    'FilteredVamana': '#F39C12',     # 绿色
+    'StitchedVamana': '#6EC1E0',     # 红色
+    'NHQ': '#8FCB6B',           # 紫色
+    'Puck': '#E74C3C',          # 粉色
+    'UNG': '#34495E',           # 灰色
 }
 
 # 为不同的数据集定义不同的线型
 DATASET_LINESTYLES = {
     'sift_1': '-',      # 实线
     'sift_2_1': '--',   # 虚线
-    'sift_2_2': '-.'    # 点划线
 }
 
 # 标记样式
 DATASET_MARKERS = {
     'sift_1': 'o',      # 圆形
-    'sift_2_1': 's',    # 方形
-    'sift_2_2': '^'     # 三角形
+    'sift_2_1': '^',    # 方形
 }
 
 plot_params = {
-    'markersize': 7,                # 标记大小
+    'markersize': 12,                # 标记大小
     'markerfacecolor': (1, 1, 1, 0.8),     # 标记填充颜色（白色）
     'markeredgewidth': 2,         # 标记边缘宽度
     'linewidth': 1.4        # 线条粗细
@@ -64,12 +53,10 @@ plot_params = {
 def get_result_files():
     # 目标算法列表，添加了puck-16
     target_algorithms = [
-        'ACORN-1', 'ACORN-1-16', 
-        'ACORN-γ', 'ACORN-γ-16', 
-        'FilteredVamana', 'FilteredVamana-16',
-        'StitchedVamana', 'StitchedVamana-16',
-        'NHQ', 'parlayivf-16', 'puck-16',
-        'UNG', 'UNG-16'
+        'FilteredVamana',
+        'StitchedVamana',
+        'NHQ', 'Puck',
+        'UNG',
     ]
     
     result_files = []
@@ -79,7 +66,7 @@ def get_result_files():
         alg_result_path = os.path.join(data_path, alg, "result")
         if os.path.exists(alg_result_path):
             # 获取所有三种数据集的结果文件
-            for pattern in ["sift_1_results.csv", "sift_2_1_results.csv", "sift_2_2_results.csv"]:
+            for pattern in ["sift_1_results.csv", "sift_2_1_results.csv"]:
                 files = glob.glob(os.path.join(alg_result_path, pattern))
                 for file in files:
                     # 提取数据集名称（sift_1, sift_2_1, or sift_2_2）
@@ -93,7 +80,6 @@ def load_data():
     # 分为单线程和16线程两组数据
     all_data = {
         'single_thread': [],
-        'multi_thread': []
     }
     
     files_with_algs = get_result_files()
@@ -112,11 +98,7 @@ def load_data():
             df['Algorithm'] = algorithm
             df['Dataset'] = dataset
             
-            # 根据算法名称分组
-            if algorithm.endswith('-16'):
-                all_data['multi_thread'].append(df)
-            else:
-                all_data['single_thread'].append(df)
+            all_data['single_thread'].append(df)
             
         except Exception as e:
             print(f"Error loading {file}: {e}")
@@ -229,10 +211,10 @@ def superscript(n):
 def plot_comparison_charts(all_data):
     # NEW: Create sets to collect all unique algorithms and datasets
     all_algorithms = set()
-    all_datasets = set(['sift_1', 'sift_2_1', 'sift_2_2'])
+    all_datasets = set(['sift_1', 'sift_2_1'])
     
     # NEW: First pass - collect all algorithms
-    for group in ['single_thread', 'multi_thread']:
+    for group in ['single_thread',]:
         for df in all_data[group]:
             all_algorithms.add(df['Algorithm'].iloc[0])
     
@@ -259,14 +241,14 @@ def plot_comparison_charts(all_data):
         
         # 按算法绘制线条
         for algorithm in sorted(grouped_data.keys()):
-            for dataset in ['sift_1', 'sift_2_1', 'sift_2_2']:
+            for dataset in ['sift_1', 'sift_2_1']:
                 if dataset in grouped_data[algorithm]:
                     df = grouped_data[algorithm][dataset]
                     pareto_df = compute_pareto_frontier(df, 'Recall', 'QPS')
                     
                     if not pareto_df.empty:
                         # 过滤 Recall 小于0.6以及等于1.01的数据，与exp_1.py保持一致
-                        filtered_df = pareto_df[(pareto_df['Recall'] >= 0.6) & (pareto_df['Recall'] != 1.01)]
+                        filtered_df = pareto_df[(pareto_df['Recall'] >= 0.7) & (pareto_df['Recall'] != 1.01)]
                         if not filtered_df.empty:
                             y_data_list.append(filtered_df['QPS'].tolist())
                             
@@ -284,7 +266,7 @@ def plot_comparison_charts(all_data):
         # 在x=0.95处添加灰色虚线，与exp_1.py保持一致的样式
         plt.axvline(x=0.95, color='gray', linestyle='--', alpha=0.7)
         plt.tick_params(axis='both', labelsize=36)
-        plt.xlabel('Recall@10', fontsize=50, fontproperties=libertine_font)
+        plt.xlabel('Recall@10 (SIFT1M)', fontsize=50, fontproperties=libertine_font)
         plt.ylabel('QPS', fontsize=38)
         # plt.title('SIFT Dataset - Experiment 2 - Single Thread Algorithms', fontsize=16)
         plt.grid(True, linestyle=':', alpha=0.6)
@@ -297,9 +279,9 @@ def plot_comparison_charts(all_data):
         plt.gca().set_yticklabels(y_tick_labels)
         
         # 设置x轴范围为0.6到1.01，但仅显示刻度至1.0，与exp_1.py保持一致
-        plt.xlim(0.6, 1.01)
-        plt.xticks([0.6, 0.7, 0.8, 0.9, 1.0])
-        plt.gca().set_xticklabels([f"{tick:.1f}" for tick in [0.6, 0.7, 0.8, 0.9, 1.0]])
+        plt.xlim(0.7, 1.01)
+        plt.xticks([0.7, 0.8, 0.9, 1.0])
+        plt.gca().set_xticklabels([f"{tick:.1f}" for tick in [0.7, 0.8, 0.9, 1.0]])
         
         # if legend_handles:
         #     # 创建具有多列的图例，使其更紧凑
@@ -315,133 +297,107 @@ def plot_comparison_charts(all_data):
         plt.close()
         print(f"Single thread algorithms comparison chart saved as vector graphic to {save_path_svg}")
     
-    # 绘制多线程算法的对比图
-    if all_data['multi_thread']:
-        plt.figure(figsize=(14, 10))
-        legend_handles = []
-        legend_labels = []
-        
-        # 按算法和数据集分组
-        grouped_data = {}
-        for df in all_data['multi_thread']:
-            algorithm = df['Algorithm'].iloc[0]
-            dataset = df['Dataset'].iloc[0]
-            
-            if algorithm not in grouped_data:
-                grouped_data[algorithm] = {}
-            
-            grouped_data[algorithm][dataset] = df
-        
-        # 收集y轴数据用于自动确定范围
-        y_data_list = []
-        
-        # 按算法绘制线条
-        for algorithm in sorted(grouped_data.keys()):
-            for dataset in ['sift_1', 'sift_2_1', 'sift_2_2']:
-                if dataset in grouped_data[algorithm]:
-                    df = grouped_data[algorithm][dataset]
-                    pareto_df = compute_pareto_frontier(df, 'Recall', 'QPS')
-                    
-                    if not pareto_df.empty:
-                        # 过滤 Recall 小于0.6以及等于1.01的数据，与exp_1.py保持一致
-                        filtered_df = pareto_df[(pareto_df['Recall'] >= 0.6) & (pareto_df['Recall'] != 1.01)]
-                        if not filtered_df.empty:
-                            y_data_list.append(filtered_df['QPS'].tolist())
-                            
-                            line, = plt.plot(filtered_df['Recall'], filtered_df['QPS'], 
-                                            marker=DATASET_MARKERS.get(dataset, 'o'),
-                                            linestyle=DATASET_LINESTYLES.get(dataset, '-'), 
-                                            color=ALGORITHM_COLORS.get(algorithm, '#000000'),
-                                            **plot_params)
-                            legend_handles.append(line)
-                            legend_labels.append(f"{algorithm} ({dataset})")
-        
-        # 自动设置y轴范围和刻度
-        y_min, y_max, y_ticks, y_tick_labels = get_y_range_and_ticks(y_data_list)
-        
-        # 在x=0.95处添加灰色虚线，与exp_1.py保持一致的样式
-        plt.axvline(x=0.95, color='gray', linestyle='--', alpha=0.7)
-        plt.tick_params(axis='both', labelsize=36)
-        plt.xlabel('Recall@10', fontsize=50, fontproperties=libertine_font)
-        plt.ylabel('QPS', fontsize=38)
-        # plt.title('SIFT Dataset - Experiment 2 - 16-Thread Algorithms', fontsize=16)
-        plt.grid(True, linestyle=':', alpha=0.6)
-        
-        # 设置对数刻度和自动计算的范围
-        plt.yscale('log')
-        plt.ylim(y_min, y_max)
-        plt.gca().yaxis.set_major_locator(plt.FixedLocator(y_ticks))
-        plt.gca().yaxis.set_minor_locator(plt.NullLocator())
-        plt.gca().set_yticklabels(y_tick_labels)
-        
-        # 设置x轴范围为0.6到1.01，但仅显示刻度至1.0，与exp_1.py保持一致
-        plt.xlim(0.6, 1.01)
-        plt.xticks([0.6, 0.7, 0.8, 0.9, 1.0])
-        plt.gca().set_xticklabels([f"{tick:.1f}" for tick in [0.6, 0.7, 0.8, 0.9, 1.0]])
-        
-        # if legend_handles:
-        #     # 创建具有多列的图例，使其更紧凑
-        #     plt.legend(legend_handles, legend_labels, fontsize=12, loc='best', ncol=3)
-        
-        # 保存为矢量图格式（SVG）
-        save_path_svg = os.path.join("/data/plots/exp","exp_2_2.svg")
-        save_path_pdf = os.path.join("/data/plots/exp","exp_2_2.pdf")
-        plt.savefig(save_path_svg, format='svg', dpi=300, bbox_inches='tight')
-        plt.savefig(save_path_pdf, format='pdf', dpi=300, bbox_inches='tight')
-             
-        plt.close()
-        print(f"16-thread algorithms comparison chart saved as vector graphic to {save_path_svg}")
-    create_separate_legend(all_algorithms, all_datasets)
 
-def create_separate_legend(algorithms, datasets):
-    """
-    Creates a separate figure with only the legend for the experiment 2 charts
+
+# ...existing code...
+
+def create_standalone_legend():
+    """Create a standalone legend figure showing all algorithms with their dataset markers"""
+    from matplotlib.legend_handler import HandlerLine2D
     
-    Parameters:
-        algorithms: List of algorithm names to include
-        datasets: List of dataset names to include
-    """
-    plt.figure(figsize=(14, 3))  # Wide, short figure for the legend only
+    # Create a wider figure to ensure columns don't overlap
+    fig, ax = plt.subplots(figsize=(20, 2.5))
+    ax.set_axis_off()  # Hide axes
     
-    # Create dummy lines for each algorithm and dataset combination
-    legend_handles = []
-    legend_labels = []
+    datasets = {
+        'sift_1': 'S',     # S for SIFT-1
+        'sift_2_1': 'M'    # M for SIFT-2
+    }
     
-    # Filter the algorithms to keep only non-16 versions (except for puck-16 and parlayivf-16)
-    filtered_algorithms = []
-    for algorithm in sorted(algorithms):
-        # Keep if it's not a -16 version OR if it's specifically puck-16 or parlayivf-16
-        if not algorithm.endswith('-16') or algorithm in ['puck-16', 'parlayivf-16']:
-            filtered_algorithms.append(algorithm)
+    # Define the three columns explicitly for 4+4+2 layout
+    column1_items = [
+        ('FilteredVamana', 'sift_1'),
+        ('FilteredVamana', 'sift_2_1'),
+        ('StitchedVamana', 'sift_1'),
+        ('StitchedVamana', 'sift_2_1')
+    ]
     
-    # Create legend entries for filtered algorithms
-    for algorithm in filtered_algorithms:
-        for dataset in datasets:
-            # Create a dummy line with the correct style
+    column2_items = [
+        ('NHQ', 'sift_1'),
+        ('NHQ', 'sift_2_1'),
+        ('Puck', 'sift_1'),
+        ('Puck', 'sift_2_1')
+    ]
+    
+    column3_items = [
+        ('UNG', 'sift_1'),
+        ('UNG', 'sift_2_1')
+    ]
+    
+    # Create three separate legend objects with much wider spacing
+    columns = [column1_items, column2_items, column3_items]
+    # Use very distinct positions to ensure no overlap
+    legend_positions = [0.2, 0.5, 0.75] 
+    
+    for col_idx, (column_items, x_pos) in enumerate(zip(columns, legend_positions)):
+        # Create handles and labels for this column
+        handles = []
+        labels = []
+        
+        for alg, dataset in column_items:
+            shortname = datasets[dataset]
             line = plt.Line2D([0], [0], 
-                            marker=DATASET_MARKERS.get(dataset, 'o'),
-                            linestyle=DATASET_LINESTYLES.get(dataset, '-'), 
-                            color=ALGORITHM_COLORS.get(algorithm, '#000000'),
-                            **plot_params)
-            legend_handles.append(line)
-            display_dataset = dataset.replace('sift_', '')
-            legend_labels.append(f"{algorithm} ({display_dataset})")
+                          marker=DATASET_MARKERS.get(dataset, 'o'),
+                          linestyle=DATASET_LINESTYLES.get(dataset, '-'), 
+                          color=ALGORITHM_COLORS.get(alg, '#000000'),
+                          **plot_params)
+            handles.append(line)
+            labels.append(f"{alg} ({shortname})")
+        
+        # Use consistent alignment for all columns
+        # This helps with predictable positioning
+        alignment = 'center'
+            
+        # Add this column's legend to the figure
+        leg = ax.legend(handles, labels, 
+                      loc=alignment,
+                      bbox_to_anchor=(x_pos, 0.5),
+                      frameon=False,
+                      fontsize=24,
+                      handlelength=3,
+                      handletextpad=1.5,
+                      handler_map={plt.Line2D: HandlerLine2D(numpoints=1)})
+        
+        # Add the legend to the figure
+        ax.add_artist(leg)
     
-    # Create just the legend - CHANGED: frameon=False to remove the border
-    legend = plt.legend(legend_handles, legend_labels, fontsize=16, 
-                       loc='center', ncol=4, frameon=False)
-    
-    # Remove everything except the legend
-    plt.axis('off')
-    
-    # Save legend as separate files
-    save_path_svg = os.path.join("/data/plots/exp", "exp_2_legend.svg")
-    save_path_pdf = os.path.join("/data/plots/exp", "exp_2_legend.pdf")
-    plt.savefig(save_path_svg, format='svg', dpi=300, bbox_inches='tight')
-    plt.savefig(save_path_pdf, format='pdf', dpi=300, bbox_inches='tight')
-    
+    # Save the legend as separate files with tight bounding box
+    legend_path_svg = os.path.join("/data/plots/exp", "exp_2_legend.svg")
+    legend_path_pdf = os.path.join("/data/plots/exp", "exp_2_legend.pdf")
+    plt.savefig(legend_path_svg, format='svg', dpi=300, bbox_inches='tight')
+    plt.savefig(legend_path_pdf, format='pdf', dpi=300, bbox_inches='tight')
     plt.close()
-    print(f"Separate legend saved to {save_path_svg}")
+    print(f"Standalone legend saved to {legend_path_svg} with 4+4+2 layout")
+
+def main():
+    print("Loading data files for SIFT dataset experiments...")
+    all_data = load_data()
+    
+    if not all_data['single_thread']:
+        print("No valid data files found. Please check the path and file format.")
+        return
+    
+    single_thread_count = len(all_data['single_thread'])
+    
+    print("Generating comparison charts...")
+    plot_comparison_charts(all_data)
+    
+    # Add call to create the standalone legend
+    create_standalone_legend()
+    
+    print("All charts generated successfully!")
+
+
 
 def main():
     print("Loading data files for SIFT dataset experiments...")
@@ -452,11 +408,11 @@ def main():
         return
     
     single_thread_count = len(all_data['single_thread'])
-    multi_thread_count = len(all_data['multi_thread'])
-    print(f"Successfully loaded data: {single_thread_count} single-thread algorithm datasets and {multi_thread_count} 16-thread algorithm datasets.")
     
     print("Generating comparison charts...")
     plot_comparison_charts(all_data)
+
+    create_standalone_legend()
 
 
     

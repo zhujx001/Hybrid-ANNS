@@ -17,11 +17,18 @@ data_path = "/data/result"  # 请修改为实际路径
 libertine_font = fm.FontProperties(
     fname='/usr/share/fonts/opentype/linux-libertine/LinLibertine_R.otf')
 
-# 基础颜色列表
-colors = [
-    '#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', 
-    '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf',
-    '#1a55FF', '#FF4444', '#47D147', '#AA44FF', '#FF9933'
+colors = [ # 主色系（增强饱和度）
+ '#F39C12', # 深邃蓝（原#5E81AC提纯）
+ '#6EC1E0', # 电光冰蓝（原#88C0D0去灰）
+ '#E74C3C', # 警报红（原#BF616A加深）
+ '#2ECC71', # 翡翠绿
+
+ # 辅助色（强化对比）
+ '#48D1CC', # 土耳其蓝
+ '#9B59B6', # 宝石紫（原#B48EAD增饱和）
+ '#E67E22', # 南瓜橙（替换原#D08770）
+ '#8FCB6B', # 苹果绿（原#A3BE8C增艳）
+ '#3498DB', # 荧光蓝（原#81A1C1提亮）
 ]
 
 # 扩展线型和标记列表
@@ -29,14 +36,14 @@ line_styles = ['-', '--', '-.', '-', '--', '-.', '-', '--', '-.', '-', '--', '-.
 markers = ['o', 's', '^', 'D', 'v', 'p', 'h', 'X', '*', '+', 'x', '|', '1', '2', '3', '4']
 
 plot_params = {
-    'markersize': 4,                # 标记大小
+    'markersize': 6,                # 标记大小
     'markerfacecolor': (1, 1, 1, 0.8),     # 标记填充颜色（白色）
     'markeredgewidth': 1,         # 标记边缘宽度
     'linewidth': 1.2           # 线条粗细
 }
 
 plot_legend_params = {
-    'markersize': 6,                # 标记大小
+    'markersize': 8,                # 标记大小
     'markerfacecolor': (1, 1, 1, 0.8),     # 标记填充颜色（白色）
     'markeredgewidth': 1,         # 标记边缘宽度
     'linewidth': 1.2           # 线条粗细
@@ -212,10 +219,18 @@ def superscript(n):
 def plot_all_datasets_comparison(all_data):
     query_set = '1' # 这里假设我们只关心查询集1
     datasets = ['sift', 'gist', 'glove-100', 'audio', 'msong', 'enron']
-    single_thread_algs = ['UNG', 'NHQ', 'StitchedVamana', 'CAPS', 'FilteredVamana', 'faiss+HQI_Batch', 'ACORN-γ', 'ACORN-1', 'faiss','milvus', 'vbase', 'pase']
+    single_thread_algs = single_thread_algs = ['ACORN-1','ACORN-γ', 'CAPS', 'Faiss', 'Faiss+HQI_Batch', 'FilteredVamana', 'Milvus', 'NHQ', 'Puck', 'StitchedVamana', 'UNG', 'VBASE']
 
-    # 创建全局颜色字典，确保同一算法无论单线程还是16线程都使用相同颜色
-   
+    # 为图例创建格式化后的数据集名称映射
+    dataset_display_names = {
+        'sift': 'SIFT1M',
+        'gist': 'GIST1M',
+        'glove-100': 'GloVe',
+        'audio': 'Audio',
+        'msong': 'Msong',
+        'enron': 'Enron'
+    }
+    
     # 预处理：收集所有算法并为它们分配统一的颜色、线型和标记
     algorithm_colors = {}
     algorithm_line_styles = {}
@@ -224,6 +239,7 @@ def plot_all_datasets_comparison(all_data):
         algorithm_colors[dataset] = colors[i % len(colors)]
         algorithm_line_styles[dataset] = line_styles[i % len(line_styles)]
         algorithm_markers[dataset] = markers[i % len(markers)]
+    
     # 创建一个2行6列的大图，使用更宽的比例
     fig = plt.figure(figsize=(30, 8))
     
@@ -232,11 +248,8 @@ def plot_all_datasets_comparison(all_data):
 
     plotted_algs = set()
     
-    # 为构造统一图例，使用集合记录在当前图中出现的基础算法名称
-    # print(all_data[('sift', '5_1')][0]['Algorithm'].iloc[0])
     # 遍历所有算法
     for col, alg in enumerate(single_thread_algs):
-
         # 绘制单线程图 (第一行)
         row = col // 6
         col = col % 6
@@ -266,8 +279,9 @@ def plot_all_datasets_comparison(all_data):
                     x_data = filtered_df['Recall'].tolist()
                     y_data = filtered_df['QPS'].tolist()
                     single_thread_y_data.append(y_data)
-                    ax_single.plot(x_data, y_data, marker=marker, label=dataset, color=color, linestyle=linestyle, **plot_params)
-                    # plotted_algs.add(datasets)
+                    # 使用原始数据集名称绘图，但在图例中显示格式化名称
+                    ax_single.plot(x_data, y_data, marker=marker, label=dataset_display_names[dataset], 
+                                  color=color, linestyle=linestyle, **plot_params)
 
         # 设置单线程图的y轴范围和刻度
         y_min_single, y_max_single, y_ticks_single, y_tick_labels_single = get_y_range_and_ticks(single_thread_y_data)
@@ -288,23 +302,25 @@ def plot_all_datasets_comparison(all_data):
         label_index = chr(97 + col)  # 97是ASCII码中'a'的值
         formatted_label = f"({label_index}) Recall@10 ({alg})"
         ax_single.set_xlabel(formatted_label, 
-                         #fontfamily='Linux Libertine O',  # 字体家族
                          fontproperties=libertine_font,
-                         fontsize=20,         # 字体大小
-                         fontweight='bold')   # 字体粗细
-        
+                         fontsize=20,         
+                         fontweight='bold')   
         
         # 仅第一显示y轴标签
         if col == 0:
             ax_single.set_ylabel("QPS", fontsize=16)
         else:
             ax_single.set_ylabel("")
-        # 创建统一图例（按照全局颜色字典中出现过的算法）
 
+    # 创建图例元素
     legend_elements = []
     for dataset in datasets:
-        legend_elements.append(plt.Line2D([0], [0], color=algorithm_colors[dataset], marker=algorithm_markers[dataset], linestyle=algorithm_line_styles[dataset],
-                                             label=dataset, **plot_legend_params))
+        legend_elements.append(plt.Line2D([0], [0], 
+                                         color=algorithm_colors[dataset], 
+                                         marker=algorithm_markers[dataset], 
+                                         linestyle=algorithm_line_styles[dataset],
+                                         label=dataset_display_names[dataset],  # 使用格式化的数据集名称
+                                         **plot_legend_params))
     
     if legend_elements:
         leg = fig.legend(handles=legend_elements, loc='upper center',
@@ -312,7 +328,124 @@ def plot_all_datasets_comparison(all_data):
                          fontsize=17, frameon=False)
         leg.get_title().set_fontweight('bold')
     
-    # plt.suptitle("QPS vs Recall Performance Comparison Across Datasets", fontsize=16, y=1.02)
+    plt.tight_layout(rect=[0, 0.0, 1, 1.0])
+
+    return fig
+
+# 同样为多线程对比图添加格式化数据集名称
+def plot_multi_thread_comparison(all_data):
+    query_set = '1'
+    datasets = ['sift', 'gist', 'glove-100', 'audio', 'msong', 'enron']
+    multi_thread_algs = ['puck-16', 'UNG-16', 'parlayivf-16', 'CAPS-16', 'StitchedVamana-16', 'FilteredVamana-16', 'ACORN-γ-16', 'ACORN-1-16', 'faiss-16', 'milvus-16', 'vbase-16', 'pase-16']
+
+    # 为图例创建格式化后的数据集名称映射
+    dataset_display_names = {
+        'sift': 'SIFT1M',
+        'gist': 'GIST1M',
+        'glove-100': 'GloVe',
+        'audio': 'Audio',
+        'msong': 'Msong',
+        'enron': 'Enron'
+    }
+    
+    print("多线程图表绘制:", datasets)
+    
+    algorithm_colors = {}
+    algorithm_line_styles = {}
+    algorithm_markers = {}
+    for i, dataset in enumerate(sorted(datasets, key=str.lower)):
+        algorithm_colors[dataset] = colors[i % len(colors)]
+        algorithm_line_styles[dataset] = line_styles[i % len(line_styles)]
+        algorithm_markers[dataset] = markers[i % len(markers)]
+    
+    # 创建一个2行6列的大图，使用更宽的比例
+    fig = plt.figure(figsize=(30, 8))
+    
+    # 调整上下间距，给图例留出空间
+    gs = GridSpec(2, 6, figure=fig, wspace=0.15, hspace=0.25, height_ratios=[1, 1], top=0.85, bottom=0.1)
+
+    plotted_algs = set()
+    
+    for col, alg in enumerate(multi_thread_algs):
+        # 绘制单线程图 (第一行)
+        row = col // 6
+        col = col % 6
+        ax_single = fig.add_subplot(gs[row, col])
+
+        # 收集单线程图的Y轴数据，为每个算法单独收集
+        single_thread_y_data = []
+
+        for dataset in datasets:
+            key = (dataset, query_set)
+            if key not in all_data:
+                continue
+            # (sift, 1) 对应的df列表
+            data_list = all_data[key]
+            df = None
+            for d in data_list:
+                if d['Algorithm'].iloc[0] == alg:
+                    df = d
+            color = algorithm_colors[dataset]
+            linestyle = algorithm_line_styles[dataset]
+            marker = algorithm_markers[dataset]           
+            pareto_df = compute_pareto_frontier(df, 'Recall', 'QPS')
+            if not pareto_df.empty:
+                # 过滤 Recall 小于0.7以及等于1.01的数据
+                filtered_df = pareto_df[(pareto_df['Recall'] >= 0.7) & (pareto_df['Recall'] != 1.01)]
+                if not filtered_df.empty:
+                    x_data = filtered_df['Recall'].tolist()
+                    y_data = filtered_df['QPS'].tolist()
+                    single_thread_y_data.append(y_data)
+                    # 使用格式化的数据集名称
+                    ax_single.plot(x_data, y_data, marker=marker, label=dataset_display_names[dataset], 
+                                  color=color, linestyle=linestyle, **plot_params)
+
+        # 设置单线程图的y轴范围和刻度
+        y_min_single, y_max_single, y_ticks_single, y_tick_labels_single = get_y_range_and_ticks(single_thread_y_data)
+        ax_single.set_yscale('log')
+        ax_single.set_ylim(y_min_single, y_max_single)
+        ax_single.yaxis.set_major_locator(plt.FixedLocator(y_ticks_single))
+        ax_single.yaxis.set_minor_locator(plt.NullLocator())
+        ax_single.set_yticklabels(y_tick_labels_single)
+        ax_single.tick_params(axis='both', labelsize=20)
+
+        # 设置x轴范围为0.7到1.01，但仅显示刻度至1.0
+        ax_single.set_xlim(0.7, 1.01)
+        ax_single.set_xticks([0.7, 0.8, 0.9, 1.0])
+        ax_single.set_xticklabels([f"{tick:.1f}" for tick in [0.7, 0.8, 0.9, 1.0]])
+        ax_single.axvline(x=0.95, color='gray', linestyle='--', alpha=0.7)
+        ax_single.grid(True, linestyle=':', alpha=0.6)
+        # 设置x轴标签
+        label_index = chr(97 + col)  # 97是ASCII码中'a'的值
+        display_alg = alg.replace('-16', '') if alg.endswith('-16') else alg
+        formatted_label = f"({label_index}) Recall@10 ({display_alg})"
+        ax_single.set_xlabel(formatted_label, 
+                         fontproperties=libertine_font,
+                         fontsize=20,         
+                         fontweight='bold')   
+        
+        # 仅第一显示y轴标签
+        if col == 0:
+            ax_single.set_ylabel("QPS", fontsize=20)
+        else:
+            ax_single.set_ylabel("")
+
+    # 创建图例，使用格式化的数据集名称
+    legend_elements = []
+    for dataset in datasets:
+        legend_elements.append(plt.Line2D([0], [0], 
+                                         color=algorithm_colors[dataset], 
+                                         marker=algorithm_markers[dataset], 
+                                         linestyle=algorithm_line_styles[dataset],
+                                         label=dataset_display_names[dataset],  # 使用格式化的数据集名称
+                                         **plot_legend_params))
+    
+    if legend_elements:
+        leg = fig.legend(handles=legend_elements, loc='upper center',
+                         bbox_to_anchor=(0.5, 0.92), ncol=min(15, len(legend_elements)),
+                         fontsize=17, frameon=False)
+        leg.get_title().set_fontweight('bold')
+    
     plt.tight_layout(rect=[0, 0.0, 1, 1.0])
 
     return fig
