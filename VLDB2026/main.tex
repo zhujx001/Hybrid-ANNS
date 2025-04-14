@@ -466,7 +466,7 @@
 		
 		\setlength{\abovecaptionskip}{0.05cm}
 		\setlength{\textfloatsep}{0.cm}
-		\caption{Datassets}
+		\caption{Datasets}
 		
 		\label{tab:datasets_combined}
 		\resizebox{\columnwidth}{!}{
@@ -483,6 +483,7 @@
 				Deep & 96 & 1,000,000 & 10,000 & 22& Image \\[2pt]
 				YT-Audio& 128 & 1,000,000 & 10,000 & 15& Audio \\[2pt] 
 				WIT & 2048 & 1,000,000 & 40,300 & 48& Image \\[2pt]
+				Text2Image & 200 & 10,000,000 &10,000 & 59& Text2Image \\[2pt]
 				
 				\bottomrule
 			\end{tabular}
@@ -659,12 +660,12 @@
 	\end{figure}
 	
 	\textit{Effect of Multi-Attribute Building on Algorithm Performance (M vs. S).}
-	As shown in Figure \ref{fig:exp_2_1}, Puck demonstrates nearly no performance degradation. In contrast, the performance of StitchedVamana, FilteredVamana, NHQ, and UNG drop significantly, with the following reasons: 1) FilteredVamana increases the complexity introduced by retaining attribute during index construction. 2) The complexity of StitchedVamana increases because data points may duplicate across multiple subgraphs. 3) The fusion distance of NHQ exhibits sensitivity to the number of attributes, which degrades its effectiveness. 4) The reason why UNG has poor performance is that each base vector has 8 attributes, but only one query attribute, which results in a large number of entry points that need to be traversed. It is difficult for a graph with multiple entries to have good connectivity, degenerating into a situation closer to inverted retrieval, and the effect may be greatly impaired.
+	As shown in Figure \ref{fig:exp_2_1}, Puck and CAPS demonstrate nearly no performance degradation. In contrast, the performance of FilteredVamana,StitchedVamana, NHQ, and UNG drop significantly, with the following reasons: 1) FilteredVamana increases the complexity introduced by retaining attribute during index construction. 2) The complexity of StitchedVamana increases because data points may duplicate across multiple subgraphs. 3) The fusion distance of NHQ exhibits sensitivity to the number of attributes, which degrades its effectiveness. 4) The reason why UNG has poor performance is that each base vector has 8 attributes, but only one query attribute, which results in a large number of entry points that need to be traversed. It is difficult for a graph with multiple entries to have good connectivity, degenerating into a situation closer to inverted retrieval, and the effect may be greatly impaired.
 	
 	
 	
 	\textit{Performance of Algorithms under Multi-Attribute Building (M vs. M).}  
-	As shown in Figur \ref{fig:exp_2_1}, Puck achieves the best query performance, surpassing other algorithms by an order of magnitude. It filters out irrelevant results during retrieval rather than searching for more candidates. FilteredVamana performs the worst because its multi-attribute indexing forces neighbor selection to cover multiple attributes, hurting single-attribute query efficiency. This leads to excessive irrelevant node traversal, making it slower than other methods.
+	As shown in Figur \ref{fig:exp_2_1}, CAPS has the best QPS performance, while Puck has better recall accuracy. CAPS first partitions by clustering, and then builds AFT under each partition. For CAPS, whether it is built with multiple attributes or a single attribute, the number of points required to be retrieved will not change after AFT filtering during search, so the performance is not greatly affected. Puck filters out irrelevant results during retrieval rather than searching for more candidates. FilteredVamana performs the worst because its multi-attribute indexing forces neighbor selection to cover multiple attributes, hurting single-attribute query efficiency. This leads to excessive irrelevant node traversal, making it slower than other methods.
 	
 	
 	\begin{figure*}
@@ -839,14 +840,15 @@
 	\end{table}
 	
 	\textit{\textbf{Different Datasets.}}  
-	To evaluate the performance of various methods across different datasets, we conduct experiments on 6 datasets. Our analysis focuses on performance variations concerning dataset size, LID, and vector dimensionality.
+	To evaluate the performance of various methods across different datasets, we conduct experiments on 7 datasets, including one dataset for out-of-distribution (OOD) queries. Our analysis focuses on performance variations concerning dataset size, LID, and vector dimensionality.
 	
-	As shown in Figure~\ref{fig:exp_6_1}, all methods achieve their highest QPS and recall on Audio dataset. Because Audio has small scale, low dimensionality, and low LID. In contrast, all methods exhibit the lowest QPS and recall on the GIST1M and GloVe dataset. Because these two datasets have the largest scale and highest LID.
+	As shown in Figure~\ref{fig:exp_6_1}, all methods achieve their highest QPS and recall on Audio dataset. Because Audio has small scale, low dimensionality, and low LID. In contrast, all methods exhibit the lowest QPS and recall on the GIST1M and GloVe dataset besides the OOD dataset Text2Image. Because these two datasets have the largest scale and highest LID.
 	
 	SIFT1M and Msong are similar datasets, with the key difference being that SIFT1M has lower dimensionality. The 4 algorithms (ACORN, Faiss, PASE, and NHQ) perform similarly on these two datasets, suggesting strong robustness to high dimensional datasets. In contrast, the remaining algorithms exhibit degraded performance on Msong, revealing a lack of adaptability to high dimensional datasets.
 	
 	Most algorithms struggle to achieve high recall on GloVe, because it has the highest LID. Compare to other algorithms, the 4 algorithms (UNG, Faiss, CAPS, and Milvus) manage to maintain relatively high recall, demonstrating better adaptability to complex datasets. Notably, although vanilla Faiss performs worse on SIFT1M compared to Enron dataset, Faiss+HQI\_Batch outperforms on SIFT1M. Because batch optimization in HQI reduces query overhead and increases throughput.
 	
+	Most algorithms exhibit the worst performance on the OOD dataset text2image. However, ACORN, UNG, and FilteredVamana show relatively stable performance on text2image. Their performance drops less compared to in-distribution (ID) datasets such as GIST and GLOVE, indicating better adaptability to OOD queries.
 	
 	\subsection{Range Filtering}
 	Although the libraries and databases mentioned above can also implement range filtering, the results are poor, so we only compare 5 range-filtering algorithms.
