@@ -231,7 +231,7 @@ def superscript(n):
 # 创建一个新的函数用于绘制多线程算法图表
 def plot_2_5_comparison(all_data):
     range_set = ['range_2', 'range_8']
-    alg_set = ['DSG', 'IRange', 'SeRF', 'UNIFY', 'WinFilter','ACORN-1', 'ACORN-γ', 'Faiss', 'Milvus', 'VBASE']
+    alg_set = ['DSG', 'iRange', 'SeRF', 'UNIFY', 'WinFilter','ACORN-1', 'ACORN-γ', 'Faiss', 'Milvus', 'VBASE']
     datasets = ['wit', 'deep', 'yt8m', 'text2image']
     # 为图例创建格式化后的数据集名称映射
     dataset_display_names = {

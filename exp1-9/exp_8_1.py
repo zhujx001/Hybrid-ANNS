@@ -360,7 +360,7 @@ def plot_3_4_comparison(all_data):
 # 创建一个新的函数用于绘制多线程算法图表
 def plot_1_6_comparison(all_data):
     range_set = ['range_2', 'range_8']
-    alg_set = ['DSG', 'IRange', 'SeRF', 'UNIFY', 'WinFilter','ACORN-1', 'ACORN-γ', 'Faiss', 'Milvus', 'VBASE','PASE']
+    alg_set = ['DSG', 'iRange', 'SeRF', 'UNIFY', 'WinFilter','ACORN-1', 'ACORN-γ', 'Faiss', 'Milvus', 'VBASE','PASE']
     datasets = ['wit', 'deep', 'yt8m']
     
     # 为图例创建格式化后的数据集名称映射
