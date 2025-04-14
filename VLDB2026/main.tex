@@ -807,37 +807,37 @@
 	
 	%4.2.7
 	
-	\begin{table}[t]
-		\centering
-		\setlength{\abovecaptionskip}{0.05cm}
-		\caption{Time and space overhead of range filtering index construction}
+	% \begin{table}[t]
+	% 	\centering
+	% 	\setlength{\abovecaptionskip}{0.05cm}
+	% 	\caption{Time and space overhead of range filtering index construction}
 		
-		\label{tab:Range Filtered}
-		\resizebox{\columnwidth}{!}{
-			\begin{tabular}{l l c c c c c }
-				\toprule
-				\textbf{Dataset} & \textbf{Metric} & \textbf{DSG} & \textbf{iRange} & \textbf{SeRF} & \textbf{UNIFY} & \textbf{WinFilter} \\
-				\midrule
-				\multirow{3}{*}{DEEP} 
-				& Index time(s)  & 4156 & 1128 & \textbf{189.89} & 7510 & 32843 \\
-				& Index size(GB)  &  4.6 & 0.92 & \textbf{0.80} & 1.43 & 2.41  \\
-				& Peak memory(GB) &  7.78 & 3.54 & \textbf{1.38} & 2.61 & 7.08   \\
-				% \cmidrule{1-7}
-				\midrule
-				\multirow{3}{*}{YT-Audio} 
-				& Index time(s)   & 15314 & 1039 & \textbf{187.20} & 5905 & 30904    \\
-				& Index size(GB)    & 4.3 & \textbf{0.7} & 1.04 & 1.55 & 1.32  \\
-				& Peak memory(GB)   & 7.5 & 3.16 & \textbf{1.57} & 2.97 & 6.95  \\
-				\midrule
-				\multirow{3}{*}{WIT} 
-				& Index time(s)  & 29492 & 7068 & \textbf{828.12} & 28759 & 94909\\
-				& Index size(GB) &  4.2 & \textbf{1.5 }& 15.34 & 8.71 & 1.59  \\
-				& Peak memory(GB)  & 21.7 & \textbf{12.32} & 15.87 & 24.38 & 15.29\\
-				% \cmidrule{1-7}
-				\bottomrule
-			\end{tabular}
-		}
-	\end{table}
+	% 	\label{tab:Range Filtered}
+	% 	\resizebox{\columnwidth}{!}{
+	% 		\begin{tabular}{l l c c c c c }
+	% 			\toprule
+	% 			\textbf{Dataset} & \textbf{Metric} & \textbf{DSG} & \textbf{iRange} & \textbf{SeRF} & \textbf{UNIFY} & \textbf{WinFilter} \\
+	% 			\midrule
+	% 			\multirow{3}{*}{DEEP} 
+	% 			& Index time(s)  & 4156 & 1128 & \textbf{189.89} & 7510 & 32843 \\
+	% 			& Index size(GB)  &  4.6 & 0.92 & \textbf{0.80} & 1.43 & 2.41  \\
+	% 			& Peak memory(GB) &  7.78 & 3.54 & \textbf{1.38} & 2.61 & 7.08   \\
+	% 			% \cmidrule{1-7}
+	% 			\midrule
+	% 			\multirow{3}{*}{YT-Audio} 
+	% 			& Index time(s)   & 15314 & 1039 & \textbf{187.20} & 5905 & 30904    \\
+	% 			& Index size(GB)    & 4.3 & \textbf{0.7} & 1.04 & 1.55 & 1.32  \\
+	% 			& Peak memory(GB)   & 7.5 & 3.16 & \textbf{1.57} & 2.97 & 6.95  \\
+	% 			\midrule
+	% 			\multirow{3}{*}{WIT} 
+	% 			& Index time(s)  & 29492 & 7068 & \textbf{828.12} & 28759 & 94909\\
+	% 			& Index size(GB) &  4.2 & \textbf{1.5 }& 15.34 & 8.71 & 1.59  \\
+	% 			& Peak memory(GB)  & 21.7 & \textbf{12.32} & 15.87 & 24.38 & 15.29\\
+	% 			% \cmidrule{1-7}
+	% 			\bottomrule
+	% 		\end{tabular}
+	% 	}
+	% \end{table}
 	
 	\textit{\textbf{Different Datasets.}}  
 	To evaluate the performance of various methods across different datasets, we conduct experiments on 7 datasets, including one dataset for out-of-distribution (OOD) queries. Our analysis focuses on performance variations concerning dataset size, LID, and vector dimensionality.
@@ -853,12 +853,48 @@
 	\subsection{Range Filtering}
 	Although the libraries and databases mentioned above can also implement range filtering, the results are poor, so we only compare 5 range-filtering algorithms.
 	\subsubsection{Time and Space overhead of index construction.}
-	
+	%4.2.1
+
+	\begin{figure}[t]
+		\centering
+		\setlength{\abovecaptionskip}{0.3cm}
+		\setlength{\belowcaptionskip}{0cm}
+		
+		% 放大的图例（占满单栏）
+		\includegraphics[width=0.98\columnwidth]{figures/indexData/rangeFilter_legend_only.pdf}
+		
+		\vspace{0.3cm}
+		
+		% 三图横排
+		\begin{subfigure}[t]{0.31\columnwidth}
+			\centering
+			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_build_time_comparison_query.pdf}
+			\caption{Index construction time}
+			\label{fig:rangeFilter_build_time}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[t]{0.31\columnwidth}
+			\centering
+			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_index_size_mb_comparison_query.pdf}
+			\caption{Index size}
+			\label{fig:rangeFilter_ndex_size_mb}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[t]{0.31\columnwidth}
+			\centering
+			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_memory_mb_comparison_query.pdf}
+			\caption{Peak memory usage}
+			\label{fig:rangeFilter_memory_mb}
+		\end{subfigure}
+		
+		\caption{Time and space overhead of range filtering index construction}
+		\label{fig:rangeFilter_build_index_comparison}
+	\end{figure}
 	
 	Similar to the evaluation of \textit{Attribute-Filtering} algorithms, we also evaluate 3 key metrics mentioned above in \textit{Range-Filtering} algorithms.
 	
 	\textit{\textbf{Index construction time.}}
-	As shown in Table \ref{tab:Range Filtered}, SeRF achieves the fastest index construction time among the 5 algorithms. It incrementally builds the index in attribute order. It requires only a single pass and adds edges within local graphs. The structure is simple, with no redundant operations.
+, SeRF achieves the fastest index construction time among the 5 algorithms. It incrementally builds the index in attribute order. It requires only a single pass and adds edges within local graphs. The structure is simple, with no redundant operations.
 	
 	In contrast, WinFilter has the longest construction time. This is mainly due to its tree-based structure, where each node requires an independent nearest neighbor graph. This leads to significant redundant computations and high resource costs, especially for large datasets.
 	% 如表\ref{tab:Range Filtered}所示，在五种算法中，SeRF的构建时间最短，原因是其按属性值顺序增量构建的方式，仅需一次遍历并在局部图中添加边，结构简单、无冗余操作。而 WinFilter 的构建时间最长，主要由于其采用树状结构，在每个节点上需构建独立的近邻图索引，造成大量重复计算和资源开销，尤其在数据量大时更为明显。
