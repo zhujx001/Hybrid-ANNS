@@ -271,7 +271,7 @@ def plot_all_datasets_comparison(all_data):
             pareto_df = compute_pareto_frontier(df, 'Recall', 'QPS')
             if not pareto_df.empty:
                 # 过滤 Recall 小于0.7以及等于1.01的数据
-                filtered_df = pareto_df[(pareto_df['Recall'] >= 0.7) & (pareto_df['Recall'] != 1.01)]
+                filtered_df = pareto_df[(pareto_df['Recall'] >= 0.4) & (pareto_df['Recall'] != 1.01)]
                 if not filtered_df.empty:
                     x_data = filtered_df['Recall'].tolist()
                     y_data = filtered_df['QPS'].tolist()
@@ -290,9 +290,9 @@ def plot_all_datasets_comparison(all_data):
         ax_single.tick_params(axis='both', labelsize=16)
 
         # 设置x轴范围为0.7到1.01，但仅显示刻度至1.0
-        ax_single.set_xlim(0.7, 1.01)
-        ax_single.set_xticks([0.7, 0.8, 0.9, 1.0])
-        ax_single.set_xticklabels([f"{tick:.1f}" for tick in [0.7, 0.8, 0.9, 1.0]])
+        ax_single.set_xlim(0.4, 1.01)
+        ax_single.set_xticks([0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
+        ax_single.set_xticklabels([f"{tick:.1f}" for tick in [0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]])
         ax_single.axvline(x=0.95, color='gray', linestyle='--', alpha=0.7)
         ax_single.grid(True, linestyle=':', alpha=0.6)
         # 设置x轴标签
