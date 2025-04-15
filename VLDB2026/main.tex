@@ -972,7 +972,7 @@ To evaluate the robustness of the RF-ANNS algorithm in different scenarios, we a
 
 WinFilter showed the worst performance on the WIT dataset. This suggests that its performance is sensitive to the data dimensionality. ACORN had large performance differences across datasets, indicating weak robustness.
 
-Among vector databases, Milvus performed well. PASE was not included in this round of tests because it does not support datasets with dimensions over 512 and performed poorly in earlier experiments.
+Among vector databases, Milvus performed well. VBASE is sensitive to datasets and achieved recall below 0.8 on Text2Image. PASE was excluded from this round of tests because it does not support datasets with dimensions over 512 and performed poorly in earlier experiments.
 
 It is worth noting that most methods achieved similar performance on the Deep and YT-Audio datasets, which have similar LID values. This shows that RF-ANNS performance is largely affected by both the LID and the dimensionality of the dataset. A high LID and high dimensionality make hybrid queries more difficult.
 
