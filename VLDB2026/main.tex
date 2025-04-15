@@ -899,7 +899,7 @@
 	SeRF exhibits relatively weak overall performance, with a significant drop in recall under small-range query scenarios. This suggests that while its compressed graph structure is space-efficient, it has a substantial negative impact on query performance.
 	
 %	 修改此处
-	ACORN performs similarly on both large and small range queries, but its overall performance is worse than the other methods. Unlike other range-filtering algorithms, ACORN is not designed with specialized data structures (such as the $\beta$-WST in WinFilter, the rectangle tree and dynamic segment graph in SeRF, or the HSIG in UNIFY) to achieve efficient range filtering. In fact, the graph structure used by ACORN for attribute filtering is the same as that used for range filtering.
+	ACORN performs similarly on both large and small range queries, but its overall performance is worse than the other methods. Unlike other range-filtering algorithms, ACORN is not designed with specialized data structures  to achieve efficient range filtering. In fact, the graph structure used by ACORN for attribute filtering is the same as that used for range filtering.
 	
 	For third-party libraries and databases, Figure~\ref{fig:exp_8_2} shows that Faiss performs well in range filtering and even outperforms some specialized range query algorithms in certain cases. Faiss performs better in small-range filtering scenarios because it searches over the filtered vectors. With a smaller range, fewer points remain after filtering, resulting in lower computational cost. In addition, the performance of Faiss is influenced by data dimensionality; it tends to work better on low-dimensional datasets.
 	
@@ -928,11 +928,19 @@
 		\label{fig:exp_8_3}
 	\end{figure*}
 	
-	
-	To examine the robustness of RF-ANNS algorithms, we analyze their performance across different datasets. As shown in Figure~\ref{fig:exp_8_3}, the performance differences. All methods perform worst on WIT, which has the highest LID. On Deep and YT-Audio, which have similar LID, most algorithms achieve comparable performance. 
-	This suggests that the effectiveness of RF-ANN search is mainly influenced by LID of the dataset. A higher LID inherently increases the difficulty of hybrid query.
-	
-	However, the DSG algorithm shows a noticeable performance gap between the Deep and YT-Audio datasets, despite their comparable LID. This indicates that DSG is less robust than other methods when facing dataset-dependent variations, possibly due to its sensitivity to data distribution beyond LID alone.
+To evaluate the robustness of the RF-ANNS algorithm in different scenarios, we added an Out-of-Distribution (OOD) dataset to the three standard datasets and tested performance under large-range queries. As shown in Figure~\ref{fig:exp_8_3}, most methods performed worst on the Text2Image dataset. This is because OOD queries make the $k$-nearest neighbor distribution more sparse. As a result, the search needs to visit more nodes, which leads to an exponential growth in the search space and a sharp drop in efficiency.
+
+WinFilter showed the worst performance on the WIT dataset. This suggests that its performance is sensitive to the data dimensionality. ACORN had large performance differences across datasets, indicating weak robustness.
+
+Among vector databases, Milvus performed well. PASE was not included in this round of tests because it does not support datasets with dimensions over 512 and performed poorly in earlier experiments.
+
+It is worth noting that most methods achieved similar performance on the Deep and YT-Audio datasets, which have similar LID values. This shows that RF-ANNS performance is largely affected by both the LID and the dimensionality of the dataset. A high LID and high dimensionality make hybrid queries more difficult.
+
+However, even though Deep and YT-Audio have similar LID values, the DSG algorithm showed large performance differences between them. This means that DSG is more sensitive to changes in data distribution. Its robustness is lower than that of other methods, possibly because it depends not only on LID but also on other complex data characteristics.
+%	To examine the robustness of RF-ANNS algorithms, we analyze their performance across different datasets. As shown in Figure~\ref{fig:exp_8_3}, the performance differences. All methods perform worst on WIT, which has the highest LID. On Deep and YT-Audio, which have similar LID, most algorithms achieve comparable performance. 
+%	This suggests that the effectiveness of RF-ANN search is mainly influenced by LID of the dataset. A higher LID inherently increases the difficulty of hybrid query.
+%	
+%	However, the DSG algorithm shows a noticeable performance gap between the Deep and YT-Audio datasets, despite their comparable LID. This indicates that DSG is less robust than other methods when facing dataset-dependent variations, possibly due to its sensitivity to data distribution beyond LID alone.
 	
 	\section{DISCUSSION}
 	Based on the performance of the algorithms on different experimental scenarios, we discuss our findings as follows.
