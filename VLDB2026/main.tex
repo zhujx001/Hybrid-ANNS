@@ -534,8 +534,8 @@
 		\setlength{\belowcaptionskip}{0cm}
 		
 		% 上面的图例，居中并可通过 hspace 调整左右位置
-		\hspace*{15pt} % 可调整的参数，负值左移，正值右移，例如 -20pt 或 20pt
-		\includegraphics[width=0.94\columnwidth]{figures/indexData/legend_only.pdf} % 图例图片路径
+		\hspace*{16pt} % 可调整的参数，负值左移，正值右移，例如 -20pt 或 20pt
+		\includegraphics[width=0.92\columnwidth]{figures/indexData/legend_only.pdf} % 图例图片路径
 		
 		
 		\begin{subfigure}{\columnwidth}
@@ -854,32 +854,33 @@
 	\subsection{Range Filtering}
 	Although the libraries and databases mentioned above can also implement range filtering, the results are poor, so we only compare 5 range filtering algorithms.
 	\subsubsection{Time and Space overhead of index construction.}
+	
 	\begin{figure}[t]
 		\centering
 		\setlength{\abovecaptionskip}{0.3cm}
 		\setlength{\belowcaptionskip}{0cm}
-		
+		\hspace*{11pt}
 		% 放大的图例（占满单栏）
-		\includegraphics[width=0.98\columnwidth]{figures/indexData/rangeFilter_legend_only.pdf}
+		\includegraphics[width=0.93\columnwidth]{figures/indexData/rangeFilter_legend_only.pdf}
 		
-		\vspace{0.3cm}
+		%\vspace{0.1cm}
 		
 		% 三图横排
-		\begin{subfigure}[t]{0.31\columnwidth}
+		\begin{subfigure}[t]{0.32\columnwidth}
 			\centering
 			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_build_time_comparison_query.pdf}
 			\caption{Index construction time}
 			\label{fig:rangeFilter_build_time}
 		\end{subfigure}
 		\hfill
-		\begin{subfigure}[t]{0.31\columnwidth}
+		\begin{subfigure}[t]{0.32\columnwidth}
 			\centering
 			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_index_size_mb_comparison_query.pdf}
 			\caption{Index size}
 			\label{fig:rangeFilter_ndex_size_mb}
 		\end{subfigure}
 		\hfill
-		\begin{subfigure}[t]{0.31\columnwidth}
+		\begin{subfigure}[t]{0.32\columnwidth}
 			\centering
 			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_memory_mb_comparison_query.pdf}
 			\caption{Peak memory usage}
@@ -937,7 +938,7 @@
 %	 修改此处
 	ACORN performs similarly on both large and small range queries, but its overall performance is worse than the other methods. Unlike other range filtering algorithms, ACORN is not designed with specialized data structures (such as the $\beta$-WST in WinFilter, the rectangle tree and dynamic segment graph in SeRF, or the HSIG in UNIFY) to achieve efficient range filtering. In fact, the graph structure used by ACORN for attribute filtering is the same as that used for range filtering.
 	
-	For third-party libraries and databases, Figure~\ref{fig:exp_8_2} shows that Faiss performs well in range filtering and even outperforms some specialized range query algorithms in certain cases. Faiss performs better in small-range filtering scenarios because it searches over the filtered vectors. With a smaller range, fewer points remain after filtering, resulting in lower computational cost. In addition, the performance of Faiss is influenced by data dimensionality; it tends to work better on low-dimensional datasets.
+	For third-party libraries and databases, Figure~\ref{fig:exp_8_2} shows that Faiss performs well in range filtering and even outperforms some specialized range query algorithms in certain cases. Faiss does not include optimizations specifically tailored for range filtering scenarios; its query mechanism is identical to that used in tag filtering scenarios. However, since attributes are pre-sorted in range filtering scenarios, the filtering overhead is minimal, leading to improved query performance. Similar to the selectivity observed in attribute filtering, Faiss performs better in small-range filtering scenarios because it searches over the filtered vectors. With a smaller range, fewer points remain after filtering, resulting in lower computational cost. In addition, the performance of Faiss is influenced by data dimensionality; it tends to work better on low-dimensional datasets.
 	
 	Vector databases also show relatively poor performance on range queries. Among them, Milvus performs better than the others, even surpassing ACORN under high recall settings. PASE performs poorly on small-range queries, with recall lower than 0.1, so it does not appear in Figure~\ref{fig:exp_8_2}. VPASE also performs better on large-range queries, but compared to PASE, its performance on small ranges is significantly better, achieving higher recall despite very low QPS.
 
