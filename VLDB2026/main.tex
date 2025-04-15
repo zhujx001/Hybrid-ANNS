@@ -861,25 +861,26 @@
 	As shown in Table \ref{tab:Range Filtered}, SeRF achieves the fastest index construction time among the 5 algorithms. It incrementally builds the index in attribute order. It requires only a single pass and adds edges within local graphs. The structure is simple, with no redundant operations.
 	
 	\textit{\textbf{Index construction time.}}
-	Figure~\ref{fig:rangeFilter_build_time} shows the single-threaded index construction time. Faiss builds the index fastest.
+	Figure~\ref{fig:rangeFilter_build_time} shows the single-threaded index construction time. Faiss builds the index fastest. Because Faiss obtains subsamples through sampling and then calculates the cluster centroid, the computational complexity is significantly reduced.
 	
 	WinFilter and ACORN-\(\gamma\) take the longest.
 	WinFilter relies on a tree structure, requiring separate nearest-neighbor graphs per node. This causes redundant computation and high costs, especially for large datasets.
-	
 	ACORN-\(\gamma\) expands the neighbor list of each node to provide more candidate paths, which increases both computation and storage costs. It also prunes distant neighbors to save storage space; however, this introduces additional overhead and slows down the construction process.
 
 	\textit{\textbf{Index size.}} 
-	As shown in Figure~\ref{fig:rangeFilter_index_size_mb}, Among all algorithms, Faiss has the smallest index structure because. 
+	As shown in Figure~\ref{fig:rangeFilter_index_size_mb}, Among all algorithms, Faiss has the smallest index structure. Because IVF only adds centroid data and partition information to the vector dataset, the IVF index is only slightly larger than the vector dataset.
 	On low-dimensional datasets (Deep, YT-Audio), PASE requires the most storage. Its implementation likely wastes space due to alignment padding and inefficient encoding (e.g., Base64).
 	
 	SeRF maintains a compact index for low-dimensional data. However, for high-dimensional datasets (WIT), SeRF stores more edges and dynamic range data, significantly increasing its size.
+	
 	\textit{\textbf{Peak memory usage.}}
-	As shown in Figure~\ref{fig:rangeFilter_memory_mb}, For low-dimensional datasets (deep, yt-audio), Faiss takes up the lowest memory due to: . 
-	DSG and WinFilter take up significantly more memory than other algorithms due to.
+	As Figure~\ref{fig:rangeFilter_memory_mb} shows, Faiss uses the least memory on low-dimensional datasets (Deep, YT-Audio). It stores minimal temporary data (e.g., vectors, centroids, distances) during index construction.
 	
-	For high-dimensional datasets WIT, iRange achieves the lowest peak memory usage. It pre-builds graphs only for a limited number of intervals, avoiding explicit index construction for all possible query ranges. Its index structure remains stable in high dimensions without significant graph growth. This effectively controls index size, making iRange more advantageous for high-dimensional datasets.
-	In contrast, unify takes up the highest memory due to
+	DSG and WinFilter require significantly more memory than other methods.Because……
 	
+	For the high-dimensional dataset WIT, iRange achieves the lowest peak memory. It pre-builds graphs only for select intervals, skipping full-range index construction. This design keeps the index compact even in high dimensions.
+	
+	In contrast, Unify consumes the most memory because...
 	\begin{figure*}[htbp]
 		\centering
 		%  \setlength{\abovecaptionskip}{0cm}
