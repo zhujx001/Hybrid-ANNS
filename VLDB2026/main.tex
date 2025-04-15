@@ -351,7 +351,7 @@
 	
 	
 	\noindent\textbf{\underline{Puck \cite{puck}.}}  
-	While simultaneous filtering performs well in most scenarios, it may underperform when only a small portion of data satisfies attribute constraints. In such cases, a pre-filtering strategy—applying attribute constraints prior to ANN search—can be more effective.
+	While simultaneous filtering algorithms perform well in most scenarios, it may underperform when only a small portion of data satisfies attribute constraints. In such cases, a pre-filtering strategy—applying attribute constraints prior to ANN search—can be more effective.
 	
 	Developed by Baidu, Puck utilizes two-level quantization for indexing. It maintains an attribute set for each cluster to track vector attributes. During the query process, it employs pre-filtering to exclude clusters without required attributes, thereby reducing the search space.
 	%Developed by Baidu, Puck adopts a pre-filtering approach and employs a multi-level filtering mechanism for hybrid query. Its index structure comprises four layers: the first two use vector quantization for training, while the latter two leverage product quantization.
@@ -610,7 +610,7 @@
 	
 	
 	\textit{\textbf{Peak memory usage.}}
-	As shown in Figure~\ref{fig:memory_mb_comparison_query1}, on small-scale datasets, all methods except NHQ exhibit low memory usage. This is because NHQ adopts the kgraph approach for index construction, which requires loading the entire graph data into memory and maintaining a complete graph structure, leading to relatively high memory overhead. On large-scale datasets, CPAS exhibits slightly lower memory usage compared to other algorithms. Due to their special characteristics, databases are not included in the peak memory usage testing during index construction.
+	As shown in Figure~\ref{fig:memory_mb_comparison_query1}, on small-scale datasets, all methods except NHQ exhibit low memory usage. This is because NHQ adopts the kgraph approach for index construction, which requires loading the entire graph data into memory and maintaining a complete graph structure, leading to relatively high memory overhead. On large-scale datasets, CAPS exhibits slightly lower memory usage compared to other algorithms. Due to their special characteristics, databases are not included in the peak memory usage testing during index construction.
 	
 	
 	
@@ -852,7 +852,7 @@
 	Most algorithms exhibit the worst performance on the OOD dataset text2image. However, ACORN, UNG, and FilteredVamana show relatively stable performance on text2image. Their performance drops less compared to in-distribution (ID) datasets such as GIST and GLOVE, indicating better adaptability to OOD queries.
 	
 	\subsection{Range Filtering}
-	Although the libraries and databases mentioned above can also implement range filtering, the results are poor, so we only compare 5 range filtering algorithms.
+	
 	\subsubsection{Time and Space overhead of index construction.}
 	
 	\begin{figure}[t]
@@ -877,7 +877,7 @@
 			\centering
 			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_index_size_mb_comparison_query.pdf}
 			\caption{Index size}
-			\label{fig:rangeFilter_ndex_size_mb}
+			\label{fig:rangeFilter_index_size_mb}
 		\end{subfigure}
 		\hfill
 		\begin{subfigure}[t]{0.32\columnwidth}
@@ -910,11 +910,15 @@
 	\textit{\textbf{Peak memory usage.}}
 	As Figure~\ref{fig:rangeFilter_memory_mb} shows, Faiss uses the least memory on low-dimensional datasets (Deep, YT-Audio). It stores minimal temporary data (e.g., vectors, centroids, distances) during index construction.
 	
-	DSG and WinFilter require significantly more memory than other methods.Because……
+	On low-dimensional datasets, DSG and WinFilter exhibit higher peak memory usage compared to other algorithms. This suggests that their index structures suffer from severe structural redundancy and are difficult to compress in low-dimensional scenarios.
+	%因为低维空间中数据点之间的欧氏距离普遍较小，点与点之间更易互为近邻，从而导致图索引中产生大量冗余的边连接。
 	
-	For the high-dimensional dataset WIT, iRange achieves the lowest peak memory. It pre-builds graphs only for select intervals, skipping full-range index construction. This design keeps the index compact even in high dimensions.
+
+	As Figure~\ref{fig:rangeFilter_memory_mb} shows, Faiss uses the least memory on low-dimensional datasets (Deep, YT-Audio). It stores minimal temporary data (e.g., vectors, centroids, distances) during index construction.
 	
-	In contrast, Unify consumes the most memory because...
+	For high-dimensional datasets WIT, iRange achieves the lowest peak memory usage. It pre-builds graphs only for a limited number of intervals, avoiding explicit index construction for all possible query ranges. Its index structure remains stable in high dimensions without significant graph growth. This effectively controls index size, making iRange more advantageous for high-dimensional datasets.
+	In contrast, Unify exhibits the highest memory consumption, indicating that its index construction process is highly sensitive to the dimensionality of the data.
+
 	\begin{figure*}[htbp]
 		\centering
 		%  \setlength{\abovecaptionskip}{0cm}
