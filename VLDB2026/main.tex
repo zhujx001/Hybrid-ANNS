@@ -908,11 +908,15 @@
 	
 	\textit{\textbf{Peak memory usage.}}
 	As shown in Figure~\ref{fig:rangeFilter_memory_mb}, For low-dimensional datasets (deep, yt-audio), Faiss takes up the lowest memory due to: . 
-	DSG and WinFilter take up significantly more memory than other algorithms due to.
+	
+	On low-dimensional datasets, DSG and WinFilter exhibit higher peak memory usage compared to other algorithms. This suggests that their index structures suffer from severe structural redundancy and are difficult to compress in low-dimensional scenarios.
+	%因为低维空间中数据点之间的欧氏距离普遍较小，点与点之间更易互为近邻，从而导致图索引中产生大量冗余的边连接。
+	
+
 	
 	For high-dimensional datasets WIT, iRange achieves the lowest peak memory usage. It pre-builds graphs only for a limited number of intervals, avoiding explicit index construction for all possible query ranges. Its index structure remains stable in high dimensions without significant graph growth. This effectively controls index size, making iRange more advantageous for high-dimensional datasets.
-	In contrast, unify takes up the highest memory due to
-	
+	In contrast, Unify exhibits the highest memory consumption, indicating that its index construction process is highly sensitive to the dimensionality of the data.
+
 	\begin{figure*}[htbp]
 		\centering
 		%  \setlength{\abovecaptionskip}{0cm}
