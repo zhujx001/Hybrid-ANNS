@@ -900,12 +900,13 @@
 	WinFilter and ACORN-\(\gamma\) take the longest.
 	WinFilter relies on a tree structure, requiring separate nearest-neighbor graphs per node. This causes redundant computation and high costs, especially for large datasets.
 	
-	ACORN-\(\gamma\) expands each node’s neighbor list to offer more candidate paths, increasing computation and storage. It also prunes distant neighbors to reduce storage, but this adds extra overhead, slowing construction.
+	ACORN-\(\gamma\) expands the neighbor list of each node to provide more candidate paths, which increases both computation and storage costs. It also prunes distant neighbors to save storage space; however, this introduces additional overhead and slows down the construction process.
 
 	\textit{\textbf{Index size.}} 
-	As shown in Figure~\ref{fig:rangeFilter_index_size_mb}, Among all algorithms, Faiss has the smallest index structure because. On low-dimensional datasets (deep, yt-audio), PASE has the largest index size because its implementation may have wasteful alignment and padding of data structures, as well as the use of storage methods such as Base64 encoding, which significantly increase storage overhead.
-	The index size of SeRF on low-dimensional datasets is not large, but on high-dimensional datasets (wit), SeRF is forced to store more edges and dynamic range information, so the index increases significantly
+	As shown in Figure~\ref{fig:rangeFilter_index_size_mb}, Among all algorithms, Faiss has the smallest index structure because. 
+	On low-dimensional datasets (Deep, YT-Audio), PASE requires the most storage. Its implementation likely wastes space due to alignment padding and inefficient encoding (e.g., Base64).
 	
+	SeRF maintains a compact index for low-dimensional data. However, for high-dimensional datasets (WIT), SeRF stores more edges and dynamic range data, significantly increasing its size.
 	\textit{\textbf{Peak memory usage.}}
 	As shown in Figure~\ref{fig:rangeFilter_memory_mb}, For low-dimensional datasets (deep, yt-audio), Faiss takes up the lowest memory due to: . 
 	DSG and WinFilter take up significantly more memory than other algorithms due to.
