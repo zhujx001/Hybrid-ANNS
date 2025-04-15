@@ -351,7 +351,7 @@
 	
 	
 	\noindent\textbf{\underline{Puck \cite{puck}.}}  
-	While simultaneous filtering performs well in most scenarios, it may underperform when only a small portion of data satisfies attribute constraints. In such cases, a pre-filtering strategy—applying attribute constraints prior to ANN search—can be more effective.
+	While simultaneous filtering algorithms perform well in most scenarios, it may underperform when only a small portion of data satisfies attribute constraints. In such cases, a pre-filtering strategy—applying attribute constraints prior to ANN search—can be more effective.
 	
 	Developed by Baidu, Puck utilizes two-level quantization for indexing. It maintains an attribute set for each cluster to track vector attributes. During the query process, it employs pre-filtering to exclude clusters without required attributes, thereby reducing the search space.
 	%Developed by Baidu, Puck adopts a pre-filtering approach and employs a multi-level filtering mechanism for hybrid query. Its index structure comprises four layers: the first two use vector quantization for training, while the latter two leverage product quantization.
@@ -610,7 +610,7 @@
 	
 	
 	\textit{\textbf{Peak memory usage.}}
-	As shown in Figure~\ref{fig:memory_mb_comparison_query1}, on small-scale datasets, all methods except NHQ exhibit low memory usage. This is because NHQ adopts the kgraph approach for index construction, which requires loading the entire graph data into memory and maintaining a complete graph structure, leading to relatively high memory overhead. On large-scale datasets, CPAS exhibits slightly lower memory usage compared to other algorithms. Due to their special characteristics, databases are not included in the peak memory usage testing during index construction.
+	As shown in Figure~\ref{fig:memory_mb_comparison_query1}, on small-scale datasets, all methods except NHQ exhibit low memory usage. This is because NHQ adopts the kgraph approach for index construction, which requires loading the entire graph data into memory and maintaining a complete graph structure, leading to relatively high memory overhead. On large-scale datasets, CAPS exhibits slightly lower memory usage compared to other algorithms. Due to their special characteristics, databases are not included in the peak memory usage testing during index construction.
 	
 	
 	
@@ -852,7 +852,7 @@
 	Most algorithms exhibit the worst performance on the OOD dataset text2image. However, ACORN, UNG, and FilteredVamana show relatively stable performance on text2image. Their performance drops less compared to in-distribution (ID) datasets such as GIST and GLOVE, indicating better adaptability to OOD queries.
 	
 	\subsection{Range Filtering}
-	Although the libraries and databases mentioned above can also implement range filtering, the results are poor, so we only compare 5 range filtering algorithms.
+	
 	\subsubsection{Time and Space overhead of index construction.}
 	\begin{figure}[t]
 		\centering
@@ -876,7 +876,7 @@
 			\centering
 			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_index_size_mb_comparison_query.pdf}
 			\caption{Index size}
-			\label{fig:rangeFilter_ndex_size_mb}
+			\label{fig:rangeFilter_index_size_mb}
 		\end{subfigure}
 		\hfill
 		\begin{subfigure}[t]{0.31\columnwidth}
