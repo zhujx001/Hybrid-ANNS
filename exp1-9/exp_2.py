@@ -23,12 +23,12 @@ libertine_font = fm.FontProperties(
 
 # 为每个算法定义唯一的颜色（标准版本和16位版本使用相同颜色）
 ALGORITHM_COLORS = {
-    'FilteredVamana': '#F39C12',     # 绿色
-    'StitchedVamana': '#6EC1E0',     # 红色
-    'NHQ': '#8FCB6B',           # 紫色
+    'FilteredVamana': '#F39C12',     # 橙色
+    'StitchedVamana': '#316bea',     # 蓝色
+    'NHQ': '#00bf00',           # 绿色
     'Puck': '#E74C3C',          # 粉色
-    'UNG': '#34495E',           # 灰色
-    'CAPS': '#9B59B6',          # 橙色
+    'UNG': '#bfbf00',           # 灰色
+    'CAPS': '#AE73D0',          # 紫色
 }
 
 # 为不同的数据集定义不同的线型

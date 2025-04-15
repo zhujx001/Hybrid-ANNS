@@ -639,9 +639,9 @@
 	ACORN performs poorly overall, primarily due to the sensitivity of its hyperparameter $\gamma$ to attribute selectivity. Without careful tuning based on dataset characteristics, it is challenging to construct an effective index.
 	
 	\textit{\textbf{Multi-Attribute Building and Single-Attribute Query.}}
-	In this scenario, the index is constructed using multiple attributes but applies filtering condition on only one attribute during the query process.
+	In this scenario, the index is constructed using 8 attributes but applies filtering condition on only 1 attribute during the query process.
 	
-	In database systems (VBASE, PASE, Milvus), when the system builds both B+ tree and vector indexes, queries typically utilize only the B+ tree. Faiss offers an ID filtering mechanism, it operates solely during query execution and does not influence index building. ACORN-1 and ACORN-\(\gamma\) are specifically designed for single-attribute indexing. Hence, they are excluded from this comparison.
+	 Faiss offers an ID filtering mechanism, it operates solely during query execution and does not influence index building. ACORN-1 and ACORN-\(\gamma\) are specifically designed for single-attribute indexing. In database systems (VBASE, PASE, Milvus), when the system builds both B+ tree and vector indexes, queries typically utilize only the B+ tree. Hence, they are excluded from this comparison.
 	
 	\begin{figure}[th]
 		\centering
@@ -660,12 +660,12 @@
 	\end{figure}
 	
 	\textit{Effect of Multi-Attribute Building on Algorithm Performance (M vs. S).}
-	As shown in Figure \ref{fig:exp_2_1}, Puck and CAPS demonstrate nearly no performance degradation. In contrast, the performance of FilteredVamana,StitchedVamana, NHQ, and UNG drop significantly, with the following reasons: 1) FilteredVamana increases the complexity introduced by retaining attribute during index construction. 2) The complexity of StitchedVamana increases because data points may duplicate across multiple subgraphs. 3) The fusion distance of NHQ exhibits sensitivity to the number of attributes, which degrades its effectiveness. 4) The reason why UNG has poor performance is that each base vector has 8 attributes, but only one query attribute, which results in a large number of entry points that need to be traversed. It is difficult for a graph with multiple entries to have good connectivity, degenerating into a situation closer to inverted retrieval, and the effect may be greatly impaired.
+	As shown in Figure \ref{fig:exp_2_1}, Puck demonstrates nearly no performance degradation. In contrast, CAPS shows a slight performance decline due to the increased query overhead caused by excessive attribute-based grouping. Compared with CAPS, the performance of StitchedVamana, FilteredVamana, NHQ, and UNG drops significantly, with the following reasons: 1) FilteredVamana increases the complexity introduced by retaining attribute during index construction. 2) The complexity of StitchedVamana increases because data points may duplicate across multiple subgraphs. 3) The fusion distance of NHQ exhibits sensitivity to the number of attributes, which degrades its effectiveness. 4) UNG has poor performance because large number of entry points that need to be traversed. It is difficult for a graph with multiple entries to have good connectivity, degenerating into a situation closer to inverted retrieval, and the effect may be greatly impaired.
 	
 	
 	
 	\textit{Performance of Algorithms under Multi-Attribute Building (M vs. M).}  
-	As shown in Figur \ref{fig:exp_2_1}, CAPS has the best QPS performance, while Puck has better recall accuracy. CAPS first partitions by clustering, and then builds AFT under each partition. For CAPS, whether it is built with multiple attributes or a single attribute, the number of points required to be retrieved will not change after AFT filtering during search, so the performance is not greatly affected. Puck filters out irrelevant results during retrieval rather than searching for more candidates. FilteredVamana performs the worst because its multi-attribute indexing forces neighbor selection to cover multiple attributes, hurting single-attribute query efficiency. This leads to excessive irrelevant node traversal, making it slower than other methods.
+	As shown in Figure \ref{fig:exp_2_1}, IVF-based methods (Puck and CAPS) significantly outperform graph-based methods. The reason for Puck's superior performance is that it filters out irrelevant results during the retrieval process rather than searching for more candidates. The performance of CPAS is as good as that of Puck. The difference between them is that CPAS further groups the results by attributes within clusters. In contrast, FilteredVamana performs the worst because its multi-attribute indexing forces neighbor selection to cover multiple attributes, thereby reducing the efficiency of single-attribute queries. This results in excessive traversal of irrelevant nodes, making it slower than other methods.
 	
 	
 	\begin{figure*}
