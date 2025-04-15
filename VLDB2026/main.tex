@@ -899,7 +899,7 @@
 	SeRF exhibits relatively weak overall performance, with a significant drop in recall under small-range query scenarios. This suggests that while its compressed graph structure is space-efficient, it has a substantial negative impact on query performance.
 	
 %	 修改此处
-	ACORN performs similarly on both large and small range queries, but its overall performance is worse than the other methods.
+	ACORN performs similarly on both large and small range queries, but its overall performance is worse than the other methods. Unlike other range-filtering algorithms, ACORN is not designed with specialized data structures (such as the $\beta$-WST in WinFilter, the rectangle tree and dynamic segment graph in SeRF, or the HSIG in UNIFY) to achieve efficient range filtering. In fact, the graph structure used by ACORN for attribute filtering is the same as that used for range filtering.
 	
 	For third-party libraries and databases, Figure~\ref{fig:exp_8_2} shows that Faiss performs well in range filtering and even outperforms some specialized range query algorithms in certain cases. Faiss performs better in small-range filtering scenarios because it searches over the filtered vectors. With a smaller range, fewer points remain after filtering, resulting in lower computational cost. In addition, the performance of Faiss is influenced by data dimensionality; it tends to work better on low-dimensional datasets.
 	
