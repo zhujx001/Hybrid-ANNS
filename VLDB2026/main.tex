@@ -853,13 +853,45 @@
 	\subsection{Range Filtering}
 	Although the libraries and databases mentioned above can also implement range filtering, the results are poor, so we only compare 5 range filtering algorithms.
 	\subsubsection{Time and Space overhead of index construction.}
-	
+	\begin{figure}[t]
+		\centering
+		\setlength{\abovecaptionskip}{0.3cm}
+		\setlength{\belowcaptionskip}{0cm}
+		
+		% 放大的图例（占满单栏）
+		\includegraphics[width=0.98\columnwidth]{figures/indexData/rangeFilter_legend_only.pdf}
+		
+		\vspace{0.3cm}
+		
+		% 三图横排
+		\begin{subfigure}[t]{0.31\columnwidth}
+			\centering
+			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_build_time_comparison_query.pdf}
+			\caption{Index construction time}
+			\label{fig:rangeFilter_build_time}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[t]{0.31\columnwidth}
+			\centering
+			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_index_size_mb_comparison_query.pdf}
+			\caption{Index size}
+			\label{fig:rangeFilter_ndex_size_mb}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[t]{0.31\columnwidth}
+			\centering
+			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_memory_mb_comparison_query.pdf}
+			\caption{Peak memory usage}
+			\label{fig:rangeFilter_memory_mb}
+		\end{subfigure}
+		
+		\caption{Time and space overhead of range filtering index construction}
+		\label{fig:rangeFilter_build_index_comparison}
+	\end{figure}
 	
 	Similar to the evaluation of \textit{Attribute Filtering} algorithms, we also evaluate 3 key metrics mentioned above in \textit{Range Filtering} algorithms.
 	
-	\textit{\textbf{Index construction time.}}
-	As shown in Table \ref{tab:Range Filtered}, SeRF achieves the fastest index construction time among the 5 algorithms. It incrementally builds the index in attribute order. It requires only a single pass and adds edges within local graphs. The structure is simple, with no redundant operations.
-	
+
 	\textit{\textbf{Index construction time.}}
 	Figure~\ref{fig:rangeFilter_build_time} shows the single-threaded index construction time. Faiss builds the index fastest. Because Faiss obtains subsamples through sampling and then calculates the cluster centroid, the computational complexity is significantly reduced.
 	

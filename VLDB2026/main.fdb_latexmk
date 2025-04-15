@@ -1,19 +1,19 @@
 # Fdb version 4
-["bibtex main"] 1744689336.54173 "main.aux" "main.bbl" "main" 1744689336.62239 2
+["bibtex main"] 1744689786.34572 "main.aux" "main.bbl" "main" 1744689786.42712 2
   "./ACM-Reference-Format.bst" 1744598145.4644 84856 cdf46f74ac483d72585084276eb3e09d ""
   "./sample.bib" 1744598145.48043 41830 ee8990cc081dfe55c895580fca6fc638 ""
-  "main.aux" 1744689336.5401 32 3985256e7290058c681f74d7a3565a19 "xelatex"
+  "main.aux" 1744689786.34405 32 3985256e7290058c681f74d7a3565a19 "xelatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["xdvipdfmx"] 1744688813.32917 "main.xdv" "main.pdf" "main" 1744688813.32385 2
+["xdvipdfmx"] 1744689417.83433 "main.xdv" "main.pdf" "main" 1744689417.83326 2
   "main.xdv" 0 -1 0 "xelatex"
   (generated)
   "main.pdf"
   (rewritten before read)
-["xelatex"] 1744689335.06122 "/Users/yuanjiayu/Documents/GitHub/Hybrid-ANNS/VLDB2026/main.tex" "main.xdv" "main" 1744689336.43048 2
-  "/Users/yuanjiayu/Documents/GitHub/Hybrid-ANNS/VLDB2026/main.tex" 1744689333.17325 82956 e7e51d16fdac36ff41592991b5a2d29c ""
+["xelatex"] 1744689784.79566 "/Users/yuanjiayu/Documents/GitHub/Hybrid-ANNS/VLDB2026/main.tex" "main.xdv" "main" 1744689786.23702 2
+  "/Users/yuanjiayu/Documents/GitHub/Hybrid-ANNS/VLDB2026/main.tex" 1744689784.40258 83037 792c4970986d315a50b0a96fbbc03591 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1246382020 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -187,10 +187,10 @@
   "figures/indexData/rangeFilter_legend_only.pdf" 1744622382.37281 12171 5cc772f4a8fcb9c2b52a7aefa39a0659 ""
   "figures/indexData/rangeFilter_memory_mb_comparison_query.pdf" 1744685817.90434 12599 00b315abd475c98612155e1f2783f7af ""
   "figures/ivf.pdf" 1744598145.47991 214161 f93ad03c5792a13d6a523d542b6c0add ""
-  "main.aux" 1744689336.5401 32 3985256e7290058c681f74d7a3565a19 "xelatex"
-  "main.bbl" 1744689336.62164 0 d41d8cd98f00b204e9800998ecf8427e "bibtex main"
+  "main.aux" 1744689786.34405 32 3985256e7290058c681f74d7a3565a19 "xelatex"
+  "main.bbl" 1744689786.42624 0 d41d8cd98f00b204e9800998ecf8427e "bibtex main"
   "main.out" 0 -1 0 "xelatex"
-  "main.tex" 1744689333.17325 82956 e7e51d16fdac36ff41592991b5a2d29c ""
+  "main.tex" 1744689784.40258 83037 792c4970986d315a50b0a96fbbc03591 ""
   (generated)
   "main.aux"
   "main.log"
