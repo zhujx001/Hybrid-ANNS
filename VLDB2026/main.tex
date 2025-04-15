@@ -944,8 +944,7 @@
 	
 	For third-party libraries and databases, Figure~\ref{fig:exp_8_2} shows that Faiss performs well in range filtering and even outperforms some specialized range query algorithms in certain cases. Faiss does not include optimizations specifically tailored for range filtering scenarios; its query mechanism is identical to that used in tag filtering scenarios. However, since attributes are pre-sorted in range filtering scenarios, the filtering overhead is minimal, leading to improved query performance. Similar to the selectivity observed in attribute filtering, Faiss performs better in small-range filtering scenarios because it searches over the filtered vectors. With a smaller range, fewer points remain after filtering, resulting in lower computational cost. In addition, the performance of Faiss is influenced by data dimensionality; it tends to work better on low-dimensional datasets.
 	
-	Vector databases also show relatively poor performance on range queries. Among them, Milvus performs better than the others, even surpassing ACORN under high recall settings. PASE performs poorly on small-range queries, with recall lower than 0.1, so it does not appear in Figure~\ref{fig:exp_8_2}. VPASE also performs better on large-range queries, but compared to PASE, its performance on small ranges is significantly better, achieving higher recall despite very low QPS.
-
+	Vector databases also show relatively poor performance on range queries. Among them, Milvus performs more balanced across both small-range and large-range queries, even surpassing ACORN under high recall settings. PASE performs poorly on small-range queries, with recall lower than 0.1, due to its post-filtering strategy. VBASE performs better on large-range queries. Compared to PASE, its performance on small ranges is significantly improved, achieving higher recall despite very low QPS.
 	
 	
 	
