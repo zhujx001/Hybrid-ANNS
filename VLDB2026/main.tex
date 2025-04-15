@@ -987,7 +987,7 @@ However, even though Deep and YT-Audio have similar LID values, the DSG algorith
 	
 	
 	\subsection{Recommendations.}
-	Based on the performance of different algorithms in experiments, we recommend algorithms suitable for different scenarios, as shown in the table \ref{tab:algo_scenarios}.
+	%Based on the performance of different algorithms in experiments, we recommend algorithms suitable for different scenarios, as shown in the table \ref{tab:algo_scenarios}.
 	
 	
 	\begin{table}[t]
@@ -1005,7 +1005,7 @@ However, even though Deep and YT-Audio have similar LID values, the DSG algorith
 				\hline
 				S3: Query on Hard Datasets & CAPS, UNG &WinFilter, iRange, DSG\\
 				\hline
-				S4: Query on Easy Datasets & StitchedVamana, NHQ & WinFilter, iRange\\
+				S4: Query on Easy Datasets & StitchedVamana, NHQ, UNG & WinFilter, iRange\\
 				
 				\hline
 				S5: General-purpose Use & Milvus, Faiss &DSG, UNIFY\\
@@ -1022,13 +1022,13 @@ However, even though Deep and YT-Audio have similar LID values, the DSG algorith
 		
 	\end{table}
 	
-	%\subsubsection{\textbf{Attribute Filtering}}
-	%We summarize the applicability of different algorithms across various attribute filtering scenarios in Table~\ref{tab:algo_scenarios}.Puck and UNG excel on large-scale datasets (S1). ACORN-1 and UNG achieve fast index construction (S2). CAPS performs best on hard datasets with high LID (S3), while NHQ, StitchedVamana, and UNG are superior for easy datasets with low LID (S4). Faiss and CAPS can generate relatively compact indexes with low memory usage, which is suitable for resource-constrained situations (S6). Milvus and Faiss serve as general-purpose solutions (S5). UNG stands out for its high recall, precision, and QPS (S7).
+	\subsubsection{\textbf{Attribute Filtering}}
+	We summarize the applicability of different algorithms across various attribute filtering scenarios in Table~\ref{tab:algo_scenarios}. Puck and UNG excel on large-scale datasets (S1). ACORN-1 and UNG achieve fast index construction (S2). UNG performs well on different datasets (S3, S4). In addition, CAPS performs well on hard datasets with high LID (S3), while NHQ and StitchedVamana perform better on easy datasets with low LID (S4).
+	Faiss and CAPS can generate relatively compact indexes with low memory usage, which is suitable for resource-constrained situations (S6). Milvus and Faiss serve as general-purpose solutions (S5). UNG stands out for its high recall, precision, and QPS (S7). CAPS performs well in OOD scenarios (S8).
 	
-	%\subsubsection{\textbf{Range Filtering}}
+	\subsubsection{\textbf{Range Filtering}}
 	
-	%Table~\ref{tab:algo_scenarios} also presents the application scenarios for range filtering. iRange demonstrates strong performance on large-scale datasets, combining efficient construction with excellent query capabilities (S1). For fast index construction, SeRF leads with iRange as a close second (S2). When handling hard datasets, iRange and DSG are recommended (S3), while iRange also performs well on easy datasets (S4). For general-purpose applications, DSG supports dynamic updates while UNIFY provides flexible filtering strategies (S5). Both SeRF and iRange show superior memory efficiency (S6). WinFilter emerges as the optimal choice for high-recall static queries (S7).
-
+	Table~\ref{tab:algo_scenarios} also shows the application scenarios of range filtering. iRange performs well on large-scale datasets, combining efficient construction and excellent query capabilities (S1). Faiss performs well in fast index construction (S2). When processing hard datasets, WinFilter, iRange, and DSG are recommended (S3), while WinFilter and iRange also perform well on easy datasets (S4). For general applications, DSG supports dynamic updates, while UNIFY provides flexible filtering strategies (S5). Faiss and SeRF show superior memory efficiency (S6). For static queries with high recall, WinFilter is the best choice (S7). In addition, WinFilter also performs well in OOD scenarios (S8).
 \subsection{Challenges}
 \subsubsection{\textbf{Attribute Filtering}}
 Most existing attribute filtering algorithms are graph-based, they typically outperform other methods in terms of query accuracy and efficiency. Filtered-DiskANN leverages disk-based storage, making it more suitable for extremely large-scale datasets even in memory-constrained environments. Moreover, the index construction phase of graph-based algorithms is computationally intensive. Therefore, exploring GPU-based acceleration for graph construction and vector computation during indexing is promising. It can significantly improve the performance of graph-based methods.
