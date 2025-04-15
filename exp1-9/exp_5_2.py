@@ -360,7 +360,7 @@ def plot_5_2_2_comparison(all_data):
         algorithm_markers[query] = markers[i % len(markers)]  
     
     # 调整图形尺寸
-    fig = plt.figure(figsize=(34, 4.6))
+    fig = plt.figure(figsize=(34, 4))
     
     # 调整上下间距，给图例留出空间
     gs = GridSpec(1, 6, figure=fig, wspace=0.25, hspace=0.2, top=0.85, bottom=0.15)
