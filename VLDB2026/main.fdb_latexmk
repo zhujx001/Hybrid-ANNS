@@ -1,19 +1,19 @@
 # Fdb version 4
-["bibtex main"] 1744601298.06858 "main.aux" "main.bbl" "main" 1744601303.27227 0
+["bibtex main"] 1744685819.5583 "main.aux" "main.bbl" "main" 1744685824.29015 0
   "./ACM-Reference-Format.bst" 1744598145.4644 84856 cdf46f74ac483d72585084276eb3e09d ""
   "./sample.bib" 1744598145.48043 41830 ee8990cc081dfe55c895580fca6fc638 ""
-  "main.aux" 1744601302.74666 17437 75d3ec00ae0abd9b06b35f5f9b9c8460 "xelatex"
+  "main.aux" 1744685823.77307 18000 a9b0aeda9bc80a6bec1728d92d7743bf "xelatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["xdvipdfmx"] 1744601302.98227 "main.xdv" "main.pdf" "main" 1744601302.98124 2
-  "main.xdv" 1744601302.74838 738564 1eda0971dcf89eeb723b392e22fa96e6 "xelatex"
+["xdvipdfmx"] 1744685823.99989 "main.xdv" "main.pdf" "main" 1744685823.9988 2
+  "main.xdv" 1744685823.7742 758600 4e147ae863f9d6c676dac41fc8665b17 "xelatex"
   (generated)
   "main.pdf"
   (rewritten before read)
-["xelatex"] 1744601301.47009 "/Users/yuanjiayu/Documents/GitHub/Hybrid-ANNS/VLDB2026/main.tex" "main.xdv" "main" 1744601303.27235 0
-  "/Users/yuanjiayu/Documents/GitHub/Hybrid-ANNS/VLDB2026/main.tex" 1744601294.5136 78578 d1b66256e5470a085049e9940bebc8ef ""
+["xelatex"] 1744685822.67941 "/Users/yuanjiayu/Documents/GitHub/Hybrid-ANNS/VLDB2026/main.tex" "main.xdv" "main" 1744685824.29021 0
+  "/Users/yuanjiayu/Documents/GitHub/Hybrid-ANNS/VLDB2026/main.tex" 1744685817.93694 82812 d6b9c5b5d1330881625c97037a609801 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1246382020 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -155,28 +155,32 @@
   "acmart.cls" 1744598145.4646 96943 22aab88eb4450dc97aba90abe39b216c ""
   "figures/exp/exp_1_1_SingleLabel_1thread.pdf" 1744598145.46608 60425 27f169c6e3ad8276bcedca65465ebf6b ""
   "figures/exp/exp_1_2_SingleLabel_16thread.pdf" 1744598145.46648 54824 b497fc77a5b5dc6b5f7784d56ecfa3d9 ""
-  "figures/exp/exp_2_1.pdf" 1744601294.50944 213211 1758a1b50a66cedd2b7e1492b21c862d ""
-  "figures/exp/exp_2_legend.pdf" 1744601294.51025 12040 8a6236676304034e485e2884d382f7d2 ""
+  "figures/exp/exp_2_1.pdf" 1744679285.05152 185854 17509125e8ddcc98902ae96fe9280f7a ""
+  "figures/exp/exp_2_legend.pdf" 1744685817.90058 12020 3ce291a69ed7cf93b3c91d9ccc12a02d ""
   "figures/exp/exp_3_1.pdf" 1744598145.46887 52359 757313afd99f429aa139cdccca920c5a ""
   "figures/exp/exp_4_1_MultiLabel_1thread.pdf" 1744598145.46955 42486 f486b63a1ea7839862f4f6cece300635 ""
   "figures/exp/exp_5_1_1_SingleLabel_1thread.pdf" 1744598145.47032 48383 89ed0a3d5e6d9765e8722fae92d4fb80 ""
   "figures/exp/exp_5_2_1.pdf" 1744598145.47174 39512 4541f7fec0d25528ad02cea74eb59f9e ""
   "figures/exp/exp_5_2_2.pdf" 1744598145.4724 152290 6f62c40bd1a211a57b0fa3c8b420d7fd ""
   "figures/exp/exp_5_2_3.pdf" 1744598145.47282 130312 9e2e4aa522d41e72528edd92824d707b ""
-  "figures/exp/exp_6_1.pdf" 1744601294.51074 65925 145569e499bc8a0fe2198e26685c30d4 ""
-  "figures/exp/exp_8_2.pdf" 1744601294.51193 54736 8e09e601a1ff2f936f4487cd231bdfd4 ""
-  "figures/exp/exp_8_3.pdf" 1744601294.5129 51083 8f8686f3433195bf2cacd7d680f6241e ""
+  "figures/exp/exp_6_1.pdf" 1744613418.16983 74310 293a7eef09db32c5cb2fd690da5d8ae2 ""
+  "figures/exp/exp_8_2.pdf" 1744617270.22728 54909 b7ee9544ea709dcedd7a884098ccbdd1 ""
+  "figures/exp/exp_8_3.pdf" 1744617270.22911 51083 38925840259f07ca3a893d9951d1d438 ""
   "figures/graph.pdf" 1744598145.47687 184468 9536210f60e68c8f725c1bc189b4bcd3 ""
   "figures/hybrid ANNS.pdf" 1744598145.47818 597301 fec630f5e9494530cd5d393c399e1816 ""
   "figures/indexData/exp_7_build_time_comparison_query1.pdf" 1744598145.47836 14019 d9fae2fa444a39312fc95c707263760b ""
   "figures/indexData/exp_7_index_size_mb_comparison_query1.pdf" 1744598145.47857 14216 d311873fea19b9d8eefd1de38b99dd91 ""
   "figures/indexData/exp_7_memory_mb_comparison_query1.pdf" 1744598145.47875 14606 cf2129509e4fa8ca4597f1386c524673 ""
   "figures/indexData/legend_only.pdf" 1744598145.47918 12970 54e461a706797fa9c4a1de718d3a8b6d ""
+  "figures/indexData/rangeFilter_build_time_comparison_query.pdf" 1744685817.90363 11860 cca6ede090de13bcd3bff4af0cc1087c ""
+  "figures/indexData/rangeFilter_index_size_mb_comparison_query.pdf" 1744622382.37251 11581 0f02d0c414fcda03c4c0ef2ad8e8eb56 ""
+  "figures/indexData/rangeFilter_legend_only.pdf" 1744622382.37281 12171 5cc772f4a8fcb9c2b52a7aefa39a0659 ""
+  "figures/indexData/rangeFilter_memory_mb_comparison_query.pdf" 1744685817.90434 12599 00b315abd475c98612155e1f2783f7af ""
   "figures/ivf.pdf" 1744598145.47991 214161 f93ad03c5792a13d6a523d542b6c0add ""
-  "main.aux" 1744601302.74666 17437 75d3ec00ae0abd9b06b35f5f9b9c8460 "xelatex"
-  "main.bbl" 1744601298.14484 31134 a6ab24fd116501821d43946d588c35b9 "bibtex main"
-  "main.out" 1744601302.74812 3238 f884f2f22b27cf0018e58d6725743f19 "xelatex"
-  "main.tex" 1744601294.5136 78578 d1b66256e5470a085049e9940bebc8ef ""
+  "main.aux" 1744685823.77307 18000 a9b0aeda9bc80a6bec1728d92d7743bf "xelatex"
+  "main.bbl" 1744685819.64136 31134 a6ab24fd116501821d43946d588c35b9 "bibtex main"
+  "main.out" 1744685823.77402 3238 f884f2f22b27cf0018e58d6725743f19 "xelatex"
+  "main.tex" 1744685817.93694 82812 d6b9c5b5d1330881625c97037a609801 ""
   (generated)
   "main.aux"
   "main.log"

@@ -807,37 +807,37 @@
 	
 	%4.2.7
 	
-	\begin{table}[t]
-		\centering
-		\setlength{\abovecaptionskip}{0.05cm}
-		\caption{Time and space overhead of range filtering index construction}
+	% \begin{table}[t]
+	% 	\centering
+	% 	\setlength{\abovecaptionskip}{0.05cm}
+	% 	\caption{Time and space overhead of range filtering index construction}
 		
-		\label{tab:Range Filtered}
-		\resizebox{\columnwidth}{!}{
-			\begin{tabular}{l l c c c c c }
-				\toprule
-				\textbf{Dataset} & \textbf{Metric} & \textbf{DSG} & \textbf{iRange} & \textbf{SeRF} & \textbf{UNIFY} & \textbf{WinFilter} \\
-				\midrule
-				\multirow{3}{*}{DEEP} 
-				& Index time(s)  & 4156 & 1128 & \textbf{189.89} & 7510 & 32843 \\
-				& Index size(GB)  &  4.6 & 0.92 & \textbf{0.80} & 1.43 & 2.41  \\
-				& Peak memory(GB) &  7.78 & 3.54 & \textbf{1.38} & 2.61 & 7.08   \\
-				% \cmidrule{1-7}
-				\midrule
-				\multirow{3}{*}{YT-Audio} 
-				& Index time(s)   & 15314 & 1039 & \textbf{187.20} & 5905 & 30904    \\
-				& Index size(GB)    & 4.3 & \textbf{0.7} & 1.04 & 1.55 & 1.32  \\
-				& Peak memory(GB)   & 7.5 & 3.16 & \textbf{1.57} & 2.97 & 6.95  \\
-				\midrule
-				\multirow{3}{*}{WIT} 
-				& Index time(s)  & 29492 & 7068 & \textbf{828.12} & 28759 & 94909\\
-				& Index size(GB) &  4.2 & \textbf{1.5 }& 15.34 & 8.71 & 1.59  \\
-				& Peak memory(GB)  & 21.7 & \textbf{12.32} & 15.87 & 24.38 & 15.29\\
-				% \cmidrule{1-7}
-				\bottomrule
-			\end{tabular}
-		}
-	\end{table}
+	% 	\label{tab:Range Filtered}
+	% 	\resizebox{\columnwidth}{!}{
+	% 		\begin{tabular}{l l c c c c c }
+	% 			\toprule
+	% 			\textbf{Dataset} & \textbf{Metric} & \textbf{DSG} & \textbf{iRange} & \textbf{SeRF} & \textbf{UNIFY} & \textbf{WinFilter} \\
+	% 			\midrule
+	% 			\multirow{3}{*}{DEEP} 
+	% 			& Index time(s)  & 4156 & 1128 & \textbf{189.89} & 7510 & 32843 \\
+	% 			& Index size(GB)  &  4.6 & 0.92 & \textbf{0.80} & 1.43 & 2.41  \\
+	% 			& Peak memory(GB) &  7.78 & 3.54 & \textbf{1.38} & 2.61 & 7.08   \\
+	% 			% \cmidrule{1-7}
+	% 			\midrule
+	% 			\multirow{3}{*}{YT-Audio} 
+	% 			& Index time(s)   & 15314 & 1039 & \textbf{187.20} & 5905 & 30904    \\
+	% 			& Index size(GB)    & 4.3 & \textbf{0.7} & 1.04 & 1.55 & 1.32  \\
+	% 			& Peak memory(GB)   & 7.5 & 3.16 & \textbf{1.57} & 2.97 & 6.95  \\
+	% 			\midrule
+	% 			\multirow{3}{*}{WIT} 
+	% 			& Index time(s)  & 29492 & 7068 & \textbf{828.12} & 28759 & 94909\\
+	% 			& Index size(GB) &  4.2 & \textbf{1.5 }& 15.34 & 8.71 & 1.59  \\
+	% 			& Peak memory(GB)  & 21.7 & \textbf{12.32} & 15.87 & 24.38 & 15.29\\
+	% 			% \cmidrule{1-7}
+	% 			\bottomrule
+	% 		\end{tabular}
+	% 	}
+	% \end{table}
 	
 	\textit{\textbf{Different Datasets.}}  
 	To evaluate the performance of various methods across different datasets, we conduct experiments on 7 datasets, including one dataset for out-of-distribution (OOD) queries. Our analysis focuses on performance variations concerning dataset size, LID, and vector dimensionality.
@@ -855,28 +855,30 @@
 	\subsubsection{Time and Space overhead of index construction.}
 	
 	
-	Similar to the evaluation of \textit{Attribute Filtering} algorithms, we also evaluate 3 key metrics mentioned above in \textit{Range Filtering} algorithms.
+	Similar to the evaluation of \textit{Attribute-Filtering} algorithms, we also evaluate 3 key metrics mentioned above in \textit{Range Filtering} algorithms.
 	
 	\textit{\textbf{Index construction time.}}
 	As shown in Table \ref{tab:Range Filtered}, SeRF achieves the fastest index construction time among the 5 algorithms. It incrementally builds the index in attribute order. It requires only a single pass and adds edges within local graphs. The structure is simple, with no redundant operations.
 	
-	In contrast, WinFilter has the longest construction time. This is mainly due to its tree-based structure, where each node requires an independent nearest neighbor graph. This leads to significant redundant computations and high resource costs, especially for large datasets.
-	% 如表\ref{tab:Range Filtered}所示，在五种算法中，SeRF的构建时间最短，原因是其按属性值顺序增量构建的方式，仅需一次遍历并在局部图中添加边，结构简单、无冗余操作。而 WinFilter 的构建时间最长，主要由于其采用树状结构，在每个节点上需构建独立的近邻图索引，造成大量重复计算和资源开销，尤其在数据量大时更为明显。
+	\textit{\textbf{Index construction time.}}
+	Figure~\ref{fig:rangeFilter_build_time} shows the single-threaded index construction time. Faiss builds the index fastest.
 	
+	WinFilter and ACORN-\(\gamma\) take the longest.
+	WinFilter relies on a tree structure, requiring separate nearest-neighbor graphs per node. This causes redundant computation and high costs, especially for large datasets.
 	
+	ACORN-\(\gamma\) expands the neighbor list of each node to provide more candidate paths, which increases both computation and storage costs. It also prunes distant neighbors to save storage space; however, this introduces additional overhead and slows down the construction process.
+
+	\textit{\textbf{Index size.}} 
+	As shown in Figure~\ref{fig:rangeFilter_index_size_mb}, Among all algorithms, Faiss has the smallest index structure because. 
+	On low-dimensional datasets (Deep, YT-Audio), PASE requires the most storage. Its implementation likely wastes space due to alignment padding and inefficient encoding (e.g., Base64).
 	
-	
-	
-	
-	\textit{\textbf{Index size.}} Across the 3 datasets, iRange maintains a relatively small index size. It builds independent local neighbor graphs within each interval and merges indices dynamically during the query process. This prevents space explosion. On low-dimensional datasets (Deep, YT-Audio), SeRF compresses the index using sparse vector distributions, keeping it small. However, in the high-dimensional WIT dataset with high LID, vector connectivity increases. This reduces compression efficiency, leading to a sharp rise in index size. DSG maintains a stable index size across datasets but is generally larger. It uses edge structures with interval labels to support streaming insertions and range queries, increasing storage overhead.
-	
-	
+	SeRF maintains a compact index for low-dimensional data. However, for high-dimensional datasets (WIT), SeRF stores more edges and dynamic range data, significantly increasing its size.
 	\textit{\textbf{Peak memory usage.}}
-	In terms of peak memory usage, all 5 algorithms consume less memory on the first 2 datasets. However, memory usage increases significantly on WIT, likely due to its high dimensionality.
+	As shown in Figure~\ref{fig:rangeFilter_memory_mb}, For low-dimensional datasets (deep, yt-audio), Faiss takes up the lowest memory due to: . 
+	DSG and WinFilter take up significantly more memory than other algorithms due to.
 	
-	SeRF achieves the lowest memory usage on low-dimensional datasets. Its Segment Graph efficiently compresses sparse vector spaces. However, on high-dimensional datasets with high LID, the “curse of dimensionality” causes distance concentration. As a result, the index structure of SeRF expands rapidly, reducing compression efficiency.
-	
-	In contrast, iRange achieves the lowest peak memory usage on WIT. It pre-builds graphs only for a limited number of intervals, avoiding explicit index construction for all possible query ranges. Its index structure remains stable in high dimensions without significant graph growth. This effectively controls index size, making iRange more advantageous for high-dimensional datasets.
+	For high-dimensional datasets WIT, iRange achieves the lowest peak memory usage. It pre-builds graphs only for a limited number of intervals, avoiding explicit index construction for all possible query ranges. Its index structure remains stable in high dimensions without significant graph growth. This effectively controls index size, making iRange more advantageous for high-dimensional datasets.
+	In contrast, unify takes up the highest memory due to
 	
 	\begin{figure*}[htbp]
 		\centering
@@ -928,11 +930,19 @@
 		\label{fig:exp_8_3}
 	\end{figure*}
 	
-	
-	To examine the robustness of RF-ANNS algorithms, we analyze their performance across different datasets. As shown in Figure~\ref{fig:exp_8_3}, the performance differences. All methods perform worst on WIT, which has the highest LID. On Deep and YT-Audio, which have similar LID, most algorithms achieve comparable performance. 
-	This suggests that the effectiveness of RF-ANN search is mainly influenced by LID of the dataset. A higher LID inherently increases the difficulty of hybrid query.
-	
-	However, the DSG algorithm shows a noticeable performance gap between the Deep and YT-Audio datasets, despite their comparable LID. This indicates that DSG is less robust than other methods when facing dataset-dependent variations, possibly due to its sensitivity to data distribution beyond LID alone.
+To evaluate the robustness of the RF-ANNS algorithm in different scenarios, we added an Out-of-Distribution (OOD) dataset to the three standard datasets and tested performance under large-range queries. As shown in Figure~\ref{fig:exp_8_3}, most methods performed worst on the Text2Image dataset. This is because OOD queries make the $k$-nearest neighbor distribution more sparse. As a result, the search needs to visit more nodes, which leads to an exponential growth in the search space and a sharp drop in efficiency.
+
+WinFilter showed the worst performance on the WIT dataset. This suggests that its performance is sensitive to the data dimensionality. ACORN had large performance differences across datasets, indicating weak robustness.
+
+Among vector databases, Milvus performed well. PASE was not included in this round of tests because it does not support datasets with dimensions over 512 and performed poorly in earlier experiments.
+
+It is worth noting that most methods achieved similar performance on the Deep and YT-Audio datasets, which have similar LID values. This shows that RF-ANNS performance is largely affected by both the LID and the dimensionality of the dataset. A high LID and high dimensionality make hybrid queries more difficult.
+
+However, even though Deep and YT-Audio have similar LID values, the DSG algorithm showed large performance differences between them. This means that DSG is more sensitive to changes in data distribution. Its robustness is lower than that of other methods, possibly because it depends not only on LID but also on other complex data characteristics.
+%	To examine the robustness of RF-ANNS algorithms, we analyze their performance across different datasets. As shown in Figure~\ref{fig:exp_8_3}, the performance differences. All methods perform worst on WIT, which has the highest LID. On Deep and YT-Audio, which have similar LID, most algorithms achieve comparable performance. 
+%	This suggests that the effectiveness of RF-ANN search is mainly influenced by LID of the dataset. A higher LID inherently increases the difficulty of hybrid query.
+%	
+%	However, the DSG algorithm shows a noticeable performance gap between the Deep and YT-Audio datasets, despite their comparable LID. This indicates that DSG is less robust than other methods when facing dataset-dependent variations, possibly due to its sensitivity to data distribution beyond LID alone.
 	
 	\section{DISCUSSION}
 	Based on the performance of the algorithms on different experimental scenarios, we discuss our findings as follows.
@@ -994,7 +1004,7 @@ NHQ imposes strict constraints on the number of base and query attributes and on
 
 \subsubsection{\textbf{Range Filtering}}
 
-Except for DSG, most range filtering algorithms require the dataset to be pre-sorted before building the index. Moreover, these methods do not support multi-attribute range queries. Enhancing these methods to support an arbitrary number of range-filterable attributes remains an open research challenge.
+Except for DSG, most range filtering algorithms require the dataset to be pre-sorted before building the index. Moreover, these methods do not support multi-attribute range queries. Enhancing these methods to support an arbitrary number of range filterable attributes remains an open research challenge.
 
 Our experiments show that graph compression methods often lead to poor query performance in RF-ANN search. To address this problem, subsequent algorithms usually optimize the index processing at the segment tree nodes. UNIFY newly proposes segment graphs and integrates multiple data structures to process queries. Although UNIFY performs slightly worse on small-range queries, its proposed index structure broadens the research direction.
 
