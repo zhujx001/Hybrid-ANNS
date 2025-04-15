@@ -988,7 +988,7 @@ However, even though Deep and YT-Audio have similar LID values, the DSG algorith
 	
 	
 	\subsection{Recommendations.}
-	\subsubsection{\textbf{Attribute Filtering}}
+	Based on the performance of different algorithms in experiments, we recommend algorithms suitable for different scenarios, as shown in the table \ref{tab:algo_scenarios}.
 	
 	
 	\begin{table}[t]
@@ -1004,9 +1004,9 @@ However, even though Deep and YT-Audio have similar LID values, the DSG algorith
 				\hline
 				S2: Fast Index Construction & ACORN-1, UNG  &Faiss\\
 				\hline
-				S3: Query on Hard Datasets & CAPS, UNG &iRange, DSG\\
+				S3: Query on Hard Datasets & CAPS, UNG &WinFilter, iRange, DSG\\
 				\hline
-				S4: Query on Easy Datasets & StitchedVamana, NHQ & iRange\\
+				S4: Query on Easy Datasets & StitchedVamana, NHQ & WinFilter, iRange\\
 				
 				\hline
 				S5: General-purpose Use & Milvus, Faiss &DSG, UNIFY\\
@@ -1015,23 +1015,20 @@ However, even though Deep and YT-Audio have similar LID values, the DSG algorith
 				\hline
 				S7: High-Recall Querying & UNG & WinFilter \\
 				\hline
+				S8: OOD scenarios & CAPS &WinFilter  \\
+				\hline
 			\end{tabular}
 		}
 		\label{tab:algo_scenarios}
 		
 	\end{table}
 	
+	%\subsubsection{\textbf{Attribute Filtering}}
+	%We summarize the applicability of different algorithms across various attribute filtering scenarios in Table~\ref{tab:algo_scenarios}.Puck and UNG excel on large-scale datasets (S1). ACORN-1 and UNG achieve fast index construction (S2). CAPS performs best on hard datasets with high LID (S3), while NHQ, StitchedVamana, and UNG are superior for easy datasets with low LID (S4). Faiss and CAPS can generate relatively compact indexes with low memory usage, which is suitable for resource-constrained situations (S6). Milvus and Faiss serve as general-purpose solutions (S5). UNG stands out for its high recall, precision, and QPS (S7).
 	
-	We summarize the applicability of different algorithms across various attribute filtering scenarios in Table~\ref{tab:algo_scenarios}.
-	Puck and UNG excel on large-scale datasets (S1). ACORN-1 and UNG achieve fast index construction (S2). CAPS performs best on hard datasets with high LID (S3), while NHQ, StitchedVamana, and UNG are superior for easy datasets with low LID (S4). Faiss and CAPS can generate relatively compact indexes with low memory usage, which is suitable for resource-constrained situations (S6). Milvus and Faiss serve as general-purpose solutions (S5). UNG stands out for its high recall, precision, and QPS (S7).
+	%\subsubsection{\textbf{Range Filtering}}
 	
-	\subsubsection{\textbf{Range Filtering}}
-	
-	
-	% \end{tabular}
-% \label{tab:range_algo_scenarios}
-% \end{table}
-Table~\ref{tab:algo_scenarios} also presents the application scenarios for range filtering. iRange demonstrates strong performance on large-scale datasets, combining efficient construction with excellent query capabilities (S1). For fast index construction, SeRF leads with iRange as a close second (S2). When handling hard datasets, iRange and DSG are recommended (S3), while iRange also performs well on easy datasets (S4). For general-purpose applications, DSG supports dynamic updates while UNIFY provides flexible filtering strategies (S5). Both SeRF and iRange show superior memory efficiency (S6). WinFilter emerges as the optimal choice for high-recall static queries (S7).
+	%Table~\ref{tab:algo_scenarios} also presents the application scenarios for range filtering. iRange demonstrates strong performance on large-scale datasets, combining efficient construction with excellent query capabilities (S1). For fast index construction, SeRF leads with iRange as a close second (S2). When handling hard datasets, iRange and DSG are recommended (S3), while iRange also performs well on easy datasets (S4). For general-purpose applications, DSG supports dynamic updates while UNIFY provides flexible filtering strategies (S5). Both SeRF and iRange show superior memory efficiency (S6). WinFilter emerges as the optimal choice for high-recall static queries (S7).
 
 \subsection{Challenges}
 \subsubsection{\textbf{Attribute Filtering}}
