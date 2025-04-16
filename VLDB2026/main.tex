@@ -1014,7 +1014,7 @@ However, even though Deep and YT-Audio have similar LID values, the DSG algorith
 				\hline
 				S7: High-Recall Querying & UNG & WinFilter \\
 				\hline
-				S8: OOD scenarios & CAPS &WinFilter  \\
+				S8: OOD scenarios & UNG &WinFilter  \\
 				\hline
 			\end{tabular}
 		}
@@ -1024,8 +1024,7 @@ However, even though Deep and YT-Audio have similar LID values, the DSG algorith
 	
 	\subsubsection{\textbf{Attribute Filtering}}
 	We summarize the applicability of different algorithms across various attribute filtering scenarios in Table~\ref{tab:algo_scenarios}. Puck and UNG excel on large-scale datasets (S1). ACORN-1 and UNG achieve fast index construction (S2). UNG performs well on different datasets (S3, S4). In addition, CAPS performs well on hard datasets with high LID (S3), while NHQ and StitchedVamana perform better on easy datasets with low LID (S4).
-	Faiss and CAPS can generate relatively compact indexes with low memory usage, which is suitable for resource-constrained situations (S6). Milvus and Faiss serve as general-purpose solutions (S5). UNG stands out for its high recall, precision, and QPS (S7). CAPS performs well in OOD scenarios (S8).
-	
+	Faiss and CAPS can generate relatively compact indexes with low memory usage, which is suitable for resource-constrained situations (S6). Milvus and Faiss serve as general-purpose solutions (S5). UNG stands out for its higher recall, precision, and QPS, and performs well in the OOD scenario (S7, S8).
 	\subsubsection{\textbf{Range Filtering}}
 	
 	Table~\ref{tab:algo_scenarios} also shows the application scenarios of range filtering. iRange performs well on large-scale datasets, combining efficient construction and excellent query capabilities (S1). Faiss performs well in fast index construction (S2). When processing hard datasets, WinFilter, iRange, and DSG are recommended (S3), while WinFilter and iRange also perform well on easy datasets (S4). For general applications, DSG supports dynamic updates, while UNIFY provides flexible filtering strategies (S5). Faiss and SeRF show superior memory efficiency (S6). For static queries with high recall, WinFilter is the best choice (S7). In addition, WinFilter also performs well in OOD scenarios (S8).
