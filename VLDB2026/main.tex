@@ -1042,14 +1042,20 @@ Except for DSG, most range filtering algorithms require the dataset to be pre-so
 
 Our experiments show that graph compression methods often lead to poor query performance in RF-ANN search. To address this problem, subsequent algorithms usually optimize the index processing at the segment tree nodes. UNIFY newly proposes segment graphs and integrates multiple data structures to process queries. Although UNIFY performs slightly worse on small-range queries, its proposed index structure broadens the research direction.
 
+\textcolor{blue}{
+In our experiments, we found that many range filtering algorithms perform worse than Faiss at high recall (0.95). This shows that the design of current algorithms still needs improvement. We suggest that future range filtering algorithms should include Faiss as a baseline.
+}
+
 It is also worth noting that range filtering and attribute filtering are both forms of hybrid query. However, aside from vector databases and ACORN, few existing algorithms support both modalities simultaneously. Designing unified frameworks that simultaneously support both is an important research frontier. 
 
 Lastly, our findings show that the distribution and cardinality of attributes, as well as dataset properties (e.g., dimensionality and LID), significantly impact the performance of attribute filtering methods. Enhancing the robustness of these algorithms under diverse data conditions is another key challenge that warrants further investigation.
 
 
 \section{CONCLUSION}
+\textcolor{blue}{
+	In this paper, we evaluate various hybrid query methods, including different algorithms, vector databases, and vector libraries. For attribute filtering algorithms, we design and conduct a series of experiments to comprehensively assess their overall performance. To facilitate fair and reproducible comparisons in future research, we enrich existing datasets with attribute values and design a variety of experimental scenarios based on practical needs. We then perform experiments on 7 real-world datasets to analyze the effectiveness of attribute filtering algorithms in depth. Additionally, we compare existing range filtering algorithms using 4 range query datasets. Finally, we provide a detailed analysis of the experimental results, summarize key findings, and highlight areas for improvement. Our study not only validates previous research but also offers insights for future work.
+}
 
-In this paper, we evaluate various hybrid query methods, including different algorithms, vector databases, and vector libraries. For attribute filtering algorithms, we design and conduct a series of experiments to comprehensively assess their overall performance. We then perform experiments on 6 real-world datasets to analyze the effectiveness of attribute filtering algorithms in depth. Additionally, we compare existing range filtering algorithms using 3 range query datasets. Finally, we provide a detailed analysis of the experimental results, summarize key findings, and highlight areas for improvement. Our study not only validates previous research but also offers insights for future work.
 
 
 
