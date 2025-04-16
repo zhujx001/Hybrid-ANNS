@@ -456,7 +456,7 @@
 	For attribute filtering tasks, we employ 7 real-world datasets widely adopted in existing literature: Msong~\cite{msong2011}, Audio~\cite{audio_unknown}, SIFT1M~\cite{sift2010}, GIST1M~\cite{sift2010}, GloVe~\cite{GloVe2015}, Enron~\cite{enron2015} and Text2Image~\cite{texttoimage}, covering a diverse range of domains. We independently generate attribute for each dataset.
 	
 	
-	For range filtering queries, we evaluate 4 widely used real-world datasets: Deep~\cite{yandex_deep_dataset}, YT-Audio~\cite{youtube8m_dataset}, WIT~\cite{wit_dataset}, and Text2Image. Following prior work~\cite{DSG}, we use the data point ID within each dataset as its attribute. This ensures that the data is initially sorted.
+	For range filtering queries, we evaluate 3 widely used real-world datasets: Deep~\cite{yandex_deep_dataset}, YT-Audio~\cite{youtube8m_dataset}, and WIT~\cite{wit_dataset}. Following prior work~\cite{DSG}, we use the data point ID within each dataset as its attribute. This ensures that the data is initially sorted.
 	
 	Table~\ref{tab:datasets_combined} summarizes the key characteristics of all datasets. In particular, we report the Local Intrinsic Dimensionality (LID)~\cite{Lid}, a commonly used metric to quantify dataset hardness. Following the standard evaluation protocol~\cite{LID2}, we randomly sample 10,000 data points from each dataset for LID computation. A higher LID indicates greater intrinsic complexity.
 	
@@ -849,7 +849,7 @@
 	
 	Most algorithms struggle to achieve high recall on GloVe, because it has the highest LID. Compare to other algorithms, the 4 algorithms (UNG, Faiss, CAPS, and Milvus) manage to maintain relatively high recall, demonstrating better adaptability to complex datasets. Notably, although vanilla Faiss performs worse on SIFT1M compared to Enron dataset, Faiss+HQI\_Batch outperforms on SIFT1M. Because batch optimization in HQI reduces query overhead and increases throughput.
 	
-	Most algorithms exhibit the worst performance on the OOD dataset text2image. However, ACORN, UNG, and FilteredVamana show relatively stable performance on text2image. Their performance drops less compared to in-distribution (ID) datasets such as GIST and GLOVE, indicating better adaptability to OOD queries.
+	Most algorithms exhibit the worst performance on the OOD dataset Text2Image. However, ACORN, UNG, and FilteredVamana show relatively stable performance on Text2Image. Their performance drops less compared to in-distribution (ID) datasets such as GIST1M and GloVe, indicating better adaptability to OOD queries.
 	
 	\subsection{Range Filtering}
 	
@@ -968,7 +968,7 @@
 		\label{fig:exp_8_3}
 	\end{figure*}
 	
-To evaluate the robustness of the RF-ANNS algorithm in different scenarios, we added an Out-of-Distribution (OOD) dataset to the three standard datasets and tested performance under large-range queries. As shown in Figure~\ref{fig:exp_8_3}, most methods performed worst on the Text2Image dataset. This is because OOD queries make the $k$-nearest neighbor distribution more sparse. As a result, the search needs to visit more nodes, which leads to an exponential growth in the search space and a sharp drop in efficiency.
+To evaluate the robustness of the RF-ANNS algorithm in different scenarios, we added an OOD dataset to the three standard datasets and tested performance under large-range queries. As shown in Figure~\ref{fig:exp_8_3}, most methods performed worst on the Text2Image dataset. This is because OOD queries make the $k$-nearest neighbor distribution more sparse. As a result, the search needs to visit more nodes, which leads to an exponential growth in the search space and a sharp drop in efficiency.
 
 WinFilter showed the worst performance on the WIT dataset. This suggests that its performance is sensitive to the data dimensionality. ACORN had large performance differences across datasets, indicating weak robustness.
 
