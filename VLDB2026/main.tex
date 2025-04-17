@@ -976,15 +976,15 @@
 		\label{fig:exp_8_3}
 	\end{figure*}
 	
-To evaluate the robustness of the RF-ANNS algorithm in different scenarios, we added an OOD dataset to the three standard datasets and tested performance under large-range queries. As shown in Figure~\ref{fig:exp_8_3}, most methods performed worst on the Text2Image dataset. This is because OOD queries make the $k$-nearest neighbor distribution more sparse. As a result, the search needs to visit more nodes, which leads to an exponential growth in the search space and a sharp drop in efficiency.
+To evaluate the robustness of the RF-ANNS algorithm in different scenarios, we \textcolor{red}{add} an OOD dataset to the three standard datasets and \textcolor{red}{test} performance under large-range queries. As shown in Figure~\ref{fig:exp_8_3}, most methods \textcolor{red}{perform} worst on the Text2Image dataset. This is because OOD queries make the $k$-nearest neighbor distribution more sparse. As a result, the search needs to visit more nodes, which leads to an exponential growth in the search space and a sharp drop in efficiency.
 
-WinFilter showed the worst performance on the WIT dataset. This suggests that its performance is sensitive to the data dimensionality. ACORN had large performance differences across datasets, indicating weak robustness.
+WinFilter \textcolor{red}{shows} the worst performance on the WIT dataset. This suggests that its performance is sensitive to the data dimensionality. ACORN \textcolor{red}{has} large performance differences across datasets, indicating weak robustness.
 
-Among vector databases, Milvus performed well. VBASE is sensitive to datasets and achieved recall below 0.8 on Text2Image. PASE was excluded from this round of tests because it does not support datasets with dimensions over 512 and performed poorly in earlier experiments.
+Among vector databases, Milvus \textcolor{red}{performs} well. VBASE is sensitive to datasets and achieved recall below 0.8 on Text2Image. PASE \textcolor{red}{is} excluded from this round of tests because it does not support datasets with dimensions over 512 and performed poorly in earlier experiments.
 
-It is worth noting that most methods achieved similar performance on the Deep and YT-Audio datasets, which have similar LID values. This shows that RF-ANNS performance is largely affected by both the LID and the dimensionality of the dataset. A high LID and high dimensionality make hybrid queries more difficult.
+It is worth noting that most methods \textcolor{red}{achieve} similar performance on the Deep and YT-Audio datasets, which have similar LID values. This shows that RF-ANNS performance is largely affected by both the LID and the dimensionality of the dataset. A high LID and high dimensionality make hybrid queries more difficult.
 
-However, even though Deep and YT-Audio have similar LID values, the DSG algorithm showed large performance differences between them. This means that DSG is more sensitive to changes in data distribution. Its robustness is lower than that of other methods, possibly because it depends not only on LID but also on other complex data characteristics.
+However, even though Deep and YT-Audio have similar LID values, the DSG algorithm \textcolor{red}{shows} large performance differences between them. This means that DSG is more sensitive to changes in data distribution. Its robustness is lower than that of other methods, possibly because it depends not only on LID but also on other complex data characteristics.
 %	To examine the robustness of RF-ANNS algorithms, we analyze their performance across different datasets. As shown in Figure~\ref{fig:exp_8_3}, the performance differences. All methods perform worst on WIT, which has the highest LID. On Deep and YT-Audio, which have similar LID, most algorithms achieve comparable performance. 
 %	This suggests that the effectiveness of RF-ANN search is mainly influenced by LID of the dataset. A higher LID inherently increases the difficulty of hybrid query.
 %	
