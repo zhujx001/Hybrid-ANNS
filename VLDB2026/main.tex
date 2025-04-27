@@ -259,8 +259,8 @@
 	\begin{table*}[t]
 		\centering
 		%\setlength{\belowcaptionskip}{-0.3cm}
-		\setlength{\abovecaptionskip}{0.1cm}
-		\setlength{\belowcaptionskip}{-0.2cm}
+		\setlength{\abovecaptionskip}{0cm}
+		\setlength{\belowcaptionskip}{-0.3cm}
 		\caption{Comparison of AF-ANN search algorithms}
 		\small
 		\label{tab:compair_1}
@@ -300,7 +300,7 @@
 				\textit{Complex Boolean} refers to whether the algorithm supports advanced Boolean logic beyond just AND and OR, such as NOT or combinations like (A AND B) OR (C AND NOT D). 
 				\textit{Dynamic} indicates whether the algorithm supports the operation of dynamically inserting data points.
 		\end{minipage}}
-		\vspace{-0.6cm}
+		\vspace{-0.5cm}
 	\end{table*}
 	
 	
@@ -472,11 +472,13 @@
 	
 	\setlength{\textfloatsep}{0.1cm}
 	\setlength{\floatsep}{0cm}
+	\renewcommand{\arraystretch}{0.9}
 	\begin{table}[t]
 		\centering
 		
-		\setlength{\abovecaptionskip}{0.05cm}
-		\setlength{\textfloatsep}{0.cm}
+
+		\setlength{\abovecaptionskip}{0cm}
+		\setlength{\belowcaptionskip}{-0.3cm}
 		\caption{Datasets}
 		
 		\label{tab:datasets_combined}
@@ -485,16 +487,16 @@
 				\toprule
 				Dataset & Dimension & Base Data & Queries & LID & Type \\
 				\midrule
-				Msong & 420 & 992,272 & 200 & 23& Audio \\[2pt]
-				Audio & 192 & 53,387 & 200 & 14& Audio \\[2pt]
-				SIFT1M & 128 & 1,000,000 & 10,000 & 19& Image \\[2pt]
-				GIST1M & 960 & 1,000,000 & 1,000 & 45& Image \\[2pt]
-				GloVe & 100 & 1,183,514 & 10,000 & 47& Text \\[2pt]
-				Enron & 1369 & 94,987 & 200 & 23& Text \\[2pt]
-				Deep & 96 & 1,000,000 & 10,000 & 22& Image \\[2pt]
-				YT-Audio& 128 & 1,000,000 & 10,000 & 15& Audio \\[2pt] 
-				WIT & 2048 & 1,000,000 & 40,300 & 48& Image \\[2pt]
-				Text2Image & 200 & 10,000,000 &10,000 & 59& Text2Image \\[2pt]
+				Msong & 420 & 992,272 & 200 & 23& Audio \\
+				Audio & 192 & 53,387 & 200 & 14& Audio \\
+				SIFT1M & 128 & 1,000,000 & 10,000 & 19& Image \\
+				GIST1M & 960 & 1,000,000 & 1,000 & 45& Image \\
+				GloVe & 100 & 1,183,514 & 10,000 & 47& Text \\
+				Enron & 1369 & 94,987 & 200 & 23& Text \\
+				Deep & 96 & 1,000,000 & 10,000 & 22& Image \\
+				YT-Audio& 128 & 1,000,000 & 10,000 & 15& Audio \\
+				WIT & 2048 & 1,000,000 & 40,300 & 48& Image \\
+				Text2Image & 200 & 10,000,000 &10,000 & 59& Text2Image \\
 				
 				\bottomrule
 			\end{tabular}
@@ -552,7 +554,7 @@
 			\centering
 			\setlength{\abovecaptionskip}{0cm}
 			\setlength{\belowcaptionskip}{-0.1cm}
-			\includegraphics[width=\linewidth]{figures/indexData/exp_7_build_time_comparison_query1.pdf}
+			\includegraphics[width=0.95\linewidth]{figures/indexData/exp_7_build_time_comparison_query1.pdf}
 			\caption{Index construction time}
 			\label{fig:build_time_comparison_query1}
 		\end{subfigure}
@@ -563,7 +565,7 @@
 			\centering
 			\setlength{\abovecaptionskip}{0cm}
 			\setlength{\belowcaptionskip}{-0.1cm}
-			\includegraphics[width=\linewidth]{figures/indexData/exp_7_index_size_mb_comparison_query1.pdf}
+			\includegraphics[width=0.95\linewidth]{figures/indexData/exp_7_index_size_mb_comparison_query1.pdf}
 			\caption{Index size}
 			\label{fig:index_size_mb_comparison_query1}
 		\end{subfigure}
@@ -574,7 +576,7 @@
 			\centering
 			\setlength{\abovecaptionskip}{0cm}
 			\setlength{\belowcaptionskip}{-0.3cm}
-			\includegraphics[width=\linewidth]{figures/indexData/exp_7_memory_mb_comparison_query1.pdf}
+			\includegraphics[width=0.95\linewidth]{figures/indexData/exp_7_memory_mb_comparison_query1.pdf}
 			\caption{Peak memory usage}
 			\label{fig:memory_mb_comparison_query1}
 		\end{subfigure}
@@ -591,7 +593,7 @@
 		\centering
 		        \setlength{\abovecaptionskip}{0cm}
 		    \setlength{\belowcaptionskip}{-0.5cm}
-		\includegraphics[width=\textwidth]{figures/exp/exp_1_1_SingleLabel_1thread.pdf}
+		\includegraphics[width=0.98\textwidth]{figures/exp/exp_1_1_SingleLabel_1thread.pdf}
 		\caption{Single-Attribute Building and Query (single thread) }
 		\label{fig:exp_1_1_SingleLabel_1thread}
 	\end{figure*}
@@ -600,7 +602,7 @@
 		\centering
 		    \setlength{\abovecaptionskip}{0cm}
 		    \setlength{\belowcaptionskip}{-0.5cm}
-		\includegraphics[width=\textwidth]{figures/exp/exp_1_2_SingleLabel_16thread.pdf}
+		\includegraphics[width=0.98\textwidth]{figures/exp/exp_1_2_SingleLabel_16thread.pdf}
 		\caption{Single-Attribute Building and Query (16 threads)}
 		\label{fig:exp_1_2_SingleLabel_16thread}
 	\end{figure*}
@@ -655,17 +657,17 @@
 	
 	 Faiss offers an ID filtering mechanism, it operates solely during query execution and does not influence index building. ACORN-1 and ACORN-\(\gamma\) are specifically designed for single-attribute indexing. In database systems (VBASE, PASE, Milvus), when the system builds both B+ tree and vector indexes, queries typically utilize only the B+ tree. Hence, they are excluded from this comparison.
 	
-	\begin{figure}[th]
+	\begin{figure}[t]
 		\centering
 		\setlength{\abovecaptionskip}{0.1cm}
 		\setlength{\belowcaptionskip}{-0.1cm}
 		% 上面的图例，居中并可通过 hspace 调整左右位置
 		\hspace*{15pt} % 可调整的参数，负值左移，正值右移，例如 -20pt 或 20pt
-		\includegraphics[width=0.98\columnwidth]{figures/exp/exp_2_legend.pdf} % 图例图片路径
+		\includegraphics[width=0.95\columnwidth]{figures/exp/exp_2_legend.pdf} % 图例图片路径
 		
 		
 		% 下面的子图，居中显示
-		\includegraphics[width=0.8\columnwidth]{figures/exp/exp_2_1.pdf}
+		\includegraphics[width=0.7\columnwidth]{figures/exp/exp_2_1.pdf}
 		\caption{Effect of Multi-Attribute Index Construction on Single Query Performance. ($S$ denotes single-attribute index construction and single-attribute query; $M$ denotes multi-attribute index construction and single-attribute query)}
 		\label{fig:exp_2_1}
 		
