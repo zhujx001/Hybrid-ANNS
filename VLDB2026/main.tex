@@ -748,8 +748,8 @@
 		% 第一行：单独一张大图
 		\begin{subfigure}{\textwidth}
 			\centering
-			%        \setlength{\abovecaptionskip}{0cm}
-			%        \setlength{\belowcaptionskip}{0cm}
+			\setlength{\abovecaptionskip}{0.05cm}
+			\setlength{\belowcaptionskip}{0.05cm}
 			\includegraphics[width=\textwidth]{figures/exp/exp_5_2_1.pdf}
 			\caption{Algorithms optimized for low AS levels.}
 			\label{fig:exp_5_2_1}
@@ -760,8 +760,8 @@
 		% 第二行：两张子图，左侧宽度是右侧的两倍
 		\begin{subfigure}{0.66\textwidth} % 2/3 宽度
 			\centering
-			%        \setlength{\abovecaptionskip}{0cm}
-			%        \setlength{\belowcaptionskip}{0cm}
+			\setlength{\abovecaptionskip}{0.05cm}
+			\setlength{\belowcaptionskip}{0.05cm}
 			\includegraphics[width=\textwidth]{figures/exp/exp_5_2_2.pdf}
 			\caption{Algorithms optimized for high AS levels.}
 			\label{fig:exp_5_2_2}
@@ -769,15 +769,15 @@
 		\hfill % 增加水平间距
 		\begin{subfigure}{0.33\textwidth} % 1/3 宽度
 			\centering
-			%        \setlength{\abovecaptionskip}{0cm}
-			%        \setlength{\belowcaptionskip}{0cm}
+			\setlength{\abovecaptionskip}{0.05cm}
+			\setlength{\belowcaptionskip}{0.05cm}
 			\includegraphics[width=\textwidth]{figures/exp/exp_5_2_3.pdf}
 			\caption{Algorithms insensitive to AS level.}
 			\label{fig:exp_5_2_3}
 		\end{subfigure}
 		
-		%    \setlength{\abovecaptionskip}{0cm}
-		%    \setlength{\belowcaptionskip}{-0.4cm}
+		   \setlength{\abovecaptionskip}{0cm}
+		    \setlength{\belowcaptionskip}{-0.5cm}
 		\caption{Different AS under the same algorithm}
 		\label{fig:exp_5_2_combined}
 	\end{figure*}
@@ -807,8 +807,8 @@
 	
 	\begin{figure*}
 		\centering
-		%    \setlength{\abovecaptionskip}{0cm}
-		%    \setlength{\belowcaptionskip}{-0.4cm}
+		    \setlength{\abovecaptionskip}{0cm}
+		    \setlength{\belowcaptionskip}{-0.4cm}
 		\includegraphics[width=\textwidth]{figures/exp/exp_6_1.pdf}
 		\caption{Effect of dataset on Query}
 		\label{fig:exp_6_1}
@@ -865,8 +865,8 @@
 	
 	\begin{figure}[t]
 		\centering
-		\setlength{\abovecaptionskip}{0.3cm}
-		\setlength{\belowcaptionskip}{0cm}
+		\setlength{\abovecaptionskip}{0.02cm}
+		\setlength{\belowcaptionskip}{0.02cm}
 		\hspace*{11pt}
 		% 放大的图例（占满单栏）
 		\includegraphics[width=0.93\columnwidth]{figures/indexData/rangeFilter_legend_only.pdf}
@@ -876,6 +876,8 @@
 		% 三图横排
 		\begin{subfigure}[t]{0.32\columnwidth}
 			\centering
+			\setlength{\abovecaptionskip}{0.02cm}
+			\setlength{\belowcaptionskip}{0.02cm}
 			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_build_time_comparison_query.pdf}
 			\caption{Index construction time}
 			\label{fig:rangeFilter_build_time}
@@ -883,6 +885,8 @@
 		\hfill
 		\begin{subfigure}[t]{0.32\columnwidth}
 			\centering
+			\setlength{\abovecaptionskip}{0.02cm}
+			\setlength{\belowcaptionskip}{0.02cm}
 			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_index_size_mb_comparison_query.pdf}
 			\caption{Index size}
 			\label{fig:rangeFilter_index_size_mb}
@@ -890,6 +894,8 @@
 		\hfill
 		\begin{subfigure}[t]{0.32\columnwidth}
 			\centering
+			\setlength{\abovecaptionskip}{0.02cm}
+			\setlength{\belowcaptionskip}{0.02cm}
 			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_memory_mb_comparison_query.pdf}
 			\caption{Peak memory usage}
 			\label{fig:rangeFilter_memory_mb}
@@ -929,8 +935,8 @@
 
 	\begin{figure*}[htbp]
 		\centering
-		%  \setlength{\abovecaptionskip}{0cm}
-		%    \setlength{\belowcaptionskip}{-0.4cm}
+		  \setlength{\abovecaptionskip}{0cm}
+		    \setlength{\belowcaptionskip}{-0.5cm}
 		\includegraphics[width=\textwidth]{figures/exp/exp_8_2.pdf}
 		\caption{RF-ANN search }
 		\label{fig:exp_8_2}
@@ -969,8 +975,8 @@
 		% \end{figure*}
 	\begin{figure*}[htbp]
 		\centering
-		%    \setlength{\abovecaptionskip}{0cm}
-		%    \setlength{\belowcaptionskip}{-0.5cm}
+		    \setlength{\abovecaptionskip}{0cm}
+		    \setlength{\belowcaptionskip}{-0.5cm}
 		\includegraphics[width=\textwidth]{figures/exp/exp_8_3.pdf}
 		\caption{Dataset Effect on RF-ANN Search}
 		\label{fig:exp_8_3}
