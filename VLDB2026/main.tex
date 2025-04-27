@@ -143,7 +143,7 @@
 		\centering
 		\setlength{\abovecaptionskip}{0.1cm}
 		\setlength{\belowcaptionskip}{-0.5cm}
-		\includegraphics[width=\textwidth]{figures/hybrid ANNS.pdf}
+		\includegraphics[width=0.92\textwidth]{figures/hybrid ANNS.pdf}
 		\caption{Hybrid query example}
 		
 		\label{fig:hybrid ANNS}
@@ -153,7 +153,7 @@
 	In recent years, hybrid query algorithms develop rapidly, giving rise to numerous attribute filtering ~\cite{NHQ,diskann} and range filtering algorithms \cite{serf,iRangeGraph}. In practical applications, the performance of hybrid query algorithms is influenced not only by unstructured data but also closely related to structured data. For attribute filtering algorithms, factors such as the number of base attributes, the number of query attributes, attribute distribution \cite{UNG}, and attribute selectivity \cite{ACORN} significantly impact algorithm performance. As for range filtering algorithms, the size of the query range and the characteristics of different datasets also play an important role in determining algorithm performance.
 	
 	Despite BigANN 2023 \cite{bigann2023} evaluates the performance of some algorithms, it presents several notable limitations:
-	1) The evaluation covers a limited number of algorithms and fails to comprehensively include mainstream methods. For instance, attribute filtering algorithms such as NHQ and UNG are not included in the evaluation. 2) It focuses only on single-attribute and dual-attribute query scenarios, neglecting the more complex demands of multi-attribute queries. In real-world applications, an object typically involves multiple attributes. For example, in e-commerce scenarios, users often specify multiple attributes (e.g., color, brand, price range) simultaneously when searching.
+	1) The evaluation covers a limited number of algorithms and fails to comprehensively include mainstream methods. For instance, attribute filtering algorithms such as NHQ and UNG are not included in the evaluation. 2) It \textcolor{yellow}{focuses only on single-attribute and dual-attribute query scenarios,} neglecting the more complex demands of multi-attribute queries. In real-world applications, an object typically involves multiple attributes.\textcolor{yellow}{ For example, in e-commerce scenarios, users often specify multiple attributes (e.g., color, brand, price range) simultaneously when searching.}
 	3) It does not evaluate algorithm performance under different attribute distributions. However, variations in attribute distribution may directly affect the filtering strategies and index construction efficiency of hybrid query algorithms.
 	
 	Moreover, aside from BigANN, there is currently a lack of systematic evaluation specifically targeting hybrid query algorithms. To fill this gap, we conduct a comprehensive experimental evaluation of hybrid query algorithms, analyzing the index construction costs and query efficiency across different scenarios. Additionally, we further assess the robustness of each algorithm under varying conditions.
@@ -179,7 +179,7 @@
 	
 	
 	(5)\textbf{ Recommendations and Challenges.}
-	Based on the experimental results, we provide algorithm selection recommendations for common application scenarios and highlight key challenges in the field of hybrid queries. These challenges include limited Boolean logic support, the lack of multi-attribute range filtering capabilities, the high indexing costs of graph-based methods, and the sensitivity of algorithms to data distribution. Currently, few methods simultaneously support both attribute filtering and range filtering, pointing to potential directions for future research.
+	Based on the experimental results, we provide algorithm selection recommendations for common application scenarios and highlight key challenges in the field of hybrid queries. These challenges include limited Boolean logic support, the lack of multi-attribute range filtering capabilities, the high indexing costs of graph-based methods, and the sensitivity of algorithms to data distribution. \textcolor{yellow} {Currently, few methods simultaneously support both attribute filtering and range filtering, pointing to potential directions for future research.}
 	
 	\section{PRELIMINARIES}
 	
@@ -255,11 +255,12 @@
 	
 	\setlength{\textfloatsep}{0cm}
 	\setlength{\floatsep}{0cm}
+	\renewcommand{\arraystretch}{0.9}
 	\begin{table*}[t]
 		\centering
 		%\setlength{\belowcaptionskip}{-0.3cm}
-		\setlength{\abovecaptionskip}{0.1cm}
-		\setlength{\belowcaptionskip}{-0.2cm}
+		\setlength{\abovecaptionskip}{0cm}
+		\setlength{\belowcaptionskip}{-0.3cm}
 		\caption{Comparison of AF-ANN search algorithms}
 		\small
 		\label{tab:compair_1}
@@ -314,7 +315,7 @@
 				\textit{Complex Boolean} refers to whether the algorithm supports advanced Boolean logic beyond just AND and OR, such as NOT or combinations like (A AND B) OR (C AND NOT D). 
 				\textit{Dynamic} indicates whether the algorithm supports the operation of dynamically inserting data points.
 		\end{minipage}}
-		\vspace{-0.3cm}
+		\vspace{-0.5cm}
 	\end{table*}
 	
 	
@@ -442,34 +443,19 @@
 	
 	The vector libraries and databases discussed in the following are not explicitly designed for hybrid query, but they support both attribute filtering and range filtering. Additionally, all the functionalities shown in Table 1 are also supported.
 	
-	
-	\noindent\textbf{\underline{Faiss \cite{Faiss}.}} Faiss is a library designed for efficient similarity search and clustering of dense vectors. It supports various indexing structures, including IVF, Product Quantization (PQ) \cite{PQ}, and HNSW.
-	
-	In hybrid query scenarios, Faiss supports vector search with an ID selector, which is a bitmap aligned with the dataset size. Users can generate this selector by first applying custom attribute filtering methods. During the query process, Faiss excludes vectors based on the selector, enabling efficient integration of attribute filtering with ANN search.
-	
-	% HQI~\cite{HQI} further proposes an optimization scheme for the IVF index in Faiss, improving efficiency in two aspects:  
-	% 1) Workload-Aware Vector Index: Constructs an attribute filtering tree using historical query workloads and vector cluster centroids to improve filtering efficiency.  
-	% 2) Batch Query Optimization: Groups queries sharing the same filter conditions, performs filtering once per group, and then conducts batch vector similarity computations using efficient matrix operations.  
-	% Since this paper does not focus on query workload optimization, we adopt only the batch optimization strategy in our analysis.
-	In addition, we adopt the batch optimization strategy of HQI~\cite{HQI} for the IVF index in Faiss. This strategy groups queries with the same filter conditions, performs filtering once per group, and then uses efficient matrix operations to perform batch vector similarity calculations.
+	\noindent\textbf{\underline{Faiss \cite{Faiss}.}} \textcolor{red}{Faiss is a library designed for efficient similarity search}. It supports various indexing structures, including IVF, Product Quantization (PQ) \cite{PQ}, and HNSW. In hybrid query scenarios, Faiss supports vector search with an ID selector, which is a bitmap aligned with the dataset size. Users can generate this selector by first applying custom attribute filtering methods. During the query process, Faiss excludes vectors based on the selector, enabling efficient integration of attribute filtering with ANN search. In addition, we adopt the batch optimization strategy of HQI~\cite{HQI} for the IVF index in Faiss. This strategy groups queries with the same filter conditions, performs filtering once per group, and then uses efficient matrix operations to perform batch vector similarity calculations.
 	
 	
 	\noindent\textbf{\underline{PASE \cite{pase}.}}  
-	PASE is a vector indexing plugin for the PostgreSQL database \cite{postgresql13.4}, supporting two index types: IVF\_Flat \cite{johnson2019billion} and HNSW. By leveraging database capabilities, PASE enables both attribute filtering and range filtering. We focus on the post-filtering strategy based on HNSW, which facilitate comparison with other methods.
-	
-	When a query request is received, PASE first obtains a candidate set using the HNSW index. It then applies the filtering conditions from the WHERE clause to refine the results. However, since the candidate set has a fixed size, low-selectivity filters may result in fewer than $k$ results being returned.
+	PASE is a vector indexing plugin for the PostgreSQL database \cite{postgresql13.4}, supporting two index types: IVF\_Flat \cite{johnson2019billion} and HNSW. By leveraging database capabilities, PASE enables both attribute filtering and range filtering. We focus on the post-filtering strategy based on HNSW, which facilitate comparison with other methods. When a query request is received, PASE first obtains a candidate set using the HNSW index. It then applies the filtering conditions from the WHERE clause to refine the results. However, since the candidate set has a fixed size, low-selectivity filters may result in fewer than $k$ results being returned.
 	
 	
 	\noindent\textbf{\underline{VBASE \cite{vbase}.}}  
-	Similar to PASE, VBASE is a PostgreSQL-based vector indexing plugin supporting HNSW, SPTAG~\cite{sptag}, and SPANN~\cite{spann}. We focus on HNSW-based search.
-	
-	VBASE adopts a post-filtering strategy. However, it employs an iterative filtering mechanism: during index traversal, each node is immediately checked against the WHERE clause, and non-matching nodes are discarded. This avoids the issue in PASE where the final result set may contain fewer than $k$ results.
+	Similar to PASE, VBASE is a PostgreSQL-based vector indexing plugin supporting HNSW, SPTAG~\cite{sptag}, and SPANN~\cite{spann}. We focus on HNSW-based search. VBASE adopts a post-filtering strategy. However, it employs an iterative filtering mechanism: during index traversal, each node is immediately checked against the WHERE clause, and non-matching nodes are discarded. This avoids the issue in PASE where the final result set may contain fewer than $k$ results.
 	
 	
 	\noindent\textbf{\underline{Milvus \cite{milvus}.}}  
-	Unlike PASE and VBASE, which are database extensions, Milvus is an open-source vector database purpose-built for large-scale similarity search. It supports multiple index types, including HNSW, IVF\_Flat, and IVF\_PQ, and provides extensive optimization for real-world deployment.
-	
-	Among its indexes, IVF\_Flat is commonly used due to its balance between performance and simplicity. In hybrid queries, Milvus first pre-filters the dataset using user-specified conditions, then traverses only the corresponding clusters for ANN search—similar to the ID selector mechanism of Faiss.
+	Unlike PASE and VBASE, which are database extensions, Milvus is an vector database purpose-built for large-scale similarity search. It supports multiple index types, including HNSW, IVF\_Flat, and IVF\_PQ, and provides extensive optimization for real-world deployment. Among its indexes, IVF\_Flat is commonly used due to its balance between performance and simplicity. In hybrid queries, Milvus first pre-filters the dataset using user-specified conditions, then traverses only the corresponding clusters for ANN search—similar to the ID selector mechanism of Faiss.
 	
 	\section{Experiments}
 	\subsection{Experimental Setup}
@@ -484,11 +470,13 @@
 	
 	\setlength{\textfloatsep}{0.1cm}
 	\setlength{\floatsep}{0cm}
+	\renewcommand{\arraystretch}{0.9}
 	\begin{table}[t]
 		\centering
 		
-		\setlength{\abovecaptionskip}{0.05cm}
-		\setlength{\textfloatsep}{0.cm}
+
+		\setlength{\abovecaptionskip}{0cm}
+		\setlength{\belowcaptionskip}{-0.3cm}
 		\caption{Datasets}
 		
 		\label{tab:datasets_combined}
@@ -497,16 +485,16 @@
 				\toprule
 				Dataset & Dimension & Base Data & Queries & LID & Type \\
 				\midrule
-				Msong & 420 & 992,272 & 200 & 23& Audio \\[2pt]
-				Audio & 192 & 53,387 & 200 & 14& Audio \\[2pt]
-				SIFT1M & 128 & 1,000,000 & 10,000 & 19& Image \\[2pt]
-				GIST1M & 960 & 1,000,000 & 1,000 & 45& Image \\[2pt]
-				GloVe & 100 & 1,183,514 & 10,000 & 47& Text \\[2pt]
-				Enron & 1369 & 94,987 & 200 & 23& Text \\[2pt]
-				Deep & 96 & 1,000,000 & 10,000 & 22& Image \\[2pt]
-				YT-Audio& 128 & 1,000,000 & 10,000 & 15& Audio \\[2pt] 
-				WIT & 2048 & 1,000,000 & 40,300 & 48& Image \\[2pt]
-				Text2Image & 200 & 10,000,000 &10,000 & 59& Text2Image \\[2pt]
+				Msong & 420 & 992,272 & 200 & 23& Audio \\
+				Audio & 192 & 53,387 & 200 & 14& Audio \\
+				SIFT1M & 128 & 1,000,000 & 10,000 & 19& Image \\
+				GIST1M & 960 & 1,000,000 & 1,000 & 45& Image \\
+				GloVe & 100 & 1,183,514 & 10,000 & 47& Text \\
+				Enron & 1369 & 94,987 & 200 & 23& Text \\
+				Deep & 96 & 1,000,000 & 10,000 & 22& Image \\
+				YT-Audio& 128 & 1,000,000 & 10,000 & 15& Audio \\
+				WIT & 2048 & 1,000,000 & 40,300 & 48& Image \\
+				Text2Image & 200 & 10,000,000 &10,000 & 59& Text2Image \\
 				
 				\bottomrule
 			\end{tabular}
@@ -553,7 +541,7 @@
 	\begin{figure}[t]
 		\centering
 		\setlength{\abovecaptionskip}{0.3cm}
-		\setlength{\belowcaptionskip}{0cm}
+		\setlength{\belowcaptionskip}{-0.15cm}
 		
 		% 上面的图例，居中并可通过 hspace 调整左右位置
 		\hspace*{16pt} % 可调整的参数，负值左移，正值右移，例如 -20pt 或 20pt
@@ -562,9 +550,9 @@
 		
 		\begin{subfigure}{\columnwidth}
 			\centering
-			\setlength{\abovecaptionskip}{0cm}
+			\setlength{\abovecaptionskip}{-0.02cm}
 			\setlength{\belowcaptionskip}{-0.1cm}
-			\includegraphics[width=\linewidth]{figures/indexData/exp_7_build_time_comparison_query1.pdf}
+			\includegraphics[width=0.95\linewidth]{figures/indexData/exp_7_build_time_comparison_query1.pdf}
 			\caption{Index construction time}
 			\label{fig:build_time_comparison_query1}
 		\end{subfigure}
@@ -573,9 +561,9 @@
 		
 		\begin{subfigure}{\columnwidth}
 			\centering
-			\setlength{\abovecaptionskip}{0cm}
+			\setlength{\abovecaptionskip}{-0.02cm}
 			\setlength{\belowcaptionskip}{-0.1cm}
-			\includegraphics[width=\linewidth]{figures/indexData/exp_7_index_size_mb_comparison_query1.pdf}
+			\includegraphics[width=0.95\linewidth]{figures/indexData/exp_7_index_size_mb_comparison_query1.pdf}
 			\caption{Index size}
 			\label{fig:index_size_mb_comparison_query1}
 		\end{subfigure}
@@ -584,9 +572,9 @@
 		
 		\begin{subfigure}{\columnwidth}
 			\centering
-			\setlength{\abovecaptionskip}{0cm}
+			\setlength{\abovecaptionskip}{-0.02cm}
 			\setlength{\belowcaptionskip}{-0.3cm}
-			\includegraphics[width=\linewidth]{figures/indexData/exp_7_memory_mb_comparison_query1.pdf}
+			\includegraphics[width=0.95\linewidth]{figures/indexData/exp_7_memory_mb_comparison_query1.pdf}
 			\caption{Peak memory usage}
 			\label{fig:memory_mb_comparison_query1}
 		\end{subfigure}
@@ -603,7 +591,7 @@
 		\centering
 		        \setlength{\abovecaptionskip}{0cm}
 		    \setlength{\belowcaptionskip}{-0.5cm}
-		\includegraphics[width=\textwidth]{figures/exp/exp_1_1_SingleLabel_1thread.pdf}
+		\includegraphics[width=0.98\textwidth]{figures/exp/exp_1_1_SingleLabel_1thread.pdf}
 		\caption{Single-Attribute Building and Query (single thread) }
 		\label{fig:exp_1_1_SingleLabel_1thread}
 	\end{figure*}
@@ -612,7 +600,7 @@
 		\centering
 		    \setlength{\abovecaptionskip}{0cm}
 		    \setlength{\belowcaptionskip}{-0.5cm}
-		\includegraphics[width=\textwidth]{figures/exp/exp_1_2_SingleLabel_16thread.pdf}
+		\includegraphics[width=0.96\textwidth]{figures/exp/exp_1_2_SingleLabel_16thread.pdf}
 		\caption{Single-Attribute Building and Query (16 threads)}
 		\label{fig:exp_1_2_SingleLabel_16thread}
 	\end{figure*}
@@ -667,17 +655,17 @@
 	
 	 Faiss offers an ID filtering mechanism, it operates solely during query execution and does not influence index building. ACORN-1 and ACORN-\(\gamma\) are specifically designed for single-attribute indexing. In database systems (VBASE, PASE, Milvus), when the system builds both B+ tree and vector indexes, queries typically utilize only the B+ tree. Hence, they are excluded from this comparison.
 	
-	\begin{figure}[th]
+	\begin{figure}[t]
 		\centering
 		\setlength{\abovecaptionskip}{0.1cm}
 		\setlength{\belowcaptionskip}{-0.1cm}
 		% 上面的图例，居中并可通过 hspace 调整左右位置
 		\hspace*{15pt} % 可调整的参数，负值左移，正值右移，例如 -20pt 或 20pt
-		\includegraphics[width=0.98\columnwidth]{figures/exp/exp_2_legend.pdf} % 图例图片路径
+		\includegraphics[width=0.95\columnwidth]{figures/exp/exp_2_legend.pdf} % 图例图片路径
 		
 		
 		% 下面的子图，居中显示
-		\includegraphics[width=0.8\columnwidth]{figures/exp/exp_2_1.pdf}
+		\includegraphics[width=0.7\columnwidth]{figures/exp/exp_2_1.pdf}
 		\caption{Effect of Multi-Attribute Index Construction on Single Query Performance. ($S$ denotes single-attribute index construction and single-attribute query; $M$ denotes multi-attribute index construction and single-attribute query)}
 		\label{fig:exp_2_1}
 		
