@@ -300,7 +300,8 @@
 				\textit{OR} indicates whether the algorithm supports attribute filtering with OR operations. 
 				\textit{Flexible Attributes} indicates whether the number of query attributes can differ from the number of attributes used during index construction. 
 				\textit{Complex Boolean} refers to whether the algorithm supports advanced Boolean logic beyond just AND and OR, such as NOT or combinations like (A AND B) OR (C AND NOT D). 
-				\textit{Dynamic} indicates whether the algorithm supports the operation of dynamically inserting data points.
+				\textit{Dynamic Insert} indicates whether the algorithm supports the operation of dynamically inserting data points.
+				\textit{Multi Thread} indicates whether the algorithm supports multi-threaded search.
 		\end{minipage}}
 		\vspace{-0.5cm}
 	\end{table*}
@@ -318,16 +319,16 @@
 	
 	
 	\noindent\textbf{\underline{Filtered-DiskANN \cite{Filtered-diskann}.}}  
-	\sout{The effectiveness of NHQ may degrade when the number of attributes changes, as it affects the fusion distance computation. Filtered-DiskANN addresses this limitation.}
+	%\sout{The effectiveness of NHQ may degrade when the number of attributes changes, as it affects the fusion distance computation. Filtered-DiskANN addresses this limitation.}
 	Filtered-DiskANN also supports simultaneous filtering. Built upon the Vamana \cite{diskann} graph-based ANN index, it incorporates attribute information directly into the graph during index construction. This integration ensures that the index reflects both vector similarity and attribute constraints. Moreover, Filtered-DiskANN supports SSD-based storage, improving scalability.
 	Filtered-DiskANN proposes 2 indexes:  
 	1) \textbf{FilteredVamana}, which incrementally builds the graph index by inserting data points and dynamically adding edges, allowing adaptive expansion.  
 	2) \textbf{StitchedVamana}, which adopts a batch construction strategy—constructing separate Vamana subgraphs for each attribute, followed by merging and edge pruning.
-	A key limitation of Filtered-DiskANN is that while it supports both single-attribute and multi-attribute filtering, it only supports the Boolean OR logic for multi-attribute filtering, lacking support for Boolean AND logic.
+%	A key limitation of Filtered-DiskANN is that only supports the Boolean OR logic for multi-attribute filtering, lacking support for Boolean AND logic.
 	
 	
 	\noindent\textbf{\underline{CAPS \cite{CAPS}.}} 
-	\sout{Different from the above graph-based simultaneous filtering algorithms,}CAPS is the first simultaneous filtering algorithm based on spatial partitioning.
+	%\sout{Different from the above graph-based simultaneous filtering algorithms,}CAPS is the first simultaneous filtering algorithm based on spatial partitioning.
 	%As graph-based methods, NHQ and Filtered-DiskANN often result in large index sizes. CAPS addresses this issue by being the first simultaneous filtering algorithm based on spatial partitioning, significantly reducing index size.
 	CAPS introduces a hierarchical sub-partitioning algorithm inspired by Huffman trees, termed the Attribute Frequency Tree (AFT), to overcome the coarse granularity of traditional IVF-based methods. CAPS adopts a two-level partitioning strategy:  
 	1) The first level clusters vectors based on similarity using K-Means or learning-based methods such as BLISS. 2) Within each cluster, AFT partitions data further based on attribute frequencies, enabling finer-grained indexing and improving query efficiency.
@@ -410,7 +411,9 @@
 	Unlike SeRF, which focuses on graph compression, WinFilter proposes a structural partitioning framework called the $\beta$-Window Search Tree ($\beta$-WST). After the dataset is sorted by attribute values, it is partitioned into multiple intervals and organized into a tree structure. Each node in the tree corresponds to an attribute range and maintains a local ANN index (e.g., Vamana). For a range filtering query, WinFilter only searches within nodes overlapping the query range and merges partial results. With a tree height of $O(\log n)$, each query accesses at most $O(\log n)$ sub-indexes, resulting in significant speedups.
 	
 	\noindent\textbf{\underline{iRange \cite{iRangeGraph}.}}  
-	To address the query efficiency degradation caused by the graph compression in SeRF, iRange adopts a more flexible strategy. Rather than prebuilding indexes for all possible ranges, it dynamically assembles a query-specific subgraph at runtime. iRange partitions the dataset into intervals based on attribute values and independently constructs a local graph for each interval, storing only edge information. During the query process, the relevant local graphs overlapping with the query range are merged into a temporary search graph, and a pruning strategy is applied to enable efficient search.
+	To address the query efficiency degradation caused by the graph compression in SeRF, iRange adopts a more flexible strategy.
+	%Rather than prebuilding indexes for all possible ranges, it dynamically assembles a query-specific subgraph at runtime.
+	iRange partitions the dataset into intervals based on attribute values and independently constructs a local graph for each interval, storing only edge information. During the query process, the relevant local graphs overlapping with the query range are merged into a temporary search graph, and a pruning strategy is applied to enable efficient search.
 	
 	\noindent\textbf{\underline{DSG \cite{DSG}.}}   
 	Most RF-ANN search methods, such as iRange and WinFilter, are designed for static datasets. SeRF allows incremental insertion but requires ordered attributes. DSG introduces the first dynamic RF-ANN framework supporting data insertion with unordered attributes while maintaining efficient range filtering.
@@ -525,7 +528,7 @@
 	\begin{figure}[t]
 		\centering
 		\setlength{\abovecaptionskip}{0.3cm}
-		\setlength{\belowcaptionskip}{-0.15cm}
+		\setlength{\belowcaptionskip}{-0.0cm}
 		
 		% 上面的图例，居中并可通过 hspace 调整左右位置
 		\hspace*{16pt} % 可调整的参数，负值左移，正值右移，例如 -20pt 或 20pt
@@ -576,7 +579,7 @@
 		\centering
 		\setlength{\abovecaptionskip}{0cm}
 		\setlength{\belowcaptionskip}{-0.5cm}
-		\includegraphics[width=0.96\textwidth]{figures/exp/exp_1_1_SingleLabel_1thread.pdf}
+		\includegraphics[width=0.95\textwidth]{figures/exp/exp_1_1_SingleLabel_1thread.pdf}
 		\caption{Single-Attribute Building and Query (single thread) }
 		\label{fig:exp_1_1_SingleLabel_1thread}
 	\end{figure*}
@@ -585,7 +588,7 @@
 		\centering
 		\setlength{\abovecaptionskip}{0cm}
 		\setlength{\belowcaptionskip}{-0.5cm}
-		\includegraphics[width=0.96\textwidth]{figures/exp/exp_1_2_SingleLabel_16thread.pdf}
+		\includegraphics[width=0.95\textwidth]{figures/exp/exp_1_2_SingleLabel_16thread.pdf}
 		\caption{Single-Attribute Building and Query (16 threads)}
 		\label{fig:exp_1_2_SingleLabel_16thread}
 	\end{figure*}
@@ -647,7 +650,7 @@ To ensure a fair comparison with IVF-based algorithms, we include the original d
 		\setlength{\belowcaptionskip}{-0.1cm}
 		% 上面的图例，居中并可通过 hspace 调整左右位置
 		\hspace*{15pt} % 可调整的参数，负值左移，正值右移，例如 -20pt 或 20pt
-		\includegraphics[width=0.95\columnwidth]{figures/exp/exp_2_legend.pdf} % 图例图片路径
+		\includegraphics[width=0.85\columnwidth]{figures/exp/exp_2_legend.pdf} % 图例图片路径
 		
 		
 		% 下面的子图，居中显示
@@ -678,7 +681,7 @@ To ensure a fair comparison with IVF-based algorithms, we include the original d
 	\begin{figure*}
 		\centering
 		\setlength{\abovecaptionskip}{0.0cm}
-		\setlength{\belowcaptionskip}{-0.4cm}
+		\setlength{\belowcaptionskip}{-0.5cm}
 		\includegraphics[width=0.95\textwidth]{figures/exp/exp_3_1.pdf}
 		\caption{Effect of attribute distribution on query performance (single thread)}
 		\label{fig:exp_3_1}
@@ -742,7 +745,7 @@ To ensure a fair comparison with IVF-based algorithms, we include the original d
 			\centering
 			\setlength{\abovecaptionskip}{0.05cm}
 			\setlength{\belowcaptionskip}{0.05cm}
-			\includegraphics[width=\textwidth]{figures/exp/exp_5_2_1.pdf}
+			\includegraphics[width=0.95\textwidth]{figures/exp/exp_5_2_1.pdf}
 			\caption{Algorithms optimized for low AS levels.}
 			\label{fig:exp_5_2_1}
 		\end{subfigure}
@@ -754,7 +757,7 @@ To ensure a fair comparison with IVF-based algorithms, we include the original d
 			\centering
 			\setlength{\abovecaptionskip}{0.05cm}
 			\setlength{\belowcaptionskip}{0.05cm}
-			\includegraphics[width=\textwidth]{figures/exp/exp_5_2_2.pdf}
+			\includegraphics[width=0.92\textwidth]{figures/exp/exp_5_2_2.pdf}
 			\caption{Algorithms optimized for high AS levels.}
 			\label{fig:exp_5_2_2}
 		\end{subfigure}
@@ -763,13 +766,13 @@ To ensure a fair comparison with IVF-based algorithms, we include the original d
 			\centering
 			\setlength{\abovecaptionskip}{0.05cm}
 			\setlength{\belowcaptionskip}{0.05cm}
-			\includegraphics[width=\textwidth]{figures/exp/exp_5_2_3.pdf}
+			\includegraphics[width=0.92\textwidth]{figures/exp/exp_5_2_3.pdf}
 			\caption{Algorithms insensitive to AS level.}
 			\label{fig:exp_5_2_3}
 		\end{subfigure}
 		
 		\setlength{\abovecaptionskip}{0cm}
-		\setlength{\belowcaptionskip}{-0.5cm}
+		\setlength{\belowcaptionskip}{-0.4cm}
 		\caption{Different AS under the same algorithm}
 		\label{fig:exp_5_2_combined}
 	\end{figure*}
@@ -801,7 +804,7 @@ To ensure a fair comparison with IVF-based algorithms, we include the original d
 		\centering
 		    \setlength{\abovecaptionskip}{-0.1cm}
 		    \setlength{\belowcaptionskip}{-0.4cm}
-		\includegraphics[width=0.97\textwidth]{figures/exp/exp_6_1.pdf}
+		\includegraphics[width=0.95\textwidth]{figures/exp/exp_6_1.pdf}
 		\caption{Effect of dataset on Query}
 		\label{fig:exp_6_1}
 	\end{figure*}
@@ -862,7 +865,7 @@ To ensure a fair comparison with IVF-based algorithms, we include the original d
 		\setlength{\belowcaptionskip}{-0.1cm}
 		\hspace*{11pt}
 		% 放大的图例（占满单栏）
-		\includegraphics[width=0.93\columnwidth]{figures/indexData/rangeFilter_legend_only.pdf}
+		\includegraphics[width=0.90\columnwidth]{figures/indexData/rangeFilter_legend_only.pdf}
 		
 		%\vspace{0.1cm}
 		
