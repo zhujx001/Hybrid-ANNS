@@ -1,19 +1,19 @@
 # Fdb version 4
-["bibtex main"] 1745744024.26132 "main.aux" "main.bbl" "main" 1745744029.23578 0
+["bibtex main"] 1745804127.10951 "main.aux" "main.bbl" "main" 1745804127.2443 2
   "./ACM-Reference-Format.bst" 1744598145.4644 84856 cdf46f74ac483d72585084276eb3e09d ""
   "./sample.bib" 1744773189.99398 42113 7d4cbcd93b93f701dd42922fd6c7c69c ""
-  "main.aux" 1745744028.72116 18100 63516489001cc8bec5dc626f5cbcd254 "xelatex"
+  "main.aux" 1745804126.88851 12965 f7399c7e741a69d44b293194bde80f37 "xelatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
 ["xdvipdfmx"] 1745744028.9454 "main.xdv" "main.pdf" "main" 1745744028.9443 2
-  "main.xdv" 1745744028.72223 789628 fd6c4dfcdf9cd75fbebf57e8ebe667d2 "xelatex"
+  "main.xdv" 1745804126.88926 656152 23013e2bdbc253dfceb27ec0ca15efcd "xelatex"
   (generated)
   "main.pdf"
   (rewritten before read)
-["xelatex"] 1745744027.63504 "/Users/yuanjiayu/Documents/GitHub/Hybrid-ANNS/VLDB2026/main.tex" "main.xdv" "main" 1745744029.23584 0
-  "/Users/yuanjiayu/Documents/GitHub/Hybrid-ANNS/VLDB2026/main.tex" 1745744018.68158 87892 0bbd5116b09fb59e5901290dcbc8f75e ""
+["xelatex"] 1745804125.72252 "/Users/yuanjiayu/Documents/GitHub/Hybrid-ANNS/VLDB2026/main.tex" "main.xdv" "main" 1745804127.2445 0
+  "/Users/yuanjiayu/Documents/GitHub/Hybrid-ANNS/VLDB2026/main.tex" 1745804125.9004 87671 b94532fc2168799f0941e94c6267e551 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1246382020 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -22,6 +22,7 @@
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm" 1246382020 908 2921f8a10601f252058503cc6570e581 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5.tfm" 1246382020 940 75ac932a52f80982a9f8ea75d03a34cf ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm" 1246382020 940 228d6584342e91276bf566bcf9716b83 ""
+  "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/latex-fonts/lasy6.tfm" 1136768653 520 4889cce2180234b97cad636b6039c722 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/lm/ec-lmr9.tfm" 1254269338 12084 b7f5e4c003de6f57f07c7e9fee73a37c ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/lm/rm-lmr6.tfm" 1254269338 11836 e3b6ce3e601aec94f64a536e7f4224d5 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/lm/rm-lmr7.tfm" 1254269338 11852 5a9022f105fd1ee2797df861e79ae9a0 ""
@@ -54,6 +55,7 @@
   "/usr/local/texlive/2025/texmf-dist/tex/generic/pdfescape/pdfescape.sty" 1576015897 19007 15924f7228aca6c6d184b115f4baa231 ""
   "/usr/local/texlive/2025/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty" 1593379760 20089 80423eac55aa175305d35b49e04fe23b ""
   "/usr/local/texlive/2025/texmf-dist/tex/generic/stringenc/stringenc.sty" 1575152242 21514 b7557edcee22835ef6b03ede1802dad4 ""
+  "/usr/local/texlive/2025/texmf-dist/tex/generic/ulem/ulem.sty" 1578692523 15682 94f55b803e160cf7fb6e4d77d07cfe1d ""
   "/usr/local/texlive/2025/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty" 1576624663 7008 f92eaa0a3872ed622bbf538217cd2ab7 ""
   "/usr/local/texlive/2025/texmf-dist/tex/generic/xkeyval/keyval.tex" 1655411236 2725 1a42bd9e7e57e25fc7763c445f4b785b ""
   "/usr/local/texlive/2025/texmf-dist/tex/generic/xkeyval/xkeyval.tex" 1655411236 19231 27205ee17aaa2902aea3e0c07a3cfc65 ""
@@ -177,10 +179,10 @@
   "figures/indexData/rangeFilter_legend_only.pdf" 1744705659.23838 12153 045b846dbb6cb5992c80547360f10b86 ""
   "figures/indexData/rangeFilter_memory_mb_comparison_query.pdf" 1744685817.90434 12599 00b315abd475c98612155e1f2783f7af ""
   "figures/ivf.pdf" 1744598145.47991 214161 f93ad03c5792a13d6a523d542b6c0add ""
-  "main.aux" 1745744028.72116 18100 63516489001cc8bec5dc626f5cbcd254 "xelatex"
-  "main.bbl" 1745744024.35056 31613 40057b49e3a1bd55bd82404f0d67e4ee "bibtex main"
-  "main.out" 1745744028.72207 3244 14119a1dbe22b3e86fa21f949cbf35f5 "xelatex"
-  "main.tex" 1745744018.68158 87892 0bbd5116b09fb59e5901290dcbc8f75e ""
+  "main.aux" 1745804126.88851 12965 f7399c7e741a69d44b293194bde80f37 "xelatex"
+  "main.bbl" 1745804127.24197 31613 40057b49e3a1bd55bd82404f0d67e4ee "bibtex main"
+  "main.out" 1745804126.8891 3148 8af061e22abcc6144f3dac0da3d63b24 "xelatex"
+  "main.tex" 1745804125.9004 87671 b94532fc2168799f0941e94c6267e551 ""
   (generated)
   "main.aux"
   "main.log"
