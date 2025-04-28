@@ -17,29 +17,24 @@ libertine_font = fm.FontProperties(
     fname='/usr/share/fonts/opentype/linux-libertine/LinLibertine_R.otf')
 # 基础颜色列表
 colors = [ # 主色系（增强饱和度）
- '#F39C12', # 深邃蓝（原#5E81AC提纯）
- '#6EC1E0', # 电光冰蓝（原#88C0D0去灰）
- '#E74C3C', # 警报红（原#BF616A加深）
-
- '#2ECC71', # 翡翠绿
-
- # 辅助色（强化对比）
- '#48D1CC', # 土耳其蓝
- '#9B59B6', # 宝石紫（原#B48EAD增饱和）
- '#E67E22', # 南瓜橙（替换原#D08770）
- '#8FCB6B', # 苹果绿（原#A3BE8C增艳）
- '#3498DB', # 荧光蓝（原#81A1C1提亮）
+'#E74C3C', #(Alert Red)
+'#F39C12', #(Orange)
+'#2ECC71', #(Emerald Green)
+'#9B59B6', #(Gem Purple)
+'#48D1CC', #(Turquoise)
+'#3498DB', #(Fluorescent Blue)
+'#34495E', #(Steel Blue Gray)
 ]
 
 plot_params = {
-    'markersize': 6,                # 标记大小
+    'markersize': 8,                # 标记大小
     'markerfacecolor': (1, 1, 1, 0.8),     # 标记填充颜色（白色）
     'markeredgewidth': 1,         # 标记边缘宽度
     'linewidth': 1.2           # 线条粗细
 }
 
 plot_legend_params = {
-    'markersize': 8,                # 标记大小
+    'markersize': 10,                # 标记大小
     'markerfacecolor': (1, 1, 1, 0.8),     # 标记填充颜色（白色）
     'markeredgewidth': 1,         # 标记边缘宽度
     'linewidth': 1.2           # 线条粗细
@@ -398,7 +393,7 @@ def plot_5_2_2_comparison(all_data):
                 pareto_df = compute_pareto_frontier(df, 'Recall', 'QPS')
                 if not pareto_df.empty:
                     # 过滤 Recall 小于0.7以及等于1.01的数据
-                    filtered_df = pareto_df[(pareto_df['Recall'] >= 0.6)]
+                    filtered_df = pareto_df[(pareto_df['Recall'] >= 0.7)]
                     if not filtered_df.empty:
                         x_data = filtered_df['Recall'].tolist()
                         y_data = filtered_df['QPS'].tolist()
@@ -415,9 +410,9 @@ def plot_5_2_2_comparison(all_data):
         ax_multi.set_yticklabels(y_tick_labels_multi)
 
         # 设置x轴范围为0.7到1.01，但仅显示刻度至1.0
-        ax_multi.set_xlim(0.6, 1.01)
-        ax_multi.set_xticks([0.6, 0.7, 0.8, 0.9, 1.0])
-        ax_multi.set_xticklabels([f"{tick:.1f}" for tick in [0.6, 0.7, 0.8, 0.9, 1.0]])
+        ax_multi.set_xlim(0.7, 1.01)
+        ax_multi.set_xticks([0.7, 0.8, 0.9, 1.0])
+        ax_multi.set_xticklabels([f"{tick:.1f}" for tick in [0.7, 0.8, 0.9, 1.0]])
         ax_multi.axvline(x=0.95, color='gray', linestyle='--', alpha=0.7)
         ax_multi.grid(True, linestyle=':', alpha=0.6)
         # 设置x轴标签
@@ -463,7 +458,7 @@ def plot_5_2_2_comparison(all_data):
                 pareto_df = compute_pareto_frontier(df, 'Recall', 'QPS')
                 if not pareto_df.empty:
                     # 过滤 Recall 小于0.7以及等于1.01的数据
-                    filtered_df = pareto_df[(pareto_df['Recall'] >= 0.6)]
+                    filtered_df = pareto_df[(pareto_df['Recall'] >= 0.7)]
                     if not filtered_df.empty:
                         x_data = filtered_df['Recall'].tolist()
                         y_data = filtered_df['QPS'].tolist()
@@ -480,9 +475,9 @@ def plot_5_2_2_comparison(all_data):
         ax_multi.set_yticklabels(y_tick_labels_multi)
 
         # 设置x轴范围为0.7到1.01，但仅显示刻度至1.0
-        ax_multi.set_xlim(0.6, 1.01)
-        ax_multi.set_xticks([0.6, 0.7, 0.8, 0.9, 1.0])
-        ax_multi.set_xticklabels([f"{tick:.1f}" for tick in [0.6, 0.7, 0.8, 0.9, 1.0]])
+        ax_multi.set_xlim(0.7, 1.01)
+        ax_multi.set_xticks([0.7, 0.8, 0.9, 1.0])
+        ax_multi.set_xticklabels([f"{tick:.1f}" for tick in [ 0.7, 0.8, 0.9, 1.0]])
         ax_multi.axvline(x=0.95, color='gray', linestyle='--', alpha=0.7)
         ax_multi.grid(True, linestyle=':', alpha=0.6)
         # 设置x轴标签

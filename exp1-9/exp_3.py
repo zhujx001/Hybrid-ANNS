@@ -16,18 +16,13 @@ data_path = "/data/result"  # 请修改为实际路径
 libertine_font = fm.FontProperties(
     fname='/usr/share/fonts/opentype/linux-libertine/LinLibertine_R.otf')
 colors = [ # 主色系（增强饱和度）
- '#F39C12', # 深邃蓝（原#5E81AC提纯）
- '#6EC1E0', # 电光冰蓝（原#88C0D0去灰）
- '#E74C3C', # 警报红（原#BF616A加深）
-
- '#2ECC71', # 翡翠绿
-
- # 辅助色（强化对比）
- '#48D1CC', # 土耳其蓝
- '#9B59B6', # 宝石紫（原#B48EAD增饱和）
- '#E67E22', # 南瓜橙（替换原#D08770）
- '#8FCB6B', # 苹果绿（原#A3BE8C增艳）
- '#3498DB', # 荧光蓝（原#81A1C1提亮）
+'#E74C3C', #(Alert Red)
+'#F39C12', #(Orange)
+'#2ECC71', #(Emerald Green)
+'#48D1CC', #(Turquoise)
+'#9B59B6', #(Gem Purple)
+'#3498DB', #(Fluorescent Blue)
+'#34495E', #(Steel Blue Gray)
 ]
 
 plot_params = {

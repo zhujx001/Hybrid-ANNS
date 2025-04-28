@@ -324,7 +324,7 @@
 	Filtered-DiskANN proposes 2 indexes:  
 	1) \textbf{FilteredVamana}, which incrementally builds the graph index by inserting data points and dynamically adding edges, allowing adaptive expansion.  
 	2) \textbf{StitchedVamana}, which adopts a batch construction strategy—constructing separate Vamana subgraphs for each attribute, followed by merging and edge pruning.
-	%	A key limitation of Filtered-DiskANN is that only supports the Boolean OR logic for multi-attribute filtering, lacking support for Boolean AND logic.
+%	A key limitation of Filtered-DiskANN is that only supports the Boolean OR logic for multi-attribute filtering, lacking support for Boolean AND logic.
 	
 	
 	\noindent\textbf{\underline{CAPS \cite{CAPS}.}} 
@@ -755,7 +755,7 @@
 		\vfill % 增加垂直间距
 		
 		% 第二行：两张子图，左侧宽度是右侧的两倍
-		\begin{subfigure}{0.66\textwidth} % 2/3 宽度
+		\begin{subfigure}{0.64\textwidth} % 2/3 宽度
 			\centering
 			\setlength{\abovecaptionskip}{0.05cm}
 			\setlength{\belowcaptionskip}{0.05cm}
@@ -763,8 +763,8 @@
 			\caption{Algorithms optimized for high AS levels.}
 			\label{fig:exp_5_2_2}
 		\end{subfigure}
-		\hfill % 增加水平间距
-		\begin{subfigure}{0.33\textwidth} % 1/3 宽度
+		\hspace{1mm} % 增加水平间距
+		\begin{subfigure}{0.32\textwidth} % 1/3 宽度
 			\centering
 			\setlength{\abovecaptionskip}{0.05cm}
 			\setlength{\belowcaptionskip}{0.05cm}
@@ -804,8 +804,8 @@
 	
 	\begin{figure*}
 		\centering
-		\setlength{\abovecaptionskip}{-0.1cm}
-		\setlength{\belowcaptionskip}{-0.4cm}
+		    \setlength{\abovecaptionskip}{-0.1cm}
+		    \setlength{\belowcaptionskip}{-0.4cm}
 		\includegraphics[width=0.95\textwidth]{figures/exp/exp_6_1.pdf}
 		\caption{Effect of dataset on Query}
 		\label{fig:exp_6_1}
@@ -978,9 +978,9 @@
 		% \end{figure*}
 	\begin{figure*}[htbp]
 		\centering
-		\setlength{\abovecaptionskip}{0cm}
-		\setlength{\belowcaptionskip}{-0.5cm}
-		\includegraphics[width=0.75\textwidth]{figures/exp/exp_8_3.pdf}
+		    \setlength{\abovecaptionskip}{0cm}
+		    \setlength{\belowcaptionskip}{-0.5cm}
+		\includegraphics[width=0.80\textwidth]{figures/exp/exp_8_3.pdf}
 		\caption{Dataset Effect on RF-ANN Search}
 		\label{fig:exp_8_3}
 	\end{figure*}
@@ -1018,27 +1018,27 @@
 				\hline
 				\textbf{Scenario} & \textbf{Attribute Filtering} & \textbf{Range Filtering}\\
 				\hline
-				S1: Large-scale Datasets & Puck, UNG & iRange\\
+				S1: Large-scale Datasets & Puck, UNG & iRange\\[1pt]
 				\hline
-				S2: Fast Index Construction & ACORN-1, UNG  &Faiss\\
+				S2: Fast Index Construction & ACORN-1, UNG  &Faiss\\[1pt]
 				\hline
-				S3: Query on Hard Datasets & CAPS, UNG &WinFilter, iRange, DSG\\
+				S3: Query on Hard Datasets & CAPS, UNG &WinFilter, iRange, DSG\\[1pt]
 				\hline
-				S4: Query on Easy Datasets & StitchedVamana, NHQ, UNG & WinFilter, iRange\\
+				S4: Query on Easy Datasets & StitchedVamana, NHQ, UNG & WinFilter, iRange\\[1pt]
 				
 				\hline
-				S5: General-purpose Use & Milvus, Faiss &DSG, UNIFY\\
+				S5: General-purpose Use & Milvus, Faiss &DSG, UNIFY\\[1pt]
 				\hline
-				S6: Resource constraint& CAPS, Faiss&Faiss, SeRF \\
+				S6: Resource constraint& CAPS, Faiss&Faiss, SeRF \\[1pt]
 				\hline
-				S7: High-Recall Querying & UNG & WinFilter \\
+				S7: High-Recall Querying & UNG & WinFilter \\[1pt]
 				\hline
-				S8: OOD scenarios & UNG &WinFilter  \\
+				S8: OOD scenarios & UNG &WinFilter  \\[1pt]
 				\hline
 			\end{tabular}
 		}
 		\label{tab:algo_scenarios}
-		\vspace{-0.0cm}
+	\vspace{-0.0cm}
 	\end{table}
 	
 	\subsubsection{\textbf{Attribute Filtering}}
