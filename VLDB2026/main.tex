@@ -164,7 +164,8 @@
 	Our study focuses on the problem of ANN search in hybrid query scenarios and provides a comprehensive review and evaluation of existing algorithms and systems. The main contributions are summarized in the following 5 aspects.
 	
 	(1)\textbf{ Systematic Classification and Overview.}
-	We systematically classify 10 representative attribute filtering algorithms from multiple dimensions, including index organization, filtering strategy, Boolean logic support, and index construction methods. Additionally, we survey range filtering algorithms and provide an overview of widely used vector retrieval libraries (e.g., Faiss) and vector databases (e.g., Milvus, PASE, VBASE). These efforts provide a unified reference framework for future study.
+	%We systematically classify 6 representative attribute filtering algorithms from multiple dimensions, including index organization, filtering strategy, Boolean logic support, and index construction methods. Additionally, we survey 5 range filtering algorithms and provide an overview of widely used vector retrieval libraries (e.g., Faiss) and vector databases (e.g., Milvus, PASE, VBASE). These efforts provide a unified reference framework for future study.
+	\textcolor{red}{We systematically classify 6 representative attribute filtering algorithms along multiple dimensions, including index organization, filtering strategies, Boolean logic support, and index construction methods. In addition, we survey 5 range filtering algorithms and provide an overview of widely used vector retrieval libraries (e.g., Faiss) and vector databases (e.g., Milvus, PASE, VBASE). These efforts offer a unified reference framework for future research.}
 	
 	\textcolor{blue}{
 		(2) \textbf{Enhancing Datasets and Experimental Settings for Fair Evaluation.}
@@ -172,10 +173,11 @@
 	}
 	
 	(3)\textbf{ Evaluation of Attribute Filtering Algorithms.}
-	We conduct a systematic evaluation of 13 attribute filtering algorithms on 7 real-world datasets. By analyzing performance under varying numbers of attributes, we reveal the strengths and weaknesses of each method. We further examine their behavior under different attribute distributions and selectivity conditions to assess robustness and adaptability in complex query scenarios. Evaluation metrics include index construction time, index size, peak memory usage, QPS, and search accuracy.
+	%We conduct a systematic evaluation of 13 attribute filtering algorithms on 7 real-world datasets. 
+	\textcolor{red}{We systematically evaluate 6 attribute filtering algorithms, 1 library, and 3 databases on 7 real-world datasets.}By analyzing performance under varying numbers of attributes, we reveal the strengths and weaknesses of each method. We further examine their behavior under different attribute distributions and selectivity conditions to assess robustness and adaptability in complex query scenarios. Evaluation metrics include index construction time, index size, peak memory usage, QPS, and search accuracy.
 	
 	(4)\textbf{ Evaluation of Range Filtering Algorithms.}
-	We benchmark 5 mainstream range filtering algorithms on 3 large-scale datasets, using varying query range settings in the experiments. The experimental results demonstrate the performance of these algorithms in terms of index construction efficiency, storage overhead, and query performance. Additionally, we conduct an in-depth analysis of how index organization impacts algorithm performance, providing valuable insights for algorithm design.
+	We benchmark 5 range filtering algorithms\textcolor{red}{, 1 library, and 3 databases} on 3 large-scale datasets, using varying query range settings in the experiments. The experimental results demonstrate the performance of these algorithms in terms of index construction efficiency, storage overhead, and query performance. Additionally, we conduct an in-depth analysis of how index organization impacts algorithm performance, providing valuable insights for algorithm design.
 	
 	
 	(5)\textbf{ Recommendations and Challenges.}
