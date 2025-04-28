@@ -432,8 +432,7 @@
 	
 	
 	\noindent\textbf{\underline{VBASE \cite{vbase}.}}  
-	Similar to PASE, VBASE is a PostgreSQL-based vector indexing plugin supporting HNSW, SPTAG~\cite{sptag}, and SPANN~\cite{spann}. We focus on HNSW-based search. VBASE adopts a post-filtering strategy. However, it employs an iterative filtering mechanism: during index traversal, each node is immediately checked against the WHERE clause, and non-matching nodes are discarded. This avoids the issue in PASE where the final result set may contain fewer than $k$ results.
-	
+	Similar to PASE, VBASE is a PostgreSQL-based vector indexing plugin supporting HNSW, SPTAG~\cite{sptag}, and SPANN~\cite{spann}. \textcolor{red}{We focus on HNSW-based search because SPTAG and SPANN have poorer performance and their source code does not fully implement index-building functionality}. VBASE adopts a post-filtering strategy. However, it employs an iterative filtering mechanism: during index traversal, each node is immediately checked against the WHERE clause, and non-matching nodes are discarded. This avoids the issue in PASE where the final result set may contain fewer than $k$ results.
 	
 	\noindent\textbf{\underline{Milvus \cite{milvus}.}}  
 	Unlike PASE and VBASE, which are database extensions, Milvus is an vector database purpose-built for large-scale similarity search. It supports multiple index types, including HNSW, IVF\_Flat, and IVF\_PQ, and provides extensive optimization for real-world deployment. Among its indexes, IVF\_Flat is commonly used due to its balance between performance and simplicity. In hybrid queries, Milvus first pre-filters the dataset using user-specified conditions, then traverses only the corresponding clusters for ANN search—similar to the ID selector mechanism of Faiss.
@@ -633,7 +632,7 @@
 	
 	\textit{\textbf{Multi-Attribute Building and Single-Attribute Query.}}
 	In this scenario, the index is constructed using 8 attributes but applies filtering condition on only 1 attribute during the query process.
-	\textcolor{blue}{The original NHQ implementation does not support this scenario. We modified the code to enable this experiment.}
+	\textcolor{red}{We modified the NHQ source code to support this experiment.}
 	
 	Faiss offers an ID filtering mechanism, it operates solely during query execution and does not influence index building. ACORN-1 and ACORN-\(\gamma\) are specifically designed for single-attribute indexing. In database systems (VBASE, PASE, Milvus), when the system builds both B+ tree and vector indexes, queries typically utilize only the B+ tree. Hence, they are excluded from this comparison.
 	
