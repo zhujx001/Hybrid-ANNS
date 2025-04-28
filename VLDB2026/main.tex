@@ -9,7 +9,7 @@
 \usepackage{multirow}
 % \usepackage{svg} % For SVG support
 \usepackage{graphicx}
-
+\usepackage{ulem}  % 导言区加上这一行
 \usepackage{microtype}  %处理换行
 \usepackage{subcaption} % 需要subcaption宏包支持子图
 % \newtheorem{definition}{DEFINITION} % 定义“定义”环境
@@ -167,8 +167,8 @@
 	We systematically classify 10 representative attribute filtering algorithms from multiple dimensions, including index organization, filtering strategy, Boolean logic support, and index construction methods. Additionally, we survey range filtering algorithms and provide an overview of widely used vector retrieval libraries (e.g., Faiss) and vector databases (e.g., Milvus, PASE, VBASE). These efforts provide a unified reference framework for future study.
 	
 	\textcolor{blue}{
-	(2) \textbf{Enhancing Datasets and Experimental Settings for Fair Evaluation.}
-	To address the lack of standardized benchmarks in attribute filtering research, we enrich commonly used datasets by generating attribute values tailored to real-world scenarios. Furthermore, we design comprehensive experimental settings that reflect diverse application requirements, including varying attribute distributions, selectivity levels, and query conditions. These enhancements provide a unified evaluation framework that supports fair, consistent, and reproducible comparisons across different algorithms, laying a solid foundation for future research in hybrid query processing.
+		(2) \textbf{Enhancing Datasets and Experimental Settings for Fair Evaluation.}
+		To address the lack of standardized benchmarks in attribute filtering research, we enrich commonly used datasets by generating attribute values tailored to real-world scenarios. Furthermore, we design comprehensive experimental settings that reflect diverse application requirements, including varying attribute distributions, selectivity levels, and query conditions. These enhancements provide a unified evaluation framework that supports fair, consistent, and reproducible comparisons across different algorithms, laying a solid foundation for future research in hybrid query processing.
 	}
 	
 	(3)\textbf{ Evaluation of Attribute Filtering Algorithms.}
@@ -200,7 +200,7 @@
 		Let \( D = \{(v_1, s_1), \ldots, (v_n, s_n)\} \) be a dataset of \( n \) \( d \)-dimensional vectors, each associated with an attribute set \( s_i \). Given a query \( Q = (q_v, q_s, k) \), where \( q_s \) is the query attribute set, the AF-NN search aims to return a set \( R \subseteq D_s \) with \( |R| = k \), such that for any \( x \in R \) and \( y \in D_s \setminus R \), \( \textit{dist}(q_v, x) \leq \textit{dist}(q_v, y) \), where \( D_s = \{ v_i \mid (v_i, s_i) \in D \land q_s \subseteq s_i \} \).
 	\end{definition}
 	
-%	We further classify AF-NN search according to the number of the attribute set \( s_i \): 1) Single-Attribute Filtering Nearest Neighbor (\textit{SAF-NN}) search, where $\forall i,\, |s_i| = 1$. 2) Multi-Attribute Filtering Nearest Neighbor (\textit{MAF-NN}) search, where $\exists i,\, |s_i| > 1$.
+	%	We further classify AF-NN search according to the number of the attribute set \( s_i \): 1) Single-Attribute Filtering Nearest Neighbor (\textit{SAF-NN}) search, where $\forall i,\, |s_i| = 1$. 2) Multi-Attribute Filtering Nearest Neighbor (\textit{MAF-NN}) search, where $\exists i,\, |s_i| > 1$.
 	
 	\begin{definition}[RF-NN Search]
 		
@@ -264,37 +264,22 @@
 		\caption{Comparison of AF-ANN search algorithms}
 		\small
 		\label{tab:compair_1}
-%		\begin{tabular}{|l|l|c|c|c|c|c|c|c|}
-%			\hline
-%			\textbf{Algorithm} & \textbf{Base} & \textbf{Filter Type} & \textbf{AND} & \textbf{OR} & \textbf{Flexible Attributes} & \textbf{Complex Boolean} & \textbf{Dynamic Insert} & \textbf{Multi Thread} \\
-%			\hline
-%			NHQ & Graph & C & Y & N& N& N & N & N \\
-%			FilteredVamana & Graph & C & N & Y & Y & N & Y & Y \\
-%			StitchedVamana & Graph & C & N & Y & Y & N & N & Y  \\
-%			CAPS & IVF & C & Y & N & Y & N & Y & Y \\
-%			ACORN & Graph & B & Y & Y & Y & Y & Y & Y \\
-%			UNG & Graph & B & Y & Y & Y & N & Y & Y \\ 
-%			Puck & IVF & B & Y & Y & Y & N & Y & Y \\
-%			% ParlayANN & Graph+IVF & B & N & N & Y & N & N & Y \\
-%			
-%			\hline
-%			
-%		\end{tabular}
-	\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|}
-		\hline
-		\textbf{Item} & \textbf{NHQ} & \textbf{FilteredVamana} & \textbf{StitchedVamana} & \textbf{CAPS} & \textbf{ACORN} & \textbf{UNG} & \textbf{Puck} & \textbf{DSG} & \textbf{iRange} & \textbf{SeRF} & \textbf{UNIFY} & \textbf{WinFilter} \\
-		\hline
-		Base & Graph & Graph & Graph & IVF & Graph & Graph & IVF & Graph & Graph & Graph & Graph & Graph \\
-		Dynamic Insert & N & Y & N & Y & Y & Y & Y & Y & N & Y & Y & N \\
-		Multi Thread & N & Y & Y & Y & Y & Y & Y & N & Y & Y & Y & Y \\
-		Filter Type & C & C & C & C & B & B & B & - & - & - & - & - \\
-		AND & Y & N & N & Y & Y & Y & Y & - & - & - & - & - \\
-		OR & N & Y & Y & N & Y & Y & Y & - & - & - & - & - \\
-		Flexible Attributes & N & Y & Y & Y & Y & Y & Y & - & - & - & - & - \\
-		Complex Boolean & N & N & N & N & Y & N & N & - & - & - & - & - \\
-	
-		\hline
-	\end{tabular}
+		\begin{tabular}{|l|l|c|c|c|c|c|c|c|}
+			\hline
+			\textbf{Algorithm} & \textbf{Base} & \textbf{Filter Type} & \textbf{AND} & \textbf{OR} & \textbf{Flexible Attributes} & \textbf{Complex Boolean} & \textbf{Dynamic Insert} & \textbf{Multi Thread} \\
+			\hline
+			NHQ & Graph & C & Y & N& N& N & N & N \\
+			FilteredVamana & Graph & C & N & Y & Y & N & Y & Y \\
+			StitchedVamana & Graph & C & N & Y & Y & N & N & Y  \\
+			CAPS & IVF & C & Y & N & Y & N & Y & Y \\
+			ACORN & Graph & B & Y & Y & Y & Y & Y & Y \\
+			UNG & Graph & B & Y & Y & Y & N & Y & Y \\ 
+			Puck & IVF & B & Y & Y & Y & N & Y & Y \\
+			% ParlayANN & Graph+IVF & B & N & N & Y & N & N & Y \\
+			
+			\hline
+			
+		\end{tabular}
 		
 		
 		\centering
@@ -331,92 +316,89 @@
 	
 	
 	\noindent\textbf{\underline{Filtered-DiskANN \cite{Filtered-diskann}.}}  
-	The effectiveness of NHQ may degrade when the number of attributes changes, as it affects the fusion distance computation. Filtered-DiskANN addresses this limitation.
-	
+	\sout{The effectiveness of NHQ may degrade when the number of attributes changes, as it affects the fusion distance computation. Filtered-DiskANN addresses this limitation.}
 	Filtered-DiskANN also supports simultaneous filtering. Built upon the Vamana \cite{diskann} graph-based ANN index, it incorporates attribute information directly into the graph during index construction. This integration ensures that the index reflects both vector similarity and attribute constraints. Moreover, Filtered-DiskANN supports SSD-based storage, improving scalability.
-	
 	Filtered-DiskANN proposes 2 indexes:  
 	1) \textbf{FilteredVamana}, which incrementally builds the graph index by inserting data points and dynamically adding edges, allowing adaptive expansion.  
 	2) \textbf{StitchedVamana}, which adopts a batch construction strategy—constructing separate Vamana subgraphs for each attribute, followed by merging and edge pruning.
-	
 	A key limitation of Filtered-DiskANN is that while it supports both single-attribute and multi-attribute filtering, it only supports the Boolean OR logic for multi-attribute filtering, lacking support for Boolean AND logic.
 	
 	
-	\noindent\textbf{\underline{CAPS \cite{CAPS}.}} Different from the above graph-based simultaneous filtering algorithms, CAPS is the first simultaneous filtering algorithm based on spatial partitioning.
+	\noindent\textbf{\underline{CAPS \cite{CAPS}.}} 
+	\sout{Different from the above graph-based simultaneous filtering algorithms,}CAPS is the first simultaneous filtering algorithm based on spatial partitioning.
 	%As graph-based methods, NHQ and Filtered-DiskANN often result in large index sizes. CAPS addresses this issue by being the first simultaneous filtering algorithm based on spatial partitioning, significantly reducing index size.
-	
 	CAPS introduces a hierarchical sub-partitioning algorithm inspired by Huffman trees, termed the Attribute Frequency Tree (AFT), to overcome the coarse granularity of traditional IVF-based methods. CAPS adopts a two-level partitioning strategy:  
 	1) The first level clusters vectors based on similarity using K-Means or learning-based methods such as BLISS. 2) Within each cluster, AFT partitions data further based on attribute frequencies, enabling finer-grained indexing and improving query efficiency.
 	
 	
 	\noindent\textbf{\underline{ACORN \cite{ACORN}.}}  
-	Above simultaneous filtering algorithms struggle with large-scale, unbounded, or unknown predicate sets.
-	%The above simultaneous filtering methods are less effective in scenarios involving large-scale, unbounded, or unknown predicate sets, where a predicate refers to a condition or rule used for filtering. 
-	ACORN addresses this issue by introducing a predicate-agnostic indexing framework.
+	%	Above simultaneous filtering algorithms struggle with large-scale, unbounded, or unknown predicate sets.
+	%	%The above simultaneous filtering methods are less effective in scenarios involving large-scale, unbounded, or unknown predicate sets, where a predicate refers to a condition or rule used for filtering. 
+	%	ACORN addresses this issue by introducing a predicate-agnostic indexing framework.
+	%	ACORN is built upon Hierarchical Navigable Small World (HNSW) \cite{hnsw}. It supports high-cardinality and unrestricted predicate sets, overcoming the limitations of methods restricted to small-scale equality filters. It constructs a denser hierarchical graph by expanding node neighborhoods and prunes edges at lower levels to control index size. During the query process, ACORN eliminates unnecessary distance computations by filtering out nodes that violate attribute constraints. This effectively maintains a nearest neighbor graph over valid nodes only. 
+	%	%During the query process, ACORN avoids unnecessary distance computations by filtering out nodes that do not meet attribute constraints, effectively simulating a nearest neighbor graph over valid nodes only.
+	%	ACORN includes 2 indexes: 1) \textbf{ACORN-$\gamma$}, which expands neighbor lists during construction, increasing memory usage for higher performance.  
+	%	2) \textbf{ACORN-1}, which extends neighbor lists by considering second-hop neighbors during search, reducing index size with minor performance loss.
+	Above simultaneous filtering algorithms struggle with large-scale, unbounded, or unknown predicate sets. 
+	ACORN addresses this by introducing a predicate-agnostic indexing framework.
+	Built upon Hierarchical Navigable Small World (HNSW) \cite{hnsw}, ACORN supports high-cardinality and unrestricted predicates, overcoming limitations of methods confined to small-scale equality filters. 
+	It constructs a denser hierarchical graph by expanding neighborhoods and prunes lower-level edges to control index size. 
+	During querying, ACORN eliminates unnecessary distance computations by filtering out nodes violating attribute constraints, effectively maintaining a nearest neighbor graph over valid nodes only. 
+	ACORN includes two indexes: 1) \textbf{ACORN-$\gamma$}, which expands neighbor lists during construction, trading memory for higher performance; 
+	2) \textbf{ACORN-1}, which extends neighbor lists via second-hop neighbors during search, reducing index size with minor performance loss.
 	
-	ACORN is built upon Hierarchical Navigable Small World (HNSW) \cite{hnsw}. It supports high-cardinality and unrestricted predicate sets, overcoming the limitations of methods restricted to small-scale equality filters. It constructs a denser hierarchical graph by expanding node neighborhoods and prunes edges at lower levels to control index size. During the query process, ACORN eliminates unnecessary distance computations by filtering out nodes that violate attribute constraints. This effectively maintains a nearest neighbor graph over valid nodes only. 
-	%During the query process, ACORN avoids unnecessary distance computations by filtering out nodes that do not meet attribute constraints, effectively simulating a nearest neighbor graph over valid nodes only.
-	
-	ACORN includes 2 indexes:  
-	1) \textbf{ACORN-$\gamma$}, which expands neighbor lists during construction, increasing memory usage for higher performance.  
-	2) \textbf{ACORN-1}, which extends neighbor lists by considering second-hop neighbors during search, reducing index size with minor performance loss.
-	
-	
-	\noindent\textbf{\underline{UNG \cite{UNG}.}} The above simultaneous filtering algorithms may not guarantee the completeness of the results and perform poorly when the attribute selectivity is low. UNG is proposed to overcome these limitations.
-	
+	\noindent\textbf{\underline{UNG \cite{UNG}.}} 
+	The above simultaneous filtering algorithms may not guarantee the completeness of the results and perform poorly when the attribute selectivity is low. UNG is proposed to overcome these limitations.
 	UNG is a unified framework that integrates diverse graph-based ANN indexes for hybrid query. It first groups the dataset by attribute sets, ensuring that vectors in each group share identical attributes. Then, it constructs a Label Navigating Graph (LNG) to encode inclusion relationships among attribute sets. Within each group, UNG builds graph-based ANN indexes (e.g., Vamana, HNSW) and connects them via cross-group edges to enable efficient cross-group search.
-	
-	UNG supports Boolean filtering with 2 modes:  
-	1) The query attribute set is a subset of the data attribute set.  
-	2) The query attribute set exactly matches the data attribute set.
-	
+	UNG supports Boolean filtering with 2 modes:  1) The query attribute set is a subset of the data attribute set.  2) The query attribute set exactly matches the data attribute set.
 	
 	
 	
 	\noindent\textbf{\underline{Puck \cite{puck}.}}  
 	While simultaneous filtering algorithms perform well in most scenarios, it may underperform when only a small portion of data satisfies attribute constraints. In such cases, a pre-filtering strategy—applying attribute constraints prior to ANN search—can be more effective.
-	
 	Developed by Baidu, Puck utilizes two-level quantization for indexing. It maintains an attribute set for each cluster to track vector attributes. During the query process, it employs pre-filtering to exclude clusters without required attributes, thereby reducing the search space.
 	%Developed by Baidu, Puck adopts a pre-filtering approach and employs a multi-level filtering mechanism for hybrid query. Its index structure comprises four layers: the first two use vector quantization for training, while the latter two leverage product quantization.
 	
 	
-%	\setlength{\textfloatsep}{0.1cm}
-%	\setlength{\floatsep}{0cm}
-%	\begin{table}[t]
-%		\centering
-%		\setlength{\abovecaptionskip}{0.1cm}
-%		\setlength{\belowcaptionskip}{-0.1cm}
-%		\setlength{\textfloatsep}{0.1cm}
-%		\caption{Comparison of RF-ANN search algorithms}
-%		\small	% 只会影响当前组的内容
-%		\label{tab:range_algo}
-%		\begin{tabular}{|c|c|c|c|}
-%			\hline
-%			\textbf{Algorithm} & \textbf{Base} & \textbf{Dynamic Insert} & \textbf{Multi Thread} \\
-%			\hline
-%			DSG & Graph & Y & N \\
-%			iRange & Graph & N & Y \\
-%			SeRF & Graph & Y & Y \\
-%			UNIFY & Graph & Y & Y \\
-%			WinFilter & Graph & N & Y  \\
-%			\hline
-%		\end{tabular}
-%		
-%		
-%		\footnotesize{
-%			\begin{minipage}{\linewidth}
-%				\textsuperscript{Y} Support, 
-%				\textsuperscript{N} Unsupport.
-%				\textit{Base} indicates that the hybrid query algorithm is an improvement based on a specific ANN search algorithm. 
-%				\textit{Dynamic} indicates whether the algorithm supports the operation of dynamically inserting data points.
-%			\end{minipage} 
-%		}
-%		
-%	\end{table}
+	\setlength{\textfloatsep}{0.1cm}
+	\setlength{\floatsep}{0cm}
+	\renewcommand{\arraystretch}{0.9}
+	\begin{table}[t]
+		\centering
+		\setlength{\abovecaptionskip}{0.1cm}
+		\setlength{\belowcaptionskip}{-0.1cm}
+		\setlength{\textfloatsep}{0.1cm}
+		\caption{Comparison of RF-ANN search algorithms}
+		\small	% 只会影响当前组的内容
+		\label{tab:range_algo}
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			\textbf{Algorithm} & \textbf{Base} & \textbf{Dynamic Insert} & \textbf{Multi Thread} \\
+			\hline
+			DSG & Graph & Y & N \\
+			iRange & Graph & N & Y \\
+			SeRF & Graph & Y & Y \\
+			UNIFY & Graph & Y & Y \\
+			WinFilter & Graph & N & Y  \\
+			\hline
+		\end{tabular}
+		
+		
+		\footnotesize{
+			\begin{minipage}{\linewidth}
+				\textsuperscript{Y} Support, 
+				\textsuperscript{N} Unsupport.
+				\textit{Base} indicates that the hybrid query algorithm is an improvement based on a specific ANN search algorithm. 
+				\textit{Dynamic} indicates whether the algorithm supports the operation of dynamically inserting data points.
+			\end{minipage} 
+			\vspace{-0.1cm}
+		}
+		
+	\end{table}
 	
 	\subsection{Range Filtering Algorithms}
 	
-	We introduce 5 representative range filtering algorithms and present a comparative overview in Table~\ref{tab:compair_1}.
+	We introduce 5 representative range filtering algorithms and present a comparative overview in Table~\ref{tab:range_algo}.
 	
 	
 	\noindent\textbf{\underline{SeRF \cite{serf}.}}  
@@ -474,7 +456,7 @@
 	\begin{table}[t]
 		\centering
 		
-
+		
 		\setlength{\abovecaptionskip}{0cm}
 		\setlength{\belowcaptionskip}{-0.3cm}
 		\caption{Datasets}
@@ -579,7 +561,8 @@
 			\label{fig:memory_mb_comparison_query1}
 		\end{subfigure}
 		
-		\caption{Time and space overhead of attribute filtering index construction}
+		%		\caption{Time and space overhead of attribute filtering index construction}
+		\caption{\textcolor{red}{Time and space overhead of index construction}}
 		\label{fig:build_index_comparison}
 	\end{figure}
 	
@@ -589,8 +572,8 @@
 	
 	\begin{figure*}
 		\centering
-		        \setlength{\abovecaptionskip}{0cm}
-		    \setlength{\belowcaptionskip}{-0.5cm}
+		\setlength{\abovecaptionskip}{0cm}
+		\setlength{\belowcaptionskip}{-0.5cm}
 		\includegraphics[width=0.98\textwidth]{figures/exp/exp_1_1_SingleLabel_1thread.pdf}
 		\caption{Single-Attribute Building and Query (single thread) }
 		\label{fig:exp_1_1_SingleLabel_1thread}
@@ -598,8 +581,8 @@
 	
 	\begin{figure*}
 		\centering
-		    \setlength{\abovecaptionskip}{0cm}
-		    \setlength{\belowcaptionskip}{-0.5cm}
+		\setlength{\abovecaptionskip}{0cm}
+		\setlength{\belowcaptionskip}{-0.5cm}
 		\includegraphics[width=0.96\textwidth]{figures/exp/exp_1_2_SingleLabel_16thread.pdf}
 		\caption{Single-Attribute Building and Query (16 threads)}
 		\label{fig:exp_1_2_SingleLabel_16thread}
@@ -653,7 +636,7 @@
 	In this scenario, the index is constructed using 8 attributes but applies filtering condition on only 1 attribute during the query process.
 	\textcolor{blue}{The original NHQ implementation does not support this scenario. We modified the code to enable this experiment.}
 	
-	 Faiss offers an ID filtering mechanism, it operates solely during query execution and does not influence index building. ACORN-1 and ACORN-\(\gamma\) are specifically designed for single-attribute indexing. In database systems (VBASE, PASE, Milvus), when the system builds both B+ tree and vector indexes, queries typically utilize only the B+ tree. Hence, they are excluded from this comparison.
+	Faiss offers an ID filtering mechanism, it operates solely during query execution and does not influence index building. ACORN-1 and ACORN-\(\gamma\) are specifically designed for single-attribute indexing. In database systems (VBASE, PASE, Milvus), when the system builds both B+ tree and vector indexes, queries typically utilize only the B+ tree. Hence, they are excluded from this comparison.
 	
 	\begin{figure}[t]
 		\centering
@@ -779,8 +762,8 @@
 			\label{fig:exp_5_2_3}
 		\end{subfigure}
 		
-		   \setlength{\abovecaptionskip}{0cm}
-		    \setlength{\belowcaptionskip}{-0.5cm}
+		\setlength{\abovecaptionskip}{0cm}
+		\setlength{\belowcaptionskip}{-0.5cm}
 		\caption{Different AS under the same algorithm}
 		\label{fig:exp_5_2_combined}
 	\end{figure*}
@@ -810,9 +793,9 @@
 	
 	\begin{figure*}
 		\centering
-		    \setlength{\abovecaptionskip}{0cm}
-		    \setlength{\belowcaptionskip}{-0.4cm}
-		\includegraphics[width=\textwidth]{figures/exp/exp_6_1.pdf}
+		\setlength{\abovecaptionskip}{0cm}
+		\setlength{\belowcaptionskip}{-0.4cm}
+		\includegraphics[width=0.97\textwidth]{figures/exp/exp_6_1.pdf}
 		\caption{Effect of dataset on Query}
 		\label{fig:exp_6_1}
 	\end{figure*}
@@ -820,36 +803,36 @@
 	%4.2.7
 	
 	% \begin{table}[t]
-	% 	\centering
-	% 	\setlength{\abovecaptionskip}{0.05cm}
-	% 	\caption{Time and space overhead of range filtering index construction}
+		% 	\centering
+		% 	\setlength{\abovecaptionskip}{0.05cm}
+		% 	\caption{Time and space overhead of range filtering index construction}
 		
-	% 	\label{tab:Range Filtered}
-	% 	\resizebox{\columnwidth}{!}{
-	% 		\begin{tabular}{l l c c c c c }
-	% 			\toprule
-	% 			\textbf{Dataset} & \textbf{Metric} & \textbf{DSG} & \textbf{iRange} & \textbf{SeRF} & \textbf{UNIFY} & \textbf{WinFilter} \\
-	% 			\midrule
-	% 			\multirow{3}{*}{DEEP} 
-	% 			& Index time(s)  & 4156 & 1128 & \textbf{189.89} & 7510 & 32843 \\
-	% 			& Index size(GB)  &  4.6 & 0.92 & \textbf{0.80} & 1.43 & 2.41  \\
-	% 			& Peak memory(GB) &  7.78 & 3.54 & \textbf{1.38} & 2.61 & 7.08   \\
-	% 			% \cmidrule{1-7}
-	% 			\midrule
-	% 			\multirow{3}{*}{YT-Audio} 
-	% 			& Index time(s)   & 15314 & 1039 & \textbf{187.20} & 5905 & 30904    \\
-	% 			& Index size(GB)    & 4.3 & \textbf{0.7} & 1.04 & 1.55 & 1.32  \\
-	% 			& Peak memory(GB)   & 7.5 & 3.16 & \textbf{1.57} & 2.97 & 6.95  \\
-	% 			\midrule
-	% 			\multirow{3}{*}{WIT} 
-	% 			& Index time(s)  & 29492 & 7068 & \textbf{828.12} & 28759 & 94909\\
-	% 			& Index size(GB) &  4.2 & \textbf{1.5 }& 15.34 & 8.71 & 1.59  \\
-	% 			& Peak memory(GB)  & 21.7 & \textbf{12.32} & 15.87 & 24.38 & 15.29\\
-	% 			% \cmidrule{1-7}
-	% 			\bottomrule
-	% 		\end{tabular}
-	% 	}
-	% \end{table}
+		% 	\label{tab:Range Filtered}
+		% 	\resizebox{\columnwidth}{!}{
+			% 		\begin{tabular}{l l c c c c c }
+				% 			\toprule
+				% 			\textbf{Dataset} & \textbf{Metric} & \textbf{DSG} & \textbf{iRange} & \textbf{SeRF} & \textbf{UNIFY} & \textbf{WinFilter} \\
+				% 			\midrule
+				% 			\multirow{3}{*}{DEEP} 
+				% 			& Index time(s)  & 4156 & 1128 & \textbf{189.89} & 7510 & 32843 \\
+				% 			& Index size(GB)  &  4.6 & 0.92 & \textbf{0.80} & 1.43 & 2.41  \\
+				% 			& Peak memory(GB) &  7.78 & 3.54 & \textbf{1.38} & 2.61 & 7.08   \\
+				% 			% \cmidrule{1-7}
+				% 			\midrule
+				% 			\multirow{3}{*}{YT-Audio} 
+				% 			& Index time(s)   & 15314 & 1039 & \textbf{187.20} & 5905 & 30904    \\
+				% 			& Index size(GB)    & 4.3 & \textbf{0.7} & 1.04 & 1.55 & 1.32  \\
+				% 			& Peak memory(GB)   & 7.5 & 3.16 & \textbf{1.57} & 2.97 & 6.95  \\
+				% 			\midrule
+				% 			\multirow{3}{*}{WIT} 
+				% 			& Index time(s)  & 29492 & 7068 & \textbf{828.12} & 28759 & 94909\\
+				% 			& Index size(GB) &  4.2 & \textbf{1.5 }& 15.34 & 8.71 & 1.59  \\
+				% 			& Peak memory(GB)  & 21.7 & \textbf{12.32} & 15.87 & 24.38 & 15.29\\
+				% 			% \cmidrule{1-7}
+				% 			\bottomrule
+				% 		\end{tabular}
+			% 	}
+		% \end{table}
 	
 	\textit{\textbf{Different Datasets.}}  
 	To evaluate the performance of various methods across different datasets, we conduct experiments on 7 datasets, including one dataset for out-of-distribution (OOD) queries. Our analysis focuses on performance variations concerning dataset size, LID, and vector dimensionality.
@@ -868,8 +851,9 @@
 	
 	\begin{figure}[t]
 		\centering
+		
 		\setlength{\abovecaptionskip}{0.02cm}
-		\setlength{\belowcaptionskip}{0.02cm}
+		\setlength{\belowcaptionskip}{-0.1cm}
 		\hspace*{11pt}
 		% 放大的图例（占满单栏）
 		\includegraphics[width=0.93\columnwidth]{figures/indexData/rangeFilter_legend_only.pdf}
@@ -879,10 +863,11 @@
 		% 三图横排
 		\begin{subfigure}[t]{0.32\columnwidth}
 			\centering
+			\captionsetup{font=small}
 			\setlength{\abovecaptionskip}{0.02cm}
 			\setlength{\belowcaptionskip}{0.02cm}
 			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_build_time_comparison_query.pdf}
-			\caption{Index construction time}
+			\caption{\footnotesize Construction time}
 			\label{fig:rangeFilter_build_time}
 		\end{subfigure}
 		\hfill
@@ -891,7 +876,7 @@
 			\setlength{\abovecaptionskip}{0.02cm}
 			\setlength{\belowcaptionskip}{0.02cm}
 			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_index_size_mb_comparison_query.pdf}
-			\caption{Index size}
+			\caption{\footnotesize Index size}
 			\label{fig:rangeFilter_index_size_mb}
 		\end{subfigure}
 		\hfill
@@ -900,24 +885,27 @@
 			\setlength{\abovecaptionskip}{0.02cm}
 			\setlength{\belowcaptionskip}{0.02cm}
 			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_memory_mb_comparison_query.pdf}
-			\caption{Peak memory usage}
+			\caption{\footnotesize Peak memory usage}
 			\label{fig:rangeFilter_memory_mb}
 		\end{subfigure}
 		
-		\caption{Time and space overhead of range filtering index construction}
+		%		\caption{Time and space overhead of range filtering index construction}
+		\caption{\textcolor{red}{Time and space overhead of index construction}}
 		\label{fig:rangeFilter_build_index_comparison}
 	\end{figure}
 	
 	Similar to the evaluation of \textit{Attribute Filtering} algorithms, we also evaluate 3 key metrics mentioned above in \textit{Range Filtering} algorithms.
 	
-
+	
 	\textit{\textbf{Index construction time.}}
-	Figure~\ref{fig:rangeFilter_build_time} shows the single-threaded index construction time. Faiss builds the index fastest. Because Faiss obtains subsamples through sampling and then calculates the cluster centroid, the computational complexity is significantly reduced.
+	Figure~\ref{fig:rangeFilter_build_time} shows the single-threaded index construction time. Faiss builds the index fastest. As Faiss obtains subsamples through sampling and calculates the cluster centroid, the computational complexity is significantly reduced.
+	%	shows the single-threaded index construction time. Faiss builds the index fastest. Because Faiss obtains subsamples through sampling and then calculates the cluster centroid, the computational complexity is significantly reduced.
+	
 	
 	WinFilter and ACORN-\(\gamma\) take the longest.
 	WinFilter relies on a tree structure, requiring separate nearest-neighbor graphs per node. This causes redundant computation and high costs, especially for large datasets.
 	ACORN-\(\gamma\) expands the neighbor list of each node to provide more candidate paths, which increases both computation and storage costs. It also prunes distant neighbors to save storage space. However, this introduces additional overhead and slows down the construction process.
-
+	
 	\textit{\textbf{Index size.}} 
 	As shown in Figure~\ref{fig:rangeFilter_index_size_mb}, Among all algorithms, Faiss has the smallest index size. Because IVF only adds centroid data and partition information to the vector dataset, the IVF index is only slightly larger than the vector dataset.
 	On low-dimensional datasets (Deep, YT-Audio), PASE requires the most storage. Its implementation likely wastes space due to alignment padding and inefficient encoding (e.g., Base64).
@@ -930,17 +918,17 @@
 	On low-dimensional datasets, DSG and WinFilter exhibit higher peak memory usage compared to other algorithms. This suggests that their index structures suffer from severe structural redundancy and are difficult to compress in low-dimensional scenarios.
 	%因为低维空间中数据点之间的欧氏距离普遍较小，点与点之间更易互为近邻，从而导致图索引中产生大量冗余的边连接。
 	
-
+	
 	As Figure~\ref{fig:rangeFilter_memory_mb} shows, Faiss uses the least memory on low-dimensional datasets (Deep, YT-Audio). It stores minimal temporary data (e.g., vectors, centroids, distances) during index construction.
 	
 	For high-dimensional dataset WIT, iRange achieves the lowest peak memory usage. It pre-builds graphs only for a limited number of intervals, avoiding explicit index construction for all possible query ranges. Its index structure remains stable in high dimensions without significant graph growth. This effectively controls index size, making iRange more advantageous for high-dimensional datasets.
 	In contrast, Unify exhibits the highest memory consumption, indicating that its index construction process is highly sensitive to the dimensionality of the data.
-
+	
 	\begin{figure*}[htbp]
 		\centering
-		  \setlength{\abovecaptionskip}{0cm}
-		    \setlength{\belowcaptionskip}{-0.5cm}
-		\includegraphics[width=\textwidth]{figures/exp/exp_8_2.pdf}
+		\setlength{\abovecaptionskip}{0cm}
+		\setlength{\belowcaptionskip}{-0.5cm}
+		\includegraphics[width=0.95\textwidth]{figures/exp/exp_8_2.pdf}
 		\caption{RF-ANN search }
 		\label{fig:exp_8_2}
 	\end{figure*}
@@ -956,7 +944,7 @@
 	
 	SeRF exhibits relatively weak overall performance, with a significant drop in recall under small-range query scenarios. This suggests that while its compressed graph structure is space-efficient, it has a substantial negative impact on query performance.
 	
-%	 修改此处
+	%	 修改此处
 	ACORN performs similarly on both large and small range queries, but its overall performance is worse than the other methods. Unlike other range filtering algorithms, ACORN is not designed with specialized data structures (such as the $\beta$-WST in WinFilter, the rectangle tree and dynamic segment graph in SeRF, or the HSIG in UNIFY) to achieve efficient range filtering. In fact, the graph structure used by ACORN for attribute filtering is the same as that used for range filtering.
 	
 	For third-party libraries and databases, Figure~\ref{fig:exp_8_2} shows that Faiss performs well in range filtering and even outperforms some specialized range query algorithms in certain cases. Faiss does not include optimizations specifically tailored for range filtering scenarios; its query mechanism is identical to that used in tag filtering scenarios. However, since attributes are pre-sorted in range filtering scenarios, the filtering overhead is minimal, leading to improved query performance. Similar to the selectivity observed in attribute filtering, Faiss performs better in small-range filtering scenarios because it searches over the filtered vectors. With a smaller range, fewer points remain after filtering, resulting in lower computational cost. In addition, the performance of Faiss is influenced by data dimensionality; it tends to work better on low-dimensional datasets.
@@ -978,26 +966,26 @@
 		% \end{figure*}
 	\begin{figure*}[htbp]
 		\centering
-		    \setlength{\abovecaptionskip}{0cm}
-		    \setlength{\belowcaptionskip}{-0.5cm}
-		\includegraphics[width=\textwidth]{figures/exp/exp_8_3.pdf}
+		\setlength{\abovecaptionskip}{0cm}
+		\setlength{\belowcaptionskip}{-0.5cm}
+		\includegraphics[width=0.8\textwidth]{figures/exp/exp_8_3.pdf}
 		\caption{Dataset Effect on RF-ANN Search}
 		\label{fig:exp_8_3}
 	\end{figure*}
 	
-To evaluate the robustness of the RF-ANNS algorithm in different scenarios, we \textcolor{red}{add} an OOD dataset to the three standard datasets and \textcolor{red}{test} performance under large-range queries. As shown in Figure~\ref{fig:exp_8_3}, most methods \textcolor{red}{perform} worst on the Text2Image dataset. This is because OOD queries make the $k$-nearest neighbor distribution more sparse. As a result, the search needs to visit more nodes, which leads to an exponential growth in the search space and a sharp drop in efficiency.
-
-WinFilter \textcolor{red}{shows} the worst performance on the WIT dataset. This suggests that its performance is sensitive to the data dimensionality. ACORN \textcolor{red}{has} large performance differences across datasets, indicating weak robustness.
-
-Among vector databases, Milvus \textcolor{red}{performs} well. VBASE is sensitive to datasets and achieved recall below 0.8 on Text2Image. PASE \textcolor{red}{is} excluded from this round of tests because it does not support datasets with dimensions over 512 and performed poorly in earlier experiments.
-
-It is worth noting that most methods \textcolor{red}{achieve} similar performance on the Deep and YT-Audio datasets, which have similar LID values. This shows that RF-ANNS performance is largely affected by both the LID and the dimensionality of the dataset. A high LID and high dimensionality make hybrid queries more difficult.
-
-However, even though Deep and YT-Audio have similar LID values, the DSG algorithm \textcolor{red}{shows} large performance differences between them. This means that DSG is more sensitive to changes in data distribution. Its robustness is lower than that of other methods, possibly because it depends not only on LID but also on other complex data characteristics.
-%	To examine the robustness of RF-ANNS algorithms, we analyze their performance across different datasets. As shown in Figure~\ref{fig:exp_8_3}, the performance differences. All methods perform worst on WIT, which has the highest LID. On Deep and YT-Audio, which have similar LID, most algorithms achieve comparable performance. 
-%	This suggests that the effectiveness of RF-ANN search is mainly influenced by LID of the dataset. A higher LID inherently increases the difficulty of hybrid query.
-%	
-%	However, the DSG algorithm shows a noticeable performance gap between the Deep and YT-Audio datasets, despite their comparable LID. This indicates that DSG is less robust than other methods when facing dataset-dependent variations, possibly due to its sensitivity to data distribution beyond LID alone.
+	To evaluate the robustness of the RF-ANNS algorithm in different scenarios, we \textcolor{red}{add} an OOD dataset to the three standard datasets and \textcolor{red}{test} performance under large-range queries. As shown in Figure~\ref{fig:exp_8_3}, most methods \textcolor{red}{perform} worst on the Text2Image dataset. This is because OOD queries make the $k$-nearest neighbor distribution more sparse. As a result, the search needs to visit more nodes, which leads to an exponential growth in the search space and a sharp drop in efficiency.
+	
+	WinFilter \textcolor{red}{shows} the worst performance on the WIT dataset. This suggests that its performance is sensitive to the data dimensionality. ACORN \textcolor{red}{has} large performance differences across datasets, indicating weak robustness.
+	
+	Among vector databases, Milvus \textcolor{red}{performs} well. VBASE is sensitive to datasets and achieved recall below 0.8 on Text2Image. PASE \textcolor{red}{is} excluded from this round of tests because it does not support datasets with dimensions over 512 and performed poorly in earlier experiments.
+	
+	It is worth noting that most methods \textcolor{red}{achieve} similar performance on the Deep and YT-Audio datasets, which have similar LID values. This shows that RF-ANNS performance is largely affected by both the LID and the dimensionality of the dataset. A high LID and high dimensionality make hybrid queries more difficult.
+	
+	However, even though Deep and YT-Audio have similar LID values, the DSG algorithm \textcolor{red}{shows} large performance differences between them. This means that DSG is more sensitive to changes in data distribution. Its robustness is lower than that of other methods, possibly because it depends not only on LID but also on other complex data characteristics.
+	%	To examine the robustness of RF-ANNS algorithms, we analyze their performance across different datasets. As shown in Figure~\ref{fig:exp_8_3}, the performance differences. All methods perform worst on WIT, which has the highest LID. On Deep and YT-Audio, which have similar LID, most algorithms achieve comparable performance. 
+	%	This suggests that the effectiveness of RF-ANN search is mainly influenced by LID of the dataset. A higher LID inherently increases the difficulty of hybrid query.
+	%	
+	%	However, the DSG algorithm shows a noticeable performance gap between the Deep and YT-Audio datasets, despite their comparable LID. This indicates that DSG is less robust than other methods when facing dataset-dependent variations, possibly due to its sensitivity to data distribution beyond LID alone.
 	
 	\section{DISCUSSION}
 	Based on the performance of the algorithms on different experimental scenarios, we discuss our findings as follows.
@@ -1009,7 +997,7 @@ However, even though Deep and YT-Audio have similar LID values, the DSG algorith
 	
 	\begin{table}[t]
 		\centering
-		\setlength{\abovecaptionskip}{0.05cm}
+		\setlength{\abovecaptionskip}{0.0cm}
 		\caption{Algorithm Recommendation per Scenario}
 		\resizebox{\columnwidth}{!}{
 			\begin{tabular}{|l|c|c|}
@@ -1027,7 +1015,7 @@ However, even though Deep and YT-Audio have similar LID values, the DSG algorith
 				\hline
 				S5: General-purpose Use & Milvus, Faiss &DSG, UNIFY\\
 				\hline
-				S6: Resource constraint & CAPS, Faiss&Faiss, SeRF \\
+				S6: Resource constraint& CAPS, Faiss&Faiss, SeRF \\
 				\hline
 				S7: High-Recall Querying & UNG & WinFilter \\
 				\hline
@@ -1036,7 +1024,7 @@ However, even though Deep and YT-Audio have similar LID values, the DSG algorith
 			\end{tabular}
 		}
 		\label{tab:algo_scenarios}
-		
+		\vspace{0cm}
 	\end{table}
 	
 	\subsubsection{\textbf{Attribute Filtering}}
@@ -1045,41 +1033,42 @@ However, even though Deep and YT-Audio have similar LID values, the DSG algorith
 	\subsubsection{\textbf{Range Filtering}}
 	
 	Table~\ref{tab:algo_scenarios} also shows the application scenarios of range filtering. iRange performs well on large-scale datasets, combining efficient construction and excellent query capabilities (S1). Faiss performs well in fast index construction (S2). When processing hard datasets, WinFilter, iRange, and DSG are recommended (S3), while WinFilter and iRange also perform well on easy datasets (S4). For general applications, DSG supports dynamic updates, while UNIFY provides flexible filtering strategies (S5). Faiss and SeRF show superior memory efficiency (S6). For static queries with high recall, WinFilter is the best choice (S7). In addition, WinFilter also performs well in OOD scenarios (S8).
-\subsection{Challenges}
-\subsubsection{\textbf{Attribute Filtering}}
-Most existing attribute filtering algorithms are graph-based, they typically outperform other methods in terms of query accuracy and efficiency. Filtered-DiskANN leverages disk-based storage, making it more suitable for extremely large-scale datasets even in memory-constrained environments. Moreover, the index construction phase of graph-based algorithms is computationally intensive. Therefore, exploring GPU-based acceleration for graph construction and vector computation during indexing is promising. It can significantly improve the performance of graph-based methods.
-
-Furthermore, current attribute filtering algorithms offer limited support for complex filtering conditions. For example, Filtered-DiskANN  supports single-attribute filtering, and in multi-attribute scenarios, it only supports OR conditions between attributes. 
-%The original implementations of 
-NHQ imposes strict constraints on the number of base and query attributes and only support AND conditions. While UNG is relatively flexible—supporting both AND and OR logic—it still lacks support for arbitrary Boolean expressions (e.g., combinations of AND and OR). The lack of flexible Boolean filtering remains a key challenge, limiting the practicality of hybrid query methods in real-world systems with diverse and complex query requirements.
-
-\subsubsection{\textbf{Range Filtering}}
-
-Except for DSG, most range filtering algorithms require the dataset to be pre-sorted before building the index. Moreover, these methods do not support multi-attribute range queries. Enhancing these methods to support an arbitrary number of range filterable attributes remains an open research challenge.
-
-Our experiments show that graph compression methods often lead to poor query performance in RF-ANN search. To address this problem, subsequent algorithms usually optimize the index processing at the segment tree nodes. UNIFY newly proposes segment graphs and integrates multiple data structures to process queries. Although UNIFY performs slightly worse on small-range queries, its proposed index structure broadens the research direction.
-
-\textcolor{blue}{
-In our experiments, we find that many range filtering algorithms perform worse than Faiss at high recall (0.95). This shows that the design of current algorithms still needs improvement. We suggest that future range filtering algorithms should include Faiss as a baseline.
-}
-
-It is also worth noting that range filtering and attribute filtering are both forms of hybrid query. However, aside from vector databases and ACORN, few existing algorithms support both modalities simultaneously. Designing unified frameworks that simultaneously support both is an important research frontier. 
-
-Lastly, our findings show that the distribution and cardinality of attributes, as well as dataset properties (e.g., dimensionality and LID), significantly impact the performance of attribute filtering methods. Enhancing the robustness of these algorithms under diverse data conditions is another key challenge that warrants further investigation.
-
-
-\section{CONCLUSION}
-\textcolor{blue}{
-	In this paper, we evaluate various hybrid query methods, including different algorithms, vector databases, and vector libraries. For attribute filtering algorithms, we design and conduct a series of experiments to comprehensively assess their overall performance. To facilitate fair and reproducible comparisons in future research, we enrich existing datasets with attribute values and design a variety of experimental scenarios based on practical needs. We then perform experiments on 7 real-world datasets to analyze the effectiveness of attribute filtering algorithms in depth. Additionally, we compare existing range filtering algorithms using 4 range query datasets. Finally, we provide a detailed analysis of the experimental results, summarize key findings, and highlight areas for improvement. Our study not only validates previous research but also offers insights for future work.
-}
-
-
-
-
-\clearpage
-
-\bibliographystyle{ACM-Reference-Format}
-\bibliography{sample}
-%\end{sloppypar}
+	\subsection{Challenges}
+	\subsubsection{\textbf{Attribute Filtering}}
+	Most existing attribute filtering algorithms are graph-based, they typically outperform other methods in terms of query accuracy and efficiency. Filtered-DiskANN leverages disk-based storage, making it more suitable for extremely large-scale datasets even in memory-constrained environments. Moreover, the index construction phase of graph-based algorithms is computationally intensive. Therefore, exploring GPU-based acceleration for graph construction and vector computation during indexing is promising. It can significantly improve the performance of graph-based methods.
+	
+	Furthermore, current attribute filtering algorithms offer limited support for complex filtering conditions. For example, Filtered-DiskANN  supports single-attribute filtering, and in multi-attribute scenarios, it only supports OR conditions between attributes. 
+	%The original implementations of 
+	NHQ imposes strict constraints on the number of base and query attributes and only support AND conditions. While UNG is relatively flexible—supporting both AND and OR logic—it still lacks support for arbitrary Boolean expressions (e.g., combinations of AND and OR). The lack of flexible Boolean filtering remains a key challenge, limiting the practicality of hybrid query methods in real-world systems with diverse and complex query requirements.
+	
+	\subsubsection{\textbf{Range Filtering}}
+	
+	Except for DSG, most range filtering algorithms require the dataset to be pre-sorted before building the index. Moreover, these methods do not support multi-attribute range queries. Enhancing these methods to support an arbitrary number of range filterable attributes remains an open research challenge.
+	
+	Our experiments show that graph compression methods often lead to poor query performance in RF-ANN search. To address this problem, subsequent algorithms usually optimize the index processing at the segment tree nodes. UNIFY newly proposes segment graphs and integrates multiple data structures to process queries. Although UNIFY performs slightly worse on small-range queries, its proposed index structure broadens the research direction.
+	
+	\textcolor{blue}{
+		In our experiments, many range filtering algorithms perform worse than Faiss at high recall (0.95), showing that current algorithm designs still need improvement. We suggest future future range filtering algorithms include Faiss as a baseline.
+		%In our experiments, we find that many range filtering algorithms perform worse than Faiss at high recall (0.95). This shows that the design of current algorithms still needs improvement. We suggest that future range filtering algorithms should include Faiss as a baseline.
+	}
+	
+	It is also worth noting that range filtering and attribute filtering are both forms of hybrid query. However, aside from vector databases and ACORN, few existing algorithms support both modalities simultaneously. Designing unified frameworks that simultaneously support both is an important research frontier. 
+	
+	Lastly, our findings show that the distribution and cardinality of attributes, as well as dataset properties (e.g., dimensionality and LID), significantly impact the performance of attribute filtering methods. Enhancing the robustness of these algorithms under diverse data conditions is another key challenge that warrants further investigation.
+	
+	
+	\section{CONCLUSION}
+	\textcolor{blue}{
+		In this paper, we evaluate various hybrid query methods, including different algorithms, vector databases, and vector libraries. For attribute filtering algorithms, we design and conduct a series of experiments to comprehensively assess their overall performance. To facilitate fair and reproducible comparisons in future research, we enrich existing datasets with attribute values and design a variety of experimental scenarios based on practical needs. We then perform experiments on 7 real-world datasets to analyze the effectiveness of attribute filtering algorithms in depth. Additionally, we compare existing range filtering algorithms using 4 range query datasets. Finally, we provide a detailed analysis of the experimental results, summarize key findings, and highlight areas for improvement. Our study not only validates previous research but also offers insights for future work.
+	}
+	
+	
+	
+	
+	\clearpage
+	
+	\bibliographystyle{ACM-Reference-Format}
+	\bibliography{sample}
+	%\end{sloppypar}
 \end{document}
 \endinput
