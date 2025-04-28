@@ -576,7 +576,7 @@
 		\centering
 		\setlength{\abovecaptionskip}{0cm}
 		\setlength{\belowcaptionskip}{-0.5cm}
-		\includegraphics[width=0.98\textwidth]{figures/exp/exp_1_1_SingleLabel_1thread.pdf}
+		\includegraphics[width=0.96\textwidth]{figures/exp/exp_1_1_SingleLabel_1thread.pdf}
 		\caption{Single-Attribute Building and Query (single thread) }
 		\label{fig:exp_1_1_SingleLabel_1thread}
 	\end{figure*}
@@ -667,18 +667,18 @@
 	
 	\begin{figure*}
 		\centering
-		\setlength{\abovecaptionskip}{0.1cm}
+		\setlength{\abovecaptionskip}{0.0cm}
 		\setlength{\belowcaptionskip}{-0.4cm}
-		\includegraphics[width=\textwidth]{figures/exp/exp_4_1_MultiLabel_1thread.pdf}
+		\includegraphics[width=0.95\textwidth]{figures/exp/exp_4_1_MultiLabel_1thread.pdf}
 		\caption{Multi-attribute build and query (single thread)}
 		\label{fig:exp_4_1_MultiLabel_1thread}
 	\end{figure*}
 	
 	\begin{figure*}
 		\centering
-		\setlength{\abovecaptionskip}{0.1cm}
+		\setlength{\abovecaptionskip}{0.0cm}
 		\setlength{\belowcaptionskip}{-0.4cm}
-		\includegraphics[width=\textwidth]{figures/exp/exp_3_1.pdf}
+		\includegraphics[width=0.95\textwidth]{figures/exp/exp_3_1.pdf}
 		\caption{Effect of attribute distribution on query performance (single thread)}
 		\label{fig:exp_3_1}
 	\end{figure*}
@@ -716,7 +716,7 @@
 		\centering
 		\setlength{\abovecaptionskip}{0.1cm}
 		\setlength{\belowcaptionskip}{-0.1cm}
-		\includegraphics[width=\columnwidth]{figures/exp/exp_5_1_1_SingleLabel_1thread.pdf}
+		\includegraphics[width=0.95\columnwidth]{figures/exp/exp_5_1_1_SingleLabel_1thread.pdf}
 		\caption{Effect of Single-Attribute Selectivity on Query}
 		\label{fig:exp_5_1_1_SingleLabel_1thread}
 	\end{figure}
@@ -798,7 +798,7 @@
 	
 	\begin{figure*}
 		\centering
-		    \setlength{\abovecaptionskip}{0cm}
+		    \setlength{\abovecaptionskip}{-0.1cm}
 		    \setlength{\belowcaptionskip}{-0.4cm}
 		\includegraphics[width=0.97\textwidth]{figures/exp/exp_6_1.pdf}
 		\caption{Effect of dataset on Query}
@@ -929,11 +929,12 @@
 	For high-dimensional dataset WIT, iRange achieves the lowest peak memory usage. It pre-builds graphs only for a limited number of intervals, avoiding explicit index construction for all possible query ranges. Its index structure remains stable in high dimensions without significant graph growth. This effectively controls index size, making iRange more advantageous for high-dimensional datasets.
 	In contrast, Unify exhibits the highest memory consumption, indicating that its index construction process is highly sensitive to the dimensionality of the data.
 	
-	\begin{figure*}[h]
+	\begin{figure*}[t]
+		
 		\centering
 		\setlength{\abovecaptionskip}{0cm}
 		\setlength{\belowcaptionskip}{-0.5cm}
-		\includegraphics[width=0.95\textwidth]{figures/exp/exp_8_2.pdf}
+		\includegraphics[width=0.92\textwidth]{figures/exp/exp_8_2.pdf}
 		\caption{RF-ANN search }
 		\label{fig:exp_8_2}
 	\end{figure*}
@@ -1031,7 +1032,7 @@
 			\end{tabular}
 		}
 		\label{tab:algo_scenarios}
-	\vspace{0cm}
+	\vspace{-0.0cm}
 	\end{table}
 	
 	\subsubsection{\textbf{Attribute Filtering}}
