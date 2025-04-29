@@ -177,11 +177,11 @@
 	\textcolor{red}{We systematically evaluate 6 attribute filtering algorithms, 1 library, and 3 databases on 7 real-world datasets.}By analyzing performance under varying numbers of attributes, we reveal the strengths and weaknesses of each method. We further examine their behavior under different attribute distributions and selectivity conditions to assess robustness and adaptability in complex query scenarios. Evaluation metrics include index construction time, index size, peak memory usage, QPS, and search accuracy.
 	
 	(4)\textbf{ Evaluation of Range Filtering Algorithms.}
-	We benchmark 5 range filtering algorithms\textcolor{red}{, 1 library, and 3 databases} on 3 large-scale datasets, using varying query range settings in the experiments. The experimental results demonstrate the performance of these algorithms in terms of index construction efficiency, storage overhead, and query performance. Additionally, we conduct an in-depth analysis of how index organization impacts algorithm performance, providing valuable insights for algorithm design.
+	We benchmark 5 range filtering algorithms\textcolor{red}{, 1 library, and 3 databases} on 3 large-scale datasets, using varying query range settings in the experiments. The experimental results demonstrate the performance of these algorithms in terms of index construction efficiency, storage overhead, and query performance. We further analyze performance factors from an algorithmic perspective.
 	
 	
 	(5)\textbf{ Recommendations and Challenges.}
-	Based on the experimental results, we provide algorithm selection recommendations for common application scenarios and highlight key challenges in the field of hybrid queries. These challenges include limited Boolean logic support, the lack of multi-attribute range filtering capabilities, the high indexing costs of graph-based methods, and the sensitivity of algorithms to data distribution. \textcolor{blue} {Currently, few methods simultaneously support both attribute filtering and range filtering, pointing to potential directions for future research.}
+	Based on the experimental results, we provide algorithm selection recommendations for common application scenarios and highlight key challenges in the field of hybrid queries. These challenges include limited Boolean logic support, the lack of multi-attribute range filtering capabilities, and the sensitivity of algorithms to data distribution. \textcolor{blue} {Currently, few methods simultaneously support both attribute filtering and range filtering, pointing to potential directions for future research.}
 	
 	\section{PRELIMINARIES}
 	
@@ -324,13 +324,13 @@
 	Filtered-DiskANN proposes 2 indexes:  
 	1) \textbf{FilteredVamana}, which incrementally builds the graph index by inserting data points and dynamically adding edges, allowing adaptive expansion.  
 	2) \textbf{StitchedVamana}, which adopts a batch construction strategy—constructing separate Vamana subgraphs for each attribute, followed by merging and edge pruning.
-%	A key limitation of Filtered-DiskANN is that only supports the Boolean OR logic for multi-attribute filtering, lacking support for Boolean AND logic.
+	%	A key limitation of Filtered-DiskANN is that only supports the Boolean OR logic for multi-attribute filtering, lacking support for Boolean AND logic.
 	
 	
 	\noindent\textbf{\underline{CAPS \cite{CAPS}.}} 
-	%\sout{Different from the above graph-based simultaneous filtering algorithms,}CAPS is the first simultaneous filtering algorithm based on spatial partitioning.
-	%As graph-based methods, NHQ and Filtered-DiskANN often result in large index sizes. CAPS addresses this issue by being the first simultaneous filtering algorithm based on spatial partitioning, significantly reducing index size.
-	CAPS introduces a hierarchical sub-partitioning algorithm inspired by Huffman trees, termed the Attribute Frequency Tree (AFT), to overcome the coarse granularity of traditional IVF-based methods. CAPS adopts a two-level partitioning strategy:  
+	%\sout{Different from the above graph-based simultaneous filtering algorithms,}
+	\textcolor{red}{CAPS is the first simultaneous filtering algorithm based on spatial partitioning.}
+	It introduces a hierarchical sub-partitioning algorithm inspired by Huffman trees, termed the Attribute Frequency Tree (AFT), to overcome the coarse granularity of traditional IVF-based methods. CAPS adopts a two-level partitioning strategy:  
 	1) The first level clusters vectors based on similarity using K-Means or learning-based methods such as BLISS. 2) Within each cluster, AFT partitions data further based on attribute frequencies, enabling finer-grained indexing and improving query efficiency.
 	
 	
@@ -344,7 +344,8 @@
 	%	2) \textbf{ACORN-1}, which extends neighbor lists by considering second-hop neighbors during search, reducing index size with minor performance loss.
 	Above simultaneous filtering algorithms struggle with large-scale, unbounded, or unknown predicate sets. 
 	ACORN addresses this by introducing a predicate-agnostic indexing framework.
-	Built upon Hierarchical Navigable Small World (HNSW) \cite{hnsw}, ACORN supports high-cardinality and unrestricted predicates, overcoming limitations of methods confined to small-scale equality filters. 
+	Built upon Hierarchical Navigable Small World (HNSW) \cite{hnsw}, ACORN supports high-cardinality and unrestricted predicates.
+	%, overcoming limitations of methods confined to small-scale equality filters. 
 	It constructs a denser hierarchical graph by expanding neighborhoods and prunes lower-level edges to control index size. 
 	During querying, ACORN eliminates unnecessary distance computations by filtering out nodes violating attribute constraints, effectively maintaining a nearest neighbor graph over valid nodes only. 
 	ACORN includes two indexes: 1) \textbf{ACORN-$\gamma$}, which expands neighbor lists during construction, trading memory for higher performance; 
@@ -392,7 +393,7 @@
 				\textsuperscript{N} Unsupport.
 				\textit{Base} indicates that the hybrid query algorithm is an improvement based on a specific ANN search algorithm. 
 				\textit{Dynamic Insert} indicates whether the algorithm supports the operation of dynamically inserting data points.
-			\textit{Multi Thread} indicates whether the algorithm supports multi-threaded search.
+				\textit{Multi Thread} indicates whether the algorithm supports multi-threaded search.
 			\end{minipage} 
 			\vspace{-0.1cm}
 		}
@@ -579,7 +580,7 @@
 	\begin{figure*}
 		\centering
 		\setlength{\abovecaptionskip}{0cm}
-		\setlength{\belowcaptionskip}{-0.5cm}
+		\setlength{\belowcaptionskip}{-0.4cm}
 		\includegraphics[width=0.95\textwidth]{figures/exp/exp_1_1_SingleLabel_1thread.pdf}
 		\caption{Single-Attribute Building and Query (single thread) }
 		\label{fig:exp_1_1_SingleLabel_1thread}
@@ -588,7 +589,7 @@
 	\begin{figure*}
 		\centering
 		\setlength{\abovecaptionskip}{0cm}
-		\setlength{\belowcaptionskip}{-0.5cm}
+		\setlength{\belowcaptionskip}{-0.4cm}
 		\includegraphics[width=0.95\textwidth]{figures/exp/exp_1_2_SingleLabel_16thread.pdf}
 		\caption{Single-Attribute Building and Query (16 threads)}
 		\label{fig:exp_1_2_SingleLabel_16thread}
@@ -694,7 +695,7 @@
 	
 	\textit{\textbf{Multi-Attribute Building and Multi-Attribute Query.}}  
 	Compared to single-attribute filtering, multi-attribute joint filtering better reflects \textcolor{red}{real-world scenarios}. To evaluate algorithm performance \textcolor{red}{under this setting}, we construct the index using 3 uniformly distributed attributes and \textcolor{red}{apply filtering on all 3 attributes simultaneously during queries}.
-	 \textcolor{red}{As Filtered-DiskANN does not support the AND rule used in our multi-attribute queries, it is excluded.}
+	\textcolor{red}{As Filtered-DiskANN does not support the AND rule used in our multi-attribute queries, it is excluded.}
 	%	Compared to single-attribute filtering, multi-attribute joint filtering better reflects real-world application scenarios. To evaluate algorithm performance under such scenario, we construct the index using 3 uniformly distributed attributes and apply filtering conditions on all 3 attributes simultaneously during the query process.
 	
 	As shown in Figure~\ref{fig:exp_4_1_MultiLabel_1thread}, UNG achieves the best performance across all datasets. For IVF-based methods not specifically optimized for hybrid queries (Faiss\_IVF and Milvus), their QPS remains relatively stable as recall varies. Milvus, \textcolor{red}{as a general-purpose system}, exhibits comparatively poor performance. In contrast, Faiss—especially when combined with HQI\_Batch—achieves medium-level performance. Its original IVF implementation naturally supports pre-filtering and does not suffer from the complexity introduced by an increased number of attributes. In fact, filtering can reduce the effective candidate set, improving efficiency.
@@ -804,8 +805,8 @@
 	
 	\begin{figure*}
 		\centering
-		    \setlength{\abovecaptionskip}{-0.1cm}
-		    \setlength{\belowcaptionskip}{-0.4cm}
+		\setlength{\abovecaptionskip}{-0.1cm}
+		\setlength{\belowcaptionskip}{-0.4cm}
 		\includegraphics[width=0.95\textwidth]{figures/exp/exp_6_1.pdf}
 		\caption{Effect of dataset on Query}
 		\label{fig:exp_6_1}
@@ -978,8 +979,8 @@
 		% \end{figure*}
 	\begin{figure*}[htbp]
 		\centering
-		    \setlength{\abovecaptionskip}{0cm}
-		    \setlength{\belowcaptionskip}{-0.5cm}
+		\setlength{\abovecaptionskip}{0cm}
+		\setlength{\belowcaptionskip}{-0.5cm}
 		\includegraphics[width=0.80\textwidth]{figures/exp/exp_8_3.pdf}
 		\caption{Dataset Effect on RF-ANN Search}
 		\label{fig:exp_8_3}
@@ -1038,7 +1039,7 @@
 			\end{tabular}
 		}
 		\label{tab:algo_scenarios}
-	\vspace{-0.0cm}
+		\vspace{-0.0cm}
 	\end{table}
 	
 	\subsubsection{\textbf{Attribute Filtering}}
