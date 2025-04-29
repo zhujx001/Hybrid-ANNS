@@ -152,8 +152,12 @@
 	In recent years, hybrid query algorithms develop rapidly, giving rise to numerous attribute filtering ~\cite{NHQ,diskann} and range filtering algorithms \cite{serf,iRangeGraph}. In practical applications, the performance of hybrid query algorithms is influenced not only by unstructured data but also closely related to structured data. For attribute filtering algorithms, factors such as the number of base attributes, the number of query attributes, attribute distribution \cite{UNG}, and attribute selectivity \cite{ACORN} significantly impact algorithm performance. As for range filtering algorithms, the size of the query range and the characteristics of different datasets also play an important role in determining algorithm performance.
 	
 	Despite BigANN 2023 \cite{bigann2023} evaluates the performance of some algorithms, it presents several notable limitations:
-	1) The evaluation covers a limited number of algorithms and fails to comprehensively include mainstream methods. For instance, attribute filtering algorithms such as NHQ and UNG are not included in the evaluation. 2) It \textcolor{blue}{focuses only on single-attribute and dual-attribute query scenarios,} neglecting the more complex demands of multi-attribute queries. In real-world applications, an object typically involves multiple attributes.\textcolor{blue}{ For example, in e-commerce scenarios, users often specify multiple attributes (e.g., color, brand, price range) simultaneously when searching.}
-	3) It does not evaluate algorithm performance under different attribute distributions. However, variations in attribute distribution may directly affect the filtering strategies and index construction efficiency of hybrid query algorithms.
+	1) The evaluation covers a limited number of algorithms and fails to comprehensively include mainstream methods. 
+	\sout{For instance, attribute filtering algorithms such as NHQ and UNG are not included in the evaluation. }
+	2) It \textcolor{blue}{focuses only on single-attribute and dual-attribute query scenarios,} 
+	\sout{neglecting the more complex demands of multi-attribute queries. In real-world applications, an object typically involves multiple attributes.}\textcolor{blue}{ \sout{For example, in e-commerce scenarios, users often specify multiple attributes (e.g., color, brand, price range) simultaneously when searching.}}
+	3) It does not evaluate algorithm performance under different attribute distributions. 
+	\sout{However, variations in attribute distribution may directly affect the filtering strategies and index construction efficiency of hybrid query algorithms.}
 	
 	Moreover, aside from BigANN, there is currently a lack of systematic evaluation specifically targeting hybrid query algorithms. To fill this gap, we conduct a comprehensive experimental evaluation of hybrid query algorithms, analyzing the index construction costs and query efficiency across different scenarios. Additionally, we further assess the robustness of each algorithm under varying conditions.
 	
@@ -347,7 +351,8 @@
 	ACORN includes two indexes: 1) \textbf{ACORN-$\gamma$}, which expands neighbor lists during construction, trading memory for higher performance; 
 	2) \textbf{ACORN-1}, which extends neighbor lists via second-hop neighbors during search, reducing index size with minor performance loss.
 	
-	\noindent\textbf{\underline{UNG \cite{UNG}.}} The above simultaneous filtering algorithms may not guarantee the completeness of the results and perform poorly when the attribute selectivity is low. UNG is proposed to overcome these limitations.
+	\noindent\textbf{\underline{UNG \cite{UNG}.}} 
+	\sout{The above simultaneous filtering algorithms may not guarantee the completeness of the results and perform poorly when the attribute selectivity is low. UNG is proposed to overcome these limitations.}
 	UNG is a unified framework that integrates diverse graph-based ANN indexes for hybrid query. It first groups the dataset by attribute sets, ensuring that vectors in each group share identical attributes. Then, it constructs a Label Navigating Graph (LNG) to encode inclusion relationships among attribute sets. Within each group, UNG builds graph-based ANN indexes (e.g., Vamana, HNSW) and connects them via cross-group edges to enable efficient cross-group search.
 	%UNG supports Boolean filtering with 2 modes:  1) The query attribute set is a subset of the data attribute set.  2) The query attribute set exactly matches the data attribute set.
 	
@@ -383,11 +388,13 @@
 		
 		\footnotesize{
 			\begin{minipage}{\linewidth}
-				\textsuperscript{Y} Support, 
-				\textsuperscript{N} Unsupport.
-				\textit{Base} indicates that the hybrid query algorithm is an improvement based on a specific ANN search algorithm. 
-				\textit{Dynamic Insert} indicates whether the algorithm supports the operation of dynamically inserting data points.
-				\textit{Multi Thread} indicates whether the algorithm supports multi-threaded search.
+				\centering
+				The indicators are consistent with those in Table ~\ref{tab:compair_1}.
+%				\textsuperscript{Y} Support, 
+%				\textsuperscript{N} Unsupport.
+%				\textit{Base} indicates that the hybrid query algorithm is an improvement based on a specific ANN search algorithm. 
+%				\textit{Dynamic Insert} indicates whether the algorithm supports the operation of dynamically inserting data points.
+%				\textit{Multi Thread} indicates whether the algorithm supports multi-threaded search.
 			\end{minipage} 
 
 		}
