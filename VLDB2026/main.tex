@@ -141,8 +141,7 @@
 	
 	\begin{figure*}
 		\centering
-		\setlength{\abovecaptionskip}{0.1cm}
-		\setlength{\belowcaptionskip}{-0.5cm}
+
 		\includegraphics[width=0.92\textwidth]{figures/hybrid ANNS.pdf}
 		\caption{Hybrid query example}
 		
@@ -246,8 +245,7 @@
 			\label{fig:ivf}
 		\end{subfigure}
 		
-		\setlength{\abovecaptionskip}{0.1cm}
-		\setlength{\belowcaptionskip}{-0.02cm}
+
 		\caption{Graph index and IVF index}
 		
 	\end{figure}
@@ -255,14 +253,12 @@
 	
 	\section{Overview of Hybrid query Algorithms}
 	
-	\setlength{\textfloatsep}{0cm}
-	\setlength{\floatsep}{0cm}
+
 	\renewcommand{\arraystretch}{0.9}
 	\begin{table*}[t]
 		\centering
 		%\setlength{\belowcaptionskip}{-0.3cm}
-		\setlength{\abovecaptionskip}{0cm}
-		\setlength{\belowcaptionskip}{-0.3cm}
+
 		\caption{Comparison of AF-ANN search algorithms}
 		\small
 		\label{tab:compair_1}
@@ -303,7 +299,7 @@
 				\textit{Dynamic Insert} indicates whether the algorithm supports the operation of dynamically inserting data points.
 				\textit{Multi Thread} indicates whether the algorithm supports multi-threaded search.
 		\end{minipage}}
-		\vspace{-0.5cm}
+
 	\end{table*}
 	
 	
@@ -362,13 +358,11 @@
 	%Developed by Baidu, Puck adopts a pre-filtering approach and employs a multi-level filtering mechanism for hybrid query. Its index structure comprises four layers: the first two use vector quantization for training, while the latter two leverage product quantization.
 	
 	
-	\setlength{\textfloatsep}{0.1cm}
-	\setlength{\floatsep}{0cm}
+
 	\renewcommand{\arraystretch}{0.9}
 	\begin{table}[t]
 		\centering
-		\setlength{\abovecaptionskip}{0.1cm}
-		\setlength{\belowcaptionskip}{-0.1cm}
+
 		\setlength{\textfloatsep}{0.1cm}
 		\caption{Comparison of RF-ANN search algorithms}
 		\small	% 只会影响当前组的内容
@@ -393,7 +387,7 @@
 				\textit{Base} indicates that the hybrid query algorithm is an improvement based on a specific ANN search algorithm. 
 				\textit{Dynamic} indicates whether the algorithm supports the operation of dynamically inserting data points.
 			\end{minipage} 
-			\vspace{-0.1cm}
+
 		}
 		
 	\end{table}
@@ -452,15 +446,13 @@
 	
 	Table~\ref{tab:datasets_combined} summarizes the key characteristics of all datasets. In particular, we report the Local Intrinsic Dimensionality (LID)~\cite{Lid}, a commonly used metric to quantify dataset hardness. Following the standard evaluation protocol~\cite{LID2}, we randomly sample 10,000 data points from each dataset for LID computation. A higher LID indicates greater intrinsic complexity.
 	
-	\setlength{\textfloatsep}{0.1cm}
-	\setlength{\floatsep}{0cm}
+
 	\renewcommand{\arraystretch}{0.9}
 	\begin{table}[t]
 		\centering
 		
 		
-		\setlength{\abovecaptionskip}{0cm}
-		\setlength{\belowcaptionskip}{-0.3cm}
+
 		\caption{Datasets}
 		
 		\label{tab:datasets_combined}
@@ -527,8 +519,7 @@
 	% \subsubsection{\textbf{Attribute Filtering}}
 	\begin{figure}[t]
 		\centering
-		\setlength{\abovecaptionskip}{0.3cm}
-		\setlength{\belowcaptionskip}{-0.0cm}
+
 		
 		% 上面的图例，居中并可通过 hspace 调整左右位置
 		\hspace*{16pt} % 可调整的参数，负值左移，正值右移，例如 -20pt 或 20pt
@@ -537,8 +528,7 @@
 		
 		\begin{subfigure}{\columnwidth}
 			\centering
-			\setlength{\abovecaptionskip}{-0.02cm}
-			\setlength{\belowcaptionskip}{-0.1cm}
+
 			\includegraphics[width=0.95\linewidth]{figures/indexData/exp_7_build_time_comparison_query1.pdf}
 			\caption{Index construction time}
 			\label{fig:build_time_comparison_query1}
@@ -548,8 +538,7 @@
 		
 		\begin{subfigure}{\columnwidth}
 			\centering
-			\setlength{\abovecaptionskip}{-0.02cm}
-			\setlength{\belowcaptionskip}{-0.1cm}
+
 			\includegraphics[width=0.95\linewidth]{figures/indexData/exp_7_index_size_mb_comparison_query1.pdf}
 			\caption{Index size}
 			\label{fig:index_size_mb_comparison_query1}
@@ -559,8 +548,7 @@
 		
 		\begin{subfigure}{\columnwidth}
 			\centering
-			\setlength{\abovecaptionskip}{-0.02cm}
-			\setlength{\belowcaptionskip}{-0.3cm}
+
 			\includegraphics[width=0.95\linewidth]{figures/indexData/exp_7_memory_mb_comparison_query1.pdf}
 			\caption{Peak memory usage}
 			\label{fig:memory_mb_comparison_query1}
@@ -577,8 +565,7 @@
 	
 	\begin{figure*}
 		\centering
-		\setlength{\abovecaptionskip}{0cm}
-		\setlength{\belowcaptionskip}{-0.4cm}
+
 		\includegraphics[width=0.95\textwidth]{figures/exp/exp_1_1_SingleLabel_1thread.pdf}
 		\caption{Single-Attribute Building and Query (single thread) }
 		\label{fig:exp_1_1_SingleLabel_1thread}
@@ -586,8 +573,7 @@
 	
 	\begin{figure*}
 		\centering
-		\setlength{\abovecaptionskip}{0cm}
-		\setlength{\belowcaptionskip}{-0.4cm}
+
 		\includegraphics[width=0.95\textwidth]{figures/exp/exp_1_2_SingleLabel_16thread.pdf}
 		\caption{Single-Attribute Building and Query (16 threads)}
 		\label{fig:exp_1_2_SingleLabel_16thread}
@@ -646,8 +632,7 @@ To ensure a fair comparison with IVF-based algorithms, we include the original d
 	
 	\begin{figure}[t]
 		\centering
-		\setlength{\abovecaptionskip}{0.1cm}
-		\setlength{\belowcaptionskip}{-0.1cm}
+
 		% 上面的图例，居中并可通过 hspace 调整左右位置
 		\hspace*{15pt} % 可调整的参数，负值左移，正值右移，例如 -20pt 或 20pt
 		\includegraphics[width=0.85\columnwidth]{figures/exp/exp_2_legend.pdf} % 图例图片路径
@@ -671,8 +656,7 @@ To ensure a fair comparison with IVF-based algorithms, we include the original d
 	
 	\begin{figure*}
 		\centering
-		\setlength{\abovecaptionskip}{0.0cm}
-		\setlength{\belowcaptionskip}{-0.4cm}
+
 		\includegraphics[width=0.95\textwidth]{figures/exp/exp_4_1_MultiLabel_1thread.pdf}
 		\caption{Multi-attribute build and query (single thread)}
 		\label{fig:exp_4_1_MultiLabel_1thread}
@@ -680,8 +664,7 @@ To ensure a fair comparison with IVF-based algorithms, we include the original d
 	
 	\begin{figure*}
 		\centering
-		\setlength{\abovecaptionskip}{0.0cm}
-		\setlength{\belowcaptionskip}{-0.5cm}
+
 		\includegraphics[width=0.95\textwidth]{figures/exp/exp_3_1.pdf}
 		\caption{Effect of attribute distribution on query performance (single thread)}
 		\label{fig:exp_3_1}
@@ -743,8 +726,7 @@ To ensure a fair comparison with IVF-based algorithms, we include the original d
 		% 第一行：单独一张大图
 		\begin{subfigure}{\textwidth}
 			\centering
-			\setlength{\abovecaptionskip}{0.05cm}
-			\setlength{\belowcaptionskip}{0.05cm}
+
 			\includegraphics[width=0.95\textwidth]{figures/exp/exp_5_2_1.pdf}
 			\caption{Algorithms optimized for low AS levels.}
 			\label{fig:exp_5_2_1}
@@ -755,8 +737,7 @@ To ensure a fair comparison with IVF-based algorithms, we include the original d
 		% 第二行：两张子图，左侧宽度是右侧的两倍
 		\begin{subfigure}{0.64\textwidth} % 2/3 宽度
 			\centering
-			\setlength{\abovecaptionskip}{0.05cm}
-			\setlength{\belowcaptionskip}{0.05cm}
+
 			\includegraphics[width=0.92\textwidth]{figures/exp/exp_5_2_2.pdf}
 			\caption{Algorithms optimized for high AS levels.}
 			\label{fig:exp_5_2_2}
@@ -764,15 +745,13 @@ To ensure a fair comparison with IVF-based algorithms, we include the original d
 		\hspace{1mm} % 增加水平间距
 		\begin{subfigure}{0.32\textwidth} % 1/3 宽度
 			\centering
-			\setlength{\abovecaptionskip}{0.05cm}
-			\setlength{\belowcaptionskip}{0.05cm}
+
 			\includegraphics[width=0.92\textwidth]{figures/exp/exp_5_2_3.pdf}
 			\caption{Algorithms insensitive to AS level.}
 			\label{fig:exp_5_2_3}
 		\end{subfigure}
 		
-		\setlength{\abovecaptionskip}{0cm}
-		\setlength{\belowcaptionskip}{-0.4cm}
+
 		\caption{Different AS under the same algorithm}
 		\label{fig:exp_5_2_combined}
 	\end{figure*}
@@ -802,8 +781,7 @@ To ensure a fair comparison with IVF-based algorithms, we include the original d
 	
 	\begin{figure*}
 		\centering
-		    \setlength{\abovecaptionskip}{-0.1cm}
-		    \setlength{\belowcaptionskip}{-0.4cm}
+
 		\includegraphics[width=0.95\textwidth]{figures/exp/exp_6_1.pdf}
 		\caption{Effect of dataset on Query}
 		\label{fig:exp_6_1}
@@ -861,8 +839,7 @@ To ensure a fair comparison with IVF-based algorithms, we include the original d
 	\begin{figure}[t]
 		\centering
 		
-		\setlength{\abovecaptionskip}{0.02cm}
-		\setlength{\belowcaptionskip}{-0.1cm}
+
 		\hspace*{11pt}
 		% 放大的图例（占满单栏）
 		\includegraphics[width=0.90\columnwidth]{figures/indexData/rangeFilter_legend_only.pdf}
@@ -873,8 +850,7 @@ To ensure a fair comparison with IVF-based algorithms, we include the original d
 		\begin{subfigure}[t]{0.32\columnwidth}
 			\centering
 			\captionsetup{font=small}
-			\setlength{\abovecaptionskip}{0.02cm}
-			\setlength{\belowcaptionskip}{0.02cm}
+
 			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_build_time_comparison_query.pdf}
 			\caption{\footnotesize Construction time}
 			\label{fig:rangeFilter_build_time}
@@ -882,8 +858,7 @@ To ensure a fair comparison with IVF-based algorithms, we include the original d
 		\hfill
 		\begin{subfigure}[t]{0.32\columnwidth}
 			\centering
-			\setlength{\abovecaptionskip}{0.02cm}
-			\setlength{\belowcaptionskip}{0.02cm}
+
 			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_index_size_mb_comparison_query.pdf}
 			\caption{\footnotesize Index size}
 			\label{fig:rangeFilter_index_size_mb}
@@ -891,8 +866,7 @@ To ensure a fair comparison with IVF-based algorithms, we include the original d
 		\hfill
 		\begin{subfigure}[t]{0.32\columnwidth}
 			\centering
-			\setlength{\abovecaptionskip}{0.02cm}
-			\setlength{\belowcaptionskip}{0.02cm}
+
 			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_memory_mb_comparison_query.pdf}
 			\caption{\footnotesize Peak memory usage}
 			\label{fig:rangeFilter_memory_mb}
@@ -936,8 +910,7 @@ To ensure a fair comparison with IVF-based algorithms, we include the original d
 	\begin{figure*}[t]
 		
 		\centering
-		\setlength{\abovecaptionskip}{0cm}
-		\setlength{\belowcaptionskip}{-0.5cm}
+
 		\includegraphics[width=0.92\textwidth]{figures/exp/exp_8_2.pdf}
 		\caption{RF-ANN search }
 		\label{fig:exp_8_2}
@@ -966,18 +939,10 @@ To ensure a fair comparison with IVF-based algorithms, we include the original d
 	It is important to note that this range query experiment is conducted under a fully static setting. Under such conditions, UNIFY, iRange, SeRF, and WinFilter require the dataset to be sorted by attribute prior to index construction. In contrast, DSG  support dynamic index construction with unordered attribute insertions, making them more suitable for streaming or incremental data scenarios. This flexibility highlights their superior extensibility in real-world applications.
 	\subsubsection{Robustness.}
 	
-	% \begin{figure*}[htbp]
-		%     \centering
-		%     \setlength{\abovecaptionskip}{0cm}
-		%     \setlength{\belowcaptionskip}{-0.4cm}
-		%     \includesvg[width=\textwidth]{figures/exp/exp_8_3.svg}
-		%     \caption{Dataset Effect on RF-ANN Search}
-		%     \label{fig:exp_8_3}
-		% \end{figure*}
+
 	\begin{figure*}[htbp]
 		\centering
-		    \setlength{\abovecaptionskip}{0cm}
-		    \setlength{\belowcaptionskip}{-0.5cm}
+
 		\includegraphics[width=0.80\textwidth]{figures/exp/exp_8_3.pdf}
 		\caption{Dataset Effect on RF-ANN Search}
 		\label{fig:exp_8_3}
@@ -1009,7 +974,7 @@ To ensure a fair comparison with IVF-based algorithms, we include the original d
 	
 	\begin{table}[t]
 		\centering
-		\setlength{\abovecaptionskip}{0.0cm}
+
 		\caption{Algorithm Recommendation per Scenario}
 		\resizebox{\columnwidth}{!}{
 			\begin{tabular}{|l|c|c|}
@@ -1036,7 +1001,6 @@ To ensure a fair comparison with IVF-based algorithms, we include the original d
 			\end{tabular}
 		}
 		\label{tab:algo_scenarios}
-	\vspace{-0.0cm}
 	\end{table}
 	
 	\subsubsection{\textbf{Attribute Filtering}}
