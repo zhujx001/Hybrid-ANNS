@@ -141,8 +141,7 @@
 	
 	\begin{figure*}
 		\centering
-		\setlength{\abovecaptionskip}{0.1cm}
-		\setlength{\belowcaptionskip}{-0.5cm}
+
 		\includegraphics[width=0.92\textwidth]{figures/hybrid ANNS.pdf}
 		\caption{Hybrid query example}
 		
@@ -177,11 +176,11 @@
 	\textcolor{red}{We systematically evaluate 6 attribute filtering algorithms, 1 library, and 3 databases on 7 real-world datasets.}By analyzing performance under varying numbers of attributes, we reveal the strengths and weaknesses of each method. We further examine their behavior under different attribute distributions and selectivity conditions to assess robustness and adaptability in complex query scenarios. Evaluation metrics include index construction time, index size, peak memory usage, QPS, and search accuracy.
 	
 	(4)\textbf{ Evaluation of Range Filtering Algorithms.}
-	We benchmark 5 range filtering algorithms\textcolor{red}{, 1 library, and 3 databases} on 3 large-scale datasets, using varying query range settings in the experiments. The experimental results demonstrate the performance of these algorithms in terms of index construction efficiency, storage overhead, and query performance. Additionally, we conduct an in-depth analysis of how index organization impacts algorithm performance, providing valuable insights for algorithm design.
+	We benchmark 5 range filtering algorithms\textcolor{red}{, 1 library, and 3 databases} on 3 large-scale datasets, using varying query range settings in the experiments. The experimental results demonstrate the performance of these algorithms in terms of index construction efficiency, storage overhead, and query performance. We further analyze performance factors from an algorithmic perspective.
 	
 	
 	(5)\textbf{ Recommendations and Challenges.}
-	Based on the experimental results, we provide algorithm selection recommendations for common application scenarios and highlight key challenges in the field of hybrid queries. These challenges include limited Boolean logic support, the lack of multi-attribute range filtering capabilities, the high indexing costs of graph-based methods, and the sensitivity of algorithms to data distribution. \textcolor{blue} {Currently, few methods simultaneously support both attribute filtering and range filtering, pointing to potential directions for future research.}
+	Based on the experimental results, we provide algorithm selection recommendations for common application scenarios and highlight key challenges in the field of hybrid queries. These challenges include limited Boolean logic support, the lack of multi-attribute range filtering capabilities, and the sensitivity of algorithms to data distribution. \textcolor{blue} {Currently, few methods simultaneously support both attribute filtering and range filtering, pointing to potential directions for future research.}
 	
 	\section{PRELIMINARIES}
 	
@@ -246,8 +245,7 @@
 			\label{fig:ivf}
 		\end{subfigure}
 		
-		\setlength{\abovecaptionskip}{0.1cm}
-		\setlength{\belowcaptionskip}{-0.02cm}
+
 		\caption{Graph index and IVF index}
 		
 	\end{figure}
@@ -255,14 +253,12 @@
 	
 	\section{Overview of Hybrid query Algorithms}
 	
-	\setlength{\textfloatsep}{0cm}
-	\setlength{\floatsep}{0cm}
+
 	\renewcommand{\arraystretch}{0.9}
 	\begin{table*}[t]
 		\centering
 		%\setlength{\belowcaptionskip}{-0.3cm}
-		\setlength{\abovecaptionskip}{0cm}
-		\setlength{\belowcaptionskip}{-0.3cm}
+
 		\caption{Comparison of AF-ANN search algorithms}
 		\small
 		\label{tab:compair_1}
@@ -303,7 +299,7 @@
 				\textit{Dynamic Insert} indicates whether the algorithm supports the operation of dynamically inserting data points.
 				\textit{Multi Thread} indicates whether the algorithm supports multi-threaded search.
 		\end{minipage}}
-		\vspace{-0.5cm}
+
 	\end{table*}
 	
 	
@@ -324,13 +320,13 @@
 	Filtered-DiskANN proposes 2 indexes:  
 	1) \textbf{FilteredVamana}, which incrementally builds the graph index by inserting data points and dynamically adding edges, allowing adaptive expansion.  
 	2) \textbf{StitchedVamana}, which adopts a batch construction strategy—constructing separate Vamana subgraphs for each attribute, followed by merging and edge pruning.
-%	A key limitation of Filtered-DiskANN is that only supports the Boolean OR logic for multi-attribute filtering, lacking support for Boolean AND logic.
+	%	A key limitation of Filtered-DiskANN is that only supports the Boolean OR logic for multi-attribute filtering, lacking support for Boolean AND logic.
 	
 	
 	\noindent\textbf{\underline{CAPS \cite{CAPS}.}} 
-	%\sout{Different from the above graph-based simultaneous filtering algorithms,}CAPS is the first simultaneous filtering algorithm based on spatial partitioning.
-	%As graph-based methods, NHQ and Filtered-DiskANN often result in large index sizes. CAPS addresses this issue by being the first simultaneous filtering algorithm based on spatial partitioning, significantly reducing index size.
-	CAPS introduces a hierarchical sub-partitioning algorithm inspired by Huffman trees, termed the Attribute Frequency Tree (AFT), to overcome the coarse granularity of traditional IVF-based methods. CAPS adopts a two-level partitioning strategy:  
+	%\sout{Different from the above graph-based simultaneous filtering algorithms,}
+	\textcolor{red}{CAPS is the first simultaneous filtering algorithm based on spatial partitioning.}
+	It introduces a hierarchical sub-partitioning algorithm inspired by Huffman trees, termed the Attribute Frequency Tree (AFT), to overcome the coarse granularity of traditional IVF-based methods. CAPS adopts a two-level partitioning strategy:  
 	1) The first level clusters vectors based on similarity using K-Means or learning-based methods such as BLISS. 2) Within each cluster, AFT partitions data further based on attribute frequencies, enabling finer-grained indexing and improving query efficiency.
 	
 	
@@ -344,7 +340,8 @@
 	%	2) \textbf{ACORN-1}, which extends neighbor lists by considering second-hop neighbors during search, reducing index size with minor performance loss.
 	Above simultaneous filtering algorithms struggle with large-scale, unbounded, or unknown predicate sets. 
 	ACORN addresses this by introducing a predicate-agnostic indexing framework.
-	Built upon Hierarchical Navigable Small World (HNSW) \cite{hnsw}, ACORN supports high-cardinality and unrestricted predicates, overcoming limitations of methods confined to small-scale equality filters. 
+	Built upon Hierarchical Navigable Small World (HNSW) \cite{hnsw}, ACORN supports high-cardinality and unrestricted predicates.
+	%, overcoming limitations of methods confined to small-scale equality filters. 
 	It constructs a denser hierarchical graph by expanding neighborhoods and prunes lower-level edges to control index size. 
 	During querying, ACORN eliminates unnecessary distance computations by filtering out nodes violating attribute constraints, effectively maintaining a nearest neighbor graph over valid nodes only. 
 	ACORN includes two indexes: 1) \textbf{ACORN-$\gamma$}, which expands neighbor lists during construction, trading memory for higher performance; 
@@ -362,13 +359,11 @@
 	%Developed by Baidu, Puck adopts a pre-filtering approach and employs a multi-level filtering mechanism for hybrid query. Its index structure comprises four layers: the first two use vector quantization for training, while the latter two leverage product quantization.
 	
 	
-	\setlength{\textfloatsep}{0.1cm}
-	\setlength{\floatsep}{0cm}
+
 	\renewcommand{\arraystretch}{0.9}
 	\begin{table}[t]
 		\centering
-		\setlength{\abovecaptionskip}{0.1cm}
-		\setlength{\belowcaptionskip}{-0.1cm}
+
 		\setlength{\textfloatsep}{0.1cm}
 		\caption{Comparison of RF-ANN search algorithms}
 		\small	% 只会影响当前组的内容
@@ -392,9 +387,9 @@
 				\textsuperscript{N} Unsupport.
 				\textit{Base} indicates that the hybrid query algorithm is an improvement based on a specific ANN search algorithm. 
 				\textit{Dynamic Insert} indicates whether the algorithm supports the operation of dynamically inserting data points.
-			\textit{Multi Thread} indicates whether the algorithm supports multi-threaded search.
+				\textit{Multi Thread} indicates whether the algorithm supports multi-threaded search.
 			\end{minipage} 
-			\vspace{-0.1cm}
+
 		}
 		
 	\end{table}
@@ -453,15 +448,13 @@
 	
 	Table~\ref{tab:datasets_combined} summarizes the key characteristics of all datasets. In particular, we report the Local Intrinsic Dimensionality (LID)~\cite{Lid}, a commonly used metric to quantify dataset hardness. Following the standard evaluation protocol~\cite{LID2}, we randomly sample 10,000 data points from each dataset for LID computation. A higher LID indicates greater intrinsic complexity.
 	
-	\setlength{\textfloatsep}{0.1cm}
-	\setlength{\floatsep}{0cm}
+
 	\renewcommand{\arraystretch}{0.9}
 	\begin{table}[t]
 		\centering
 		
 		
-		\setlength{\abovecaptionskip}{0cm}
-		\setlength{\belowcaptionskip}{-0.3cm}
+
 		\caption{Datasets}
 		
 		\label{tab:datasets_combined}
@@ -528,8 +521,7 @@
 	% \subsubsection{\textbf{Attribute Filtering}}
 	\begin{figure}[t]
 		\centering
-		\setlength{\abovecaptionskip}{0.3cm}
-		\setlength{\belowcaptionskip}{-0.0cm}
+
 		
 		% 上面的图例，居中并可通过 hspace 调整左右位置
 		\hspace*{16pt} % 可调整的参数，负值左移，正值右移，例如 -20pt 或 20pt
@@ -538,8 +530,7 @@
 		
 		\begin{subfigure}{\columnwidth}
 			\centering
-			\setlength{\abovecaptionskip}{-0.02cm}
-			\setlength{\belowcaptionskip}{-0.1cm}
+
 			\includegraphics[width=0.95\linewidth]{figures/indexData/exp_7_build_time_comparison_query1.pdf}
 			\caption{Index construction time}
 			\label{fig:build_time_comparison_query1}
@@ -549,8 +540,7 @@
 		
 		\begin{subfigure}{\columnwidth}
 			\centering
-			\setlength{\abovecaptionskip}{-0.02cm}
-			\setlength{\belowcaptionskip}{-0.1cm}
+
 			\includegraphics[width=0.95\linewidth]{figures/indexData/exp_7_index_size_mb_comparison_query1.pdf}
 			\caption{Index size}
 			\label{fig:index_size_mb_comparison_query1}
@@ -560,8 +550,7 @@
 		
 		\begin{subfigure}{\columnwidth}
 			\centering
-			\setlength{\abovecaptionskip}{-0.02cm}
-			\setlength{\belowcaptionskip}{-0.3cm}
+
 			\includegraphics[width=0.95\linewidth]{figures/indexData/exp_7_memory_mb_comparison_query1.pdf}
 			\caption{Peak memory usage}
 			\label{fig:memory_mb_comparison_query1}
@@ -578,8 +567,7 @@
 	
 	\begin{figure*}
 		\centering
-		\setlength{\abovecaptionskip}{0cm}
-		\setlength{\belowcaptionskip}{-0.4cm}
+
 		\includegraphics[width=0.95\textwidth]{figures/exp/exp_1_1_SingleLabel_1thread.pdf}
 		\caption{Single-Attribute Building and Query (single thread) }
 		\label{fig:exp_1_1_SingleLabel_1thread}
@@ -587,8 +575,7 @@
 	
 	\begin{figure*}
 		\centering
-		\setlength{\abovecaptionskip}{0cm}
-		\setlength{\belowcaptionskip}{-0.4cm}
+
 		\includegraphics[width=0.95\textwidth]{figures/exp/exp_1_2_SingleLabel_16thread.pdf}
 		\caption{Single-Attribute Building and Query (16 threads)}
 		\label{fig:exp_1_2_SingleLabel_16thread}
@@ -647,8 +634,7 @@
 	
 	\begin{figure}[t]
 		\centering
-		\setlength{\abovecaptionskip}{0.1cm}
-		\setlength{\belowcaptionskip}{-0.1cm}
+
 		% 上面的图例，居中并可通过 hspace 调整左右位置
 		\hspace*{15pt} % 可调整的参数，负值左移，正值右移，例如 -20pt 或 20pt
 		\includegraphics[width=0.85\columnwidth]{figures/exp/exp_2_legend.pdf} % 图例图片路径
@@ -672,8 +658,7 @@
 	
 	\begin{figure*}
 		\centering
-		\setlength{\abovecaptionskip}{0.0cm}
-		\setlength{\belowcaptionskip}{-0.4cm}
+
 		\includegraphics[width=0.95\textwidth]{figures/exp/exp_4_1_MultiLabel_1thread.pdf}
 		\caption{Multi-attribute build and query (single thread)}
 		\label{fig:exp_4_1_MultiLabel_1thread}
@@ -681,8 +666,7 @@
 	
 	\begin{figure*}
 		\centering
-		\setlength{\abovecaptionskip}{0.0cm}
-		\setlength{\belowcaptionskip}{-0.5cm}
+
 		\includegraphics[width=0.95\textwidth]{figures/exp/exp_3_1.pdf}
 		\caption{Effect of attribute distribution on query performance (single thread)}
 		\label{fig:exp_3_1}
@@ -694,7 +678,7 @@
 	
 	\textit{\textbf{Multi-Attribute Building and Multi-Attribute Query.}}  
 	Compared to single-attribute filtering, multi-attribute joint filtering better reflects \textcolor{red}{real-world scenarios}. To evaluate algorithm performance \textcolor{red}{under this setting}, we construct the index using 3 uniformly distributed attributes and \textcolor{red}{apply filtering on all 3 attributes simultaneously during queries}.
-	 \textcolor{red}{As Filtered-DiskANN does not support the AND rule used in our multi-attribute queries, it is excluded.}
+	\textcolor{red}{As Filtered-DiskANN does not support the AND rule used in our multi-attribute queries, it is excluded.}
 	%	Compared to single-attribute filtering, multi-attribute joint filtering better reflects real-world application scenarios. To evaluate algorithm performance under such scenario, we construct the index using 3 uniformly distributed attributes and apply filtering conditions on all 3 attributes simultaneously during the query process.
 	
 	As shown in Figure~\ref{fig:exp_4_1_MultiLabel_1thread}, UNG achieves the best performance across all datasets. For IVF-based methods not specifically optimized for hybrid queries (Faiss\_IVF and Milvus), their QPS remains relatively stable as recall varies. Milvus, \textcolor{red}{as a general-purpose system}, exhibits comparatively poor performance. In contrast, Faiss—especially when combined with HQI\_Batch—achieves medium-level performance. Its original IVF implementation naturally supports pre-filtering and does not suffer from the complexity introduced by an increased number of attributes. In fact, filtering can reduce the effective candidate set, improving efficiency.
@@ -745,8 +729,7 @@
 		% 第一行：单独一张大图
 		\begin{subfigure}{\textwidth}
 			\centering
-			\setlength{\abovecaptionskip}{0.05cm}
-			\setlength{\belowcaptionskip}{0.05cm}
+
 			\includegraphics[width=0.95\textwidth]{figures/exp/exp_5_2_1.pdf}
 			\caption{Algorithms optimized for low AS levels.}
 			\label{fig:exp_5_2_1}
@@ -757,8 +740,7 @@
 		% 第二行：两张子图，左侧宽度是右侧的两倍
 		\begin{subfigure}{0.64\textwidth} % 2/3 宽度
 			\centering
-			\setlength{\abovecaptionskip}{0.05cm}
-			\setlength{\belowcaptionskip}{0.05cm}
+
 			\includegraphics[width=0.92\textwidth]{figures/exp/exp_5_2_2.pdf}
 			\caption{Algorithms optimized for high AS levels.}
 			\label{fig:exp_5_2_2}
@@ -766,15 +748,13 @@
 		\hspace{1mm} % 增加水平间距
 		\begin{subfigure}{0.32\textwidth} % 1/3 宽度
 			\centering
-			\setlength{\abovecaptionskip}{0.05cm}
-			\setlength{\belowcaptionskip}{0.05cm}
+
 			\includegraphics[width=0.92\textwidth]{figures/exp/exp_5_2_3.pdf}
 			\caption{Algorithms insensitive to AS level.}
 			\label{fig:exp_5_2_3}
 		\end{subfigure}
 		
-		\setlength{\abovecaptionskip}{0cm}
-		\setlength{\belowcaptionskip}{-0.4cm}
+
 		\caption{Different AS under the same algorithm}
 		\label{fig:exp_5_2_combined}
 	\end{figure*}
@@ -804,8 +784,6 @@
 	
 	\begin{figure*}
 		\centering
-		    \setlength{\abovecaptionskip}{-0.1cm}
-		    \setlength{\belowcaptionskip}{-0.4cm}
 		\includegraphics[width=0.95\textwidth]{figures/exp/exp_6_1.pdf}
 		\caption{Effect of dataset on Query}
 		\label{fig:exp_6_1}
@@ -863,8 +841,7 @@
 	\begin{figure}[t]
 		\centering
 		
-		\setlength{\abovecaptionskip}{0.02cm}
-		\setlength{\belowcaptionskip}{-0.1cm}
+
 		\hspace*{11pt}
 		% 放大的图例（占满单栏）
 		\includegraphics[width=0.90\columnwidth]{figures/indexData/rangeFilter_legend_only.pdf}
@@ -875,8 +852,7 @@
 		\begin{subfigure}[t]{0.32\columnwidth}
 			\centering
 			\captionsetup{font=small}
-			\setlength{\abovecaptionskip}{0.02cm}
-			\setlength{\belowcaptionskip}{0.02cm}
+
 			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_build_time_comparison_query.pdf}
 			\caption{\footnotesize Construction time}
 			\label{fig:rangeFilter_build_time}
@@ -884,8 +860,7 @@
 		\hfill
 		\begin{subfigure}[t]{0.32\columnwidth}
 			\centering
-			\setlength{\abovecaptionskip}{0.02cm}
-			\setlength{\belowcaptionskip}{0.02cm}
+
 			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_index_size_mb_comparison_query.pdf}
 			\caption{\footnotesize Index size}
 			\label{fig:rangeFilter_index_size_mb}
@@ -893,8 +868,7 @@
 		\hfill
 		\begin{subfigure}[t]{0.32\columnwidth}
 			\centering
-			\setlength{\abovecaptionskip}{0.02cm}
-			\setlength{\belowcaptionskip}{0.02cm}
+
 			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_memory_mb_comparison_query.pdf}
 			\caption{\footnotesize Peak memory usage}
 			\label{fig:rangeFilter_memory_mb}
@@ -938,8 +912,7 @@
 	\begin{figure*}[t]
 		
 		\centering
-		\setlength{\abovecaptionskip}{0cm}
-		\setlength{\belowcaptionskip}{-0.5cm}
+
 		\includegraphics[width=0.92\textwidth]{figures/exp/exp_8_2.pdf}
 		\caption{RF-ANN search }
 		\label{fig:exp_8_2}
@@ -968,18 +941,9 @@
 	It is important to note that this range query experiment is conducted under a fully static setting. Under such conditions, UNIFY, iRange, SeRF, and WinFilter require the dataset to be sorted by attribute prior to index construction. In contrast, DSG  support dynamic index construction with unordered attribute insertions, making them more suitable for streaming or incremental data scenarios. This flexibility highlights their superior extensibility in real-world applications.
 	\subsubsection{Robustness.}
 	
-	% \begin{figure*}[htbp]
-		%     \centering
-		%     \setlength{\abovecaptionskip}{0cm}
-		%     \setlength{\belowcaptionskip}{-0.4cm}
-		%     \includesvg[width=\textwidth]{figures/exp/exp_8_3.svg}
-		%     \caption{Dataset Effect on RF-ANN Search}
-		%     \label{fig:exp_8_3}
-		% \end{figure*}
+
 	\begin{figure*}[htbp]
 		\centering
-		    \setlength{\abovecaptionskip}{0cm}
-		    \setlength{\belowcaptionskip}{-0.5cm}
 		\includegraphics[width=0.80\textwidth]{figures/exp/exp_8_3.pdf}
 		\caption{Dataset Effect on RF-ANN Search}
 		\label{fig:exp_8_3}
@@ -1011,7 +975,7 @@
 	
 	\begin{table}[t]
 		\centering
-		\setlength{\abovecaptionskip}{0.0cm}
+
 		\caption{Algorithm Recommendation per Scenario}
 		\resizebox{\columnwidth}{!}{
 			\begin{tabular}{|l|c|c|}
@@ -1038,7 +1002,6 @@
 			\end{tabular}
 		}
 		\label{tab:algo_scenarios}
-	\vspace{-0.0cm}
 	\end{table}
 	
 	\subsubsection{\textbf{Attribute Filtering}}
