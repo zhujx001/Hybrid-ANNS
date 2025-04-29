@@ -1,19 +1,19 @@
 # Fdb version 4
-["bibtex main"] 1745812084.45395 "main.aux" "main.bbl" "main" 1745812084.57439 2
+["bibtex main"] 1745824269.29751 "main.aux" "main.bbl" "main" 1745824296.01135 0
   "./ACM-Reference-Format.bst" 1744598145.4644 84856 cdf46f74ac483d72585084276eb3e09d ""
   "./sample.bib" 1744773189.99398 42113 7d4cbcd93b93f701dd42922fd6c7c69c ""
-  "main.aux" 1745812084.21035 18810 c46529d299de53d83fe1d6a47533bcd7 "xelatex"
+  "main.aux" 1745824295.5017 18170 70578b2c7709ac48c83db8450db9a263 "xelatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["xdvipdfmx"] 1745812063.79034 "main.xdv" "main.pdf" "main" 1745812063.78921 2
-  "main.xdv" 1745812084.21144 800304 f1cda6abe9dc06d06e8e74a9e19cf309 "xelatex"
+["xdvipdfmx"] 1745824295.75486 "main.xdv" "main.pdf" "main" 1745824295.75362 2
+  "main.xdv" 1745824295.50279 780472 5842095462c8eaab41097f7b3e3f82c3 "xelatex"
   (generated)
   "main.pdf"
   (rewritten before read)
-["xelatex"] 1745812083.06678 "/Users/yuanjiayu/Documents/GitHub/Hybrid-ANNS/VLDB2026/main.tex" "main.xdv" "main" 1745812084.57456 0
-  "/Users/yuanjiayu/Documents/GitHub/Hybrid-ANNS/VLDB2026/main.tex" 1745812082.88692 90996 99ef23dd839fc306b9692e2b67c51658 ""
+["xelatex"] 1745824294.37925 "/Users/yuanjiayu/Documents/GitHub/Hybrid-ANNS/VLDB2026/main.tex" "main.xdv" "main" 1745824296.01141 0
+  "/Users/yuanjiayu/Documents/GitHub/Hybrid-ANNS/VLDB2026/main.tex" 1745824294.20195 90071 f5574b3e94e210cc8f93894e227d6ebf ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1246382020 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -179,10 +179,10 @@
   "figures/indexData/rangeFilter_legend_only.pdf" 1744705659.23838 12153 045b846dbb6cb5992c80547360f10b86 ""
   "figures/indexData/rangeFilter_memory_mb_comparison_query.pdf" 1744685817.90434 12599 00b315abd475c98612155e1f2783f7af ""
   "figures/ivf.pdf" 1744598145.47991 214161 f93ad03c5792a13d6a523d542b6c0add ""
-  "main.aux" 1745812084.21035 18810 c46529d299de53d83fe1d6a47533bcd7 "xelatex"
-  "main.bbl" 1745812084.57308 31613 40057b49e3a1bd55bd82404f0d67e4ee "bibtex main"
-  "main.out" 1745812084.21127 3530 bfd7a78307cc7bae7d772f692aa8d011 "xelatex"
-  "main.tex" 1745812082.88692 90996 99ef23dd839fc306b9692e2b67c51658 ""
+  "main.aux" 1745824295.5017 18170 70578b2c7709ac48c83db8450db9a263 "xelatex"
+  "main.bbl" 1745824269.3805 31613 40057b49e3a1bd55bd82404f0d67e4ee "bibtex main"
+  "main.out" 1745824295.50261 3244 14119a1dbe22b3e86fa21f949cbf35f5 "xelatex"
+  "main.tex" 1745824294.20195 90071 f5574b3e94e210cc8f93894e227d6ebf ""
   (generated)
   "main.aux"
   "main.log"
