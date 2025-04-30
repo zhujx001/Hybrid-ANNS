@@ -418,7 +418,7 @@ def plot_5_2_2_comparison(all_data):
         # 设置x轴标签
         label_index = chr(97 + col)  # 97是ASCII码中'a'的值
         l = f"({label_index}) Recall@10 ({alg})"
-        ax_multi.set_xlabel(l, 
+        ax_multi.set_xlabel(l,
                          fontproperties=libertine_font,
                          fontsize=20,         # 增大字体大小
                          fontweight='bold')
