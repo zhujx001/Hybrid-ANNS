@@ -630,7 +630,7 @@
 	In this scenario, the index is constructed using 8 attributes but applies filtering condition on only 1 attribute during the query process.
 	\textcolor{red}{We modified the NHQ source code to support this experiment.}
 	
-	Faiss offers an ID filtering mechanism, it operates solely during query execution and does not influence index building. ACORN-1 and ACORN-\(\gamma\) are specifically designed for single-attribute indexing. In database systems (VBASE, PASE, Milvus), \sout{when the system builds both B+ tree and vector indexes, queries typically utilize only the B+ tree.} 
+	Faiss offers an ID filtering mechanism, it operates solely during query execution and does not influence index building. ACORN is designed for single-attribute indexing. In database systems (VBASE, PASE, Milvus), \sout{when the system builds both B+ tree and vector indexes, queries typically utilize only the B+ tree.} 
 	\textcolor{red}{The attributes do not participate in index construction.}
 	Hence, they are excluded from this comparison.
 
