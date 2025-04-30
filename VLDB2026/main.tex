@@ -423,7 +423,7 @@
 	\noindent\textbf{\underline{DSG \cite{DSG}.}}   
 	Most RF-ANN search methods, such as iRange and WinFilter, are designed for static datasets. SeRF allows incremental insertion but requires ordered attributes. DSG introduces the first dynamic RF-ANN framework supporting data insertion with unordered attributes while maintaining efficient range filtering.
 	DSG relies on two data structures: 1) A rectangle tree partitions query space into rectangular regions, each corresponding to a group of queries sharing nearest neighbors. 2) A dynamic segment graph is a neighbor graph where each edge is annotated with its valid attribute range.
-	With these structures, only few regions need updates when inserting new data. During the query process, the system considers only edges valid for current attribute range, boosting efficiency.
+	With these structures, only few regions need updates when inserting new data. \textcolor{blue}{The system considers only edges valid for current attribute range to boost efficiency during search.}
 	
 	\noindent\textbf{\underline{UNIFY \cite{UNIFY}.}}  
 	Unlike DSG, which relies on rectangle trees and range-aware edges, UNIFY adopts a segmentation-based approach and proposes a range query index structure. UNIFY introduces the Segmented Inclusive Graph (SIG), which partitions the dataset into segments by attribute and constructs an independent neighbor graph for each segment. These segment graphs are then integrated into a unified global graph. SIG adheres to a graph inclusiveness principle: any query subgraph can be composed from existing segment graphs, avoiding the need for range-specific index construction. Its hierarchical variant, HSIG, enhances SIG by incorporating the multilayer design of HNSW, skip lists, and edge bitmaps for efficient range localization and post-filtering pruning. UNIFY supports 3 filtering strategies—pre-filtering, post-filtering, and  simultaneous filtering—enabling robust and flexible performance across diverse application scenarios.
@@ -442,7 +442,7 @@
 	
 	
 	\noindent\textbf{\underline{VBASE \cite{vbase}.}}  
-	Similar to PASE, VBASE is a PostgreSQL-based vector indexing plugin supporting HNSW, SPTAG~\cite{sptag}, and SPANN~\cite{spann}. \textcolor{red}{We focus on HNSW-based search because SPTAG and SPANN have poorer performance and their source code does not fully implement index-building functionality}. VBASE adopts a post-filtering strategy. However, it employs an iterative filtering mechanism: during index traversal, each node is immediately checked against the WHERE clause, and non-matching nodes are discarded. This avoids the issue in PASE where the final result set may contain fewer than $k$ results.
+	Similar to PASE, VBASE is a PostgreSQL-based vector indexing plugin supporting HNSW, SPTAG~\cite{sptag}, and SPANN~\cite{spann}. \textcolor{red}{We focus on HNSW-based search because SPTAG and SPANN have poorer performance and their source code does not fully implement index-building functionality}. VBASE adopts a post-filtering strategy. However, it employs an iterative filtering mechanism: during index traversal, \textcolor{blue}{each node is checked} against the WHERE clause, and non-matching nodes are discarded. This avoids the issue in PASE where the final result set may contain fewer than $k$ results.
 	
 	\noindent\textbf{\underline{Milvus \cite{milvus}.}}  
 	Unlike PASE and VBASE, which are database extensions, Milvus is an vector database purpose-built for large-scale similarity search. It supports multiple index types, including HNSW, IVF\_Flat, and IVF\_PQ, and provides extensive optimization for real-world deployment. Among its indexes, IVF\_Flat is commonly used due to its balance between performance and simplicity. In hybrid queries, Milvus first pre-filters the dataset using user-specified conditions, then traverses only the corresponding clusters for ANN search—similar to the ID selector mechanism of Faiss.
@@ -495,7 +495,7 @@
 	
 	\subsubsection{Evaluation Metrics}
 	
-	To comprehensively assess the overall performance of different algorithms, we adopt a multi-dimensional quantitative evaluation framework~\cite{compare}, which includes the following 5 core metrics:
+	To assess the overall performance of different algorithms, we adopt a multi-dimensional quantitative evaluation framework~\cite{compare}, including the following 5 core metrics:
 	
 	\begin{enumerate}
 		
@@ -508,7 +508,7 @@
 	
 	\subsubsection{Parameter Settings}
 	
-	For all evaluated algorithms, we adopt the parameter settings recommended in the original study and adjust the parameters related to search in order to obtain different Recall and QPS.
+	\textcolor{blue}{For all algorithms, we adopt recommended settings from the original study and adjust the parameters related to search in order to obtain different Recall and QPS.}
 	
 	
 	
