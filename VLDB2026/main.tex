@@ -184,7 +184,7 @@
 	
 	
 	(5)\textbf{ Recommendations and Challenges.}
-	Based on the experimental results, we provide algorithm selection recommendations for common application scenarios and highlight key challenges in the field of hybrid queries. These challenges include limited Boolean logic support, the lack of multi-attribute range filtering capabilities, and the sensitivity of algorithms to data distribution. \textcolor{blue} {Currently, few methods simultaneously support both attribute filtering and range filtering, pointing to potential directions for future research.}
+	Based on the experimental results, we provide algorithm selection recommendations for common application scenarios and highlight key challenges in the field of hybrid queries. These challenges include limited Boolean logic support, the lack of multi-attribute range filtering capabilities, and the sensitivity of algorithms to data distribution. \sout {Currently, few methods simultaneously support both attribute filtering and range filtering, pointing to potential directions for future research.}
 	
 	\section{PRELIMINARIES}
 	
@@ -453,7 +453,7 @@
 	For range filtering queries, we evaluate 3 widely used real-world datasets: Deep~\cite{yandex_deep_dataset}, YT-Audio~\cite{youtube8m_dataset}, and WIT~\cite{wit_dataset}. Following prior work~\cite{DSG}, we use the data point ID within each dataset as its attribute. This ensures that the data is initially sorted.
 	\textcolor{red}{In addition, we evaluate the performance of different algorithms on the Out-of-Distribution (OOD) dataset Text2Image~\cite{texttoimage}.}
 	
-	Table~\ref{tab:datasets_combined} summarizes the key characteristics of all datasets. In particular, we report the Local Intrinsic Dimensionality (LID)~\cite{Lid}, a commonly used metric to quantify dataset hardness. Following the standard evaluation protocol~\cite{LID2}, we randomly sample 10,000 data points from each dataset for LID computation. A higher LID indicates greater intrinsic complexity.
+	Table~\ref{tab:datasets_combined} summarizes the key characteristics of all datasets. In particular, we report the Local Intrinsic Dimensionality (LID)~\cite{Lid}, a commonly used metric to quantify dataset hardness. Following the standard evaluation protocol~\cite{LID2}, we randomly sample 10,000 data points from each dataset for LID computation.The higher the LID value, the harder the dataset.
 	
 
 	\renewcommand{\arraystretch}{0.9}
@@ -506,7 +506,7 @@
 	
 	\subsubsection{Parameter Settings}
 	
-	For all evaluated algorithms, we adopt the parameter settings recommended in the original study and adjust the parameters related to search in order to obtain different recall and QPS.
+	For all evaluated algorithms, we adopt the parameter settings recommended in the original study and adjust the parameters related to search in order to obtain different Recall and QPS.
 	
 	
 	
@@ -570,7 +570,7 @@
 	
 	
 	
-	To investigate the performance of different attribute filtering algorithms during index construction, we evaluate 3 key metrics in the single-attribute scenario: index construction time, index size, and peak memory usage. Notably, PASE is evaluated exclusively on Audio, GloVe, Msong, and SIFT1M as it supports only data with dimensionality less than 512.
+	To investigate the performance of different attribute filtering algorithms during index construction, we evaluate 3 key metrics in the single-attribute scenario: index construction time, index size, and peak memory usage. \textcolor{blue}{Notably, PASE on GIST1M and Enron is omitted, as it supports only data with dimensionality less than 512. }
 	
 	\begin{figure*}
 		\centering
@@ -939,13 +939,13 @@
 	%	 修改此处
 	ACORN performs similarly on both large and small range queries, but its overall performance is worse than the other methods. Unlike other range filtering algorithms, ACORN is not designed with specialized data structures (such as the $\beta$-WST in WinFilter, the rectangle tree and dynamic segment graph in SeRF, or the HSIG in UNIFY) to achieve efficient range filtering. In fact, the graph structure used by ACORN for attribute filtering is the same as that used for range filtering.
 	
-	For third-party libraries and databases, Figure~\ref{fig:exp_8_2} shows that Faiss performs well in range filtering and even outperforms some specialized range query algorithms in certain cases. Faiss does not include optimizations specifically tailored for range filtering scenarios; its query mechanism is identical to that used in tag filtering scenarios. However, since attributes are pre-sorted in range filtering scenarios, the filtering overhead is minimal, leading to improved query performance. Similar to the selectivity observed in attribute filtering, Faiss performs better in small-range filtering scenarios because it searches over the filtered vectors. With a smaller range, fewer points remain after filtering, resulting in lower computational cost. In addition, the performance of Faiss is influenced by data dimensionality; it tends to work better on low-dimensional datasets.
+	For third-party \textcolor{red}{library} and databases, Figure~\ref{fig:exp_8_2} shows that Faiss performs well in range filtering and even outperforms some specialized range query algorithms in certain cases. Faiss does not include optimizations specifically tailored for range filtering scenarios; its query mechanism is identical to that used in \textcolor{red}{attribute} filtering scenarios. However, since attributes are pre-sorted in range filtering scenarios, the filtering overhead is minimal, leading to improved query performance. Similar to the selectivity observed in attribute filtering, Faiss performs better in small-range filtering scenarios because it searches over the filtered vectors. With a smaller range, fewer points remain after filtering, resulting in lower computational cost. In addition, the performance of Faiss is influenced by data dimensionality; it tends to work better on low-dimensional datasets.
 	
 	Vector databases also show relatively poor performance on range queries. Among them, Milvus performs more balanced across both small-range and large-range queries, even surpassing ACORN under high recall settings. PASE performs poorly on small-range queries, with recall lower than 0.1, due to its post-filtering strategy. VBASE performs better on large-range queries. Compared to PASE, its performance on small ranges is significantly improved, achieving higher recall despite very low QPS.
 	
 	
 	
-	It is important to note that this range query experiment is conducted under a fully static setting. Under such conditions, UNIFY, iRange, SeRF, and WinFilter require the dataset to be sorted by attribute prior to index construction. In contrast, DSG  support dynamic index construction with unordered attribute insertions, making them more suitable for streaming or incremental data scenarios. This flexibility highlights their superior extensibility in real-world applications.
+	It is important to note that this range query experiment is conducted under a fully static setting. Under such conditions, UNIFY, iRange, SeRF, and WinFilter require the dataset to be sorted by attribute prior to index construction. In contrast, DSG  supports dynamic index construction with unordered attribute insertions, making it more suitable for streaming or incremental data scenarios. This flexibility highlights its superior extensibility in real-world applications.
 	\subsubsection{Robustness.}
 	
 
@@ -956,7 +956,7 @@
 		\label{fig:exp_8_3}
 	\end{figure*}
 	
-	To evaluate the robustness of the RF-ANNS algorithm in different scenarios, we \textcolor{red}{add} an OOD dataset to the three standard datasets and \textcolor{red}{test} performance under large-range queries. As shown in Figure~\ref{fig:exp_8_3}, most methods \textcolor{red}{perform} worst on the Text2Image dataset. This is because OOD queries make the $k$-nearest neighbor distribution more sparse. As a result, the search needs to visit more nodes, which leads to an exponential growth in the search space and a sharp drop in efficiency.
+	To evaluate the robustness of the RF-ANNS \textcolor{red}{algorithms} in different scenarios, we \textcolor{red}{add} an OOD dataset Text2Image to the three standard datasets and \textcolor{red}{test} performance under large-range queries. As shown in Figure~\ref{fig:exp_8_3}, most methods \textcolor{red}{perform} worst on the Text2Image dataset. This is because OOD queries make the $k$-nearest neighbor distribution more sparse. As a result, the search needs to visit more nodes, which leads to an exponential growth in the search space and a sharp drop in efficiency.
 	
 	WinFilter \textcolor{red}{shows} the worst performance on the WIT dataset. This suggests that its performance is sensitive to the data dimensionality. ACORN \textcolor{red}{has} large performance differences across datasets, indicating weak robustness.
 	
