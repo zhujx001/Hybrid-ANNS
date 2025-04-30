@@ -629,8 +629,10 @@
 	Among all methods, vector database systems (PASE, VBASE, Milvus) perform the worst. These systems target general-purpose scenarios but incur communication latency from network I/O and experience high query processing overhead due to complex query parsing. Additionally, we observe that Faiss+HQI\_Batch outperforms original Faiss, indicating that batch querying via HQI can effectively enhance query performance.
 	
 	\textit{Multi-Thread Search.}
-	As shown in Figure~\ref{fig:exp_1_2_SingleLabel_16thread}, UNG continues to achieve the best performance. Puck performs well on large-scale datasets, but its performance degrades on small datasets. Puck is tailored for large-scale scenarios, and optimizations such as two-level inverted indexing and hierarchical quantization introduce unnecessary overhead on small datasets. 
-	CAPS maintains a relatively high throughput under multi-threads but exhibits limited adaptability to different datasets. The vector distribution of the dataset affects the construction of its partitioned index.
+	As shown in Figure~\ref{fig:exp_1_2_SingleLabel_16thread}, UNG continues to achieve the best performance. 
+	%Puck performs well on large-scale datasets, but its performance degrades on small datasets. Puck is tailored for large-scale scenarios, and optimizations such as two-level inverted indexing and hierarchical quantization introduce unnecessary overhead on small datasets. 
+	\textcolor{blue}{Puck performs well on large datasets but degrades on smaller ones due to overhead from optimizations like two-level inverted indexing and hierarchical quantization. }
+	CAPS maintains a relatively high throughput under multi-threads but exhibits limited adaptability to different datasets. The vector distribution of the dataset affects the construction of its partitioned %index.
 	
 	ACORN performs poorly overall, primarily due to the sensitivity of its hyperparameter $\gamma$ to attribute selectivity. Without careful tuning based on dataset characteristics, it is challenging to construct an effective index.
 	
@@ -638,7 +640,8 @@
 	In this scenario, the index is constructed using 8 attributes but applies filtering condition on only 1 attribute during the query process.
 	\textcolor{red}{We modified the NHQ source code to support this experiment.}
 	
-	Faiss offers an ID filtering mechanism, it operates solely during query execution and does not influence index building. ACORN-1 and ACORN-\(\gamma\) are specifically designed for single-attribute indexing. In database systems (VBASE, PASE, Milvus), \sout{when the system builds both B+ tree and vector indexes, queries typically utilize only the B+ tree.} 
+	Faiss offers an ID filtering mechanism, it operates solely during query execution and does not influence index building. \textcolor{blue}{ACORN is   designed for} single-attribute indexing. In database systems (VBASE, PASE, Milvus), 
+	\sout{when the system builds both B+ tree and vector indexes, queries typically utilize only the B+ tree.} 
 	\textcolor{red}{The attributes do not participate in index construction.}
 	Hence, they are excluded from this comparison.
 
@@ -663,7 +666,7 @@
 	
 	
 	\textit{Performance of Algorithms under Multi-Attribute Building (M vs. M).}  
-	As shown in Figure \ref{fig:exp_2_1}, IVF-based methods (Puck and CAPS) significantly outperform graph-based methods. The reason for Puck's superior performance is that it filters out irrelevant results during the retrieval process rather than searching for more candidates. The performance of CAPS is as good as that of Puck. \sout{The difference between them is that CAPS further groups the results by attributes within clusters.} In contrast, FilteredVamana performs the worst because its multi-attribute indexing forces neighbor selection to cover multiple attributes, thereby reducing the efficiency of single-attribute queries. This results in excessive traversal of irrelevant nodes, making it slower than other methods.
+	As shown in Figure \ref{fig:exp_2_1}, IVF-based methods (Puck and CAPS) significantly outperform graph-based methods. The reason for Puck's superior performance is that it filters out irrelevant results during the retrieval process rather than searching for more candidates. The performance of CAPS is as good as that of Puck. \sout{The difference between them is that CAPS further groups the results by attributes within clusters.} In contrast, FilteredVamana performs the worst because its multi-attribute indexing forces neighbor selection to cover multiple attributes, reducing the efficiency of single-attribute queries. This results in excessive traversal of irrelevant nodes, making it slower than other methods.
 	
 	
 	\begin{figure*}
@@ -704,11 +707,11 @@
 	
 	\subsubsection{Robustness}In the following, we evaluate the robustness of these algorithms.
 	
-	\textit{\textbf{Attribute Distribution.}} To comprehensively evaluate performance across different attribute distributions, we generate base and query attribute sets with 4 representative distributions—long-tailed, normal, power-law, and uniform—across the 6 datasets described in Section~4.1.1. We evaluate all algorithms under these distributions on each dataset. The performance differences observed for the same algorithm across different datasets are relatively minor. Thus, due to space constraints, we present only the results on SIFT1M.
+	\textit{\textbf{Attribute Distribution.}} \textcolor{blue}{To evaluate} performance across different attribute distributions, we generate base and query attribute sets with 4 representative distributions—long-tailed, normal, power-law, and uniform—across the 6 datasets described in Section~4.1.1. We evaluate all algorithms under these distributions on each dataset. The performance differences observed for the same algorithm across different datasets are relatively minor. Thus, due to space constraints, we present only the results on SIFT1M.
 	
-	As illustrated in Figure~\ref{fig:exp_3_1}, the evaluated algorithms exhibit varying degrees of sensitivity to attribute distribution shifts. Specifically, ACORN-1, ACORN-$\gamma$, Milvus, Puck, CAPS, StitchedVamana, and UNG demonstrate strong robustness to such shifts. In contrast, Faiss, FilteredVamana, NHQ, VBASE, and PASE show notable sensitivity.
+	As illustrated in Figure~\ref{fig:exp_3_1}, the evaluated algorithms exhibit varying degrees of sensitivity to attribute distribution shifts. Specifically, \textcolor{blue}{ACORN}, Milvus, Puck, CAPS, StitchedVamana, and UNG demonstrate strong robustness to such shifts. In contrast, Faiss, FilteredVamana, NHQ, VBASE, and PASE show notable sensitivity.
 	
-	Among all algorithms, ACORN-\(\gamma\) demonstrates the highest robustness. During index construction, attribute is mainly used for pruning in the lowest layer graph, while the upper-layer hierarchical navigation graphs remain largely unaffected. As a result, changes in attribute distribution have a limited impact on overall performance.
+	Among all algorithms, ACORN-\(\gamma\) \textcolor{blue}{shows} the highest robustness. During index construction, attribute is mainly used for pruning in the lowest layer graph, while the upper-layer hierarchical navigation graphs remain largely unaffected. As a result, changes in attribute distribution have a limited impact on overall performance.
 	
 	In contrast, VBASE exhibits the weakest robustness. As a post-filtering system, it performs significantly better under uniform distributions but degrades under long-tailed, normal, and power-law distributions. This degradation stems from the low selectivity of certain attributes in the last 3 distributions, which increases unnecessary distance computations, thus reducing overall efficiency.
 	
@@ -725,7 +728,7 @@
 	\textit{\textbf{Single-Attribute Selectivity.}}
 	In hybrid queries, varying levels of attribute selectivity (AS) can significantly impact computational cost and query efficiency, as the algorithm must efficiently identify data points matching specific attributes within large datasets. AS is defined as the proportion of data points sharing a given attribute value. For example, AS of 1\% indicates that only 1\% of the dataset meets the given attribute. 
 	
-	To investigate this effect, we evaluate 4 AS levels (1\%, 25\%, 50\%, and 75\%) on the SIFT1M dataset. Using a single-thread execution environment, we compare the query performance of attribute filtering algorithms under varying AS conditions, as shown in Figure~\ref{fig:exp_5_1_1_SingleLabel_1thread}.
+	To investigate this effect, we evaluate 4 AS levels (1\%, 25\%, 50\%, and 75\%) on the SIFT1M dataset \textcolor{blue}{using single-thread execution. We} compare the query performance of attribute filtering algorithms under varying AS conditions, as shown in Figure~\ref{fig:exp_5_1_1_SingleLabel_1thread}.
 	
 	Experimental results show that UNG achieves the best performance across all AS levels, especially at extremely low AS (1\%). 
 	This advantage stems from its pre-filtering strategy. Pre-filtering strategy significantly reduces the ANN search space by narrowing down candidates prior to vector computation. In contrast, VBASE performs the worst at 1\% AS due to its post-filtering strategy. Post-filtering strategy first retrieves a large number of candidates and then applies filtering, incurring substantial computational overhead.
@@ -770,7 +773,7 @@
 	\end{figure*}
 	
 	
-	According to the query performance trends of different algorithms under varying AS levels, we categorize the algorithms into 3 groups:
+	\textcolor{blue}{Based on the} query performance trends of different algorithms under varying AS levels, we categorize the algorithms into 3 groups:
 	
 	(1) \textit{Algorithms optimized for low AS levels.}  
 	This group includes ACORN-1, Faiss+HQI\_Batch, StitchedVamana, UNG, Faiss, Puck, and CAPS, as illustrated in Figure~\ref{fig:exp_5_2_1}.
