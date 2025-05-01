@@ -449,7 +449,7 @@
 	\subsection{Experimental Setup}
 	\subsubsection{Datasets}
 	
-	For attribute filtering tasks, we employ 6 real-world datasets widely adopted in existing literature: Msong~\cite{msong2011}, Audio~\cite{audio_unknown}, SIFT1M~\cite{sift2010}, GIST1M~\cite{sift2010}, GloVe~\cite{GloVe2015}, Enron~\cite{enron2015} , covering a diverse range of domains. We independently generate attribute for each dataset.
+	For attribute filtering tasks, we employ 6 real-world datasets widely adopted in existing literature: Msong~\cite{msong2011}, Audio~\cite{audio_unknown}, SIFT1M~\cite{sift2010}, GIST1M~\cite{sift2010}, GloVe~\cite{GloVe2015}, Enron~\cite{enron2015}, covering a diverse range of domains. We independently generate attribute for each dataset.
 	For range filtering queries, we evaluate 3 widely used real-world datasets: Deep~\cite{yandex_deep_dataset}, YT-Audio~\cite{youtube8m_dataset}, and WIT~\cite{wit_dataset}. Following prior work~\cite{DSG}, we use the data point ID within each dataset as its attribute. This ensures that the data is initially sorted.
 	\textcolor{red}{In addition, we evaluate the performance of different algorithms on the Out-of-Distribution (OOD) dataset Text2Image~\cite{texttoimage}.}
 	
@@ -630,8 +630,7 @@
 	\textit{Multi-Thread Search.}
 	As shown in Figure~\ref{fig:exp_1_2_SingleLabel_16thread}, UNG continues to achieve the best performance. 
 	%Puck performs well on large-scale datasets, but its performance degrades on small datasets. Puck is tailored for large-scale scenarios, and optimizations such as two-level inverted indexing and hierarchical quantization introduce unnecessary overhead on small datasets. 
-	\textcolor{blue}{Puck performs well on large datasets but degrades on smaller ones due to overhead from optimizations like two-level inverted indexing and hierarchical quantization. }
-	CAPS maintains a relatively high throughput under multi-threads but exhibits limited adaptability to different datasets. The vector distribution of the dataset affects the construction of its \textcolor{blue}{partitioned index.}
+	Puck performs well on large datasets but degrades on smaller ones due to overhead from optimizations like two-level inverted indexing and hierarchical quantization. CAPS maintains a relatively high throughput under multi-threads but exhibits limited adaptability to different datasets. The vector distribution of the dataset affects the construction of its \textcolor{blue}{partitioned index.}
 	 ACORN performs poorly overall, primarily due to the sensitivity of its hyperparameter $\gamma$ to attribute selectivity. Without careful tuning based on dataset characteristics, it is challenging to construct an effective index.
 	
 	\textit{\textbf{Multi-Attribute Building and Single-Attribute Query.}}
@@ -1047,10 +1046,10 @@
 	
 	Our experiments show that graph compression methods often lead to poor query performance in RF-ANN search. To address this problem, subsequent algorithms usually optimize the index processing at the segment tree nodes. UNIFY newly proposes segment graphs and integrates multiple data structures to process queries. Although UNIFY performs slightly worse on small-range queries, its proposed index structure broadens the research direction.
 	
-	\textcolor{blue}{
+	
 		In our experiments, many range filtering algorithms perform worse than Faiss at high recall (0.95), showing that current algorithm designs still need improvement. We suggest future future range filtering algorithms include Faiss as a baseline.
 		%In our experiments, we find that many range filtering algorithms perform worse than Faiss at high recall (0.95). This shows that the design of current algorithms still needs improvement. We suggest that future range filtering algorithms should include Faiss as a baseline.
-	}
+	
 	
 	It is also worth noting that range filtering and attribute filtering are both forms of hybrid query. However, aside from vector databases and ACORN, few existing algorithms support both modalities simultaneously. Designing unified frameworks that simultaneously support both is an important research frontier. 
 	
