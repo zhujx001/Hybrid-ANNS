@@ -913,7 +913,7 @@
 	
 	\textit{\textbf{Index size.}} 
 	As shown in Figure~\ref{fig:rangeFilter_index_size_mb}, Among all algorithms, Faiss has the smallest index size. Because IVF only adds centroid data and partition information to the vector dataset, the IVF index is only slightly larger than the vector dataset.
-	On low-dimensional datasets (Deep, YT-Audio), PASE requires the most storage. Its implementation likely wastes space due to alignment padding and inefficient encoding (e.g., Base64).
+	On low-dimensional datasets (Deep, YT-Audio), PASE requires the most storage. Its implementation likely wastes space due to alignment padding and inefficient encoding. %(e.g., Base64).
 	
 	SeRF maintains a compact index for low-dimensional data. However, for high-dimensional dataset (WIT), SeRF stores more edges and dynamic range data, significantly increasing its size.
 	
