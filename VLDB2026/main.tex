@@ -705,9 +705,9 @@
 	
 	
 	
-	\subsubsection{Robustness}In the following, we evaluate the robustness of these algorithms.
+	\subsubsection{Robustness}In the following, we evaluate the robustness of \textcolor{blue}{attribute filtering algorithms.}
 	
-	\textit{\textbf{Attribute Distribution.}} \textcolor{blue}{To evaluate} performance across different attribute distributions, we generate base and query attribute sets with 4 representative distributions—long-tailed, normal, power-law, and uniform—across the 6 datasets described in Section~4.1.1. We evaluate all algorithms under these distributions on each dataset. The performance differences observed for the same algorithm across different datasets are relatively minor. Thus, due to space constraints, we present only the results on SIFT1M.
+	\textit{\textbf{Attribute Distribution.}} \textcolor{blue}{To evaluate the performance of these algorithms across different attribute distributions, we generate attribute} sets with 4 representative distributions—long-tailed, normal, power-law, and uniform—across the 6 datasets described in Section~4.1.1. We evaluate all algorithms under these distributions on each dataset. The performance differences observed for the same algorithm across different datasets are relatively minor. Thus, due to space constraints, we present only the results on SIFT1M.
 	
 	As illustrated in Figure~\ref{fig:exp_3_1}, the evaluated algorithms exhibit varying degrees of sensitivity to attribute distribution shifts. Specifically, \textcolor{blue}{ACORN}, Milvus, Puck, CAPS, StitchedVamana, and UNG demonstrate strong robustness to such shifts. In contrast, Faiss, FilteredVamana, NHQ, VBASE, and PASE show notable sensitivity.
 	
