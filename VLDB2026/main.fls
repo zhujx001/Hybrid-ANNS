@@ -420,3 +420,9 @@ INPUT ./figures/exp/exp_8_2.pdf
 INPUT ./figures/exp/exp_8_3.pdf
 INPUT ./figures/exp/exp_8_3.pdf
 INPUT ./figures/exp/exp_8_3.pdf
+INPUT ./main.bbl
+INPUT ./main.bbl
+INPUT main.bbl
+INPUT main.aux
+INPUT ./main.out
+INPUT ./main.out
