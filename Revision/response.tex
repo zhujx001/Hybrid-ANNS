@@ -1,0 +1,491 @@
+% VLDB template version of 2020-08-03 enhances the ACM template, version 1.7.0:
+% https://www.acm.org/publications/proceedings-template
+% The ACM Latex guide provides further information about the ACM template
+
+\documentclass[sigconf, nonacm]{acmart}
+
+%% The following content must be adapted for the final version
+% paper-specific
+\newcommand\vldbdoi{XX.XX/XXX.XX}
+\newcommand\vldbpages{XXX-XXX}
+% issue-specific
+\newcommand\vldbvolume{18}
+\newcommand\vldbissue{1}
+\newcommand\vldbyear{2025}
+% should be fine as it is
+\newcommand\vldbauthors{\authors}
+\newcommand\vldbtitle{\shorttitle} 
+% leave empty if no availability url should be set
+%\newcommand\vldbavailabilityurl{https://github.com/Wangwenjing1996/Sirloin}
+% whether page numbers should be shown or not, use 'plain' for review versions, 'empty' for camera ready
+\newcommand\vldbpagestyle{plain}
+
+\usepackage{subfigure}
+\usepackage[vlined,ruled,linesnumbered]{algorithm2e}
+\def\cmtb{\textcolor{blue}}
+\def\cmtr{\textcolor{red}}
+\usepackage{amsthm}
+\usepackage{enumitem}
+\usepackage{multirow}
+\usepackage{balance}
+\usepackage{flushend}
+\usepackage{mdframed}
+\usepackage{tcolorbox}
+\usepackage{fancybox}
+
+\newtheorem{example}{Example}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{remark}{Remark}
+
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+
+\newenvironment{summary}[1][]{\par\medskip
+	\noindent\textbf{#1}
+}{\medskip}
+
+\newcounter{weakness}[section]
+\setcounter{weakness}{0}
+\renewcommand{\theweakness}{\arabic{weakness}}
+\newenvironment{weakness}[1][]{\refstepcounter{weakness}\par\medskip
+	\noindent\textbf{W\theweakness.#1} }{\medskip}
+
+\newcounter{detailed}[section]
+\setcounter{detailed}{0}
+\renewcommand{\thedetailed}{\arabic{detailed}}
+\newenvironment{detailed}[1][]{\refstepcounter{detailed}\par\medskip
+	\noindent\textbf{D\thedetailed.#1} }{\medskip}
+
+\newcounter{revision}[section]
+\setcounter{revision}{0}
+\renewcommand{\therevision}{\arabic{revision}}
+\newenvironment{revision}[1][]{\refstepcounter{revision}\par\medskip
+	\noindent\textbf{R\therevision.#1} }{\medskip}
+
+\newcounter{metarevision}[section]
+\setcounter{metarevision}{0}
+\renewcommand{\themetarevision}{\arabic{metarevision}}
+\newenvironment{metarevision}[1][]{\refstepcounter{metarevision}\par\medskip
+	\noindent\textbf{R\themetarevision.#1} }{\medskip}
+
+%\newcommand{\myfbox}[1]{%
+%	\vspace{0.2cm}
+%	\noindent
+%	\fbox{\parbox{8.25cm}{#1}}
+%	\vspace{0.15cm}
+%}
+\usepackage{xcolor}  % 确保引入了 xcolor 宏包
+
+%\newcommand{\myfbox}[2][blue!5]{%
+%	\vspace{0.2cm}
+%	\noindent
+%	\colorbox{#1}{\parbox{8.25cm}{#2}}%
+%	\vspace{0.15cm}
+%}
+
+\newcommand{\myfbox}[1]{%
+	\vspace{0.2cm}
+	\noindent
+	{\setlength{\fboxsep}{2.8pt}\setlength{\fboxrule}{0.4pt}%
+		\fcolorbox{blue}{blue!6}{\parbox{8.25cm}{#1}}}%
+	\vspace{0.15cm}
+}
+
+\begin{document}
+%\title{Sirloin: Streaming Time Series Subsequence Anomaly Detection via Online Product Quantization}
+\title{Response to Reviewer Comments:\\ ``
+	An Experimental Evaluation of Hybrid Querying on Vectors (EA\&B)''\\
+Submission to VLDB 2026 Research Track (ID )
+}
+
+\author{
+	Jiaxu Zhu, Jiayu Yuan, Kaiwen Yang, Xiaobao Chen, Shihuan Yu, \\
+	Hongchang Lv, Yan Li, Bolong Zheng
+}
+	
+\maketitle
+\pagestyle{plain}
+
+\noindent
+Dear meta-reviewer and reviewers:
+	
+Thank you for giving us the opportunity to revise our paper. We are deeply grateful for the reviewers' constructive feedback and the comprehensive suggestions provided in the meta-review. 
+We believe that we have addressed all the major issues
+and concerns, and the changes are highlighted \textcolor{blue}{in blue} according to the reviewers' comments.
+
+\section*{Response To Meta-reviewer}
+
+%%%%%%%%%%%%%%%%%%%% Summary %%%%%%%%%%%%%%%%%%%%
+\myfbox{
+	\begin{summary}[Summary Comments.]
+		\textit{The paper empirically studies performance of hybrid querying methods with respect to two types of queries: attribute filtering (AF) NN search, range filtering (RF) NN search. This is a timely problem with high practical relevance. Nevertheless, several improvements would benefit the paper. We therefore recommend a revision. The main revision points are summarized below, however, we expect that the authors do their best in addressing all points raised in the individual reviews.}
+	\end{summary}
+}
+
+\noindent
+\textbf{Response:} 
+
+%%%%%%%%%%%%%%%%%%%%%% R1 %%%%%%%%%%%%%%%%%%%%%%
+\myfbox{
+	\begin{metarevision}
+		\textit{Improve the readability of some figures (e.g., performance under different attribute distributions or selectivity).}
+	\end{metarevision}
+}
+
+\noindent
+	\textbf{Response:} 
+
+%%%%%%%%%%%%%%%%%%%%%% R2 %%%%%%%%%%%%%%%%%%%%%%
+\myfbox{
+	\begin{metarevision}
+		\textit{Run experiments with multi-modal queries (e.g., combining text and images) or more complex query types involving both attribute and range filters.}
+	\end{metarevision}
+}
+
+\noindent
+\textbf{Response:} 
+
+
+%%%%%%%%%%%%%%%%%%%%%% R4 %%%%%%%%%%%%%%%%%%%%%%
+\myfbox{
+	\begin{metarevision}
+		\textit{Instead of using the point ID, run experiments with meaningful attributes for RF-NN search on datasets (Deep, YT-Audio, WIT).}
+	\end{metarevision}
+}
+
+\noindent
+\textbf{Response:} 
+
+%%%%%%%%%%%%%%%%%%%%%% R5 %%%%%%%%%%%%%%%%%%%%%%
+\myfbox{
+	\begin{metarevision}
+		\textit{Evaluate if the server setting affects the relative ordering of methods in experiments}
+	\end{metarevision}
+}
+
+\noindent
+\textbf{Response:} 
+
+%%%%%%%%%%%%%%%%%%%%%% R6 %%%%%%%%%%%%%%%%%%%%%%
+\myfbox{
+	\begin{metarevision}
+		\textit{In Table 1, please clarify which methods are disk-based, and which methods are memory-based.
+			For disk-based methods, it is also meaningful to report the cost breakdown (e.g., in terms of I/O time and CPU time).}
+	\end{metarevision}
+}
+
+\noindent
+\textbf{Response:} 
+
+%%%%%%%%%%%%%%%%%%%%%% R7 %%%%%%%%%%%%%%%%%%%%%%
+\myfbox{
+	\begin{metarevision}
+		\textit{Report the peak memory usage of query processing.}
+	\end{metarevision}
+}
+
+\noindent
+\textbf{Response:} 
+
+%%%%%%%%%%%%%%%%%%%%%% R8 %%%%%%%%%%%%%%%%%%%%%%
+\myfbox{
+	\begin{metarevision}
+		\textit{Run Scalability experiments with larger datasets.}
+	\end{metarevision}
+}
+
+\noindent
+\textbf{Response:} 
+
+%%%%%%%%%%%%%%%%%%%%%% R9 %%%%%%%%%%%%%%%%%%%%%%
+\myfbox{
+	\begin{metarevision}
+		\textit{Clearer insights and guidelines wrt the strength and weaknesses of the compared system.}
+	\end{metarevision}
+}
+
+\noindent
+\textbf{Response:} 
+
+%%%%%%%%%%%%%%%%%%%%%% R10 %%%%%%%%%%%%%%%%%%%%%%
+\myfbox{
+	\begin{metarevision}
+		\textit{Clearer guidelines in the Discussion to the extend of recommendations on which system/algo to use for what dataset characteristics.}
+	\end{metarevision}
+}
+
+\noindent
+\textbf{Response:} 
+
+
+\section*{Response to Review 1}
+
+%%%%%%%%%%%%%%%%%%%%%% W1 %%%%%%%%%%%%%%%%%%%%%%
+\myfbox{
+	\begin{weakness}
+		\textit{Although the authors justify the synthetic attribute generation, real-world applications may involve more complex attribute semantics and correlations, which might affect generalizability.}
+	\end{weakness}
+}
+
+\noindent
+\textbf{Response:} 
+
+%%%%%%%%%%%%%%%%%%%%%% W2 %%%%%%%%%%%%%%%%%%%%%%
+\myfbox{
+	\begin{weakness}
+		\textit{Some figures (e.g., performance under different attribute distributions or selectivity) are dense and could benefit from cleaner presentation or summarization to improve readability.}
+	\end{weakness}
+}
+
+\noindent
+\textbf{Response:} 
+
+%%%%%%%%%%%%%%%%%%%%%% W3 %%%%%%%%%%%%%%%%%%%%%%
+\myfbox{
+	\begin{weakness}
+		\textit{It would strengthen the paper to delve into multi-modal queries (e.g., combining text and images) or more complex query types involving both attribute and range filters.}
+	\end{weakness}
+}
+
+\noindent
+\textbf{Response:} 
+
+\section*{Response to Review 2}
+\setcounter{weakness}{0}
+
+%%%%%%%%%%%%%%%%%%%%%% W1 %%%%%%%%%%%%%%%%%%%%%%
+\myfbox{
+	\begin{weakness}
+		\textit{In the experimental study, datasets did not originate from the real applications for hybrid queries.
+			Regarding the datasets for AF-NN search (Msong, Audio, SIFT1M, GIST1M, GloVe, Enron),
+			the attributes were generated synthetically but not real.
+			Regarding the datasets for RF-NN search (Deep, YT-Audio, WIT), the data point ID was used as attribute;
+			however, it is not meaningful to issue range query on data point ID.
+			In order to match with the introduction, the authors are recommended to
+			include a real dataset from e-commerce platform with both vectors and attributes.
+		}
+	\end{weakness}
+}
+
+
+
+
+\noindent
+\textbf{Response:} 
+
+%%%%%%%%%%%%%%%%%%%%%% W2 %%%%%%%%%%%%%%%%%%%%%%
+\myfbox{
+	\begin{weakness}
+		\textit{All experiments were conducted on the same server mentioned in Section 4.1.3.
+			However, in practice, server providers may use other hardware settings (with other processors and RAM).
+			Would the server setting affect the relative ordering of methods in experiments?
+			For example, if Intel Xeon processor is used, would there be any change of the top 3 methods in Figures 4,5,7,8?
+			Would the CPU cache size affect the top 3 methods in those figures?}
+	\end{weakness}
+}
+
+
+
+\noindent
+\textbf{Response:} 
+
+%%%%%%%%%%%%%%%%%%%%%% W3 %%%%%%%%%%%%%%%%%%%%%%
+\myfbox{
+	\begin{weakness}
+		\textit{In the experimental setup, it is unclear whether data storage (disk or SSD) is used.
+			In Table 1, please clarify which methods are disk-based, and which methods are memory-based.
+			For disk-based methods, it is also meaningful to report the cost breakdown (e.g., in terms of I/O time and CPU time).}
+	\end{weakness}
+}
+
+\noindent
+\textbf{Response:} 
+
+%%%%%%%%%%%%%%%%%%%%%% W4 %%%%%%%%%%%%%%%%%%%%%%
+\myfbox{
+	\begin{weakness}
+		\textit{The authors have reported the peak memory usage of index construction only.
+			They are also recommended to report the peak memory usage of query processing.}
+	\end{weakness}
+}
+
+\noindent
+\textbf{Response:} 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%% D1 %%%%%%%%%%%%%%%%%%%%%%
+\myfbox{
+	\begin{detailed}
+		\textit{The authors have cited an experimental paper [49],
+			but have not discussed about the main difference between their paper and [49].}
+	\end{detailed}
+}
+
+
+
+\noindent
+\textbf{Response:} 
+
+%%%%%%%%%%%%%%%%%%%%%% D2 %%%%%%%%%%%%%%%%%%%%%%
+\myfbox{
+	\begin{detailed}
+		\textit{In Section 1.1, I could not find convincing references for the requirements in practical applications.
+			[12] and [36] are research papers only, but not from real applications.}
+	\end{detailed}
+}
+
+
+\noindent
+\textbf{Response:} 
+
+
+%%%%%%%%%%%%%%%%%%%%%% D3 %%%%%%%%%%%%%%%%%%%%%%
+\myfbox{
+	\begin{detailed}
+		\textit{In Definition 2.3, $ s_1 $ and $ s_n $ should be replaced with $ a_1 $ and $ a_n $ , respectively.}
+	\end{detailed}
+}
+
+
+\noindent
+\textbf{Response:} 
+
+%%%%%%%%%%%%%%%%%%%%%% D4 %%%%%%%%%%%%%%%%%%%%%%
+\myfbox{
+	\begin{detailed}
+		\textit{ In Section 4.1, please clarify the URL of the implementation of each method.}
+	\end{detailed}
+}
+
+
+\noindent
+\textbf{Response:} 
+
+
+
+
+
+
+
+\section*{Response to Review 3}
+\setcounter{weakness}{0}
+
+%%%%%%%%%%%%%%%%%%%%%% W1 %%%%%%%%%%%%%%%%%%%%%%
+\myfbox{
+	\begin{weakness}
+		\textit{Scalability experiments are missing; largest dataset is 10M; some pitfalls will only show at large scale.}
+	\end{weakness}
+}
+
+
+\noindent
+\textbf{Response:} 
+
+%%%%%%%%%%%%%%%%%%%%%% W2 %%%%%%%%%%%%%%%%%%%%%%
+\myfbox{
+	\begin{weakness}
+		\textit{The explanations provided with the performance results are not as insightful as they need to be to point out the pros and cons of the different algorithms.}
+	\end{weakness}
+}
+
+
+
+
+\noindent
+\textbf{Response:} 
+
+%%%%%%%%%%%%%%%%%%%%%% W3 %%%%%%%%%%%%%%%%%%%%%%
+\myfbox{
+	\begin{weakness}
+		\textit{I'd expect general, clearer guidelines in the Discussion to the extend of recommendations on which system/algo to use for what dataset characteristics. Hence, the comprehensive perspective on their strengths and weaknesses of the approaches is missing.}
+	\end{weakness}
+}
+
+
+
+
+\noindent
+\textbf{Response:} 
+
+\setcounter{detailed}{0}
+
+%%%%%%%%%%%%%%%%%%%%%% D1 %%%%%%%%%%%%%%%%%%%%%%
+\myfbox{
+	\begin{detailed}
+		\textit{Section 2.2. Graph based and IVF are well known. Missing in the index description is the implementation of attributes for AF and RF as the section is call hybrid ANN.}
+	\end{detailed}
+}
+
+
+
+\noindent
+\textbf{Response:} 
+
+
+%%%%%%%%%%%%%%%%%%%%%% D2 %%%%%%%%%%%%%%%%%%%%%%
+\myfbox{
+	\begin{detailed}
+		\textit{Section 4.2.1: It is important to run the experiments on larger datasets, e.g. 100 M vectors, or 1B bigann. Otherwise, differences will not show.
+			Also, build time parameters such as Radius and Length which impact the Recall need to be considered.
+			Also, approaches for partitioning and merging for building very large indexes need to be considered.
+			Please also document whether quantization is included in index build time.
+			There is no explanation why Vamana is not included in Figure 7.}
+	\end{detailed}
+}
+
+
+
+\noindent
+\textbf{Response:} 
+
+
+%%%%%%%%%%%%%%%%%%%%%% D3 %%%%%%%%%%%%%%%%%%%%%%
+\myfbox{
+	\begin{detailed}
+		\textit{The paper lists AF algos (table 1) and RF algos (table 2). It would be good to list the systems in a table with their algos and capabilities (AF, RF, Graph, IVF, ...). Would make it easier to follow the experimental comparison. E.g., Fig 12 does not include Vamana/DiskANN. Should I assume that RF is not possible with Vamana, or just not implemented?}
+	\end{detailed}
+}
+
+
+
+\noindent
+\textbf{Response:} 
+
+%%%%%%%%%%%%%%%%%%%%%% D4 %%%%%%%%%%%%%%%%%%%%%%
+\myfbox{
+	\begin{detailed}
+		\textit{Section 4.3.
+			It is not explained, what the Range attributes are, or how many attributes. I assume 1 attribute.
+			The index construction times are vastly different in Fig 12 a. This calls for a much more detailed explanation.
+			Also, Milvus seems to be missing in Fig 12 c. Why?
+		}
+	\end{detailed}
+}
+
+
+
+\noindent
+\textbf{Response:} 
+
+%%%%%%%%%%%%%%%%%%%%%% D5 %%%%%%%%%%%%%%%%%%%%%%
+\myfbox{
+	\begin{detailed}
+		\textit{Section 4.3.2: This is a very vague explanation. "SeRF exhibits relatively weak overall performance, with a significant drop in recall under small-range query scenarios. This suggests that while its compressed graph structure is space-efficient, it has a substantial negative impact on query performance." It would be important to be specific about what in the design/architecture of the SeRF graph is causing this behavior.
+		}
+	\end{detailed}
+}
+
+
+\noindent
+\textbf{Response:} 
+
+
+\balance
+%\bibliographystyle{ACM-Reference-Format}
+%\bibliography{Ref}
+
+\end{document}
+%\endinput
