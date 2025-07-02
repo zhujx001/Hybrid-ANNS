@@ -302,6 +302,7 @@ and concerns, and the changes are highlighted \textcolor{blue}{in blue} accordin
 
 \noindent
 \textbf{Response:} 
+Thank you for your suggestion! Currently, most hybrid query methods are based on memory, except for filteredDiskANN, which supports SSD, so we will add explanation information in the paper. At the same time, we also use real data sets to compare the difference in search performance between filteredDiskANN in memory and on SSD. The results are as follows:
 
 %%%%%%%%%%%%%%%%%%%%%% W4 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -328,6 +329,9 @@ and concerns, and the changes are highlighted \textcolor{blue}{in blue} accordin
 
 \noindent
 \textbf{Response:} 
+Thank you for your suggestion. The paper [49] is a comprehensive survey and evaluation of graph structure approximate nearest neighbor search algorithms. Our paper extends this to a more complex "hybrid query" scenario and evaluates approximate search algorithms that combine vector similarity and attribute filtering/range filtering. Since hybrid queries are developed based on ANNs, we refer to the metrics and evaluation architectures of different methods proposed in this paper.
+
+
 
 %%%%%%%%%%%%%%%%%%%%%% D2 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -440,7 +444,7 @@ and concerns, and the changes are highlighted \textcolor{blue}{in blue} accordin
 
 \noindent
 \textbf{Response:} 
-
+Thanks to the reviewer for suggesting that there is no explanation in Figure 7 why Vamana is not included. Figure 7 is an experiment on multi-label construction and search, and the Boolean logic of multi-label search is AND. The two algorithms using Vamana, FilteredVamana and StitchedVamana, only support Boolean logic OR for multi-label search, so we did not include them. We will add an explanation of this in the paper.
 
 %%%%%%%%%%%%%%%%%%%%%% D3 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
