@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.4.1)  2 JUL 2025 15:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.4.1)  3 JUL 2025 10:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1950,66 +1950,124 @@ Overfull \hbox (1.48804pt too wide) in paragraph at lines 301--302
 [][][]  
  []
 
+<fig/recall_latency_all.png, id=34, 722.7pt x 433.62pt>
+File: fig/recall_latency_all.png Graphic file (type png)
+<use fig/recall_latency_all.png>
+Package pdftex.def Info: fig/recall_latency_all.png  used on input line 308.
+(pdftex.def)             Requested size: 241.14749pt x 144.68962pt.
+
+Class acmart Warning: A possible image without description on input line 311.
+
+
+
+
+Overfull \hbox (5.70332pt too wide) in paragraph at lines 326--328
+[]\T1/LinuxLibertineT-TLF/m/n/9 (-20) Latency-Recall Trade-off: As ex-pected, S
+SD-based Fil-tered-DiskANN
+ []
+
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 313.
+surrounding objects on input line 345.
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 313.
+surrounding objects on input line 345.
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 313.
+surrounding objects on input line 345.
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 313.
+surrounding objects on input line 345.
 
 
-Overfull \hbox (1.48804pt too wide) in paragraph at lines 313--314
+Overfull \hbox (1.48804pt too wide) in paragraph at lines 345--346
 [][][]  
  []
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 326.
+surrounding objects on input line 358.
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 326.
+surrounding objects on input line 358.
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 326.
+surrounding objects on input line 358.
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 326.
+surrounding objects on input line 358.
 
 
-Overfull \hbox (1.48804pt too wide) in paragraph at lines 326--327
+Overfull \hbox (1.48804pt too wide) in paragraph at lines 358--359
 [][][]  
  []
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 342.
+surrounding objects on input line 374.
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 342.
+surrounding objects on input line 374.
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 342.
+surrounding objects on input line 374.
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 342.
+surrounding objects on input line 374.
 
 
-Overfull \hbox (1.48804pt too wide) in paragraph at lines 342--343
+Overfull \hbox (1.48804pt too wide) in paragraph at lines 374--375
+[][][]  
+ []
+
+
+Class acmart Warning: \vspace should only be used to provide space above/below 
+surrounding objects on input line 386.
+
+
+Class acmart Warning: \vspace should only be used to provide space above/below 
+surrounding objects on input line 386.
+
+
+Class acmart Warning: \vspace should only be used to provide space above/below 
+surrounding objects on input line 386.
+
+
+Class acmart Warning: \vspace should only be used to provide space above/below 
+surrounding objects on input line 386.
+
+
+Overfull \hbox (1.48804pt too wide) in paragraph at lines 386--387
+[][][]  
+ []
+
+
+Class acmart Warning: \vspace should only be used to provide space above/below 
+surrounding objects on input line 397.
+
+
+Class acmart Warning: \vspace should only be used to provide space above/below 
+surrounding objects on input line 397.
+
+
+Class acmart Warning: \vspace should only be used to provide space above/below 
+surrounding objects on input line 397.
+
+
+Class acmart Warning: \vspace should only be used to provide space above/below 
+surrounding objects on input line 397.
+
+
+Overfull \hbox (1.48804pt too wide) in paragraph at lines 397--398
 [][][]  
  []
 
@@ -2018,150 +2076,69 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 6.0pt on input line 398.
+[2.2
+pdfTeX warning (ext4): destination with the same identifier (name{weakness.0.1}
+) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.398 
+      {/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/libertine/lbtn_oexx6f
+.enc} <./fig/recall_latency_all.png>]
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 354.
-
-
-Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 354.
-
-
-Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 354.
-
-
-Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 354.
-
-
-Overfull \hbox (1.48804pt too wide) in paragraph at lines 354--355
-[][][]  
- []
-
-
-Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 365.
-
-
-Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 365.
-
-
-Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 365.
-
-
-Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 365.
-
-
-Overfull \hbox (1.48804pt too wide) in paragraph at lines 365--366
-[][][]  
- []
-
-
-Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 385.
+surrounding objects on input line 417.
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{weakness.0.1}
 ) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.385 }
+l.417 }
        
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 385.
+surrounding objects on input line 417.
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 385.
+surrounding objects on input line 417.
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 385.
+surrounding objects on input line 417.
 
 
-Overfull \hbox (1.48804pt too wide) in paragraph at lines 385--386
+Overfull \hbox (1.48804pt too wide) in paragraph at lines 417--418
 [][][]  
  []
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 396.
+surrounding objects on input line 428.
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{weakness.0.2}
 ) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.396 }
+l.428 }
        
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 396.
+surrounding objects on input line 428.
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 396.
+surrounding objects on input line 428.
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 396.
+surrounding objects on input line 428.
 
 
-Overfull \hbox (1.48804pt too wide) in paragraph at lines 396--397
-[][][]  
- []
-
-
-Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 409.
-
-
-pdfTeX warning (ext4): destination with the same identifier (name{weakness.0.3}
-) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.409 }
-       
-
-Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 409.
-
-
-Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 409.
-
-
-Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 409.
-
-
-Overfull \hbox (1.48804pt too wide) in paragraph at lines 409--410
-[][][]  
- []
-
-
-Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 424.
-
-
-Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 424.
-
-
-Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 424.
-
-
-Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 424.
-
-
-Overfull \hbox (1.48804pt too wide) in paragraph at lines 424--425
+Overfull \hbox (1.48804pt too wide) in paragraph at lines 428--429
 [][][]  
  []
 
@@ -2169,6 +2146,13 @@ Overfull \hbox (1.48804pt too wide) in paragraph at lines 424--425
 Class acmart Warning: \vspace should only be used to provide space above/below 
 surrounding objects on input line 441.
 
+
+pdfTeX warning (ext4): destination with the same identifier (name{weakness.0.3}
+) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.441 }
+       
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
 surrounding objects on input line 441.
@@ -2188,122 +2172,156 @@ Overfull \hbox (1.48804pt too wide) in paragraph at lines 441--442
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 454.
+surrounding objects on input line 456.
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{detailed.0.1}
+) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.456 }
+       
+
+Class acmart Warning: \vspace should only be used to provide space above/below 
+surrounding objects on input line 456.
+
+
+Class acmart Warning: \vspace should only be used to provide space above/below 
+surrounding objects on input line 456.
+
+
+Class acmart Warning: \vspace should only be used to provide space above/below 
+surrounding objects on input line 456.
+
+
+Overfull \hbox (1.48804pt too wide) in paragraph at lines 456--457
+[][][]  
+ []
+
+
+Class acmart Warning: \vspace should only be used to provide space above/below 
+surrounding objects on input line 473.
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{detailed.0.2}
+) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.473 }
+       
+
+Class acmart Warning: \vspace should only be used to provide space above/below 
+surrounding objects on input line 473.
+
+
+Class acmart Warning: \vspace should only be used to provide space above/below 
+surrounding objects on input line 473.
+
+
+Class acmart Warning: \vspace should only be used to provide space above/below 
+surrounding objects on input line 473.
+
+
+Overfull \hbox (1.48804pt too wide) in paragraph at lines 473--474
+[][][]  
+ []
+
+
+Class acmart Warning: \vspace should only be used to provide space above/below 
+surrounding objects on input line 486.
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{detailed.0.3}
+) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.486 }
+       
+
+Class acmart Warning: \vspace should only be used to provide space above/below 
+surrounding objects on input line 486.
+
+
+Class acmart Warning: \vspace should only be used to provide space above/below 
+surrounding objects on input line 486.
+
+
+Class acmart Warning: \vspace should only be used to provide space above/below 
+surrounding objects on input line 486.
+
+
+Overfull \hbox (1.48804pt too wide) in paragraph at lines 486--487
+[][][]  
+ []
+
+
+Class acmart Warning: \vspace should only be used to provide space above/below 
+surrounding objects on input line 502.
+
+
+Class acmart Warning: \vspace should only be used to provide space above/below 
+surrounding objects on input line 502.
+
+
+Class acmart Warning: \vspace should only be used to provide space above/below 
+surrounding objects on input line 502.
+
+
+Class acmart Warning: \vspace should only be used to provide space above/below 
+surrounding objects on input line 502.
+
+
+Overfull \hbox (1.48804pt too wide) in paragraph at lines 502--503
+[][][]  
+ []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 6.0pt on input line 454.
-[2.2
-pdfTeX warning (ext4): destination with the same identifier (name{weakness.0.1}
-) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.454 }
-       {/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/libertine/lbtn_oexx6
-f.enc}
-pdfTeX warning (ext4): destination with the same identifier (name{detailed.0.1}
-) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.454 }
-       
-pdfTeX warning (ext4): destination with the same identifier (name{detailed.0.2}
-) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.454 }
-       ]
-pdfTeX warning (ext4): destination with the same identifier (name{detailed.0.3}
-) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.454 }
-       
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 454.
+surrounding objects on input line 515.
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 454.
+surrounding objects on input line 515.
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 454.
+surrounding objects on input line 515.
 
 
-Overfull \hbox (1.48804pt too wide) in paragraph at lines 454--455
+Class acmart Warning: \vspace should only be used to provide space above/below 
+surrounding objects on input line 515.
+
+
+Overfull \hbox (1.48804pt too wide) in paragraph at lines 515--516
 [][][]  
  []
 
 
-Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 470.
-
-
-pdfTeX warning (ext4): destination with the same identifier (name{detailed.0.4}
-) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.470 }
-       
-
-Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 470.
-
-
-Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 470.
-
-
-Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 470.
-
-
-Overfull \hbox (1.48804pt too wide) in paragraph at lines 470--471
-[][][]  
- []
-
-
-Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 483.
-
-
-Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 483.
-
-
-Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 483.
-
-
-Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 483.
-
-
-Overfull \hbox (1.48804pt too wide) in paragraph at lines 483--484
-[][][]  
- []
+Class acmart Warning: Some images may lack descriptions.
 
 
 
 
-
-
-Overfull \vbox (30.51584pt too high) has occurred while \output is active []
-
+Package balance Warning: You have called \balance in second column
+(balance)                Columns might not be balanced.
 
 (/usr/local/texlive/2025/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
 File: se-pdfdoc.def 2019/11/29 v1.12 stringenc: PDFDocEncoding
 )
 (/usr/local/texlive/2025/texmf-dist/tex/generic/stringenc/se-utf8.def
 File: se-utf8.def 2019/11/29 v1.12 stringenc: UTF-8
-) [3.3]
-(./response.aux)
+) [3.3
+pdfTeX warning (ext4): destination with the same identifier (name{detailed.0.4}
+) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.526 \end{document}
+                    ] (./response.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -2312,24 +2330,25 @@ Package rerunfilecheck Info: File `response.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 35598 strings out of 473190
- 656999 string characters out of 5715801
- 1112230 words of memory out of 5000000
- 57842 multiletter control sequences out of 15000+600000
- 656987 words of font info for 221 fonts, out of 8000000 for 9000
+ 35633 strings out of 473190
+ 657842 string characters out of 5715801
+ 1113204 words of memory out of 5000000
+ 57859 multiletter control sequences out of 15000+600000
+ 658947 words of font info for 233 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 98i,11n,131p,1005b,612s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 98i,11n,131p,1005b,604s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/LibertineMathMI.
 pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/LibertineMathM
 I7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/libertine/LinBiol
 inumTB.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/libertine/Lin
 LibertineT.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/libertine
 /LinLibertineTB.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/libe
-rtine/LinLibertineTI.pfb>
-Output written on response.pdf (3 pages, 341950 bytes).
+rtine/LinLibertineTI.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public
+/newtx/txsys.pfb>
+Output written on response.pdf (3 pages, 533527 bytes).
 PDF statistics:
- 93 PDF objects out of 1000 (max. 8388607)
- 70 compressed objects within 1 object stream
- 26 named destinations out of 1000 (max. 500000)
- 43037 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 103 PDF objects out of 1000 (max. 8388607)
+ 76 compressed objects within 1 object stream
+ 27 named destinations out of 1000 (max. 500000)
+ 43042 words of extra memory for PDF output out of 51595 (max. 10000000)
 
