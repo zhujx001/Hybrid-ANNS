@@ -208,7 +208,7 @@
 	
 	\begin{definition}[RF-NN Search]
 		
-		Let \( D = \{(v_1, s_1), \ldots, (v_n, s_n)\} \) be a dataset of \( n \) \( d \)-dimensional vectors, each associated with an attribute value \( a_i \). Given a query \( Q = (q_v, [a_{\min}, a_{\max}], k) \), where \( a_{\min} \) and \( a_{\max} \) denote the lower and upper bounds of the query range, respectively, the RF-NN search aims to return a set \( R \subseteq D_a \) with \( |R| = k \), such that for any \( x \in R \) and \( y \in D_a \setminus R \), \( \textit{dist}(q_v, x) \leq \textit{dist}(q_v, y) \), where \( D_a = \{ v_i \mid (v_i, a_i) \in D \land a_{\min} \leq a_i \leq a_{\max} \} \).
+		Let \( D = \{(v_1, a_1), \ldots, (v_n, a_n)\} \) be a dataset of \( n \) \( d \)-dimensional vectors, each associated with an attribute value \( a_i \). Given a query \( Q = (q_v, [a_{\min}, a_{\max}], k) \), where \( a_{\min} \) and \( a_{\max} \) denote the lower and upper bounds of the query range, respectively, the RF-NN search aims to return a set \( R \subseteq D_a \) with \( |R| = k \), such that for any \( x \in R \) and \( y \in D_a \setminus R \), \( \textit{dist}(q_v, x) \leq \textit{dist}(q_v, y) \), where \( D_a = \{ v_i \mid (v_i, a_i) \in D \land a_{\min} \leq a_i \leq a_{\max} \} \).
 	\end{definition}
 	
 	
