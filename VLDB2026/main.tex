@@ -599,7 +599,7 @@
 	
 	
 	\textit{\textbf{Peak memory usage.}}
-	As shown in Figure~\ref{fig:memory_mb_comparison_query1}, on small-scale datasets, all methods except NHQ exhibit low memory usage. This is because NHQ adopts the kgraph approach for index construction, which requires loading the entire graph data into memory and maintaining a complete graph structure, leading to relatively high memory overhead. On large-scale datasets, CAPS exhibits slightly lower memory usage compared to other algorithms. Due to their special characteristics, databases are not included in the peak memory usage testing during index construction.
+	As shown in Figure~\ref{fig:memory_mb_comparison_query1}, on small-scale datasets, all methods except NHQ exhibit low memory usage. This is because NHQ adopts the kgraph approach for index construction, which requires loading the entire graph data into memory and maintaining a complete graph structure, leading to relatively high memory overhead. On large-scale datasets, CAPS exhibits slightly lower memory usage compared to other algorithms. \textcolor{orange}{The reason is that CAPS avoids redundant storage and graph structure overhead through hierarchical partitioning and AFT, and achieves a compact, sparse and controllable index. }Due to their special characteristics, databases are not included in the peak memory usage testing during index construction.
 	
 	
 	
