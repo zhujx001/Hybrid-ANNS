@@ -1,7 +1,7 @@
 % VLDB template version of 2020-08-03 enhances the ACM template, version 1.7.0:
 % https://www.acm.org/publications/proceedings-template
 % The ACM Latex guide provides further information about the ACM template
-
+%!TEX program = pdflatex
 \documentclass[sigconf, nonacm]{acmart}
 
 %% The following content must be adapted for the final version
@@ -250,7 +250,7 @@ and concerns, and the changes are highlighted \textcolor{blue}{in blue} accordin
 }
 
 \noindent
-\textbf{Response:} 
+\textbf{Response:} We think this is an excellent suggestion. We have enhanced our experiments by incorporating more complex multimodal dataset evaluations in Section \textcolor{blue}{XXX} of the paper. Initially, our paper utilized the Text2Image dataset, which is commonly used in existing multimodal ANN algorithms. This dataset presents a modality gap, as the base vectors are images while the query set consists of text, often requiring algorithms to exhibit stronger robustness for good performance. To further enrich the evaluation of complex multimodal queries, we selected 500,000 text vectors and 500,000 image vectors from the Text2Image dataset to form a mixed base query dataset. Similarly, we chose 5,000 image vectors and 5,000 text vectors as query vectors, combining both text and image modalities. We then performed attribute filtering and range queries on this multimodal dataset to further analyze algorithm robustness.  The relevant experimental results are presented and discussed in Section\textcolor{blue}{XXX}of our paper.
 
 \section*{Response to Review 2}
 \setcounter{weakness}{0}
@@ -504,7 +504,19 @@ Thanks to the reviewer for suggesting that there is no explanation in Figure 7 w
 
 
 \noindent
-\textbf{Response:} 
+\textbf{Response:} Thank you very much for your careful review and valuable suggestions. We greatly appreciate your feedback and sincerely apologize for any lack of clarity in our paper.
+
+Regarding the issue of range attributes, we indeed used only one range attribute for evaluation. At present, most existing range filtering algorithms only support filtering on a single attribute. This is a major limitation of current range filtering methods. We have clearly pointed this out in \textcolor{blue}{Section 5.2.2} of the "Discussion" part of the paper and listed it as an important challenge for future work. Thank you for highlighting this point, which further emphasizes the significance of our work.
+
+In response to the large difference in index construction time shown in Figure 12a, we have revised the paper based on your suggestion. We added more detailed and in-depth analysis to provide a clearer explanation.
+
+Finally, your observation about the missing peak memory usage data for Milvus in Figure 12c is very insightful. Initially, we hesitated to include the peak memory usage of databases (including Milvus) because they are full systems that run continuously and contain many components. This makes them quite different from other algorithms.
+
+However, we agree with your point. To provide a more comprehensive evaluation, we have added the peak memory usage data of the database systems (including Milvus) in the revised version of the paper. This offers a more complete comparative view.
+
+Once again, thank you for your constructive comments. Your valuable feedback has helped us improve the paper further.
+
+
 
 %%%%%%%%%%%%%%%%%%%%%% D5 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -516,7 +528,11 @@ Thanks to the reviewer for suggesting that there is no explanation in Figure 7 w
 
 
 \noindent
-\textbf{Response:} 
+\textbf{Response:} Thank you for your feedback. We have revised \textcolor{blue}{Section 4.3.2 in our paper to provide a more specific and clearer explanation.}
+
+Specifically, SeRF compresses the entire HNSW graph collection by adding range information to the edges. While this approach saves space, it leads to significant performance degradation when executing small-range queries. This is because SeRF’s multi-filtering mechanism needs to inspect a large number of edge entries that are irrelevant to the current small-range query, thereby introducing fixed computational and memory access overhead. Additionally, during graph traversal, many invalid neighbors may be visited, causing the search to fall into local optima, which further degrades query performance and recall.
+
+We believe this explanation better clarifies the specific reasons why SeRF performs poorly in small-range query scenarios. Thank you again for your valuable suggestions.
 
 
 \balance
