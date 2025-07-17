@@ -961,8 +961,8 @@
 	\end{figure}
 	
 	%Similar to the evaluation of \textit{Attribute Filtering} algorithms, 
-	Similarly, we also evaluate 3 key metrics mentioned above in \textit{Range Filtering} algorithms.
-	
+	Similarly, we also evaluate \textcolor{orange}{4} key metrics mentioned above in \textit{Range Filtering} algorithms. \textcolor{orange}{For the YT-Audio dataset with synthetic attributes and the YT-Audio dataset with real attributes, we can found that the data for index construction is basically the same, indicating that the authenticity of the attribute has almost no effect on index construction.
+	However, the WIT dataset with synthetic labels is 2048-dimensional, while the WIT-Real dataset with real labels is 512-dimensional, so the dimension will cause a big difference.}
 	
 	\textit{\textbf{Index construction time.}}
 	Figure~\ref{fig:rangeFilter_build_time} shows the single-threaded index construction time. Faiss builds the index fastest. As Faiss obtains subsamples through sampling and calculates the cluster centroid, the computational complexity is significantly reduced.
@@ -979,8 +979,8 @@
 	
 	SeRF maintains a compact index for low-dimensional data. However, for high-dimensional dataset (WIT), SeRF stores more edges and dynamic range data, significantly increasing its size.
 	
-	\textit{\textbf{Peak memory usage.}}
-	As Figure~\ref{fig:rangeFilter_memory_mb} shows, Faiss uses the least memory on low-dimensional datasets. It stores minimal temporary data during index construction.
+	\textit{\textbf{Build peak memory.}}
+	As Figure~\ref{fig:rangeFilter_build_memory_mb} shows, Faiss uses the least memory on low-dimensional datasets. It stores minimal temporary data during index construction.
 	
 	On low-dimensional datasets, DSG and WinFilter exhibit higher peak memory usage compared to other algorithms. This suggests that their index structures suffer from severe structural redundancy and are difficult to compress in low-dimensional scenarios.
 	%因为低维空间中数据点之间的欧氏距离普遍较小，点与点之间更易互为近邻，从而导致图索引中产生大量冗余的边连接。
@@ -991,6 +991,11 @@
 	For high-dimensional dataset WIT, iRange achieves the lowest peak memory usage. It pre-builds graphs only for a limited number of intervals, avoiding explicit index construction for all possible query ranges. Its index structure remains stable in high dimensions without significant graph growth. This effectively controls index size, making iRange more advantageous for high-dimensional datasets.
 	In contrast, Unify exhibits the highest memory consumption, indicating that its index construction process is highly sensitive to the dimensionality of the data.
 	
+		\textit{\textbf{\textcolor{orange}{Search peak memory.}}}
+		
+		\textcolor{orange}{}
+		
+		
 	\begin{figure*}[t]
 		
 		\centering
