@@ -942,7 +942,7 @@
 		\hfill
 		\begin{subfigure}[t]{0.49\columnwidth}
 			\centering
-			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_index_size_mb_comparison_query.pdf}
+			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_memory_mb_comparison_query.pdf}
 			\caption{\footnotesize Build peak memory}
 			\label{fig:rangeFilter_build_memory_mb}
 		\end{subfigure}
@@ -989,12 +989,14 @@
 	%As Figure~\ref{fig:rangeFilter_memory_mb} shows, Faiss uses the least memory on low-dimensional datasets (Deep, YT-Audio). It stores minimal temporary data (e.g., vectors, centroids, distances) during index construction.
 	
 	For high-dimensional dataset WIT, iRange achieves the lowest peak memory usage. It pre-builds graphs only for a limited number of intervals, avoiding explicit index construction for all possible query ranges. Its index structure remains stable in high dimensions without significant graph growth. This effectively controls index size, making iRange more advantageous for high-dimensional datasets.
-	In contrast, Unify exhibits the highest memory consumption, indicating that its index construction process is highly sensitive to the dimensionality of the data.
+	In contrast, \textcolor{orange}{Milvus exhibits the highest memory consumption,}
+	%Unify exhibits the highest memory consumption, indicating that its index construction process is highly sensitive to the dimensionality of the data.
 	
 		\textit{\textbf{\textcolor{orange}{Search peak memory.}}}
 		
-		\textcolor{orange}{}
+		\textcolor{orange}{As shown in Figure~\ref{fig:rangeFilter_search_memory_mb}, Faiss and Milvus have the lowest peak memory usage during search. Faiss reason: Milvus reason:. WinFilter achieves the highest peak memory usage on almost all datasets. The reason is:. For the high-dimensional dataset WIT, UNIFY occupies the highest peak memory. The reason is:.}
 		
+		%Faiss和Milvus在搜索时的峰值内存最低，\textcolor{orange}{Faiss原因：Milvus原因：}。WinFilter在几乎所有数据集上取得最高的峰值内存，\textcolor{orange}{原因是：}。而对于高维数据集WIT，UNIFY占用最高的峰值内存，\textcolor{orange}{原因是：}。
 		
 	\begin{figure*}[t]
 		
