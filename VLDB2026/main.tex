@@ -561,7 +561,7 @@
 			
 			\includegraphics[width=0.95\linewidth]{figures/indexData/exp_7_memory_mb_comparison_query1.pdf}
 			\caption{Build peak memory }
-			\label{fig:search_memory_mb_comparison}
+			\label{fig:build_memory_mb_comparison}
 		\end{subfigure}
 		
 		\begin{subfigure}{\columnwidth}
@@ -569,7 +569,7 @@
 			
 			\includegraphics[width=0.95\linewidth]{figures/searchMem/label_memory_comparison.pdf}
 			\caption{Search peak memory}
-			\label{fig:build_memory_mb_comparison}
+			\label{fig:search_memory_mb_comparison}
 		\end{subfigure}
 		
 		%		\caption{Time and space overhead of attribute filtering index construction}
@@ -579,7 +579,7 @@
 	
 	
 	
-	To investigate the performance of different attribute filtering algorithms during index construction, we evaluate 3 key metrics in the single-attribute scenario: index construction time, index size, and peak memory usage. Notably, PASE on GIST1M and Enron is omitted, as it supports only data with dimensionality less than 512. 
+	To investigate the performance of different attribute filtering algorithms during index construction, we evaluate \textcolor{orange}{4} key metrics in the single-attribute scenario: index construction time, index size, \textcolor{orange}{build peak memory and search peak memory}. Notably, PASE on GIST1M and Enron is omitted, as it supports only data with dimensionality less than 512. 
 	
 	\begin{figure*}
 		\centering
@@ -598,9 +598,9 @@
 	\end{figure*}
 	
 	\textit{\textbf{Index construction time.}}
-	As shown in Figure~\ref{fig:build_time_comparison_query1}, among the aforementioned 4 datasets, PASE has the longest index construction time due to its single-thread indexing support. Additionally, VBASE also supports only single-thread indexing but achieves better query performance than PASE.
+	As shown in Figure~\ref{fig:build_time_comparison_query1}, among the aforementioned 6 datasets, PASE has the longest index construction time due to its single-thread indexing support. Additionally, VBASE also supports only single-thread indexing but achieves better performance than PASE.
 	
-	For algorithms supporting 32-thread, index construction time differences are negligible on small-scale datasets (Audio and Enron) due to their limited complexity. On large-scale datasets (SIFT1M, GIST1M, GloVe, and Msong), ACORN-1 achieves the fastest index construction. This efficiency stems from its similarity to the original HNSW construction process and the use of a limited number of candidate neighbors. In contrast, ACORN-$\gamma$ incurs the highest index construction time, as it expands neighbor lists and evaluates a large candidate pool, leading to increased computational overhead.
+	For algorithms supporting 32-thread, ACORN-1 achieves the fastest index construction. This efficiency stems from its similarity to the original HNSW construction process and the use of a limited number of candidate neighbors. In contrast, ACORN-$\gamma$ incurs the highest index construction time, as it expands neighbor lists and evaluates a large candidate pool, leading to increased computational overhead.
 	
 	
 	\textit{\textbf{Index size.}}
@@ -612,9 +612,12 @@
 	
 	
 	
-	\textit{\textbf{Peak memory usage.}}
-	As shown in Figure~\ref{fig:memory_mb_comparison_query1}, on small-scale datasets, all methods except NHQ exhibit low memory usage. This is because NHQ adopts the kgraph approach for index construction, which requires loading the entire graph data into memory and maintaining a complete graph structure, leading to relatively high memory overhead. On large-scale datasets, CAPS exhibits slightly lower memory usage compared to other algorithms. \textcolor{orange}{The reason is that CAPS avoids redundant storage and graph structure overhead through hierarchical partitioning and AFT, and achieves a compact, sparse and controllable index. }Due to their special characteristics, databases are not included in the peak memory usage testing during index construction.
+	\textit{\textbf{Build peak memory.}}
+	As shown in Figure~\ref{fig:build_memory_mb_comparison}, on small-scale datasets, all methods except NHQ exhibit low memory usage. 
+	This is because NHQ adopts the kgraph approach for index construction, which requires loading the entire graph data into memory and maintaining a complete graph structure, leading to relatively high memory overhead. 
+	On large-scale datasets, CAPS exhibits slightly lower memory usage compared to other algorithms. \textcolor{orange}{The reason is that CAPS avoids redundant storage and graph structure overhead through hierarchical partitioning and AFT, and achieves a compact, sparse and controllable index. }.
 	
+	\textit{\textbf{ \textcolor{orange}{Search peak memory.}}}
 	
 	
 	\subsubsection{Performance Evaluation}
@@ -958,8 +961,8 @@
 	\end{figure}
 	
 	%Similar to the evaluation of \textit{Attribute Filtering} algorithms, 
-	Similarly, we also evaluate 3 key metrics mentioned above in \textit{Range Filtering} algorithms.
-	
+	Similarly, we also evaluate \textcolor{orange}{4} key metrics mentioned above in \textit{Range Filtering} algorithms. \textcolor{orange}{For the YT-Audio dataset with synthetic attributes and the YT-Audio dataset with real attributes, we can found that the data for index construction is basically the same, indicating that the authenticity of the attribute has almost no effect on index construction.
+	However, the WIT dataset with synthetic labels is 2048-dimensional, while the WIT-Real dataset with real labels is 512-dimensional, so the dimension will cause a big difference.}
 	
 	\textit{\textbf{Index construction time.}}
 	Figure~\ref{fig:rangeFilter_build_time} shows the single-threaded index construction time. Faiss builds the index fastest. As Faiss obtains subsamples through sampling and calculates the cluster centroid, the computational complexity is significantly reduced.
@@ -976,8 +979,8 @@
 	
 	SeRF maintains a compact index for low-dimensional data. However, for high-dimensional dataset (WIT), SeRF stores more edges and dynamic range data, significantly increasing its size.
 	
-	\textit{\textbf{Peak memory usage.}}
-	As Figure~\ref{fig:rangeFilter_memory_mb} shows, Faiss uses the least memory on low-dimensional datasets. It stores minimal temporary data during index construction.
+	\textit{\textbf{Build peak memory.}}
+	As Figure~\ref{fig:rangeFilter_build_memory_mb} shows, Faiss uses the least memory on low-dimensional datasets. It stores minimal temporary data during index construction.
 	
 	On low-dimensional datasets, DSG and WinFilter exhibit higher peak memory usage compared to other algorithms. This suggests that their index structures suffer from severe structural redundancy and are difficult to compress in low-dimensional scenarios.
 	%因为低维空间中数据点之间的欧氏距离普遍较小，点与点之间更易互为近邻，从而导致图索引中产生大量冗余的边连接。
@@ -988,6 +991,11 @@
 	For high-dimensional dataset WIT, iRange achieves the lowest peak memory usage. It pre-builds graphs only for a limited number of intervals, avoiding explicit index construction for all possible query ranges. Its index structure remains stable in high dimensions without significant graph growth. This effectively controls index size, making iRange more advantageous for high-dimensional datasets.
 	In contrast, Unify exhibits the highest memory consumption, indicating that its index construction process is highly sensitive to the dimensionality of the data.
 	
+		\textit{\textbf{\textcolor{orange}{Search peak memory.}}}
+		
+		\textcolor{orange}{}
+		
+		
 	\begin{figure*}[t]
 		
 		\centering
