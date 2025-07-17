@@ -20,15 +20,8 @@ colors = [ # 主色系（增强饱和度）
  '#F39C12', # 深邃蓝（原#5E81AC提纯）
  '#6EC1E0', # 电光冰蓝（原#88C0D0去灰）
  '#E74C3C', # 警报红（原#BF616A加深）
-
- 
- 
- # 扩展高冲击力颜色
  '#34495E', # 钢蓝灰（原#4C566A微调）
-
  '#2ECC71', # 翡翠绿
-
- # 辅助色（强化对比）
  '#48D1CC', # 土耳其蓝
  '#9B59B6', # 宝石紫（原#B48EAD增饱和）
  '#E67E22', # 南瓜橙（替换原#D08770）
@@ -477,6 +470,253 @@ def plot_1_6_comparison(all_data):
     plt.tight_layout(rect=[0, 0.02, 1, 0.98])
     return fig
 
+def plot_1_4_comparison(all_data):
+    range_set = ['range_2', 'range_8']
+    alg_set = ['DSG', 'iRange', 'SeRF', 'UNIFY', 'WinFilter','ACORN-1', 'ACORN-γ', 'Faiss', 'Milvus', 'VBASE','PASE']
+    datasets = ['wit', 'deep']
+    
+    # 为图例创建格式化后的数据集名称映射
+    dataset_display_names = {
+        'wit': 'WIT',
+        'deep': 'Deep'
+    }
+    
+    algorithm_colors = {}
+    algorithm_line_styles = {}
+    algorithm_markers = {}
+    for i, alg in enumerate(alg_set):
+        algorithm_colors[alg] = colors[i % len(colors)]
+        algorithm_line_styles[alg] = line_styles[i % len(line_styles)]
+        algorithm_markers[alg] = markers[i % len(markers)]  
+    
+    # 创建一个1行6列的大图，使用更宽的比例
+    fig = plt.figure(figsize=(20, 4.095))
+    
+    # 调整上下间距，给图例留出空间
+    gs = GridSpec(1, 4, figure=fig, wspace=0.15, hspace=0.25, height_ratios=[1], top=0.80, bottom=0.1)
+    # 定义每列的range fraction标签
+    range_labels = [r"$2^{-2}$", r"$2^{-8}$"]
+    # 遍历所有算法
+    for idx_dataset, dataset in enumerate(datasets):
+        for idx_range, range_val in enumerate(range_set):
+            row = 0
+            col = idx_dataset * 2 + idx_range
+            ax_single = fig.add_subplot(gs[row, col])
+            single_thread_y_data = []
+            for alg in alg_set:
+                key = (dataset, range_val)
+                if key not in all_data:
+                    continue
+                    
+                data_list = all_data[key]
+                df = None
+                for d in data_list:
+                    if d['Algorithm'].iloc[0] == alg:
+                        df = d
+                        break  # 找到匹配的算法后跳出循环
+                
+                if df is None:  # 如果没有找到匹配的算法，跳过
+                    continue
+                    
+                color = algorithm_colors[alg]
+                linestyle = algorithm_line_styles[alg]
+                marker = algorithm_markers[alg]    
+                pareto_df = compute_pareto_frontier(df, 'Recall', 'QPS')
+                if not pareto_df.empty:
+                    # 过滤 Recall 小于0.4的数据
+                    filtered_df = pareto_df[(pareto_df['Recall'] >= 0.4)]
+                    if not filtered_df.empty:
+                        x_data = filtered_df['Recall'].tolist()
+                        y_data = filtered_df['QPS'].tolist()
+                        single_thread_y_data.append(y_data)
+                        ax_single.plot(x_data, y_data, marker=marker, linestyle=linestyle, 
+                                      label=alg, color=color, **plot_params)  # 使用alg作为标签
+            
+            # 添加range fraction标签到子图顶部
+            ax_single.set_title(range_labels[idx_range], fontsize=16, fontweight='normal', pad=10)
+            # 设置单线程图的y轴范围和刻度
+            y_min_single, y_max_single, y_ticks_single, y_tick_labels_single = get_y_range_and_ticks(single_thread_y_data)
+            ax_single.set_yscale('log')
+            ax_single.set_ylim(y_min_single, y_max_single)
+             # 只显示主刻度
+            ax_single.yaxis.set_major_locator(plt.FixedLocator(y_ticks_single))
+            ax_single.yaxis.set_minor_locator(plt.NullLocator())
+            ax_single.set_yticklabels(y_tick_labels_single)
+            ax_single.tick_params(axis='both', labelsize=16)
+
+            # 设置x轴范围为0.7到1.01，但仅显示刻度至1.0
+            ax_single.set_xlim(0.4, 1.01)
+            ax_single.set_xticks([0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
+            ax_single.set_xticklabels([f"{tick:.1f}" for tick in [0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]])
+
+            ax_single.axvline(x=0.95, color='gray', linestyle='--', alpha=0.7)
+            ax_single.grid(True, linestyle=':', alpha=0.6)
+
+            # 添加Recall@10标签
+            # 设置x轴标签
+            label_index = chr(97 + col)  # 97是ASCII码中'a'的值
+            # 使用格式化后的数据集名称
+            formatted_dataset = dataset_display_names[dataset]
+            formatted_label = f"({label_index}) Recall@10 ({formatted_dataset})"
+            ax_single.set_xlabel(formatted_label, 
+                            fontproperties=libertine_font,
+                            fontsize=20,
+                            fontweight='bold')
+            # 仅第一显示y轴标签
+            if col == 0:
+                ax_single.set_ylabel("QPS", fontsize=16)
+            else:
+                ax_single.set_ylabel("")
+    
+    # 调整布局，为底部的数据集标签留出空间
+    plt.tight_layout(rect=[0, 0.02, 1, 0.98])
+    return fig
+
+def plot_1_2_comparison(all_data):
+    range_set = ['range_2']
+    alg_set = ['DSG', 'iRange', 'SeRF', 'UNIFY', 'WinFilter','ACORN-1', 'ACORN-γ', 'Faiss', 'Milvus', 'VBASE','PASE']
+    datasets = ['yt8m', 'YT-Audio-real']
+    
+    # 为图例创建格式化后的数据集名称映射
+    dataset_display_names = {
+        'yt8m': 'YT-Audio',
+        'YT-Audio-real': 'YT-Audio-Real'
+    }
+    
+    algorithm_colors = {}
+    algorithm_line_styles = {}
+    algorithm_markers = {}
+    for i, alg in enumerate(alg_set):
+        algorithm_colors[alg] = colors[i % len(colors)]
+        algorithm_line_styles[alg] = line_styles[i % len(line_styles)]
+        algorithm_markers[alg] = markers[i % len(markers)]  
+    
+    fig = plt.figure(figsize=(10, 4.4))
+    
+    # 调整上下间距，给图例留出空间
+    gs = GridSpec(1, 2, figure=fig, wspace=0.15, hspace=0.25, height_ratios=[1], top=0.80, bottom=0.1)
+    # 定义每列的range fraction标签
+    range_labels = [r"$2^{-2}$"]
+    # 遍历所有算法
+    for idx_dataset, dataset in enumerate(datasets):
+        for idx_range, range_val in enumerate(range_set):
+            row = 0
+            col = idx_dataset  # 修正：因为只有一个range，所以列索引就是数据集索引
+            ax_single = fig.add_subplot(gs[row, col])
+            single_thread_y_data = []
+            for alg in alg_set:
+                key = (dataset, range_val)
+                if key not in all_data:
+                    continue
+                    
+                data_list = all_data[key]
+                df = None
+                for d in data_list:
+                    if d['Algorithm'].iloc[0] == alg:
+                        df = d
+                        break  # 找到匹配的算法后跳出循环
+                
+                if df is None:  # 如果没有找到匹配的算法，跳过
+                    continue
+                    
+                color = algorithm_colors[alg]
+                linestyle = algorithm_line_styles[alg]
+                marker = algorithm_markers[alg]    
+                pareto_df = compute_pareto_frontier(df, 'Recall', 'QPS')
+                if not pareto_df.empty:
+                    # 过滤 Recall 小于0.4的数据
+                    filtered_df = pareto_df[(pareto_df['Recall'] >= 0.4)]
+                    if not filtered_df.empty:
+                        x_data = filtered_df['Recall'].tolist()
+                        y_data = filtered_df['QPS'].tolist()
+                        single_thread_y_data.append(y_data)
+                        ax_single.plot(x_data, y_data, marker=marker, linestyle=linestyle, 
+                                      label=alg, color=color, **plot_params)  # 使用alg作为标签
+            
+            # 添加range fraction标签到子图顶部
+            ax_single.set_title(range_labels[idx_range], fontsize=16, fontweight='normal', pad=10)
+            # 设置单线程图的y轴范围和刻度
+            y_min_single, y_max_single, y_ticks_single, y_tick_labels_single = get_y_range_and_ticks(single_thread_y_data)
+            ax_single.set_yscale('log')
+            ax_single.set_ylim(y_min_single, y_max_single)
+             # 只显示主刻度
+            ax_single.yaxis.set_major_locator(plt.FixedLocator(y_ticks_single))
+            ax_single.yaxis.set_minor_locator(plt.NullLocator())
+            ax_single.set_yticklabels(y_tick_labels_single)
+            ax_single.tick_params(axis='both', labelsize=16)
+
+            # 设置x轴范围为0.7到1.01，但仅显示刻度至1.0
+            ax_single.set_xlim(0.4, 1.01)
+            ax_single.set_xticks([0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
+            ax_single.set_xticklabels([f"{tick:.1f}" for tick in [0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]])
+
+            ax_single.axvline(x=0.95, color='gray', linestyle='--', alpha=0.7)
+            ax_single.grid(True, linestyle=':', alpha=0.6)
+
+            # 添加Recall@10标签
+            # 设置x轴标签
+            label_index = chr(97 + col)  # 97是ASCII码中'a'的值
+            # 使用格式化后的数据集名称
+            formatted_dataset = dataset_display_names[dataset]
+            formatted_label = f"({label_index}) Recall@10 ({formatted_dataset})"
+            ax_single.set_xlabel(formatted_label, 
+                            fontproperties=libertine_font,
+                            fontsize=20,
+                            fontweight='bold')
+            # 仅第一显示y轴标签
+            if col == 0:
+                ax_single.set_ylabel("QPS", fontsize=16)
+            else:
+                ax_single.set_ylabel("")
+    
+    # 调整布局，为底部的数据集标签留出空间
+    plt.tight_layout(rect=[0, 0.02, 1, 0.98])
+    return fig
+
+def plot_legend_only():
+    """创建一个单独的图例图表"""
+    alg_set = ['DSG', 'iRange', 'SeRF', 'UNIFY', 'WinFilter','ACORN-1', 'ACORN-γ', 'Faiss', 'Milvus', 'VBASE','PASE']
+    
+    algorithm_colors = {}
+    algorithm_line_styles = {}
+    algorithm_markers = {}
+    for i, alg in enumerate(alg_set):
+        algorithm_colors[alg] = colors[i % len(colors)]
+        algorithm_line_styles[alg] = line_styles[i % len(line_styles)]
+        algorithm_markers[alg] = markers[i % len(markers)]  
+    
+    # 创建一个更紧凑的图形，减少高度和留白
+    fig = plt.figure(figsize=(15, 0.8))
+    
+    # 创建算法图例
+    legend_elements = []
+    for alg in alg_set:
+        legend_elements.append(plt.Line2D([0], [0], 
+                                         color=algorithm_colors[alg], 
+                                         marker=algorithm_markers[alg], 
+                                         linestyle=algorithm_line_styles[alg],
+                                         label=alg, 
+                                         **plot_legend_params))
+    
+    if legend_elements:
+        # 调整图例位置和间距
+        leg = fig.legend(handles=legend_elements, loc='center',
+                         bbox_to_anchor=(0.5, 0.5), ncol=min(11, len(legend_elements)),
+                         fontsize=20, frameon=False,
+                         columnspacing=1.0,  # 减少列间距
+                         handletextpad=0.5,  # 减少图例标记和文本之间的距离
+                         borderaxespad=0.1)  # 减少图例和轴边界的距离
+        leg.get_title().set_fontweight('bold')
+    
+    # 隐藏坐标轴并调整边距
+    ax = fig.add_subplot(111)
+    ax.set_axis_off()
+    
+    # 调整整个图的边距，进一步减少留白
+    plt.subplots_adjust(left=0.02, right=0.98, top=0.85, bottom=0.15)
+    
+    return fig
+
 print("加载数据文件...")
 all_data = load_all_data()
 
@@ -503,5 +743,30 @@ else:
     plt.savefig(save_path_svg, format="svg", bbox_inches='tight')
     plt.savefig(save_path_pdf, format='pdf', bbox_inches='tight')
     # plt.show()
+
+    print("创建1x4对比图...")
+    fig2 = plot_1_4_comparison(all_data)
+    # save_path_svg = os.path.join("exp_8_2.svg")
+    save_path_svg = os.path.join("/data/plots/exp","exp_8_3.svg")
+    save_path_pdf = os.path.join("/data/plots/exp","exp_8_3.pdf")
+    plt.savefig(save_path_svg, format="svg", bbox_inches='tight')
+    plt.savefig(save_path_pdf, format='pdf', bbox_inches='tight')
+
+
+    print("创建1x2对比图...")
+    fig2 = plot_1_2_comparison(all_data)
+    # save_path_svg = os.path.join("exp_8_2.svg")
+    save_path_svg = os.path.join("/data/plots/exp","exp_8_4.svg")
+    save_path_pdf = os.path.join("/data/plots/exp","exp_8_4.pdf")
+    plt.savefig(save_path_svg, format="svg", bbox_inches='tight')
+    plt.savefig(save_path_pdf, format='pdf', bbox_inches='tight')
     
+    # 创建图例图
+    print("创建图例图...")
+    fig_legend = plot_legend_only()
+    save_path_svg = os.path.join("/data/plots/exp","exp_8_legend.svg")
+    save_path_pdf = os.path.join("/data/plots/exp","exp_8_legend.pdf")
+    plt.savefig(save_path_svg, format="svg", bbox_inches='tight')
+    plt.savefig(save_path_pdf, format='pdf', bbox_inches='tight')
+
     print("图表已创建并保存！")

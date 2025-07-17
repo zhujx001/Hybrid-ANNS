@@ -388,6 +388,7 @@ Thank you for your suggestion. The paper [49] is a comprehensive survey and eval
 
 \noindent
 \textbf{Response:} 
+We sincerely apologize for the misuse of notation in Definition 2.3. This has been corrected in the revised version. Thank you for pointing it out.
 
 %%%%%%%%%%%%%%%%%%%%%% D4 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -399,7 +400,7 @@ Thank you for your suggestion. The paper [49] is a comprehensive survey and eval
 
 \noindent
 \textbf{Response:} 
-
+Thank you for the suggestion! Since there are multiple methods, listing all URLs in Section 4.1 would be overwhelming. Instead, we have added the corresponding URLs in footnotes on the relevant pages throughout the paper.
 
 
 
@@ -458,8 +459,14 @@ Thank you for your suggestion. The paper [49] is a comprehensive survey and eval
 
 
 \noindent
-\textbf{Response:} 
+\textbf{Response:}
+Thank you for your suggestion! We recognize that the original manuscript did not clearly explain how attribute filtering (AF) and range filtering (RF) are embedded into standard Graph-based and IVF-based index structures.
 
+To address this, we have revised Section 2.2 to summarize how the algorithms discussed in this paper implement hybrid query functionality based on these foundational indexing structures (with detailed implementation provided in Section 3):
+
+For Graph-based indexes, we describe the typical approaches of embedding attribute and range constraints by associating metadata with graph vertices or edges. Specifically, attribute filtering (AF) is usually achieved by annotating vertices or edges with attribute information, enabling the traversal algorithm to skip nodes or edges that do not satisfy the query predicates (e.g., NHQ, Filtered-DiskANN, ACORN). In contrast, range filtering (RF) typically involves annotating edges with valid attribute intervals so that traversal proceeds only along edges that satisfy the query's range constraints, effectively reducing the search space (e.g., SeRF, DSG).
+
+For IVF-based indexes, we point out that their inherent pre-filtering mechanism naturally supports hybrid query functionality. In particular, attribute and range filtering can be implemented by directly excluding irrelevant vectors during intra-cluster distance computations. Furthermore, we highlight the hierarchical partitioning approach based on attributes, which further divides clusters into finer-grained sub-partitions, significantly improving filtering efficiency (e.g., CAPS, PUCK).
 
 %%%%%%%%%%%%%%%%%%%%%% D2 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -503,6 +510,9 @@ f all the evaluated algorithms, only Faiss supports quantization. However, in ou
 
 We appreciate the reviewer’s observation. Figure 7 presents experiments on multi-label construction and search, using Boolean AND logic. The Vamana-based methods (FilteredVamana and StitchedVamana) only support Boolean OR logic for multi-label search, which is why they were not included. We will clarify this point in the revised version of the paper.
 %Thanks to the reviewer for suggesting that there is no explanation in Figure 7 why Vamana is not included. Figure 7 is an experiment on multi-label construction and search, and the Boolean logic of multi-label search is AND. The two algorithms using Vamana, FilteredVamana and StitchedVamana, only support Boolean logic OR for multi-label search, so we did not include them. We will add an explanation of this in the paper.
+
+All the evaluated algorithms in our experiments build the index in a one-shot manner, without applying any partitioning or merging strategies.
+Additionally, although some of the methods we used—such as FAISS, PUCK, DiskANN, and Milvus—support vector quantization during index construction, we did not enable quantization in any of our experiments. Therefore, the reported index build times do not include quantization.
 
 %%%%%%%%%%%%%%%%%%%%%% D3 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{

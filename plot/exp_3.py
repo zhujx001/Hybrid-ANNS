@@ -15,13 +15,36 @@ data_path = "/data/result"  # 请修改为实际路径
 
 libertine_font = fm.FontProperties(
     fname='/usr/share/fonts/opentype/linux-libertine/LinLibertine_R.otf')
+
+# 定义算法强度分类
+ALGORITHM_STRENGTH = {
+    # Strong algorithms
+    "Milvus": "Strong",
+    "Puck": "Strong", 
+    "StitchedVamana": "Strong",
+    
+    # Weak algorithms
+    "Faiss": "Weak",
+    "FilteredVamana": "Weak",
+    "NHQ": "Weak",
+    "VBASE": "Weak",
+    
+    # Moderate algorithms
+    "ACORN-1": "Moderate",
+    "ACORN-γ": "Moderate",
+    "CAPS": "Moderate",
+    "Faiss+HQI_Batch": "Moderate",
+    "UNG": "Moderate",
+}
+
 colors = [ # 主色系（增强饱和度）
-'#E74C3C', #(Alert Red)
+
+"#E22914", #(Alert Red)
+"#0995F1", #(Fluorescent Blue)
 '#F39C12', #(Orange)
-'#2ECC71', #(Emerald Green)
+"#05C555", #(Emerald Green)
 '#48D1CC', #(Turquoise)
-'#9B59B6', #(Gem Purple)
-'#3498DB', #(Fluorescent Blue)
+"#AD2CE0", #(Gem Purple)
 '#34495E', #(Steel Blue Gray)
 ]
 
@@ -232,7 +255,7 @@ def plot_all_datasets_comparison(all_data):
     plotted_algs = set()
     
     # 为构造统一图例，使用集合记录在当前图中出现的基础算法名称
-    single_thread_algs = single_thread_algs = ['ACORN-1','ACORN-γ', 'CAPS', 'Faiss', 'Faiss+HQI_Batch', 'FilteredVamana', 'Milvus', 'NHQ', 'Puck', 'StitchedVamana', 'UNG', 'VBASE']
+    single_thread_algs = ['ACORN-1','ACORN-γ', 'CAPS', 'Faiss', 'Faiss+HQI_Batch', 'FilteredVamana', 'Milvus', 'NHQ', 'Puck', 'StitchedVamana', 'UNG', 'VBASE']
 
     # 遍历所有算法
     for col, alg in enumerate(single_thread_algs):
@@ -302,6 +325,18 @@ def plot_all_datasets_comparison(all_data):
             ax_single.set_ylabel("QPS", fontsize=16)
         else:
             ax_single.set_ylabel("")
+        
+        # 添加算法强度标注
+        if alg in ALGORITHM_STRENGTH:
+            strength = ALGORITHM_STRENGTH[alg]
+            # 统一显示在左下角位置
+            text_x, text_y = 0.08, 0.08
+            
+            # 使用红色添加文本
+            ax_single.text(text_x, text_y, strength, 
+                    transform=ax_single.transAxes, 
+                    fontsize=12.6, 
+                    color='red')
 
     distribution_mapping = {
         '5_1': 'Long-tailed distribution',
@@ -419,7 +454,19 @@ def plot_multi_thread_comparison(all_data):
             ax_multi.set_ylabel("QPS", fontsize=16)
         else:
             ax_multi.set_ylabel("")
-
+        
+        # 添加算法强度标注
+        if alg in ALGORITHM_STRENGTH:
+            strength = ALGORITHM_STRENGTH[alg]
+            # 统一显示在左下角位置
+            text_x, text_y = 0.03, 0.08
+            
+            # 使用红色添加文本
+            ax_multi.text(text_x, text_y, strength, 
+                    transform=ax_multi.transAxes, 
+                    fontsize=12.6, 
+                    color='red',
+                    fontweight='bold')
 
         distribution_mapping = {
             '5_1': 'Long-tailed distribution',

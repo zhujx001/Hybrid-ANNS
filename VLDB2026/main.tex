@@ -217,19 +217,26 @@
 	
 	
 	
-	\subsection{Index Organization in Hybrid ANN Search}
+%	\subsection{Index Organization in Hybrid ANN Search}
+	\subsection{Index Organization in Hybrid Query}
 	
-	Current hybrid query methods mainly adopt graph-based ~\cite{nsw,kgraph,nsg,fanng,ngt} or Inverted File Index (IVF)-based \cite{PQ} index organization. We briefly introduce the fundamental principles of these two types in the following.
+	Current hybrid query methods mainly adopt graph-based ~\cite{nsw,kgraph,nsg,fanng,ngt} or Inverted File Index (IVF)-based \cite{PQ} index organization. 
+	%We briefly introduce the fundamental principles of these two types in the following.
+	\textcolor{violet}{Here, we briefly review the core concepts of these indexes and outline how attributes and range constraints are embedded to support hybrid query functionality.}
 	
 	\noindent\textbf{\underline{Graph.}}
 	Graph-based ANN search algorithms accelerate queries by building graph indexes on datasets. As illustrated in Figure~\ref{fig:graph}, each data point in the dataset corresponds to a point in the graph, and neighboring vertices (e.g., $a$ and $b$) are connected via edges based on their distance $\textit{dist}(a, b)$. In the graph index, each point maintains connections only to its nearest neighbors to preserve query efficiency. For instance, in Figure~\ref{fig:graph}, the gray point $c$ is connected to 5 neighbors $(a, b, d, e, f)$ and can traverse to them via corresponding edges.
 	
 	Given a query point $q$, the graph-based ANN search typically follows a greedy search strategy to find the $k$ nearest neighbors. For illustration, consider the case where $k = 1$ (i.e., 1NN): The algorithm initiates the search from an entry point (the gray point $c$). If there exists a neighbor $n$ (the point $f$) of the current point such that $\textit{dist}(n, q) < \textit{dist}(c, q)$, the algorithm updates the current point to $n$. This process is iteratively repeated—always moving to the neighbor closest to $q$—until no neighbor is found that is closer than the current point. The final point reached (the blue point $j$) is returned as the approximate nearest neighbor of $q$.
 	
+	\textcolor{violet}{Graph-based indexes are widely adopted in Hybrid ANN search algorithms due to their excellent performance. To support hybrid queries, existing approaches usually augment the original graph structures by explicitly associating attribute or range information with vertices or edges. In attribute filtering, a common approach is to attach attribute metadata to vertices or edges, allowing the traversal process to skip nodes or edges that do not meet the query's attribute conditions (e.g., NHQ, Filtered-DiskANN, ACORN). In range filtering, edges typically store valid attribute intervals, and traversal proceeds only along edges satisfying the range constraints, effectively narrowing down the search space (e.g., SeRF, DSG).}
+	
 	
 	\noindent\textbf{\underline{IVF.}}  IVF-based ANN search algorithms improve computational efficiency by partitioning the dataset into clusters and restricting the search to clusters nearest to the query point. Specifically, as shown in Figure~\ref{fig:ivf}, IVF first selects a subset of data points and applies a clustering algorithm (e.g., K-Means) to obtain a set of centroids $(C_0, C_1, ..., C_6)$, each representing a distinct cluster. Every data point (gray dots) is then assigned to the cluster corresponding to its nearest centroid based on the distance metric, thereby forming the index structure.
 	
 	During the query process, given a query point $q$, the algorithm computes distances between $q$ and all centroids, selects a small number of the closest centroids ($C_0, C_1, C_2$), and then performs a search only within the associated clusters to identify the approximate nearest neighbors.
+	
+	\textcolor{violet}{IVF-based indexes also offer unique advantages in Hybrid ANN search scenarios, such as naturally supporting pre-filtering and requiring significantly lower memory consumption and smaller index sizes compared to graph-based indexes. With minor modifications, IVF indexes achieve attribute and range filtering by directly excluding vectors that do not meet query constraints through pre-filtering, thus skipping irrelevant vectors during intra-cluster distance computations (e.g., Faiss, Milvus). Moreover, clusters can be further partitioned hierarchically based on attributes (hierarchical partitioning), resulting in finer-grained sub-partitions that significantly enhance the efficiency of attribute filtering (e.g., CAPS, PUCK).}
 	
 	\begin{figure}
 		\begin{subfigure}{0.60\columnwidth}
@@ -525,15 +532,15 @@
 		
 		
 		% 上面的图例，居中并可通过 hspace 调整左右位置
-		\hspace*{16pt} % 可调整的参数，负值左移，正值右移，例如 -20pt 或 20pt
-		\includegraphics[width=0.92\columnwidth]{figures/indexData/legend_only.pdf} % 图例图片路径
+		\hspace*{10pt} % 可调整的参数，负值左移，正值右移，例如 -20pt 或 20pt
+		\includegraphics[width=0.95\columnwidth]{figures/indexData/legend_only.pdf} % 图例图片路径
 		
 		
 		\begin{subfigure}{\columnwidth}
 			\centering
 			
 			\includegraphics[width=0.95\linewidth]{figures/indexData/exp_7_build_time_comparison_query1.pdf}
-			\caption{Index construction time}
+			\caption{Construction time}
 			\label{fig:build_time_comparison_query1}
 		\end{subfigure}
 		
@@ -553,12 +560,20 @@
 			\centering
 			
 			\includegraphics[width=0.95\linewidth]{figures/indexData/exp_7_memory_mb_comparison_query1.pdf}
-			\caption{Peak memory usage}
-			\label{fig:memory_mb_comparison_query1}
+			\caption{Build peak memory }
+			\label{fig:search_memory_mb_comparison}
+		\end{subfigure}
+		
+		\begin{subfigure}{\columnwidth}
+			\centering
+			
+			\includegraphics[width=0.95\linewidth]{figures/searchMem/label_memory_comparison.pdf}
+			\caption{Search peak memory}
+			\label{fig:build_memory_mb_comparison}
 		\end{subfigure}
 		
 		%		\caption{Time and space overhead of attribute filtering index construction}
-		\caption{Time and space overhead of index construction}
+		\caption{\textcolor{violet}{Time and space overhead}}
 		\label{fig:build_index_comparison}
 	\end{figure}
 	
@@ -705,7 +720,7 @@
 	
 	\textit{\textbf{Attribute Distribution.}} To evaluate performance across different attribute distributions, we generate base and query attribute sets with 4 representative distributions—long-tailed, normal, power-law, and uniform—across the 6 datasets described in Section~4.1.1. We evaluate all algorithms under these distributions on each dataset. The performance differences observed for the same algorithm across different datasets are relatively minor. Thus, due to space constraints, we present only the results on SIFT1M.
 	
-	As illustrated in Figure~\ref{fig:exp_3_1}, the evaluated algorithms exhibit varying degrees of sensitivity to attribute distribution shifts. Specifically, ACORN, Milvus, Puck, CAPS, StitchedVamana, and UNG demonstrate strong robustness to such shifts. In contrast, Faiss, FilteredVamana, NHQ, VBASE, and PASE show notable sensitivity.
+	As illustrated in Figure~\ref{fig:exp_3_1}, the evaluated algorithms exhibit varying degrees of sensitivity to attribute distribution shifts. \textcolor{blue}{The closer the four curves (corresponding to the four distributions) in the figure approach each other, the less the algorithm is affected by attribute distributions. Conversely, the farther they diverge, the more significant the impact of attribute distributions on the algorithm becomes.} Specifically, ACORN, Milvus, Puck, CAPS, StitchedVamana, and UNG demonstrate strong robustness to such shifts. In contrast, Faiss, FilteredVamana, NHQ, VBASE, and PASE show notable sensitivity.
 	
 	Among all algorithms, ACORN-\(\gamma\) shows the highest robustness. During index construction, attribute is mainly used for pruning in the lowest layer graph, while the upper-layer hierarchical navigation graphs remain largely unaffected. As a result, changes in attribute distribution have a limited impact on overall performance.
 	
@@ -853,40 +868,45 @@
 		\centering
 		
 		
-		\hspace*{11pt}
+		\hspace*{5pt}
 		% 放大的图例（占满单栏）
-		\includegraphics[width=0.90\columnwidth]{figures/indexData/rangeFilter_legend_only.pdf}
+		\includegraphics[width=0.98\columnwidth]{figures/indexData/rangeFilter_legend_only.pdf}
 		
 		%\vspace{0.1cm}
 		
 		% 三图横排
-		\begin{subfigure}[t]{0.32\columnwidth}
+		\begin{subfigure}[t]{0.49\columnwidth}
 			\centering
 			\captionsetup{font=small}
-			
 			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_build_time_comparison_query.pdf}
 			\caption{\footnotesize Construction time}
 			\label{fig:rangeFilter_build_time}
 		\end{subfigure}
 		\hfill
-		\begin{subfigure}[t]{0.32\columnwidth}
+		\begin{subfigure}[t]{0.49\columnwidth}
 			\centering
-			
 			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_index_size_mb_comparison_query.pdf}
 			\caption{\footnotesize Index size}
 			\label{fig:rangeFilter_index_size_mb}
 		\end{subfigure}
 		\hfill
-		\begin{subfigure}[t]{0.32\columnwidth}
+		\begin{subfigure}[t]{0.49\columnwidth}
 			\centering
-			
-			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_memory_mb_comparison_query.pdf}
-			\caption{\footnotesize Peak memory usage}
-			\label{fig:rangeFilter_memory_mb}
+			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_index_size_mb_comparison_query.pdf}
+			\caption{\footnotesize Build peak memory}
+			\label{fig:rangeFilter_build_memory_mb}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[t]{0.49\columnwidth}
+			\centering
+			\includegraphics[width=\linewidth]{figures/searchMem/range_memory_comparison.pdf}
+			\caption{\footnotesize Search peak memory}
+			\label{fig:rangeFilter_search_memory_mb}
 		\end{subfigure}
 		
 		%		\caption{Time and space overhead of range filtering index construction}
-		\caption{Time and space overhead of index construction}
+%		\caption{Time and space overhead of index construction}
+		\caption{\textcolor{violet}{Time and space overhead}}
 		\label{fig:rangeFilter_build_index_comparison}
 	\end{figure}
 	
