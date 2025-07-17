@@ -453,14 +453,12 @@
 	For attribute filtering tasks, we employ 6 real-world datasets widely adopted in existing literature: Msong~\cite{msong2011}, Audio~\cite{audio_unknown}, SIFT1M~\cite{sift2010}, GIST1M~\cite{sift2010}, GloVe~\cite{GloVe2015}, Enron~\cite{enron2015}, covering a diverse range of domains. We independently generate attribute for each dataset.
 	For range filtering queries, we evaluate 3 widely used real-world datasets: Deep~\cite{yandex_deep_dataset}, YT-Audio~\cite{youtube8m_dataset}, and WIT~\cite{wit_dataset}. Following prior work~\cite{DSG}, we use the data point ID within each dataset as its attribute. This ensures that the data is initially sorted.
 	
-%	In addition, we evaluate the performance of different algorithms on the Out-of-Distribution (OOD) dataset Text2Image~\cite{texttoimage}.
-	
 	\textcolor{violet}{In addition to the aforementioned datasets, we further evaluate the performance of various algorithms on the Out-of-Distribution (OOD) dataset Text2Image~\cite{texttoimage} and the large-scale dataset Deep100M to validate the algorithm generalization capability. Notably, the previously discussed datasets primarily relied on synthetic attributes for experimentation. Therefore, we additionally incorporated two datasets containing real attributes for a more comprehensive evaluation:}
 	
-	YT-Audio-Real dataset: We utilized the URLs provided by the YouTube8M dataset to crawl the corresponding video category IDs and view counts as their real attributes.
+	\textcolor{violet}{YT-Audio-Real: We utilized the URLs provided by the YouTube8M dataset to crawl the corresponding video category IDs and view counts as their real attributes.}
 
-
-		
+	\textcolor{violet}{WIT-Real: For this dataset, we encoded the page\_title field into vectors using the \texttt{clip-vit-base-patch32} model, and used the language type and the length of the context\_page\_description field as real attributes.}
+%	In addition, we evaluate the performance of different algorithms on the Out-of-Distribution (OOD) dataset Text2Image~\cite{texttoimage}.		
 	
 	Table~\ref{tab:datasets_combined} summarizes the key characteristics of all datasets. In particular, we report the Local Intrinsic Dimensionality (LID)~\cite{Lid}, a commonly used metric to quantify dataset hardness. Following the standard evaluation protocol~\cite{LID2}, we randomly sample 10,000 data points from each dataset for LID computation.The higher the LID value, the harder the dataset.
 	
@@ -488,8 +486,9 @@
 				Deep & 96 & 1,000,000 & 10,000 & 22& Image \\
 				YT-Audio& 128 & 1,000,000 & 10,000 & 15& Audio \\
 				WIT & 2048 & 1,000,000 & 40,300 & 48& Image \\
+				WIT-Real & 512 & 1,000,000 & 40,300 & 48& Image \\
 				Text2Image & 200 & 10,000,000 &10,000 & 59& Text,Image \\
-				
+				Text2Image-Mix & 200 & 10,000,000 &10,000 & 59& Text,Image \\
 				\bottomrule
 			\end{tabular}
 		}
