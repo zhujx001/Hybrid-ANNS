@@ -860,6 +860,44 @@
 	
 	Most algorithms exhibit the worst performance on the OOD dataset Text2Image. However, ACORN, UNG, and FilteredVamana show relatively stable performance on Text2Image. Their performance drops less compared to in-distribution (ID) datasets such as GIST1M and GloVe, indicating better adaptability to OOD queries.
 	
+	\textit{\textbf{Multimodel, 85 and Deep100M.}} \textcolor{red}{The fig is Figure \ref{fig:TrinityExtension——Attribution}}
+	
+	\begin{figure}[t]
+		\centering
+		
+		
+		\hspace*{5pt}
+		% 放大的图例（占满单栏）
+		\includegraphics[width=0.98\columnwidth]{figures/exp/attribute_legend.pdf}
+		
+		%\vspace{0.1cm}
+		\begin{subfigure}[t]{0.332\columnwidth}
+			\centering
+			\captionsetup{font=small}
+			\includegraphics[width=\linewidth]{figures/exp/attribute_multimodel.pdf}
+			\caption{\footnotesize MultiModel}
+			\label{fig:rangeFilter_build_time}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[t]{0.315\columnwidth}
+			\centering
+			\includegraphics[width=\linewidth]{figures/exp/attribute_85.pdf}
+			\caption{\footnotesize Different Computer}
+			\label{fig:rangeFilter_index_size_mb}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[t]{0.315\columnwidth}
+			\centering
+			\includegraphics[width=\linewidth]{figures/exp/attribute_100M.pdf}
+			\caption{\footnotesize Big Dataset}
+			\label{fig:rangeFilter_build_memory_mb}
+		\end{subfigure}
+
+		
+		\caption{\textcolor{violet}TrinityExtension——Attribution}
+		\label{fig:TrinityExtension——Attribution}
+	\end{figure}
+	
 	\subsection{Range Filtering}
 	
 	\subsubsection{Time and Space overhead of index construction.}
@@ -998,7 +1036,43 @@
 	%	This suggests that the effectiveness of RF-ANN search is mainly influenced by LID of the dataset. A higher LID inherently increases the difficulty of hybrid query.
 	%	
 	%	However, the DSG algorithm shows a noticeable performance gap between the Deep and YT-Audio datasets, despite their comparable LID. This indicates that DSG is less robust than other methods when facing dataset-dependent variations, possibly due to its sensitivity to data distribution beyond LID alone.
+	\textit{\textbf{Multimodel, 85 and Deep100M.}} \textcolor{red}{The fig is Figure \ref{fig:TrinityExtension——Range}}
 	
+	\begin{figure}[t]
+		\centering
+		
+		
+		\hspace*{5pt}
+		% 放大的图例（占满单栏）
+		\includegraphics[width=0.98\columnwidth]{figures/exp/range_legend.pdf}
+		
+		%\vspace{0.1cm}
+		\begin{subfigure}[t]{0.332\columnwidth}
+			\centering
+			\captionsetup{font=small}
+			\includegraphics[width=\linewidth]{figures/exp/range_multimodel.pdf}
+			\caption{\footnotesize MultiModel}
+			\label{fig:MultiModel range}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[t]{0.315\columnwidth}
+			\centering
+			\includegraphics[width=\linewidth]{figures/exp/range_85.pdf}
+			\caption{\footnotesize Different Computer}
+			\label{fig:Different Computer range}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[t]{0.315\columnwidth}
+			\centering
+			\includegraphics[width=\linewidth]{figures/exp/range_deep100M.pdf}
+			\caption{\footnotesize Big Dataset}
+			\label{fig:Big Dataset range}
+		\end{subfigure}
+		
+		
+		\caption{\textcolor{red}TrinityExtension——Range}
+		\label{fig:TrinityExtension——Range}
+	\end{figure}
 	
 	
 	\section{DISCUSSION}
