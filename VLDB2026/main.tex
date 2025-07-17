@@ -613,8 +613,11 @@
 	
 	
 	\textit{\textbf{Build peak memory.}}
-	As shown in Figure~\ref{fig:build_memory_mb_comparison}, on small-scale datasets, all methods except NHQ exhibit low memory usage. 
+	As shown in Figure~\ref{fig:build_memory_mb_comparison}, 
+	%on small-scale datasets, all methods except NHQ exhibit low memory usage. 
+	\textcolor{orange}{NHQ has the highest peak memory usage on almost all datasets.}
 	This is because NHQ adopts the kgraph approach for index construction, which requires loading the entire graph data into memory and maintaining a complete graph structure, leading to relatively high memory overhead. 
+	
 	On large-scale datasets, CAPS exhibits slightly lower memory usage compared to other algorithms. \textcolor{orange}{The reason is that CAPS avoids redundant storage and graph structure overhead through hierarchical partitioning and AFT, and achieves a compact, sparse and controllable index. }.
 	
 	\textit{\textbf{ \textcolor{orange}{Search peak memory.}}}
