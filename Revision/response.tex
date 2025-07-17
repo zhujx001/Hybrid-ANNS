@@ -476,7 +476,33 @@ Thank you for your suggestion. The paper [49] is a comprehensive survey and eval
 
 \noindent
 \textbf{Response:} 
-Thanks to the reviewer for suggesting that there is no explanation in Figure 7 why Vamana is not included. Figure 7 is an experiment on multi-label construction and search, and the Boolean logic of multi-label search is AND. The two algorithms using Vamana, FilteredVamana and StitchedVamana, only support Boolean logic OR for multi-label search, so we did not include them. We will add an explanation of this in the paper.
+Thank you for your insightful comments!
+
+\textbf{Regarding dataset scale and scalability:}
+
+We have elaborated on the scalability implementations of various algorithms on the 100-million-scale Deep dataset in \textcolor{blue}{ Section XXX of our paper. We also provide a comprehensive analysis of their performance on large-scale datasets.}
+
+\textbf{Regarding the experimental parameter settings:}
+
+During index construction, for datasets where recommended parameters were explicitly provided in the original papers of the respective algorithms, we strictly adhered to those settings.. For the remaining datasets, we used the default parameters provided in their open-source code repositories. All detailed configurations of experimental parameters are publicly available in our code repository.
+
+ Our experimental results show that on datasets where recommended parameters were used, the relative performance ranking of the algorithms did not change significantly.
+During the search phase, we obtained performance data at different Recall and QPS by adjusting the search parameters. These search parameters covered a wide range to ensure we could obtain comprehensive experimental result curves.
+
+ Given the large number of datasets and algorithms involved, to maintain the conciseness of the paper, we did not list the detailed running parameters for all algorithms and datasets in the main text. These specific parameters can all be found in our code repository. For algorithms that are sensitive to specific parameters, we have highlighted them in the relevant sections of the paper.
+ 
+\textbf{Regarding index partitioning and merging:}
+
+For partitioning and merging, only Filtered-DiskANN, which supports disk storage, builds indices separately and then merges them. However, the algorithms we focused on and evaluated in this study (with the exception of Filtered-DiskANN) are all designed and implemented based on in-memory index construction. Therefore, for the vast majority of algorithms, index partitioning and merging are not involved, which differs from DiskANN's design considerations.
+
+\textbf{Regarding quantization time in index build:}
+
+f all the evaluated algorithms, only Faiss supports quantization. However, in our experiments, we used the IVF index structure of Faiss without employing quantization. Therefore, no quantization time was included in the reported index build times.
+
+\textbf{Regarding Figure 7 and the exclusion of Vamana:}
+
+We appreciate the reviewer’s observation. Figure 7 presents experiments on multi-label construction and search, using Boolean AND logic. The Vamana-based methods (FilteredVamana and StitchedVamana) only support Boolean OR logic for multi-label search, which is why they were not included. We will clarify this point in the revised version of the paper.
+%Thanks to the reviewer for suggesting that there is no explanation in Figure 7 why Vamana is not included. Figure 7 is an experiment on multi-label construction and search, and the Boolean logic of multi-label search is AND. The two algorithms using Vamana, FilteredVamana and StitchedVamana, only support Boolean logic OR for multi-label search, so we did not include them. We will add an explanation of this in the paper.
 
 %%%%%%%%%%%%%%%%%%%%%% D3 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
