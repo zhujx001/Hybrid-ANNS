@@ -459,8 +459,14 @@ Thank you for the suggestion! Since there are multiple methods, listing all URLs
 
 
 \noindent
-\textbf{Response:} 
+\textbf{Response:}
+Thank you for your suggestion! We recognize that the original manuscript did not clearly explain how attribute filtering (AF) and range filtering (RF) are embedded into standard Graph-based and IVF-based index structures.
 
+To address this, we have revised Section 2.2 to summarize how the algorithms discussed in this paper implement hybrid query functionality based on these foundational indexing structures (with detailed implementation provided in Section 3):
+
+For Graph-based indexes, we describe the typical approaches of embedding attribute and range constraints by associating metadata with graph vertices or edges. Specifically, attribute filtering (AF) is usually achieved by annotating vertices or edges with attribute information, enabling the traversal algorithm to skip nodes or edges that do not satisfy the query predicates (e.g., NHQ, Filtered-DiskANN, ACORN). In contrast, range filtering (RF) typically involves annotating edges with valid attribute intervals so that traversal proceeds only along edges that satisfy the query's range constraints, effectively reducing the search space (e.g., SeRF, DSG).
+
+For IVF-based indexes, we point out that their inherent pre-filtering mechanism naturally supports hybrid query functionality. In particular, attribute and range filtering can be implemented by directly excluding irrelevant vectors during intra-cluster distance computations. Furthermore, we highlight the hierarchical partitioning approach based on attributes, which further divides clusters into finer-grained sub-partitions, significantly improving filtering efficiency (e.g., CAPS, PUCK).
 
 %%%%%%%%%%%%%%%%%%%%%% D2 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
