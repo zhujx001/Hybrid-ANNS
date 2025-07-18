@@ -230,7 +230,11 @@ and concerns, and the changes are highlighted \textcolor{blue}{in blue} accordin
 }
 
 \noindent
-\textbf{Response:} 
+\textbf{Response:} Thank you for your suggestion! In real-world applications, there may indeed exist more complex semantic correlations between vectors and their associated attributes or among different attributes themselves. To better reflect such scenarios, we introduced two real-world datasets, where both vectors and attributes are derived from actual data. For example, in the YouTube dataset, the attributes include video categories and view counts, while in the WIT dataset, the attributes correspond to the language of image descriptions.
+
+We conducted experiments on both datasets and analyzed the performance of various algorithms. Interestingly, our results indicate that using real attribute values has limited impact on the overall performance trends.
+
+Regarding the more intricate semantic relationships—such as those between vectors and attributes, or among different attributes themselves—current hybrid search algorithms do not explicitly model or leverage such correlations. Nevertheless, our evaluation covers a range of realistic scenarios, including multi-attribute settings and diverse  distributions, to assess the generalization ability of the algorithms.
 
 %%%%%%%%%%%%%%%%%%%%%% W2 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
