@@ -1003,9 +1003,9 @@
 	
 		\textit{\textbf{\textcolor{orange}{Search peak memory.}}}
 		
-		\textcolor{orange}{As shown in Figure~\ref{fig:rangeFilter_search_memory_mb}, Faiss and Milvus have the lowest peak memory usage during search. Similar to attribute filtering, Faiss also has a smaller index size and no other additional memory usage, so the peak memory usage in range queries is slightly higher than the index size. Milvus reason:. WinFilter achieves the highest peak memory usage on almost all datasets. The reason is:. For the high-dimensional dataset WIT, UNIFY occupies the highest peak memory. The reason is:.}
+	%	\textcolor{orange}{As shown in Figure~\ref{fig:rangeFilter_search_memory_mb}, Faiss and Milvus have the lowest peak memory usage during search. Similar to attribute filtering, Faiss also has a smaller index size and no other additional memory usage, so the peak memory usage in range queries is slightly higher than the index size. Milvus reason:. WinFilter achieves the highest peak memory usage on almost all datasets. The reason is:. For the high-dimensional dataset WIT, UNIFY occupies the highest peak memory. The reason is:.}
 		
-		%Faiss和Milvus在搜索时的峰值内存最低，\textcolor{orange}{Faiss原因：Milvus原因：}。WinFilter在几乎所有数据集上取得最高的峰值内存，\textcolor{orange}{原因是：}。而对于高维数据集WIT，UNIFY占用最高的峰值内存，\textcolor{orange}{原因是：}。
+		\textcolor{orange}{As for the Search peak memory usage, we can find from the Figure ~\ref{fig:rangeFilter_search_memory_mb} that it is basically consistent with the Build peak memory usage trend. The algorithm needs to load the complete index into memory during search. Therefore, algorithms with high building overhead, such as WinFilter, also have high search overhead; algorithms with low building overhead, such as Faiss, also have low search overhead. For Milvus, search does not require full index loading and there is additional metadata overhead when building, so the performance is different from the trend.}
 		
 	\begin{figure*}[t]
 		
