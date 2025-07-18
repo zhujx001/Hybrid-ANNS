@@ -732,7 +732,7 @@
 	
 	\textit{\textbf{Attribute Distribution.}} To evaluate performance across different attribute distributions, we generate base and query attribute sets with 4 representative distributions—long-tailed, normal, power-law, and uniform—across the 6 datasets described in Section~4.1.1. We evaluate all algorithms under these distributions on each dataset. The performance differences observed for the same algorithm across different datasets are relatively minor. Thus, due to space constraints, we present only the results on SIFT1M.
 	
-	As illustrated in Figure~\ref{fig:exp_3_1}, the evaluated algorithms exhibit varying degrees of sensitivity to attribute distribution shifts. \textcolor{blue}{The closer the four curves (corresponding to the four distributions) in the figure approach each other, the less the algorithm is affected by attribute distributions. Conversely, the farther they diverge, the more significant the impact of attribute distributions on the algorithm becomes.} Specifically, ACORN, Milvus, Puck, CAPS, StitchedVamana, and UNG demonstrate strong robustness to such shifts. In contrast, Faiss, FilteredVamana, NHQ, VBASE, and PASE show notable sensitivity.
+	As illustrated in Figure~\ref{fig:exp_3_1}, the evaluated algorithms exhibit varying degrees of sensitivity to attribute distribution shifts. \textcolor{cyan}{The closer the four curves (corresponding to the four distributions) in the figure approach each other, the less the algorithm is affected by attribute distributions. Conversely, the farther they diverge, the more significant the impact of attribute distributions on the algorithm becomes.} Specifically, ACORN, Milvus, Puck, CAPS, StitchedVamana, and UNG demonstrate strong robustness to such shifts. In contrast, Faiss, FilteredVamana, NHQ, VBASE, and PASE show notable sensitivity.
 	
 	Among all algorithms, ACORN-\(\gamma\) shows the highest robustness. During index construction, attribute is mainly used for pruning in the lowest layer graph, while the upper-layer hierarchical navigation graphs remain largely unaffected. As a result, changes in attribute distribution have a limited impact on overall performance.
 	
@@ -875,9 +875,8 @@
 	\subsubsection{Scalability Study}
 	
 	\textit{\textbf{\textcolor{blue}{Different Hardware Environments.}}} 
-	\textcolor{red}{We conducted additional experiments on a server equipped with two Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset, and the results are shown in Figure 12(b). Compared to the original server, the relative ranking of the algorithms remains largely unchanged, indicating that the methods are not significantly affected by differences in CPU configurations. Due to the lower CPU frequency of the Xeon 6330 compared to the original server, the QPS values are slightly lower across all methods.}
-	
-	
+	\textcolor{red}{We conducted additional experiments on a server equipped with two Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset, and the results are shown in Figure 12(b). Compared with the experimental results on the original server (as shown in Figure 4d), the relative ranking of the algorithms remains largely unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency of the Xeon 6330 compared to the original server, the QPS values are slightly lower across all methods.}
+
 	\textit{\textbf{\textcolor{blue}{Large-scale Datasets.}}} 
 	
 	\textit{\textbf{\textcolor{blue}{Complex Queries.}}}
@@ -1072,7 +1071,9 @@
 	
 	\subsubsection{Scalability Study}
 		
-	\textit{\textbf{\textcolor{blue}{Different Hardware Environments.}}} 
+	\textit{\textbf{\textcolor{blue}{Different Hardware Environments.}}}
+	\textcolor{cyan}{As described in Section 4.2.4, we performed additional range filtering experiments using the YT-Audio-Real dataset on the same server configuration, with results presented in Figure~\ref{fig:Different Computer range}. When compared with the original server's experimental results shown in Figure~\ref{fig:exp_8_2}$e$, our findings remain consistent with those reported in Section 4.2.4. For brevity and due to space limitations, we omit further discussion of these redundant results.}
+%	\textcolor{cyan}{Consistent with Section 4.2.4, we conducted additional range filtering experiments using the YT-Audio-Real dataset on the same server, with results shown in Figure \ref{fig:Different Computer range}. Compared with the original server's experimental results (Figure \ref{fig:exp_8_2}($e$)), the conclusions remain identical to those described in Section 4.2.4. Due to space constraints, these details are not reiterated here.}
 	
 	\textit{\textbf{\textcolor{blue}{Large-scale Datasets.}}} 
 	
