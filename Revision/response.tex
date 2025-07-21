@@ -145,7 +145,11 @@ and concerns, and the changes are highlighted \textcolor{blue}{in blue} accordin
 }
 
 \noindent
-\textbf{Response:} 
+\textbf{Response:} We believe this is a very good suggestion. Accordingly, we have added more complex multi-modal dataset experiments in the Multi-modal Queries sections of Section 4.2.4 and Section 4.3.4 in our revised paper. In the original version, we used the commonly adopted text2image dataset from existing multi-modal ANN algorithms, where the base vectors are images, but the queries are text. This setting naturally introduces a modality gap, and achieving good performance on this dataset usually requires algorithms to be more robust.
+
+To further enrich the complexity of multi-modal queries, we additionally selected 500,000 text vectors and 500,000 image vectors to form a mixed base dataset, and we similarly selected 5,000 text vectors and 5,000 image vectors as query vectors. We then conducted both attribute filtering and range queries on this multi-modal dataset by combining text and image queries. This allows us to further analyze the robustness of the algorithms. The related experimental results are presented in the Multi-modal Queries sections of Section 4.2.4 and Section 4.3.4.
+
+As for complex query types involving both attribute and range filters, to the best of our knowledge, there is currently no ANN algorithm (except for general-purpose systems like Milvus and Faiss) that can support both types of filtering simultaneously. For example, ACORN needs to build separate indices for each scenario and cannot support attribute and range filtering at the same time. Therefore, in our study, we chose to consider these query types separately, rather than jointly.
 
 
 %%%%%%%%%%%%%%%%%%%%%% R4 %%%%%%%%%%%%%%%%%%%%%%
