@@ -271,23 +271,56 @@
 		
 		\caption{Comparison of AF-ANN search algorithms}
 		\small
-		\label{tab:compair_1}
-		\begin{tabular}{|l|l|c|c|c|c|c|c|c|}
-			\hline
-			\textbf{Algorithm} & \textbf{Base} & \textbf{Filter Type} & \textbf{AND} & \textbf{OR} & \textbf{Flexible Attributes} & \textbf{Complex Boolean} & \textbf{Dynamic Insert} & \textbf{Multi Thread} \\
-			\hline
-			NHQ & Graph & C & Y & N& N& N & N & N \\
-			FilteredVamana & Graph & C & N & Y & Y & N & Y & Y \\
-			StitchedVamana & Graph & C & N & Y & Y & N & N & Y  \\
-			CAPS & IVF & C & Y & N & Y & N & Y & Y \\
-			ACORN & Graph & B & Y & Y & Y & Y & Y & Y \\
-			UNG & Graph & B & Y & Y & Y & N & Y & Y \\ 
-			Puck & IVF & B & Y & Y & Y & N & Y & Y \\
-			% ParlayANN & Graph+IVF & B & N & N & Y & N & N & Y \\
-			
-			\hline
-			
-		\end{tabular}
+%		\label{tab:compair_1}
+%		\begin{tabular}{|l|l|c|c|c|c|c|c|c|}
+%			\hline
+%			\textbf{Algorithm} & \textbf{Base} & \textbf{Filter Type} & \textbf{AND} & \textbf{OR} & \textbf{Flexible Attributes} & \textbf{Complex Boolean} & \textbf{Dynamic Insert} & \textbf{Multi Thread} \\
+%			\hline
+%			NHQ & Graph & C & Y & N& N& N & N & N \\
+%			FilteredVamana & Graph & C & N & Y & Y & N & Y & Y \\
+%			StitchedVamana & Graph & C & N & Y & Y & N & N & Y  \\
+%			CAPS & IVF & C & Y & N & Y & N & Y & Y \\
+%			ACORN & Graph & B & Y & Y & Y & Y & Y & Y \\
+%			UNG & Graph & B & Y & Y & Y & N & Y & Y \\ 
+%			Puck & IVF & B & Y & Y & Y & N & Y & Y \\
+%			% ParlayANN & Graph+IVF & B & N & N & Y & N & N & Y \\
+%			
+%			\hline
+%			
+%		\end{tabular}
+	\label{tab:compair_1}
+	\begin{tabular}{|l|l|*{12}{c|}}
+		\hline
+		
+	
+		\multicolumn{2}{|c|}{\textbf{Algorithm}} & \textbf{NHQ} & \textbf{Filtered} & \textbf{Stitched} & \textbf{CAPS} & \textbf{ACORN} & \textbf{UNG} & \textbf{Puck} & \textbf{DSG} & \textbf{iRange} & \textbf{SeRF} & \textbf{UNIFY} & \textbf{Win}
+		 \\ \hline
+		\multirow{6}{*}{\textbf{AF}} 
+		& Filter Type         & C   & C   & C   & C   & B   & B   & B   & \multicolumn{5}{c|}{} \\ \cline{2-9}
+		& AND                 & Y   & N   & N   & Y   & Y   & Y   & Y   & \multicolumn{5}{c|}{\multirow{4}{*}{\centering\shortstack{AF\\not support}}} \\ \cline{2-9}
+		& OR                  & N   & Y   & Y   & N   & Y   & Y   & Y   & \multicolumn{5}{c|}{} \\ \cline{2-9}
+		& Flexible Attributes & N   & Y   & Y   & Y   & Y   & Y   & Y   & \multicolumn{5}{c|}{} \\ \cline{2-9}
+		& Complex Boolean     & N   & N   & N   & N   & Y   & N   & N   & \multicolumn{5}{c|}{} \\ \hline
+		
+		\multicolumn{2}{|l|}{\textbf{RF}}             & N & N & N & N & Y & N & N & Y & Y & Y & Y & Y \\ \hline
+		\multicolumn{2}{|l|}{\textbf{Dynamic Insert}} & N & Y & N & Y & Y & Y & Y & N & Y & Y & Y & Y \\ \hline
+		\multicolumn{2}{|l|}{\textbf{Multi Thread}}   & N & Y & Y & Y & Y & Y & Y & N & Y & Y & Y & Y \\ \hline
+		\multicolumn{2}{|l|}{\textbf{Disk Storage Support}}           &N  & Y& N & N & N & N & N & N & N & N & N & N \\ \hline
+		\multicolumn{2}{|l|}{\textbf{Base}}           & Graph & Graph & Graph & IVF & Graph & Graph & IVF & Graph & Graph & Graph & Graph & Graph \\ \hline
+	\end{tabular}
+		
+%			\begin{tabular}{|c|c|c|c|}
+%			\hline
+%			\textbf{Algorithm} & \textbf{Base} & \textbf{Dynamic Insert} & \textbf{Multi Thread} \\
+%			\hline
+%			DSG & Graph & Y & N \\
+%			iRange & Graph & N & Y \\
+%			SeRF & Graph & Y & Y \\
+%			UNIFY & Graph & Y & Y \\
+%			WinFilter & Graph & N & Y  \\
+%			\hline
+%		\end{tabular}
+%		
 		
 		
 		\centering
