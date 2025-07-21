@@ -161,7 +161,11 @@ As for complex query types involving both attribute and range filters, to the be
 
 \noindent
 \textbf{Response:} 
+Thank you for your suggestion. Using IDs as attributes for range filtering is a prevalent method in current range filtering algorithm evaluations, which indeed has considerable limitations. To address this issue, we have added two datasets that use real attributes:
 
+\textbf{YT-Audio-Real dataset:} For this dataset, we utilized the URLs provided by the YouTube8M dataset to crawl corresponding video category IDs and view counts as real attributes, and used view counts as the attribute for range filtering experiments.
+
+\textbf{WIT-Real dataset:} We used the \texttt{clip-vit-base-patch32} model to encode the \texttt{page\_title} field from the WIT dataset into vectors, and extracted the language type and the length of the \texttt{context\_page\_description} field as real attributes, and used them for range filtering.
 %%%%%%%%%%%%%%%%%%%%%% R5 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
 	\begin{metarevision}
@@ -282,6 +286,11 @@ Regarding the more intricate semantic relationships—such as those between vect
 
 \noindent
 \textbf{Response:} 
+Thank you for your suggestion. We fully understand your concern regarding the use of synthetic or less meaningful attributes in our hybrid query experimental setup.
+
+To address this crucial issue and enhance the real-world relevance of our evaluation, we have added two new real-world datasets with genuine attributes to our attribute filtering and range query experiments, as detailed in MetaReview R3.
+
+By incorporating the YT-Audio-Real and WIT-Real datasets with their respective real attributes, we believe our experimental study now better reflects real-world application scenarios, and, as you suggested, allows for a more comprehensive and meaningful evaluation of hybrid query functionality.
 
 %%%%%%%%%%%%%%%%%%%%%% W2 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
