@@ -170,8 +170,14 @@ As for complex query types involving both attribute and range filters, to the be
 
 \noindent
 \textbf{Response:} 
+Thank you for your suggestion. Using IDs as attributes for range filtering is a prevalent method in current range filtering algorithm evaluations, which indeed has considerable limitations. To address this issue, we have added two datasets that use real attributes:
 
+\textbf{YT-Audio-Real dataset:} For this dataset, we utilized the URLs provided by the YouTube8M dataset to crawl corresponding video category IDs and view counts as real attributes, and used view counts as the attribute for range filtering experiments.
+
+\textbf{WIT-Real dataset:} We used the \texttt{clip-vit-base-patch32} model to encode the \texttt{page\_title} field from the WIT dataset into vectors, and extracted the language type and the length of the \texttt{context\_page\_description} field as real attributes, and used them for range filtering.
 %%%%%%%%%%%%%%%%%%%%%% R5 %%%%%%%%%%%%%%%%%%%%%%
+
+
 \myfbox{
 	\begin{metarevision}
 		\textit{Evaluate if the server setting affects the relative ordering of methods in experiments}
@@ -180,7 +186,12 @@ As for complex query types involving both attribute and range filters, to the be
 
 \noindent
 \textbf{Response:} 
+Thank you for your suggestion.
+We conducted additional experiments on a server equipped with two Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset.
+The results show that the performance differences across algorithms remain small, and their relative rankings do not change significantly across servers.
+We did observe slightly lower QPS on this server compared to our original one, which is mainly due to the lower CPU frequency of the Xeon 6330 processors.
 
+\textcolor{blue}{"We conducted additional experiments on a server equipped with two Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset, and the results are shown in Figure 12(b). Compared with the experimental results on the original server (as shown in Figure 4d), the relative ranking of the algorithms remains largely unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency of the Xeon 6330 compared to the original server, the QPS values are slightly lower across all methods."}
 %%%%%%%%%%%%%%%%%%%%%% R6 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
 	\begin{metarevision}
@@ -336,6 +347,11 @@ Thank you for your suggestion. We have addressed this issue in detail in our res
 
 \noindent
 \textbf{Response:} 
+Thank you for your suggestion. We fully understand your concern regarding the use of synthetic or less meaningful attributes in our hybrid query experimental setup.
+
+To address this crucial issue and enhance the real-world relevance of our evaluation, we have added two new real-world datasets with genuine attributes to our attribute filtering and range query experiments, as detailed in MetaReview R3.
+
+By incorporating the YT-Audio-Real and WIT-Real datasets with their respective real attributes, we believe our experimental study now better reflects real-world application scenarios, and, as you suggested, allows for a more comprehensive and meaningful evaluation of hybrid query functionality.
 
 %%%%%%%%%%%%%%%%%%%%%% W2 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -352,12 +368,7 @@ Thank you for your suggestion. We have addressed this issue in detail in our res
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion.
-We conducted additional experiments on a server equipped with two Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset.
-The results show that the performance differences across algorithms remain small, and their relative rankings do not change significantly across servers.
-We did observe slightly lower QPS on this server compared to our original one, which is mainly due to the lower CPU frequency of the Xeon 6330 processors.
-
-\textcolor{blue}{"We conducted additional experiments on a server equipped with two Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset, and the results are shown in Figure 12(b). Compared with the experimental results on the original server (as shown in Figure 4d), the relative ranking of the algorithms remains largely unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency of the Xeon 6330 compared to the original server, the QPS values are slightly lower across all methods."}
+Thank you for your suggestion! We add relevant experiments conducted on different servers in Section 4.2.4. Please refer to the response MR.R4 for more details.
 %%%%%%%%%%%%%%%%%%%%%% W3 %%%%%%%%%%%%%%%%%%%%%%
 
 \myfbox{
