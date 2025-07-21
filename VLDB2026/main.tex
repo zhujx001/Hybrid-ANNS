@@ -451,7 +451,8 @@
 	\subsubsection{Datasets}
 	
 	For attribute filtering tasks, we employ 6 real-world datasets widely adopted in existing literature: Msong~\cite{msong2011}, Audio~\cite{audio_unknown}, SIFT1M~\cite{sift2010}, GIST1M~\cite{sift2010}, GloVe~\cite{GloVe2015}, Enron~\cite{enron2015}, covering a diverse range of domains. We independently generate attribute for each dataset.
-	For range filtering queries, we evaluate 3 widely used real-world datasets: Deep~\cite{yandex_deep_dataset}, YT-Audio~\cite{youtube8m_dataset}, and WIT~\cite{wit_dataset}. Following prior work~\cite{DSG}, we use the data point ID within each dataset as its attribute. This ensures that the data is initially sorted.
+	For range filtering queries, \textcolor{red}{we evaluate 1 widely used real-world dataset: %Deep~\cite{yandex_deep_dataset}, YT-Audio~\cite{youtube8m_dataset}, and 
+	WIT~\cite{wit_dataset}. Following prior work~\cite{DSG}, we use the data point ID (the primary key, ranging from $0$ to $n-1$) within each dataset as its attribute. This ensures that the data is initially sorted.}
 	
 	\textcolor{violet}{In addition to the aforementioned datasets, we further evaluated the performance of various algorithms on the Out-of-Distribution (OOD) dataset Text2Image~\cite{texttoimage} and the large-scale dataset Deep100M to validate the algorithm generalization capability. Specifically, the Text2Image dataset comprises two versions: the original version contains 1 million image embeddings as the base dataset and uses 10 thousand text embeddings as the query set; the Text2Image-Mix version is composed of 0.5 million image embeddings and 0.5 million text embeddings as the base dataset, with a query set of 5 thousand image embeddings and 5 thousand text embeddings.}
 	
@@ -482,12 +483,14 @@
 				GIST1M & 960 & 1,000,000 & 1,000 & 45& Image \\
 				GloVe & 100 & 1,183,514 & 10,000 & 47& Text \\
 				Enron & 1369 & 94,987 & 200 & 23& Text \\
-				Deep & 96 & 1,000,000 & 10,000 & 22& Image \\
-				YT-Audio& 128 & 1,000,000 & 10,000 & 15& Audio \\
+				%Deep & 96 & 1,000,000 & 10,000 & 22& Image \\
+				%YT-Audio& 128 & 1,000,000 & 10,000 & 15& Audio \\
+				YT-Audio-Real& 128 & 1,000,000 & 10,000 & 15& Audio \\
 				WIT & 2048 & 1,000,000 & 40,300 & 48& Image \\
 				WIT-Real & 512 & 1,000,000 & 40,300 & 48& Image \\
 				Text2Image & 200 & 10,000,000 &10,000 & 59& Text,Image \\
-				Text2Image-Mix & 200 & 10,000,000 &10,000 & 59& Text,Image \\
+				Text2Image-Mix & 200 & 1,000,000 &10,000 & 59& Text,Image \\
+				Deep100M & 96 & 100,000,000 & 10,000 & 22& Image \\
 				\bottomrule
 			\end{tabular}
 		}
