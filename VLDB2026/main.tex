@@ -486,7 +486,7 @@
 				%YT-Audio& 128 & 1,000,000 & 10,000 & 15& Audio \\
 				YT-Audio-Real& 128 & 1,000,000 & 10,000 & 15& Audio \\
 				WIT & 2048 & 1,000,000 & 40,300 & 48& Image \\
-				WIT-Real & 512 & 1,000,000 & 40,300 & 48& Image \\
+				WIT-Real & 512 & 1,000,000 & 40,300 & \textcolor{blue}{xx}& Image \\
 				Text2Image & 200 & 10,000,000 &10,000 & 59& Text,Image \\
 				Text2Image-Mix & 200 & 1,000,000 &10,000 & 59& Text,Image \\
 				Deep100M & 96 & 100,000,000 & 10,000 & 22& Image \\
@@ -510,7 +510,7 @@
 		\item \textbf{QPS (Queries Per Second)}: The number of queries processed per second.
 		\item \textbf{Index Construction Time}: The total time required to transform the raw dataset into a queryable index structure.
 		\item \textbf{Index Size}: The storage size of the persisted index on disk.
-		\item \textbf{Peak Memory Usage}: The maximum memory consumption observed during index construction.
+		\item \textbf{Peak Memory Usage}: The maximum memory consumption observed during index construction \textcolor{orange}{and search}.
 	\end{enumerate}
 	
 	%\subsubsection{Parameter Settings}
@@ -587,7 +587,9 @@
 	
 	
 	
-	To investigate the performance of different attribute filtering algorithms during index construction, we evaluate \textcolor{orange}{4} key metrics in the single-attribute scenario: index construction time, index size, \textcolor{orange}{build peak memory and search peak memory}. Notably, PASE on GIST1M and Enron is omitted, as it supports only data with dimensionality less than 512. 
+	%To investigate the performance of different attribute filtering algorithms during index construction,
+	\textcolor{orange}{To explore the time and space overhead of different attribute filtering algorithms during index construction and search,}
+	 we evaluate \textcolor{orange}{4} key metrics in the single-attribute scenario: index construction time, index size, \textcolor{orange}{build peak memory and search peak memory}. Notably, PASE on GIST1M and Enron is omitted, as it supports only data with dimensionality less than 512. 
 	
 	\begin{figure*}
 		\centering
@@ -624,7 +626,7 @@
 	As shown in Figure~\ref{fig:build_memory_mb_comparison}, 
 	%on small-scale datasets, all methods except NHQ exhibit low memory usage. 
 	\textcolor{orange}{NHQ has the highest peak memory usage on almost all datasets.}
-	This is because NHQ adopts the kgraph approach for index construction, which requires loading the entire graph data into memory and maintaining a complete graph structure, leading to relatively high memory overhead. 
+	NHQ adopts the kgraph approach for index construction, which requires loading the entire graph data into memory and maintaining a complete graph structure, leading to relatively high memory overhead. 
 	
 	On large-scale datasets, CAPS exhibits slightly lower memory usage compared to other algorithms. \textcolor{orange}{The reason is that CAPS avoids redundant storage and graph structure overhead through hierarchical partitioning and AFT, and achieves a compact, sparse and controllable index. }.
 	
@@ -974,7 +976,7 @@
 	\end{figure}
 	
 	%Similar to the evaluation of \textit{Attribute Filtering} algorithms, 
-	Similarly, we also evaluate \textcolor{orange}{4} key metrics mentioned above in \textit{Range Filtering} algorithms. \textcolor{orange}{For the YT-Audio dataset with synthetic attributes and the YT-Audio dataset with real attributes, we can found that the data for index construction is basically the same, indicating that the authenticity of the attribute has almost no effect on index construction.
+	Similarly, we also evaluate \textcolor{orange}{4} key metrics mentioned above in \textit{Range Filtering} algorithms. \textcolor{orange}{Note: For the YT-Audio dataset with synthetic attributes and the YT-Audio dataset with real attributes, we found that the time and space overhead data of each algorithm are basically the same, which shows that the authenticity of the attribute has little effect on it.
 	However, the WIT dataset with synthetic labels is 2048-dimensional, while the WIT-Real dataset with real labels is 512-dimensional, so the dimension will cause a big difference.}
 	
 	\textit{\textbf{Index construction time.}}
@@ -984,7 +986,7 @@
 	
 	WinFilter and ACORN-\(\gamma\) take the longest.
 	WinFilter relies on a tree structure, requiring separate nearest-neighbor graphs per node. This causes redundant computation and high costs, especially for large datasets.
-	ACORN-\(\gamma\) expands the neighbor list of each node to provide more candidate paths, which increases both computation and storage costs. It also prunes distant neighbors to save storage space. However, this introduces additional overhead and slows down the construction process.
+	ACORN-\(\gamma\) expands the neighbor list of each node to provide more candidate paths, which increases both computation and storage costs. It also prunes distant neighbors to save storage space. However, this introduces additional overhead and slows down the construction process.\textcolor{orange}{In contrast, as we have analyzed in the corresponding section on attribute filtering, ACORN-1 trades efficiency for accuracy, so the construction time is short. SeRF is built on HNSW, so the time is similar to and slightly lower than ACORN-1.}
 	
 	\textit{\textbf{Index size.}} 
 	As shown in Figure~\ref{fig:rangeFilter_index_size_mb}, Among all algorithms, Faiss has the smallest index size. Because IVF only adds centroid data and partition information to the vector dataset, the IVF index is only slightly larger than the vector dataset.
@@ -1023,7 +1025,8 @@
 	
 	\subsubsection{Performance Evaluation. }
 	
-	In this experiment, we follow the query range definition adopted by prior work~\cite{HQI}. \textcolor{red}{Specifically, for a given query, the range ratio is defined as $2^{-i}$	when the query range covers $\frac{n}{2^i}$ data points, where $n$ is the total dataset size.} Based on this definition, we evaluate algorithm performance under 4 query range settings: $2^{-2}$, $2^{-4}$, $2^{-6}$, and $2^{-8}$. \textcolor{red}{Some algorithms don't support using actual attributes as search keys, instead requiring an ID (the primary key, ranging from $0$ to $n-1$). Therefore, we uniformly use this ID as the search key. This ID is pre-sorted according to its corresponding real attribute, allowing us to map an attribute to its ID without loss of generality for efficient range queries.}
+	In this experiment, we follow the query range definition adopted by prior work~\cite{HQI}. \textcolor{red}{Specifically, for a given query, the range ratio is defined as $2^{-i}$	when the query range covers $\frac{n}{2^i}$ data points, where $n$ is the total dataset size.} Based on this definition, we evaluate algorithm performance under 4 query range settings: $2^{-2}$, $2^{-4}$, $2^{-6}$, and $2^{-8}$. 
+	%\textcolor{red}{Some algorithms don't support using actual attributes as search keys, instead requiring an ID (the primary key, ranging from $0$ to $n-1$). Therefore, we uniformly use this ID as the search key. This ID is pre-sorted according to its corresponding real attribute, allowing us to map an attribute to its ID without loss of generality for efficient range queries.}
 	
 	Due to space constraints, Figure~\ref{fig:exp_8_2} reports results for only the largest ($2^{-2}$) and smallest ($2^{-8}$) range ratios. The experimental results show that across all datasets (YT-Audio-Real, WIT-Real, and WIT) and query ranges, WinFilter consistently delivers the best performance. This highlights its robustnes, which performs ANN search over only relevant tree nodes and merges results efficiently, making it highly effective for static range query scenarios.
 	
