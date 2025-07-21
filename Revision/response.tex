@@ -152,6 +152,13 @@ To further enrich the complexity of multi-modal queries, we additionally selecte
 As for complex query types involving both attribute and range filters, to the best of our knowledge, there is currently no ANN algorithm (except for general-purpose systems like Milvus and Faiss) that can support both types of filtering simultaneously. For example, ACORN needs to build separate indices for each scenario and cannot support attribute and range filtering at the same time. Therefore, in our study, we chose to consider these query types separately, rather than jointly.
 
 \textcolor{blue}{
+	"We conducted experiments on the text2image-mix dataset. This dataset contains both image and text vectors. It is a more complex multimodal dataset. As shown in Figure 12, although the queries are more complex, UNG and NHQ still perform the best. CAPS is the next best.
+	Since the dataset mixes two modalities, the ground truth of the query set usually corresponds to the same modality. The nearest neighbors in the index are often from the same modality because they are closer in distance. Therefore, the search results on this dataset are similar to those in Figure 4. UNG and NHQ perform the best. CAPS clusters based on vector similarity. It actually clusters the vectors into the same modality. Then it uses attribute filtering to divide the data further. This allows CAPS to quickly find nearest neighbors that meet the filter conditions.
+	In contrast, the text2image dataset shown in Figure 11 is different. The queries and the dataset are from different modalities. The queries are far from the dataset. The ground truths are also scattered and not clustered together. To find the ground truths, the algorithm often needs to traverse more points. This is a greater challenge for the algorithms." 
+}
+
+\textcolor{blue}{
+		"Similar to attribute filtering, the performance of multimodal queries with range filtering shown in Figure 16a is also consistent with the single-modality results in Figure 14. As shown in Figure 15, the algorithms still perform the worst on multimodal datasets like Text2Image. This is because these range query algorithms are almost graph-based. Graph algorithms need more iterations to find true neighbors in OOD datasets."
 }
 
 %%%%%%%%%%%%%%%%%%%%%% R4 %%%%%%%%%%%%%%%%%%%%%%
@@ -281,7 +288,7 @@ Thank you for your suggestion. We are deeply aware of this deficiency, so we add
 \noindent
 \textbf{Response:} Thank you for your suggestion! In real-world applications, there may indeed exist more complex semantic correlations between vectors and their associated attributes or among different attributes themselves. To better reflect such scenarios, we introduced two real-world datasets, where both vectors and attributes are derived from actual data. For example, in the YouTube dataset, the attributes include video categories and view counts, while in the WIT dataset, the attributes correspond to the language of image descriptions.
 
-We conducted experiments on both datasets and analyzed the performance of various algorithms. Interestingly, our results indicate that using real attribute values has limited impact on the overall performance trends.
+We conducted experiments on both datasets and present the performance analysis for various algorithms in \textcolor{blue}{Sections 4.2.2 and 4.3.2}. Interestingly, our results indicate that using real attribute values has limited impact on the overall performance trends.
 
 Regarding the more intricate semantic relationships—such as those between vectors and attributes, or among different attributes themselves—current hybrid search algorithms do not explicitly model or leverage such correlations. Nevertheless, our evaluation covers a range of realistic scenarios, including multi-attribute settings and diverse  distributions, to assess the generalization ability of the algorithms.
 
@@ -498,6 +505,8 @@ To address this, we have revised Section 2.2 to summarize how the algorithms dis
 For Graph-based indexes, we describe the typical approaches of embedding attribute and range constraints by associating metadata with graph vertices or edges. Specifically, attribute filtering (AF) is usually achieved by annotating vertices or edges with attribute information, enabling the traversal algorithm to skip nodes or edges that do not satisfy the query predicates (e.g., NHQ, Filtered-DiskANN, ACORN). In contrast, range filtering (RF) typically involves annotating edges with valid attribute intervals so that traversal proceeds only along edges that satisfy the query's range constraints, effectively reducing the search space (e.g., SeRF, DSG).
 
 For IVF-based indexes, we point out that their inherent pre-filtering mechanism naturally supports hybrid query functionality. In particular, attribute and range filtering can be implemented by directly excluding irrelevant vectors during intra-cluster distance computations. Furthermore, we highlight the hierarchical partitioning approach based on attributes, which further divides clusters into finer-grained sub-partitions, significantly improving filtering efficiency (e.g., CAPS, PUCK).
+
+
 
 %%%%%%%%%%%%%%%%%%%%%% D2 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
