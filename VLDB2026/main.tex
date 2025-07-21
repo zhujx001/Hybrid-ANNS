@@ -271,23 +271,55 @@
 		
 		\caption{Comparison of AF-ANN search algorithms}
 		\small
-		\label{tab:compair_1}
-		\begin{tabular}{|l|l|c|c|c|c|c|c|c|}
-			\hline
-			\textbf{Algorithm} & \textbf{Base} & \textbf{Filter Type} & \textbf{AND} & \textbf{OR} & \textbf{Flexible Attributes} & \textbf{Complex Boolean} & \textbf{Dynamic Insert} & \textbf{Multi Thread} \\
-			\hline
-			NHQ & Graph & C & Y & N& N& N & N & N \\
-			FilteredVamana & Graph & C & N & Y & Y & N & Y & Y \\
-			StitchedVamana & Graph & C & N & Y & Y & N & N & Y  \\
-			CAPS & IVF & C & Y & N & Y & N & Y & Y \\
-			ACORN & Graph & B & Y & Y & Y & Y & Y & Y \\
-			UNG & Graph & B & Y & Y & Y & N & Y & Y \\ 
-			Puck & IVF & B & Y & Y & Y & N & Y & Y \\
-			% ParlayANN & Graph+IVF & B & N & N & Y & N & N & Y \\
-			
-			\hline
-			
-		\end{tabular}
+%		\label{tab:compair_1}
+%		\begin{tabular}{|l|l|c|c|c|c|c|c|c|}
+%			\hline
+%			\textbf{Algorithm} & \textbf{Base} & \textbf{Filter Type} & \textbf{AND} & \textbf{OR} & \textbf{Flexible Attributes} & \textbf{Complex Boolean} & \textbf{Dynamic Insert} & \textbf{Multi Thread} \\
+%			\hline
+%			NHQ & Graph & C & Y & N& N& N & N & N \\
+%			FilteredVamana & Graph & C & N & Y & Y & N & Y & Y \\
+%			StitchedVamana & Graph & C & N & Y & Y & N & N & Y  \\
+%			CAPS & IVF & C & Y & N & Y & N & Y & Y \\
+%			ACORN & Graph & B & Y & Y & Y & Y & Y & Y \\
+%			UNG & Graph & B & Y & Y & Y & N & Y & Y \\ 
+%			Puck & IVF & B & Y & Y & Y & N & Y & Y \\
+%			% ParlayANN & Graph+IVF & B & N & N & Y & N & N & Y \\
+%			
+%			\hline
+%			
+%		\end{tabular}
+	\label{tab:compair_1}
+	\begin{tabular}{|l|l|*{12}{c|}}
+		\hline
+		\multicolumn{2}{|c|}{} & NHQ & Filtered & Stitched & CAPS & ACORN & UNG 
+		& Puck & DSG & iRange & SeRF & UNIFY & Win \\ \hline
+		
+		\multirow{6}{*}{AF} 
+		& Filter Type         & C   & C   & C   & C   & B   & B   & B   & \multicolumn{5}{c|}{} \\ \cline{2-9}
+		& AND                 & Y   & N   & N   & Y   & Y   & Y   & Y   & \multicolumn{5}{c|}{\multirow{4}{*}{\centering\shortstack{AF\\not support}}} \\ \cline{2-9}
+		& OR                  & N   & Y   & Y   & N   & Y   & Y   & Y   & \multicolumn{5}{c|}{} \\ \cline{2-9}
+		& Flexible Attributes & N   & Y   & Y   & Y   & Y   & Y   & Y   & \multicolumn{5}{c|}{} \\ \cline{2-9}
+		& Complex Boolean     & N   & N   & N   & N   & Y   & N   & N   & \multicolumn{5}{c|}{} \\ \hline
+		
+		\multicolumn{2}{|l|}{RF}             & N & N & N & N & Y & N & N & Y & Y & Y & Y & Y \\ \hline
+		\multicolumn{2}{|l|}{Dynamic Insert} & N & Y & N & Y & Y & Y & Y & N & Y & Y & Y & Y \\ \hline
+		\multicolumn{2}{|l|}{Multi Thread}   & N & Y & Y & Y & Y & Y & Y & N & Y & Y & Y & Y \\ \hline
+		\multicolumn{2}{|l|}{Base}           & Graph & Graph & Graph & IVF & Graph & Graph & IVF & Graph & Graph & Graph & Graph & Graph \\ \hline
+		
+	\end{tabular}
+		
+%			\begin{tabular}{|c|c|c|c|}
+%			\hline
+%			\textbf{Algorithm} & \textbf{Base} & \textbf{Dynamic Insert} & \textbf{Multi Thread} \\
+%			\hline
+%			DSG & Graph & Y & N \\
+%			iRange & Graph & N & Y \\
+%			SeRF & Graph & Y & Y \\
+%			UNIFY & Graph & Y & Y \\
+%			WinFilter & Graph & N & Y  \\
+%			\hline
+%		\end{tabular}
+%		
 		
 		
 		\centering
@@ -296,6 +328,9 @@
 		\footnotesize{
 			\begin{minipage}{\linewidth}
 				\vspace{0.1cm}
+				\textcolor{orange}{Filtered: FilteredVamana
+				Stitched: StitchedVamana
+				Win: WinFilter}
 				\textsuperscript{A} Post-filtering, 
 				\textsuperscript{B} Pre-filtering, 
 				\textsuperscript{C} Simultaneous filtering, 
@@ -368,45 +403,44 @@
 	
 	
 	
-	\renewcommand{\arraystretch}{0.9}
-	\begin{table}[t]
-		\centering
+%	\renewcommand{\arraystretch}{0.9}
+%	\begin{table}[t]
+%		\centering
+%		
+%		\setlength{\textfloatsep}{0.1cm}
+%		\caption{Comparison of RF-ANN search algorithms}
+%		\small	% 只会影响当前组的内容
+%		\label{tab:range_algo}
+%		\begin{tabular}{|c|c|c|c|}
+%			\hline
+%			\textbf{Algorithm} & \textbf{Base} & \textbf{Dynamic Insert} & \textbf{Multi Thread} \\
+%			\hline
+%			DSG & Graph & Y & N \\
+%			iRange & Graph & N & Y \\
+%			SeRF & Graph & Y & Y \\
+%			UNIFY & Graph & Y & Y \\
+%			WinFilter & Graph & N & Y  \\
+%			\hline
+%		\end{tabular}
 		
-		\setlength{\textfloatsep}{0.1cm}
-		\caption{Comparison of RF-ANN search algorithms}
-		\small	% 只会影响当前组的内容
-		\label{tab:range_algo}
-		\begin{tabular}{|c|c|c|c|}
-			\hline
-			\textbf{Algorithm} & \textbf{Base} & \textbf{Dynamic Insert} & \textbf{Multi Thread} \\
-			\hline
-			DSG & Graph & Y & N \\
-			iRange & Graph & N & Y \\
-			SeRF & Graph & Y & Y \\
-			UNIFY & Graph & Y & Y \\
-			WinFilter & Graph & N & Y  \\
-			\hline
-		\end{tabular}
 		
-		
-		\footnotesize{
-			\begin{minipage}{\linewidth}
-				\centering
-				The indicators are consistent with those in Table ~\ref{tab:compair_1}.
-				%				\textsuperscript{Y} Support, 
-				%				\textsuperscript{N} Unsupport.
-				%				\textit{Base} indicates that the hybrid query algorithm is an improvement based on a specific ANN search algorithm. 
-				%				\textit{Dynamic Insert} indicates whether the algorithm supports the operation of dynamically inserting data points.
-				%				\textit{Multi Thread} indicates whether the algorithm supports multi-threaded search.
-			\end{minipage} 
-			
-		}
-		
-	\end{table}
+%		\footnotesize{
+%			\begin{minipage}{\linewidth}
+%				\centering
+%				The indicators are consistent with those in Table ~\ref{tab:compair_1}.
+%				%				\textsuperscript{Y} Support, 
+%				%				\textsuperscript{N} Unsupport.
+%				%				\textit{Base} indicates that the hybrid query algorithm is an improvement based on a specific ANN search algorithm. 
+%				%				\textit{Dynamic Insert} indicates whether the algorithm supports the operation of dynamically inserting data points.
+%				%				\textit{Multi Thread} indicates whether the algorithm supports multi-threaded search.
+%			\end{minipage} 
+%			
+%		}
+%	\end{table}
 	
 	\subsection{Range Filtering Algorithms}
 	
-	We introduce 5 representative range filtering algorithms and present a comparative overview in Table~\ref{tab:range_algo}.
+	We introduce 5 representative range filtering algorithms and present a comparative overview in Table~\ref{tab:compair_1}.
 	
 	\noindent\textbf{\underline{SeRF} \footnote{https://github.com/rutgers-db/SeRF} \cite{serf}} Conventional RF-ANN search approaches typically follow one of two paradigms: 1) Conducting ANN search first followed by attribute-based filtering. 2) Filtering the dataset based on attribute ranges before performing ANN search. Building a separate neighbor graph (e.g., HNSW) for each attribute range could ensure efficient querying but incurs an $O(n^2)$ cost in constructing and storing $n$ graphs. Since many edges are shared across these graphs, SeRF introduces a validity-range aware design where each edge records the interval in which it is valid, indicating in which subgraphs the edge remains valid. This compresses $n$ graphs into a single unified graph, maintaining search effectiveness while significantly reducing memory and index construction overhead.
 	
