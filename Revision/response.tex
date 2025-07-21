@@ -178,6 +178,8 @@ Thank you for your suggestion. Using IDs as attributes for range filtering is a 
 
 
 %%%%%%%%%%%%%%%%%%%%%% R5 %%%%%%%%%%%%%%%%%%%%%%
+
+
 \myfbox{
 	\begin{metarevision}
 		\textit{Evaluate if the server setting affects the relative ordering of methods in experiments}
@@ -186,7 +188,12 @@ Thank you for your suggestion. Using IDs as attributes for range filtering is a 
 
 \noindent
 \textbf{Response:} 
+Thank you for your suggestion.
+We conducted additional experiments on a server equipped with two Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset.
+The results show that the performance differences across algorithms remain small, and their relative rankings do not change significantly across servers.
+We did observe slightly lower QPS on this server compared to our original one, which is mainly due to the lower CPU frequency of the Xeon 6330 processors.
 
+\textcolor{blue}{"We conducted additional experiments on a server equipped with two Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset, and the results are shown in Figure 12(b). Compared with the experimental results on the original server (as shown in Figure 4d), the relative ranking of the algorithms remains largely unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency of the Xeon 6330 compared to the original server, the QPS values are slightly lower across all methods."}
 %%%%%%%%%%%%%%%%%%%%%% R6 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
 	\begin{metarevision}
@@ -363,12 +370,7 @@ By incorporating the YT-Audio-Real and WIT-Real datasets with their respective r
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion.
-We conducted additional experiments on a server equipped with two Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset.
-The results show that the performance differences across algorithms remain small, and their relative rankings do not change significantly across servers.
-We did observe slightly lower QPS on this server compared to our original one, which is mainly due to the lower CPU frequency of the Xeon 6330 processors.
-
-\textcolor{blue}{"We conducted additional experiments on a server equipped with two Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset, and the results are shown in Figure 12(b). Compared with the experimental results on the original server (as shown in Figure 4d), the relative ranking of the algorithms remains largely unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency of the Xeon 6330 compared to the original server, the QPS values are slightly lower across all methods."}
+Thank you for your suggestion! We add relevant experiments conducted on different servers in Section 4.2.4. Please refer to the response MR.R4 for more details.
 %%%%%%%%%%%%%%%%%%%%%% W3 %%%%%%%%%%%%%%%%%%%%%%
 
 \myfbox{
