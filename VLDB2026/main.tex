@@ -269,7 +269,7 @@
 		\centering
 		%\setlength{\belowcaptionskip}{-0.3cm}
 		
-		\caption{Comparison of AF-ANN search algorithms}
+		\caption{Comparison of \textcolor{orange}{AF-ANN and RF-ANN} search algorithms}
 		\small
 %		\label{tab:compair_1}
 %		\begin{tabular}{|l|l|c|c|c|c|c|c|c|}
@@ -291,20 +291,21 @@
 	\label{tab:compair_1}
 	\begin{tabular}{|l|l|*{12}{c|}}
 		\hline
-		\multicolumn{2}{|c|}{} & NHQ & Filtered & Stitched & CAPS & ACORN & UNG 
-		& Puck & DSG & iRange & SeRF & UNIFY & Win \\ \hline
 		
-		\multirow{6}{*}{AF} 
+	
+		\multicolumn{2}{|c|}{\textbf{Algorithm}} & \textbf{NHQ} & \textbf{Filtered} & \textbf{Stitched} & \textbf{CAPS} & \textbf{ACORN} & \textbf{UNG} & \textbf{Puck} & \textbf{DSG} & \textbf{iRange} & \textbf{SeRF} & \textbf{UNIFY} & \textbf{Win}
+		 \\ \hline
+		\multirow{6}{*}{\textbf{AF}} 
 		& Filter Type         & C   & C   & C   & C   & B   & B   & B   & \multicolumn{5}{c|}{} \\ \cline{2-9}
 		& AND                 & Y   & N   & N   & Y   & Y   & Y   & Y   & \multicolumn{5}{c|}{\multirow{4}{*}{\centering\shortstack{AF\\not support}}} \\ \cline{2-9}
 		& OR                  & N   & Y   & Y   & N   & Y   & Y   & Y   & \multicolumn{5}{c|}{} \\ \cline{2-9}
 		& Flexible Attributes & N   & Y   & Y   & Y   & Y   & Y   & Y   & \multicolumn{5}{c|}{} \\ \cline{2-9}
 		& Complex Boolean     & N   & N   & N   & N   & Y   & N   & N   & \multicolumn{5}{c|}{} \\ \hline
 		
-		\multicolumn{2}{|l|}{RF}             & N & N & N & N & Y & N & N & Y & Y & Y & Y & Y \\ \hline
-		\multicolumn{2}{|l|}{Dynamic Insert} & N & Y & N & Y & Y & Y & Y & N & Y & Y & Y & Y \\ \hline
-		\multicolumn{2}{|l|}{Multi Thread}   & N & Y & Y & Y & Y & Y & Y & N & Y & Y & Y & Y \\ \hline
-		\multicolumn{2}{|l|}{Base}           & Graph & Graph & Graph & IVF & Graph & Graph & IVF & Graph & Graph & Graph & Graph & Graph \\ \hline
+		\multicolumn{2}{|l|}{\textbf{RF}}             & N & N & N & N & Y & N & N & Y & Y & Y & Y & Y \\ \hline
+		\multicolumn{2}{|l|}{\textbf{Dynamic Insert}} & N & Y & N & Y & Y & Y & Y & N & Y & Y & Y & Y \\ \hline
+		\multicolumn{2}{|l|}{\textbf{Multi Thread}}   & N & Y & Y & Y & Y & Y & Y & N & Y & Y & Y & Y \\ \hline
+		\multicolumn{2}{|l|}{\textbf{Base}}           & Graph & Graph & Graph & IVF & Graph & Graph & IVF & Graph & Graph & Graph & Graph & Graph \\ \hline
 		
 	\end{tabular}
 		
