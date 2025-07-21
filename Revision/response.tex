@@ -145,7 +145,11 @@ and concerns, and the changes are highlighted \textcolor{blue}{in blue} accordin
 }
 
 \noindent
-\textbf{Response:} 
+\textbf{Response:} We believe this is a very good suggestion. Accordingly, we have added more complex multi-modal dataset experiments in the Multi-modal Queries sections of Section 4.2.4 and Section 4.3.4 in our revised paper. In the original version, we used the commonly adopted text2image dataset from existing multi-modal ANN algorithms, where the base vectors are images, but the queries are text. This setting naturally introduces a modality gap, and achieving good performance on this dataset usually requires algorithms to be more robust.
+
+To further enrich the complexity of multi-modal queries, we additionally selected 500,000 text vectors and 500,000 image vectors to form a mixed base dataset, and we similarly selected 5,000 text vectors and 5,000 image vectors as query vectors. We then conducted both attribute filtering and range queries on this multi-modal dataset by combining text and image queries. This allows us to further analyze the robustness of the algorithms. The related experimental results are presented in the Multi-modal Queries sections of Section 4.2.4 and Section 4.3.4.
+
+As for complex query types involving both attribute and range filters, to the best of our knowledge, there is currently no ANN algorithm (except for general-purpose systems like Milvus and Faiss) that can support both types of filtering simultaneously. For example, ACORN needs to build separate indices for each scenario and cannot support attribute and range filtering at the same time. Therefore, in our study, we chose to consider these query types separately, rather than jointly.
 
 
 %%%%%%%%%%%%%%%%%%%%%% R4 %%%%%%%%%%%%%%%%%%%%%%
@@ -299,6 +303,7 @@ We conducted additional experiments on a server equipped with two Intel(R) Xeon(
 The results show that the performance differences across algorithms remain small, and their relative rankings do not change significantly across servers.
 We did observe slightly lower QPS on this server compared to our original one, which is mainly due to the lower CPU frequency of the Xeon 6330 processors.
 %%%%%%%%%%%%%%%%%%%%%% W3 %%%%%%%%%%%%%%%%%%%%%%
+
 \myfbox{
 	\begin{weakness}
 		\textit{In the experimental setup, it is unclear whether data storage (disk or SSD) is used.
@@ -515,7 +520,7 @@ f all the evaluated algorithms, only Faiss supports quantization. However, in ou
 
 \textbf{Regarding Figure 7 and the exclusion of Vamana:}
 
-We appreciate the reviewer’s observation. Figure 7 presents experiments on multi-label construction and search, using Boolean AND logic. The Vamana-based methods (FilteredVamana and StitchedVamana) only support Boolean OR logic for multi-label search, which is why they were not included. We will clarify this point in the revised version of the paper.
+We appreciate the reviewer’s observation. Figure 7 presents experiments on multi-attribute construction and search, using Boolean AND logic. The Vamana-based methods (FilteredVamana and StitchedVamana) only support Boolean OR logic for multi-attribute search, which is why they were not included. We will clarify this point in the revised version of the paper, specifically in the section on \textcolor{blue}{Multi-Attribute Construction and Multi-Attribute Query}.
 %Thanks to the reviewer for suggesting that there is no explanation in Figure 7 why Vamana is not included. Figure 7 is an experiment on multi-label construction and search, and the Boolean logic of multi-label search is AND. The two algorithms using Vamana, FilteredVamana and StitchedVamana, only support Boolean logic OR for multi-label search, so we did not include them. We will add an explanation of this in the paper.
 
 All the evaluated algorithms in our experiments build the index in a one-shot manner, without applying any partitioning or merging strategies.
