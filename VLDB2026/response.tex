@@ -152,13 +152,6 @@ To further enrich the complexity of multi-modal queries, we additionally selecte
 As for complex query types involving both attribute and range filters, to the best of our knowledge, there is currently no ANN algorithm (except for general-purpose systems like Milvus and Faiss) that can support both types of filtering simultaneously. For example, ACORN needs to build separate indices for each scenario and cannot support attribute and range filtering at the same time. Therefore, in our study, we chose to consider these query types separately, rather than jointly.
 
 \textcolor{blue}{
-	"We conducted experiments on the text2image-mix dataset. This dataset contains both image and text vectors. It is a more complex multimodal dataset. As shown in Figure 12, although the queries are more complex, UNG and NHQ still perform the best. CAPS is the next best.
-	Since the dataset mixes two modalities, the ground truth of the query set usually corresponds to the same modality. The nearest neighbors in the index are often from the same modality because they are closer in distance. Therefore, the search results on this dataset are similar to those in Figure 4. UNG and NHQ perform the best. CAPS clusters based on vector similarity. It actually clusters the vectors into the same modality. Then it uses attribute filtering to divide the data further. This allows CAPS to quickly find nearest neighbors that meet the filter conditions.
-	In contrast, the text2image dataset shown in Figure 11 is different. The queries and the dataset are from different modalities. The queries are far from the dataset. The ground truths are also scattered and not clustered together. To find the ground truths, the algorithm often needs to traverse more points. This is a greater challenge for the algorithms." 
-}
-
-\textcolor{blue}{
-		"Similar to attribute filtering, the performance of multimodal queries with range filtering shown in Figure 16a is also consistent with the single-modality results in Figure 14. As shown in Figure 15, the algorithms still perform the worst on multimodal datasets like Text2Image. This is because these range query algorithms are almost graph-based. Graph algorithms need more iterations to find true neighbors in OOD datasets."
 }
 
 %%%%%%%%%%%%%%%%%%%%%% R4 %%%%%%%%%%%%%%%%%%%%%%
@@ -170,11 +163,7 @@ As for complex query types involving both attribute and range filters, to the be
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. Using IDs as attributes for range filtering is a prevalent method in current range filtering algorithm evaluations, which indeed has considerable limitations. To address this issue, we have added two datasets that use real attributes:
 
-\textbf{YT-Audio-Real dataset:} For this dataset, we utilized the URLs provided by the YouTube8M dataset to crawl corresponding video category IDs and view counts as real attributes, and used view counts as the attribute for range filtering experiments.
-
-\textbf{WIT-Real dataset:} We used the \texttt{clip-vit-base-patch32} model to encode the \texttt{page\_title} field from the WIT dataset into vectors, and extracted the language type and the length of the \texttt{context\_page\_description} field as real attributes, and used them for range filtering.
 %%%%%%%%%%%%%%%%%%%%%% R5 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
 	\begin{metarevision}
@@ -195,40 +184,6 @@ Thank you for your suggestion. Using IDs as attributes for range filtering is a 
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion! Currently, except for FilteredDiskANN, other hybrid query methods are memory-based, so we added the feature of whether to support disk for each algorithm in Table 1. At the same time, we also compared the search performance difference of FilteredDiskANN on memory and SSD using real data sets. The results are shown in Figure\ref{fig:recall-latency}:
-\begin{figure}[htbp]
-	\centering
-	\includegraphics[width=\linewidth]{fig/recall_latency_all.png}
-	\caption{}
-	\label{fig:recall-latency}
-\end{figure}
-
-Due to space limitations and the fact that only one method supports disk-based execution, we provide the breakdown of I/O and CPU costs for disk-based methods in the following analysis. To this end, we conducted additional experiments on the real-world YT8M dataset, comparing three variants of DiskANN.
-
-
-
-\begin{itemize}
-	\item SSD-based FilteredDiskANN (original disk-based method)
-	\item FilteredVamana (memory-based method)
-	\item StitchedVamana (memory-based method)
-\end{itemize}
-
-
-All experiments were run with 32 search threads for fair comparison. The following figure shows the mean latency (log-scale, left y-axis) and I/O vs CPU proportion (right y-axis) across different Recall\@10 levels:
-
-\textbf{ Key Observations:}
-
-Latency-Recall Tradeoff:
-As expected, SSD-based FilteredDiskANN exhibits significantly higher latency than in-memory methods, especially at higher recall levels. When Recall@10 reaches 0.96, its latency increases super-linearly to over 100 ms.
-
-Cost Breakdown of DiskANN:The I/O proportion consistently dominates, maintaining 80\%–85\% of the total latency even at different recall levels.
-The CPU proportion remains low (10–15\%), indicating that I/O is the major bottleneck in disk-based search pipelines.
-This clearly shows that improving disk read efficiency or reducing I/O volume is critical for performance optimization.
-
-\textbf{In-memory Methods:}
-
-FilteredVamana achieves a good balance, staying under 30 ms while achieving Recall@10 > 0.97.
-While StitchedVamana achieves extremely low latency (sub-5 ms) due to its stitched multi-label index structure, its fixed edge connectivity may limit effectiveness under highly uncorrelated label distributions. Nevertheless, it consistently supports 90\%+ Recall@10 across diverse datasets, as shown in our evaluations.
 
 %%%%%%%%%%%%%%%%%%%%%% R7 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -239,15 +194,6 @@ While StitchedVamana achieves extremely low latency (sub-5 ms) due to its stitch
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We are deeply aware of this deficiency, so we added the search peak memory usage of each algorithm in \textcolor{blue}{Section 4.2.1} of attribute filtering and \textcolor{blue}{Section 4.3.1}  of range filtering, and carefully analyzed the reasons.
-
-\textit{\textbf{ \textcolor{blue}{" Search peak memory.}}}
-
-\textcolor{blue}{As shown in Figure, we can find that the peak memory usage of each algorithm during search does not differ significantly. Among them, CAPS and NHQ have relatively higher peak memory usage, while the database's peak memory usage is comparatively lower."}
-
-\textit{\textbf{ \textcolor{blue}{"Search peak memory.}}}
-
-\textcolor{blue}{As for the Search peak memory usage, we can find from the Figure that it is basically consistent with the Build peak memory usage trend. The algorithm needs to load the complete index into memory during search. Therefore, algorithms with high building overhead, such as WinFilter, also have high search overhead; algorithms with low building overhead, such as Faiss, also have low search overhead. For Milvus, search does not require full index loading and there is additional metadata overhead when building, so the performance is different from the trend."}
 
 %%%%%%%%%%%%%%%%%%%%%% R8 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -292,7 +238,7 @@ Thank you for your suggestion. We are deeply aware of this deficiency, so we add
 \noindent
 \textbf{Response:} Thank you for your suggestion! In real-world applications, there may indeed exist more complex semantic correlations between vectors and their associated attributes or among different attributes themselves. To better reflect such scenarios, we introduced two real-world datasets, where both vectors and attributes are derived from actual data. For example, in the YouTube dataset, the attributes include video categories and view counts, while in the WIT dataset, the attributes correspond to the language of image descriptions.
 
-We conducted experiments on both datasets and present the performance analysis for various algorithms in \textcolor{blue}{Sections 4.2.2 and 4.3.2}. Interestingly, our results indicate that using real attribute values has limited impact on the overall performance trends.
+We conducted experiments on both datasets and analyzed the performance of various algorithms. Interestingly, our results indicate that using real attribute values has limited impact on the overall performance trends.
 
 Regarding the more intricate semantic relationships—such as those between vectors and attributes, or among different attributes themselves—current hybrid search algorithms do not explicitly model or leverage such correlations. Nevertheless, our evaluation covers a range of realistic scenarios, including multi-attribute settings and diverse  distributions, to assess the generalization ability of the algorithms.
 
@@ -340,11 +286,6 @@ Thank you for your suggestion. We have addressed this issue in detail in our res
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We fully understand your concern regarding the use of synthetic or less meaningful attributes in our hybrid query experimental setup.
-
-To address this crucial issue and enhance the real-world relevance of our evaluation, we have added two new real-world datasets with genuine attributes to our attribute filtering and range query experiments, as detailed in MetaReview R3.
-
-By incorporating the YT-Audio-Real and WIT-Real datasets with their respective real attributes, we believe our experimental study now better reflects real-world application scenarios, and, as you suggested, allows for a more comprehensive and meaningful evaluation of hybrid query functionality.
 
 %%%%%%%%%%%%%%%%%%%%%% W2 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -379,7 +320,38 @@ We did observe slightly lower QPS on this server compared to our original one, w
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion! We have made a detailed response to this question in R5 of Response To Meta-reviewer. Please see R5 for details.
+Thank you for your suggestion! Currently, most hybrid query methods are based on memory, except for filteredDiskANN, which supports SSD, so we will add explanation information in the paper. At the same time, we also use real data sets to compare the difference in search performance between filteredDiskANN in memory and on SSD. The results are shown in Figure \ref{fig:recall-latency}:
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\linewidth]{fig/recall_latency_all.png}
+	\caption{}
+	\label{fig:recall-latency}
+\end{figure}
+
+ In response to your request for a breakdown of I/O and CPU cost in disk-based methods, we conducted additional experiments on the real-world yt8m dataset. We compared three variants of DiskANN:
+
+ \begin{itemize}
+ 	\item SSD-based FilteredDiskANN (original disk-based method)
+ 	\item FilteredVamana (memory-based method)
+ 	\item StitchedVamana (memory-based method)
+ \end{itemize}
+ 
+
+All experiments were run with 32 search threads for fair comparison. The following figure shows the mean latency (log-scale, left y-axis) and I/O vs CPU proportion (right y-axis) across different Recall\@10 levels:
+
+\textbf{ Key Observations:}
+
+Latency-Recall Tradeoff:
+As expected, SSD-based FilteredDiskANN exhibits significantly higher latency than in-memory methods, especially at higher recall levels. When Recall@10 reaches 0.96, its latency increases super-linearly to over 100 ms.
+
+Cost Breakdown of DiskANN:The I/O proportion consistently dominates, maintaining 80\%–85\% of the total latency even at different recall levels.
+The CPU proportion remains low (10–15\%), indicating that I/O is the major bottleneck in disk-based search pipelines.
+This clearly shows that improving disk read efficiency or reducing I/O volume is critical for performance optimization.
+
+\textbf{In-memory Methods:}
+
+FilteredVamana achieves a good balance, staying under 30 ms while achieving Recall@10 > 0.97.
+While StitchedVamana achieves extremely low latency (sub-5 ms) due to its stitched multi-label index structure, its fixed edge connectivity may limit effectiveness under highly uncorrelated label distributions. Nevertheless, it consistently supports 90\%+ Recall@10 across diverse datasets, as shown in our evaluations.
 
 
 %%%%%%%%%%%%%%%%%%%%%% W4 %%%%%%%%%%%%%%%%%%%%%%
@@ -392,7 +364,15 @@ Thank you for your suggestion! We have made a detailed response to this question
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion! We have made a detailed response to this question in R6 of Response To Meta-reviewer. Please see R6 for details.
+Thank you for your suggestion. We are deeply aware of this deficiency, so we added the search peak memory usage of each algorithm in \textcolor{blue}{Section 4.2.1} of attribute filtering and \textcolor{blue}{Section 4.3.1}  of range filtering, and carefully analyzed the reasons.
+
+\textit{\textbf{ \textcolor{blue}{Section 4.2.1 Search peak memory.}}}
+
+\textcolor{blue}{As shown in Figure, we can find that the peak memory usage of each algorithm during search does not differ significantly. Among them, CAPS and NHQ have relatively higher peak memory usage, while the database's peak memory usage is comparatively lower.}
+
+\textit{\textbf{ \textcolor{blue}{Section 4.3.1 Search peak memory.}}}
+
+	\textcolor{blue}{As for the Search peak memory usage, we can find from the Figure that it is basically consistent with the Build peak memory usage trend. The algorithm needs to load the complete index into memory during search. Therefore, algorithms with high building overhead, such as WinFilter, also have high search overhead; algorithms with low building overhead, such as Faiss, also have low search overhead. For Milvus, search does not require full index loading and there is additional metadata overhead when building, so the performance is different from the trend.}
 	
 %%%%%%%%%%%%%%%%%%%%%% D1 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -515,8 +495,6 @@ For Graph-based indexes, we describe the typical approaches of embedding attribu
 
 For IVF-based indexes, we point out that their inherent pre-filtering mechanism naturally supports hybrid query functionality. In particular, attribute and range filtering can be implemented by directly excluding irrelevant vectors during intra-cluster distance computations. Furthermore, we highlight the hierarchical partitioning approach based on attributes, which further divides clusters into finer-grained sub-partitions, significantly improving filtering efficiency (e.g., CAPS, PUCK).
 
-
-
 %%%%%%%%%%%%%%%%%%%%%% D2 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
 	\begin{detailed}
@@ -557,7 +535,7 @@ f all the evaluated algorithms, only Faiss supports quantization. However, in ou
 
 \textbf{Regarding Figure 7 and the exclusion of Vamana:}
 
-We appreciate the reviewer’s observation. Figure 7 presents experiments on multi-attribute construction and search, using Boolean AND logic. The Vamana-based methods (FilteredVamana and StitchedVamana) only support Boolean OR logic for multi-attribute search, which is why they were not included. We will clarify this point in the revised version of the paper, specifically in the section on \textcolor{blue}{Multi-Attribute Construction and Multi-Attribute Query}.\textcolor{blue}{"Note that FilterDiskANN only supports Boolean OR logic and does not support Boolean AND. Therefore, its two Vamana-based methods are excluded from the multi-attribute construction and search experiments."}
+We appreciate the reviewer’s observation. Figure 7 presents experiments on multi-attribute construction and search, using Boolean AND logic. The Vamana-based methods (FilteredVamana and StitchedVamana) only support Boolean OR logic for multi-attribute search, which is why they were not included. We will clarify this point in the revised version of the paper, specifically in the section on \textcolor{blue}{Multi-Attribute Construction and Multi-Attribute Query}.
 %Thanks to the reviewer for suggesting that there is no explanation in Figure 7 why Vamana is not included. Figure 7 is an experiment on multi-label construction and search, and the Boolean logic of multi-label search is AND. The two algorithms using Vamana, FilteredVamana and StitchedVamana, only support Boolean logic OR for multi-label search, so we did not include them. We will add an explanation of this in the paper.
 
 All the evaluated algorithms in our experiments build the index in a one-shot manner, without applying any partitioning or merging strategies.
@@ -575,7 +553,6 @@ Additionally, although some of the methods we used—such as FAISS, PUCK, DiskAN
 \noindent
 \textbf{Response:} 
 Thank you for the suggestion! We realized that the original wording was somewhat vague and led to confusion among readers. To address this, we merged the tables for attribute filtering (AF) and range filtering (RF), and clarified each algorithm's support for AF and RF in the unified table.
-\textcolor{blue}{The fused table is Table1: Comparison of AF-ANN and RF-ANN search algorithms.}
 
 %%%%%%%%%%%%%%%%%%%%%% D4 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
