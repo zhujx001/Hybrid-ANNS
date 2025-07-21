@@ -148,7 +148,7 @@
 	\end{figure*}
 	\subsection{Motivation}
 	
-	In recent years, hybrid query algorithms develop rapidly, giving rise to numerous attribute filtering ~\cite{NHQ,diskann} and range filtering algorithms \cite{serf,iRangeGraph}. In practical applications, the performance of hybrid query algorithms is influenced not only by unstructured data but also closely related to structured data. For attribute filtering algorithms, factors such as the number of attributes, attribute distribution \cite{UNG}, and attribute selectivity \cite{ACORN} significantly impact algorithm performance. As for range filtering algorithms, the size of the query range and the characteristics of different datasets  play an important role in determining algorithm performance.
+	In recent years, hybrid query algorithms develop rapidly, giving rise to numerous attribute filtering ~\cite{NHQ,diskann} and range filtering algorithms \cite{serf,iRangeGraph}. In practical applications, the performance of hybrid query algorithms is influenced not only by unstructured data but also closely related to structured data. For attribute filtering algorithms, factors such as the number of attributes, attribute distribution \cite{UNG}, and attribute  selectivity \textcolor{orange}{\cite{analyticdb,milvus}} significantly impact algorithm performance. As for range filtering algorithms, the size of the query range and the characteristics of different datasets  play an important role in determining algorithm performance.
 	
 	Despite BigANN 2023 \cite{bigann2023} evaluates the performance of some ANN algorithms, it presents several notable limitations:
 	1) The evaluation covers a limited number of algorithms and fails to comprehensively include mainstream methods. 
@@ -448,13 +448,13 @@
 	\section{Experiments}
 	\subsection{Experimental Setup}
 	\subsubsection{Datasets}
-	
 	For attribute filtering tasks, we employ 6 real-world datasets widely adopted in existing literature: Msong~\cite{msong2011}, Audio~\cite{audio_unknown}, SIFT1M~\cite{sift2010}, GIST1M~\cite{sift2010}, GloVe~\cite{GloVe2015}, Enron~\cite{enron2015}, covering a diverse range of domains. We independently generate attribute for each dataset.
-	For range filtering queries, we evaluate 3 widely used real-world datasets: Deep~\cite{yandex_deep_dataset}, YT-Audio~\cite{youtube8m_dataset}, and WIT~\cite{wit_dataset}. Following prior work~\cite{DSG}, we use the data point ID within each dataset as its attribute. This ensures that the data is initially sorted.
 	
-	\textcolor{violet}{In addition to the aforementioned datasets, we further evaluated the performance of various algorithms on the Out-of-Distribution (OOD) dataset Text2Image~\cite{texttoimage} and the large-scale dataset Deep100M to validate the algorithm generalization capability. Specifically, the Text2Image dataset comprises two versions: the original version contains 1 million image embeddings as the base dataset and uses 10 thousand text embeddings as the query set; the Text2Image-Mix version is composed of 0.5 million image embeddings and 0.5 million text embeddings as the base dataset, with a query set of 5 thousand image embeddings and 5 thousand text embeddings.}
+	\textcolor{violet}{For range filtering queries, we evaluate 1 widely used dataset: WIT~\cite{wit_dataset}. Following prior work~\cite{DSG}, we use the data point ID within each dataset as its attribute. This ensures that the data is initially sorted.}
 	
-	\textcolor{violet}{Given that the preceding datasets primarily utilized synthetic attributes, we additionally introduced two datasets containing real attributes for a more comprehensive evaluation: the YT-Audio-Real dataset leverages URLs provided by the YouTube8M dataset to crawl corresponding video category IDs and view counts as its real attributes; whereas for the WIT-Real dataset, we encoded the \texttt{page\_title} field into vectors using the \texttt{clip-vit-base-patch32} model, and used the language type and the length of the \texttt{context\_page\_description} field as real attributes.}
+	\textcolor{violet}{Additionally, we introduced two datasets with real attributes for a more comprehensive evaluation of various attribute filtering and range query algorithms: The YT-Audio-Real dataset leverages URLs provided by the YouTube8M dataset to crawl corresponding video category IDs and view counts as its real attributes; whereas for the WIT-Real dataset, we used the \texttt{clip-vit-base-patch32} model to encode the \texttt{page\_title} field into vectors, and used the language type and the length of the \texttt{context\_page\_description} field as real attributes. It should be noted that, during range filtering, due to the limitations of some algorithms, we uniformly sorted the vectors according to the query attribute.}
+	
+	\textcolor{violet}{To validate the algorithm generalization capability, we also further evaluated the performance of various algorithms on the Out-of-Distribution (OOD) dataset Text2Image~\cite{texttoimage} and the large-scale dataset Deep100M. Specifically, the Text2Image dataset comprises two versions: the original version contains 1 million image embeddings as the base dataset and uses 10 thousand text embeddings as the query set; the Text2Image-Mix version is composed of 0.5 million image embeddings and 0.5 million text embeddings as the base dataset, with a query set of 5 thousand image embeddings and 5 thousand text embeddings.}
 	
 %	In addition, we evaluate the performance of different algorithms on the Out-of-Distribution (OOD) dataset Text2Image~\cite{texttoimage}.		
 	
@@ -481,8 +481,9 @@
 				GIST1M & 960 & 1,000,000 & 1,000 & 45& Image \\
 				GloVe & 100 & 1,183,514 & 10,000 & 47& Text \\
 				Enron & 1369 & 94,987 & 200 & 23& Text \\
-				Deep & 96 & 1,000,000 & 10,000 & 22& Image \\
-				YT-Audio& 128 & 1,000,000 & 10,000 & 15& Audio \\
+				%Deep & 96 & 1,000,000 & 10,000 & 22& Image \\
+				%YT-Audio& 128 & 1,000,000 & 10,000 & 15& Audio \\
+				YT-Audio-Real& 128 & 1,000,000 & 10,000 & 15& Audio \\
 				WIT & 2048 & 1,000,000 & 40,300 & 48& Image \\
 				WIT-Real & 512 & 1,000,000 & 10,000 & 21& Text \\
 				Text2Image & 200 & 10,000,000 &10,000 & 59& Text,Image \\
@@ -507,7 +508,7 @@
 		\item \textbf{QPS (Queries Per Second)}: The number of queries processed per second.
 		\item \textbf{Index Construction Time}: The total time required to transform the raw dataset into a queryable index structure.
 		\item \textbf{Index Size}: The storage size of the persisted index on disk.
-		\item \textbf{Peak Memory Usage}: The maximum memory consumption observed during index construction.
+		\item \textbf{Peak Memory Usage}: The maximum memory consumption observed during index construction \textcolor{orange}{and search}.
 	\end{enumerate}
 	
 	%\subsubsection{Parameter Settings}
@@ -584,7 +585,9 @@
 	
 	
 	
-	To investigate the performance of different attribute filtering algorithms during index construction, we evaluate \textcolor{orange}{4} key metrics in the single-attribute scenario: index construction time, index size, \textcolor{orange}{build peak memory and search peak memory}. Notably, PASE on GIST1M and Enron is omitted, as it supports only data with dimensionality less than 512. 
+	%To investigate the performance of different attribute filtering algorithms during index construction,
+	\textcolor{orange}{To explore the time and space overhead of different attribute filtering algorithms during index construction and search,}
+	 we evaluate \textcolor{orange}{4} key metrics in the single-attribute scenario: index construction time, index size, \textcolor{orange}{build peak memory and search peak memory}. Notably, PASE on GIST1M and Enron is omitted, as it supports only data with dimensionality less than 512. 
 	
 	\begin{figure*}
 		\centering
@@ -621,7 +624,7 @@
 	As shown in Figure~\ref{fig:build_memory_mb_comparison}, 
 	%on small-scale datasets, all methods except NHQ exhibit low memory usage. 
 	\textcolor{orange}{NHQ has the highest peak memory usage on almost all datasets.}
-	This is because NHQ adopts the kgraph approach for index construction, which requires loading the entire graph data into memory and maintaining a complete graph structure, leading to relatively high memory overhead. 
+	NHQ adopts the kgraph approach for index construction, which requires loading the entire graph data into memory and maintaining a complete graph structure, leading to relatively high memory overhead. 
 	
 	On large-scale datasets, CAPS exhibits slightly lower memory usage compared to other algorithms. \textcolor{orange}{The reason is that CAPS avoids redundant storage and graph structure overhead through hierarchical partitioning and AFT, and achieves a compact, sparse and controllable index. }.
 	
@@ -860,7 +863,7 @@
 			% 	}
 		% \end{table}
 	
-	\textit{\textbf{Different Datasets.}}  
+	\sout{\textit{\textbf{Different Datasets.}}  }
 	To evaluate the performance of various methods across different datasets, we conduct experiments on 7 datasets, including one dataset Text2Image for OOD queries. Our analysis focuses on performance variations concerning dataset size, LID, and vector dimensionality.
 	
 %ykw: 这段话看着有问题
@@ -879,20 +882,8 @@
 
 	\textit{\textbf{\textcolor{blue}{Large-scale Datasets.}}} 
 	
-	\textit{\textbf{\textcolor{blue}{Large-scale Datasets}}} 
+	\textit{\textbf{\textcolor{blue}{Complex Queries.}}}
 	
-	\textit{\textbf{\textcolor{blue}{Multi-modal Queries}}} 
-	
-	
-	\textcolor{blue}{
-	We conducted experiments on the text2image-mix dataset. This dataset contains both image and text vectors. It is a more complex multimodal dataset. As shown in Figure~\ref{fig:TrinityExtension——Attribution}, although the queries are more complex, UNG and NHQ still perform the best. CAPS is the next best.
-	Since the dataset mixes two modalities, the ground truth of the query set usually corresponds to the same modality. The nearest neighbors in the index are often from the same modality because they are closer in distance. Therefore, the search results on this dataset are similar to those in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}. UNG and NHQ perform the best. CAPS clusters based on vector similarity. It actually clusters the vectors into the same modality. Then it uses attribute filtering to divide the data further. This allows CAPS to quickly find nearest neighbors that meet the filter conditions.
-	In contrast, the text2image dataset shown in Figure~\ref{fig:exp_6_1} is different. The queries and the dataset are from different modalities. The queries are far from the dataset. The ground truths are also scattered and not clustered together. To find the ground truths, the algorithm often needs to traverse more points. This is a greater challenge for the algorithms.
-%	We conducted extensive scalability experiments on the Text2Image-Mix dataset. This dataset contains both image and text vectors. It represents a more complex multimodal query scenario. As shown in Figure 12, the UNG and NHQ algorithms still achieve the best performance, followed closely by CAPS.
-%	In the Text2Image-Mix dataset, the ground truth of the query vector is usually the corresponding vector in the same modality. Since the neighbor relationships in the graph are often based on vector distance, vectors of similar modalities naturally form closer connections in the graph. Therefore, during the search process, the algorithm tends to traverse efficiently within the same modality. This makes the search mechanism similar to our experiments on single-modality datasets, thus maintaining high performance.
-%	The good performance of the CAPS algorithm is due to its unique hierarchical space partitioning strategy. It first clusters vectors based on similarity. In multimodal data, this clustering naturally groups vectors of similar modalities into the same cluster. Then, CAPS further partitions these clusters using attributes. This allows it to quickly find the nearest neighbors that meet the filtering conditions.
-%	It is worth noting that, compared to the OOD dataset discussed in the "Dataset Impact" section, the Text2Image-Mix dataset also involves modality differences. However, its complexity lies in modality mixing. The OOD dataset, on the other hand, has a modality gap. This often requires traversing a broader and more sparse search space to find the ground truth. It poses a more severe challenge to the algorithm.
-}
 	
 	\textit{\textbf{Multimodel, 85 and Deep100M.}} \textcolor{red}{The fig is Figure \ref{fig:TrinityExtension——Attribution}}
 	
@@ -983,7 +974,7 @@
 	\end{figure}
 	
 	%Similar to the evaluation of \textit{Attribute Filtering} algorithms, 
-	Similarly, we also evaluate \textcolor{orange}{4} key metrics mentioned above in \textit{Range Filtering} algorithms. \textcolor{orange}{For the YT-Audio dataset with synthetic attributes and the YT-Audio dataset with real attributes, we can found that the data for index construction is basically the same, indicating that the authenticity of the attribute has almost no effect on index construction.
+	Similarly, we also evaluate \textcolor{orange}{4} key metrics mentioned above in \textit{Range Filtering} algorithms. \textcolor{orange}{Note: For the YT-Audio dataset with synthetic attributes and the YT-Audio dataset with real attributes, we found that the time and space overhead data of each algorithm are basically the same, which shows that the authenticity of the attribute has little effect on it.
 	However, the WIT dataset with synthetic labels is 2048-dimensional, while the WIT-Real dataset with real labels is 512-dimensional, so the dimension will cause a big difference.}
 	
 	\textit{\textbf{Index construction time.}}
@@ -993,7 +984,7 @@
 	
 	WinFilter and ACORN-\(\gamma\) take the longest.
 	WinFilter relies on a tree structure, requiring separate nearest-neighbor graphs per node. This causes redundant computation and high costs, especially for large datasets.
-	ACORN-\(\gamma\) expands the neighbor list of each node to provide more candidate paths, which increases both computation and storage costs. It also prunes distant neighbors to save storage space. However, this introduces additional overhead and slows down the construction process.
+	ACORN-\(\gamma\) expands the neighbor list of each node to provide more candidate paths, which increases both computation and storage costs. It also prunes distant neighbors to save storage space. However, this introduces additional overhead and slows down the construction process.\textcolor{orange}{In contrast, as we have analyzed in the corresponding section on attribute filtering, ACORN-1 trades efficiency for accuracy, so the construction time is short. SeRF is built on HNSW, so the time is similar to and slightly lower than ACORN-1.}
 	
 	\textit{\textbf{Index size.}} 
 	As shown in Figure~\ref{fig:rangeFilter_index_size_mb}, Among all algorithms, Faiss has the smallest index size. Because IVF only adds centroid data and partition information to the vector dataset, the IVF index is only slightly larger than the vector dataset.
@@ -1032,7 +1023,8 @@
 	
 	\subsubsection{Performance Evaluation. }
 	
-	In this experiment, we follow the query range definition adopted by prior work~\cite{HQI}. \textcolor{red}{Specifically, for a given query, the range ratio is defined as $2^{-i}$	when the query range covers $\frac{n}{2^i}$ data points, where $n$ is the total dataset size.} Based on this definition, we evaluate algorithm performance under 4 query range settings: $2^{-2}$, $2^{-4}$, $2^{-6}$, and $2^{-8}$. \textcolor{red}{Some algorithms don't support using actual attributes as search keys, instead requiring an ID (the primary key, ranging from $0$ to $n-1$). Therefore, we uniformly use this ID as the search key. This ID is pre-sorted according to its corresponding real attribute, allowing us to map an attribute to its ID without loss of generality for efficient range queries.}
+	In this experiment, we follow the query range definition adopted by prior work~\cite{HQI}. \textcolor{red}{Specifically, for a given query, the range ratio is defined as $2^{-i}$	when the query range covers $\frac{n}{2^i}$ data points, where $n$ is the total dataset size.} Based on this definition, we evaluate algorithm performance under 4 query range settings: $2^{-2}$, $2^{-4}$, $2^{-6}$, and $2^{-8}$. 
+	%\textcolor{red}{Some algorithms don't support using actual attributes as search keys, instead requiring an ID (the primary key, ranging from $0$ to $n-1$). Therefore, we uniformly use this ID as the search key. This ID is pre-sorted according to its corresponding real attribute, allowing us to map an attribute to its ID without loss of generality for efficient range queries.}
 	
 	Due to space constraints, Figure~\ref{fig:exp_8_2} reports results for only the largest ($2^{-2}$) and smallest ($2^{-8}$) range ratios. The experimental results show that across all datasets (YT-Audio-Real, WIT-Real, and WIT) and query ranges, WinFilter consistently delivers the best performance. This highlights its robustnes, which performs ANN search over only relevant tree nodes and merges results efficiently, making it highly effective for static range query scenarios.
 	
@@ -1089,9 +1081,7 @@
 	
 	\textit{\textbf{\textcolor{blue}{Large-scale Datasets.}}} 
 	
-	\textit{\textbf{\textcolor{blue}{Multi-modal Queries}}}
-	\textcolor{blue}{
-	Similar to attribute filtering, the performance of multimodal queries with range filtering shown in Figure~\ref{fig:MultiModel range} is also consistent with the single-modality results in Figure~\ref{fig:exp_8_2}. As shown in Figure~\ref{fig:exp_8_3}, the algorithms still perform the worst on multimodal datasets like Text2Image. This is because these range query algorithms are almost graph-based. Graph algorithms need more iterations to find true neighbors in OOD datasets.}
+	\textit{\textbf{\textcolor{blue}{Complex Queries.}}}
 	
 	\textit{\textbf{Multimodel, 85 and Deep100M.}} \textcolor{red}{The fig is Figure \ref{fig:TrinityExtension——Range}}
 	
