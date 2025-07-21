@@ -401,45 +401,45 @@
 	
 	
 	
-	\renewcommand{\arraystretch}{0.9}
-	\begin{table}[t]
-		\centering
-		
-		\setlength{\textfloatsep}{0.1cm}
-		\caption{Comparison of RF-ANN search algorithms}
-		\small	% 只会影响当前组的内容
-		\label{tab:range_algo}
-		\begin{tabular}{|c|c|c|c|}
-			\hline
-			\textbf{Algorithm} & \textbf{Base} & \textbf{Dynamic Insert} & \textbf{Multi Thread} \\
-			\hline
-			DSG & Graph & Y & N \\
-			iRange & Graph & N & Y \\
-			SeRF & Graph & Y & Y \\
-			UNIFY & Graph & Y & Y \\
-			WinFilter & Graph & N & Y  \\
-			\hline
-		\end{tabular}
-		
-		
-		\footnotesize{
-			\begin{minipage}{\linewidth}
-				\centering
-				The indicators are consistent with those in Table ~\ref{tab:compair_1}.
-				%				\textsuperscript{Y} Support, 
-				%				\textsuperscript{N} Unsupport.
-				%				\textit{Base} indicates that the hybrid query algorithm is an improvement based on a specific ANN search algorithm. 
-				%				\textit{Dynamic Insert} indicates whether the algorithm supports the operation of dynamically inserting data points.
-				%				\textit{Multi Thread} indicates whether the algorithm supports multi-threaded search.
-			\end{minipage} 
-			
-		}
-		
-	\end{table}
+%	\renewcommand{\arraystretch}{0.9}
+%	\begin{table}[t]
+%		\centering
+%		
+%		\setlength{\textfloatsep}{0.1cm}
+%		\caption{Comparison of RF-ANN search algorithms}
+%		\small	% 只会影响当前组的内容
+%		\label{tab:range_algo}
+%		\begin{tabular}{|c|c|c|c|}
+%			\hline
+%			\textbf{Algorithm} & \textbf{Base} & \textbf{Dynamic Insert} & \textbf{Multi Thread} \\
+%			\hline
+%			DSG & Graph & Y & N \\
+%			iRange & Graph & N & Y \\
+%			SeRF & Graph & Y & Y \\
+%			UNIFY & Graph & Y & Y \\
+%			WinFilter & Graph & N & Y  \\
+%			\hline
+%		\end{tabular}
+%		
+%		
+%		\footnotesize{
+%			\begin{minipage}{\linewidth}
+%				\centering
+%				The indicators are consistent with those in Table ~\ref{tab:compair_1}.
+%				%				\textsuperscript{Y} Support, 
+%				%				\textsuperscript{N} Unsupport.
+%				%				\textit{Base} indicates that the hybrid query algorithm is an improvement based on a specific ANN search algorithm. 
+%				%				\textit{Dynamic Insert} indicates whether the algorithm supports the operation of dynamically inserting data points.
+%				%				\textit{Multi Thread} indicates whether the algorithm supports multi-threaded search.
+%			\end{minipage} 
+%			
+%		}
+%		
+%	\end{table}
 	
 	\subsection{Range Filtering Algorithms}
 	
-	We introduce 5 representative range filtering algorithms and present a comparative overview in Table~\ref{tab:range_algo}.
+	We introduce 5 representative range filtering algorithms and present a comparative overview in \textcolor{orange}{Table~\ref{tab:compair_1}.}
 	
 	\noindent\textbf{\underline{SeRF} \footnote{https://github.com/rutgers-db/SeRF} \cite{serf}} Conventional RF-ANN search approaches typically follow one of two paradigms: 1) Conducting ANN search first followed by attribute-based filtering. 2) Filtering the dataset based on attribute ranges before performing ANN search. Building a separate neighbor graph (e.g., HNSW) for each attribute range could ensure efficient querying but incurs an $O(n^2)$ cost in constructing and storing $n$ graphs. Since many edges are shared across these graphs, SeRF introduces a validity-range aware design where each edge records the interval in which it is valid, indicating in which subgraphs the edge remains valid. This compresses $n$ graphs into a single unified graph, maintaining search effectiveness while significantly reducing memory and index construction overhead.
 	
