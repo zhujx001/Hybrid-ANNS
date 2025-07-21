@@ -299,6 +299,7 @@ We conducted additional experiments on a server equipped with two Intel(R) Xeon(
 The results show that the performance differences across algorithms remain small, and their relative rankings do not change significantly across servers.
 We did observe slightly lower QPS on this server compared to our original one, which is mainly due to the lower CPU frequency of the Xeon 6330 processors.
 %%%%%%%%%%%%%%%%%%%%%% W3 %%%%%%%%%%%%%%%%%%%%%%
+
 \myfbox{
 	\begin{weakness}
 		\textit{In the experimental setup, it is unclear whether data storage (disk or SSD) is used.
@@ -515,7 +516,7 @@ f all the evaluated algorithms, only Faiss supports quantization. However, in ou
 
 \textbf{Regarding Figure 7 and the exclusion of Vamana:}
 
-We appreciate the reviewer’s observation. Figure 7 presents experiments on multi-label construction and search, using Boolean AND logic. The Vamana-based methods (FilteredVamana and StitchedVamana) only support Boolean OR logic for multi-label search, which is why they were not included. We will clarify this point in the revised version of the paper.
+We appreciate the reviewer’s observation. Figure 7 presents experiments on multi-attribute construction and search, using Boolean AND logic. The Vamana-based methods (FilteredVamana and StitchedVamana) only support Boolean OR logic for multi-attribute search, which is why they were not included. We will clarify this point in the revised version of the paper, specifically in the section on \textcolor{blue}{Multi-Attribute Construction and Multi-Attribute Query}.
 %Thanks to the reviewer for suggesting that there is no explanation in Figure 7 why Vamana is not included. Figure 7 is an experiment on multi-label construction and search, and the Boolean logic of multi-label search is AND. The two algorithms using Vamana, FilteredVamana and StitchedVamana, only support Boolean logic OR for multi-label search, so we did not include them. We will add an explanation of this in the paper.
 
 All the evaluated algorithms in our experiments build the index in a one-shot manner, without applying any partitioning or merging strategies.
