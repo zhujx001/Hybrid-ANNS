@@ -6,6 +6,11 @@ VLDB2026/main.log
 VLDB2026/main.out
 VLDB2026/main.pdf
 VLDB2026/main.synctex.gz
+Revision/*.log
+Revision/*.aux
+Revision/*.pdf
+Revision/*.synctex.gz
+Revision/.DS_Store
 .DS_Store
 .DS_Store
 Revision/response.log
