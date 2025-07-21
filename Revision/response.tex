@@ -228,6 +228,15 @@ While StitchedVamana achieves extremely low latency (sub-5 ms) due to its stitch
 
 \noindent
 \textbf{Response:} 
+Thank you for your suggestion. We are deeply aware of this deficiency, so we added the search peak memory usage of each algorithm in \textcolor{blue}{Section 4.2.1} of attribute filtering and \textcolor{blue}{Section 4.3.1}  of range filtering, and carefully analyzed the reasons.
+
+\textit{\textbf{ \textcolor{blue}{" Search peak memory.}}}
+
+\textcolor{blue}{As shown in Figure, we can find that the peak memory usage of each algorithm during search does not differ significantly. Among them, CAPS and NHQ have relatively higher peak memory usage, while the database's peak memory usage is comparatively lower."}
+
+\textit{\textbf{ \textcolor{blue}{"Search peak memory.}}}
+
+\textcolor{blue}{As for the Search peak memory usage, we can find from the Figure that it is basically consistent with the Build peak memory usage trend. The algorithm needs to load the complete index into memory during search. Therefore, algorithms with high building overhead, such as WinFilter, also have high search overhead; algorithms with low building overhead, such as Faiss, also have low search overhead. For Milvus, search does not require full index loading and there is additional metadata overhead when building, so the performance is different from the trend."}
 
 %%%%%%%%%%%%%%%%%%%%%% R8 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -367,15 +376,7 @@ Thank you for your suggestion! We have made a detailed response to this question
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We are deeply aware of this deficiency, so we added the search peak memory usage of each algorithm in \textcolor{blue}{Section 4.2.1} of attribute filtering and \textcolor{blue}{Section 4.3.1}  of range filtering, and carefully analyzed the reasons.
-
-\textit{\textbf{ \textcolor{blue}{" Search peak memory.}}}
-
-\textcolor{blue}{As shown in Figure, we can find that the peak memory usage of each algorithm during search does not differ significantly. Among them, CAPS and NHQ have relatively higher peak memory usage, while the database's peak memory usage is comparatively lower."}
-
-\textit{\textbf{ \textcolor{blue}{"Search peak memory.}}}
-
-	\textcolor{blue}{As for the Search peak memory usage, we can find from the Figure that it is basically consistent with the Build peak memory usage trend. The algorithm needs to load the complete index into memory during search. Therefore, algorithms with high building overhead, such as WinFilter, also have high search overhead; algorithms with low building overhead, such as Faiss, also have low search overhead. For Milvus, search does not require full index loading and there is additional metadata overhead when building, so the performance is different from the trend."}
+Thank you for your suggestion! We have made a detailed response to this question in R6 of Response To Meta-reviewer. Please see R6 for details.
 	
 %%%%%%%%%%%%%%%%%%%%%% D1 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
