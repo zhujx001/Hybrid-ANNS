@@ -485,7 +485,7 @@
 				Deep & 96 & 1,000,000 & 10,000 & 22& Image \\
 				YT-Audio& 128 & 1,000,000 & 10,000 & 15& Audio \\
 				WIT & 2048 & 1,000,000 & 40,300 & 48& Image \\
-				WIT-Real & 512 & 1,000,000 & 40,300 & 48& Image \\
+				WIT-Real & 512 & 1,000,000 & 40,300 & \textcolor{blue}{xx}& Image \\
 				Text2Image & 200 & 10,000,000 &10,000 & 59& Text,Image \\
 				Text2Image-Mix & 200 & 10,000,000 &10,000 & 59& Text,Image \\
 				\bottomrule
@@ -508,7 +508,7 @@
 		\item \textbf{QPS (Queries Per Second)}: The number of queries processed per second.
 		\item \textbf{Index Construction Time}: The total time required to transform the raw dataset into a queryable index structure.
 		\item \textbf{Index Size}: The storage size of the persisted index on disk.
-		\item \textbf{Peak Memory Usage}: The maximum memory consumption observed during index construction.
+		\item \textbf{Peak Memory Usage}: The maximum memory consumption observed during index construction \textcolor{orange}{and search}.
 	\end{enumerate}
 	
 	%\subsubsection{Parameter Settings}
@@ -585,7 +585,9 @@
 	
 	
 	
-	To investigate the performance of different attribute filtering algorithms during index construction, we evaluate \textcolor{orange}{4} key metrics in the single-attribute scenario: index construction time, index size, \textcolor{orange}{build peak memory and search peak memory}. Notably, PASE on GIST1M and Enron is omitted, as it supports only data with dimensionality less than 512. 
+	%To investigate the performance of different attribute filtering algorithms during index construction,
+	\textcolor{orange}{To explore the time and space overhead of different attribute filtering algorithms during index construction and search,}
+	 we evaluate \textcolor{orange}{4} key metrics in the single-attribute scenario: index construction time, index size, \textcolor{orange}{build peak memory and search peak memory}. Notably, PASE on GIST1M and Enron is omitted, as it supports only data with dimensionality less than 512. 
 	
 	\begin{figure*}
 		\centering
@@ -622,7 +624,7 @@
 	As shown in Figure~\ref{fig:build_memory_mb_comparison}, 
 	%on small-scale datasets, all methods except NHQ exhibit low memory usage. 
 	\textcolor{orange}{NHQ has the highest peak memory usage on almost all datasets.}
-	This is because NHQ adopts the kgraph approach for index construction, which requires loading the entire graph data into memory and maintaining a complete graph structure, leading to relatively high memory overhead. 
+	NHQ adopts the kgraph approach for index construction, which requires loading the entire graph data into memory and maintaining a complete graph structure, leading to relatively high memory overhead. 
 	
 	On large-scale datasets, CAPS exhibits slightly lower memory usage compared to other algorithms. \textcolor{orange}{The reason is that CAPS avoids redundant storage and graph structure overhead through hierarchical partitioning and AFT, and achieves a compact, sparse and controllable index. }.
 	
@@ -996,7 +998,7 @@
 	\end{figure}
 	
 	%Similar to the evaluation of \textit{Attribute Filtering} algorithms, 
-	Similarly, we also evaluate \textcolor{orange}{4} key metrics mentioned above in \textit{Range Filtering} algorithms. \textcolor{orange}{For the YT-Audio dataset with synthetic attributes and the YT-Audio dataset with real attributes, we can found that the data for index construction is basically the same, indicating that the authenticity of the attribute has almost no effect on index construction.
+	Similarly, we also evaluate \textcolor{orange}{4} key metrics mentioned above in \textit{Range Filtering} algorithms. \textcolor{orange}{Note: For the YT-Audio dataset with synthetic attributes and the YT-Audio dataset with real attributes, we found that the time and space overhead data of each algorithm are basically the same, which shows that the authenticity of the attribute has little effect on it.
 	However, the WIT dataset with synthetic labels is 2048-dimensional, while the WIT-Real dataset with real labels is 512-dimensional, so the dimension will cause a big difference.}
 	
 	\textit{\textbf{Index construction time.}}
