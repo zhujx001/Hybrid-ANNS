@@ -165,11 +165,12 @@ For performance under different attribute selectivity, to reflect the performanc
 }
 
 \noindent
-\textbf{Response:} We believe this is a very good suggestion. Accordingly, we have added more complex multi-modal dataset experiments in the Multi-modal Queries sections of Section 4.2.4 and Section 4.3.4 in our revised paper. In the original version, we used the commonly adopted text2image dataset from existing multi-modal ANN algorithms, where the base vectors are images, but the queries are text. This setting naturally introduces a modality gap, and achieving good performance on this dataset usually requires algorithms to be more robust.
+\textbf{Response:} We believe this is an excellent suggestion. In fact, in the initial version of our paper, we used the text-to-image dataset that has been widely adopted by existing multimodal ANN algorithms. In this dataset, the base vectors are images, while the query set consists of texts, resulting in a modality gap between the two. Achieving good performance on such a dataset often requires the algorithm to demonstrate stronger robustness. \textbf{(Please refer to the last paragraph of Section 4.2.3 and the green highlighted part in Section 4.3.3.)}
 
-To further enrich the complexity of multi-modal queries, we additionally selected 500,000 text vectors and 500,000 image vectors to form a mixed base dataset, and we similarly selected 5,000 text vectors and 5,000 image vectors as query vectors. We then conducted both attribute filtering and range queries on this multi-modal dataset by combining text and image queries. This allows us to further analyze the robustness of the algorithms. The related experimental results are presented in the Multi-modal Queries sections of Section 4.2.4 and Section 4.3.4.
+To further enrich the evaluation of complex multimodal queries, we have added new experiments in the Multi-modal Queries sections of Section 4.2.4 and Section 4.3.4. Specifically, we constructed a more challenging multimodal dataset by selecting 500,000 text vectors and 500,000 image vectors as the base set, and 5,000 text vectors and 5,000 image vectors as the query set. We then performed both attribute filtering and range queries over this dataset, combining text and image queries to further analyze the robustness of the algorithms. The corresponding experimental results are presented in Section 4.2.4 and Section 4.3.4 under Multi-modal Queries.
 
-As for complex query types involving both attribute and range filters, to the best of our knowledge, there is currently no ANN algorithm (except for general-purpose systems like Milvus and Faiss) that can support both types of filtering simultaneously. For example, ACORN needs to build separate indices for each scenario and cannot support attribute and range filtering at the same time. Therefore, in our study, we chose to consider these query types separately, rather than jointly.
+As for complex query types that involve both attribute filtering and range queries simultaneously, to the best of our knowledge, existing algorithms—except for general-purpose systems such as Milvus and Faiss—do not support this functionality. For example, ACORN needs to build separate indexes for each scenario and cannot handle attribute filtering and range queries simultaneously. Therefore, we did not consider this type of complex query in our experiments but instead studied the two query types separately. \textbf{(Please refer to the blue highlighted parts in Section 4.2.4 and Section 4.3.4 under Multi-modal Queries.)
+}
 
 \textcolor{blue}{
 	"We conducted experiments on the text2image-mix dataset. This dataset contains both image and text vectors. It is a more complex multimodal dataset. As shown in Figure 12, although the queries are more complex, UNG and NHQ still perform the best. CAPS is the next best.
@@ -272,7 +273,6 @@ While StitchedVamana achieves extremely low latency (sub-5 ms) due to its stitch
 
 \noindent
 \textbf{Response:} 
-
 Thank you for your suggestion. We are deeply aware of this shortcoming, so we provide the search peak memory usage of each algorithm in the time and space overhead section and carefully analyze the reasons.
 \begin{figure}[htbp]
 	\centering
@@ -306,6 +306,9 @@ For range filtering, please see section 4.3.1.
 
 \noindent
 \textbf{Response:} 
+Thank you for your valuable suggestion regarding our experiments. In Section 4.2.4, we add experiments on the Deep100M dataset. The results show that most algorithms struggle to balance performance with time and space costs on this large-scale dataset. In particular, StitchedVamana performs poorly on Deep100M. Please see section 4.2.4.
+
+\textcolor{blue}{"On the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating their good adaptability to large-scale datasets; however, this also comes with significant memory overhead. The clustering-based algorithm \texttt{Faiss+HQI\_Batch} shows moderate performance but has very low memory overhead, which makes it highly attractive for practical applications. We did not present the experimental results for StitchedVamana because we found that its recall consistently remained at a very low level. Its search starting point is set to 0 by default, and when the entry point is far from the target area, it easily gets stuck in a local optimum, making it difficult to navigate to the vicinity of the correct point."}
 
 %%%%%%%%%%%%%%%%%%%%%% R9 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -353,6 +356,8 @@ Regarding the more intricate semantic relationships—such as those between vect
 
 \noindent
 \textbf{Response:} 
+Thank you for your feedback. We improve the readability of the two figures in Section 4.2.3, and please see Meta-Review R1 for details. 
+
 
 %%%%%%%%%%%%%%%%%%%%%% W3 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
