@@ -454,7 +454,8 @@ Thank you for your suggestion! We have made a detailed response to this question
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion! The paper [49] is a comprehensive survey and evaluation of graph structure approximate nearest neighbor search algorithms. Our paper extends this to a more complex "hybrid query" scenario and evaluates approximate search algorithms that combine vector similarity and attribute filtering/range filtering. Since hybrid queries are developed based on ANNs, we refer to the metrics and evaluation architectures of different methods proposed in this paper.
+Thank you for pointing this out. Both paper [49] and our paper are benchmarks. Paper [49] provides a comprehensive review and evaluation of graph-based approximate nearest neighbor search algorithms. Our paper is the first benchmark to evaluate hybrid queries. Since hybrid queries are developed based on ANN, we refer to the evaluation metrics proposed in the cited paper. We realize that we did not clearly explain the difference between our paper and the cited paper, so we added a description in the introduction, please see section XXX.
+\textcolor{blue}{""}
 
 
 
@@ -469,7 +470,9 @@ Thank you for your suggestion! The paper [49] is a comprehensive survey and eval
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion! We have carefully searched and found no papers describing the application of attribute distribution and attribute selectivity. However, the real-world application scenarios of attribute distribution and attribute selectivity are indeed very extensive. For attribute distribution, the label attributes of many recommended application scenarios in reality conform to the power-law distribution. For attribute selectivity: For example, if you need to query data in which an attribute accounts for a very small proportion of the total, choosing a more advantageous algorithm will greatly improve the search effect. There are also databases with actual applications that mention attribute selectivity, such as Milvus and AnalyticDB-V. For the two parts you suggested, we will add more comprehensive citations in the paper.
+Thank you for your suggestion. We cited these two papers in the introduction to show that there are several papers that study attribute distribution and selectivity.
+In addition, attribute distribution and selectivity are indeed widely used in real-world scenarios. For attribute distribution, the label attributes of many recommendation application scenarios in reality conform to the power-law distribution. For attribute selectivity: For example, if you need to query data with a very small proportion of a certain attribute, choosing a better algorithm will greatly improve the search effect. There are also some databases with practical applications that mention attribute selectivity, such as Milvus and AnalyticDB-V. For the two parts you suggested, we will add more comprehensive references in the paper.
+Please see section 1.1. \textcolor{blue}{"For attribute filtering algorithms, factors such as the number of attributes, attribute distribution[12], and attribute  selectivity [46,51] significantly impact algorithm performance."}
 
 %%%%%%%%%%%%%%%%%%%%%% D3 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
