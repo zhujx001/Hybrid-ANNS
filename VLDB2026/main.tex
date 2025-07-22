@@ -269,7 +269,7 @@
 		\centering
 		%\setlength{\belowcaptionskip}{-0.3cm}
 		
-		\caption{Comparison of AF-ANN search algorithms}
+		\caption{Comparison of AF-ANN and RF-ANN search algorithms}
 		\small
 %		\label{tab:compair_1}
 %		\begin{tabular}{|l|l|c|c|c|c|c|c|c|}
@@ -305,7 +305,7 @@
 		\multicolumn{2}{|l|}{\textbf{RF}}             & N & N & N & N & Y & N & N & Y & Y & Y & Y & Y \\ \hline
 		\multicolumn{2}{|l|}{\textbf{Dynamic Insert}} & N & Y & N & Y & Y & Y & Y & N & Y & Y & Y & Y \\ \hline
 		\multicolumn{2}{|l|}{\textbf{Multi Thread}}   & N & Y & Y & Y & Y & Y & Y & N & Y & Y & Y & Y \\ \hline
-		\multicolumn{2}{|l|}{\textbf{Disk Storage Support}}           &N  & Y& N & N & N & N & N & N & N & N & N & N \\ \hline
+		\multicolumn{2}{|l|}{\textbf{Disk Support}}           &N  & Y& N & N & N & N & N & N & N & N & N & N \\ \hline
 		\multicolumn{2}{|l|}{\textbf{Base}}           & Graph & Graph & Graph & IVF & Graph & Graph & IVF & Graph & Graph & Graph & Graph & Graph \\ \hline
 	\end{tabular}
 		
@@ -329,18 +329,24 @@
 		\footnotesize{
 			\begin{minipage}{\linewidth}
 				\vspace{0.1cm}
+				\textcolor{orange}{\textsuperscript{AF} Attribue-filtering,}
+				\textcolor{orange}{\textsuperscript{RF} Range-filtering,}
+				\textcolor{orange}{Filtered: FilteredVamana,}
+				\textcolor{orange}{Stitched: StitchedVamana,}
+				\textcolor{orange}{Win: WinFilter,}
 				\textsuperscript{A} Post-filtering, 
 				\textsuperscript{B} Pre-filtering, 
 				\textsuperscript{C} Simultaneous filtering, 
 				\textsuperscript{Y} Support, 
 				\textsuperscript{N} Unsupport. 
-				\textit{Base} indicates that the hybrid query algorithm is an improvement based on a specific ANN search algorithm. 
 				\textit{AND} indicates whether the algorithm supports attribute filtering with AND operations. 
 				\textit{OR} indicates whether the algorithm supports attribute filtering with OR operations. 
 				\textit{Flexible Attributes} indicates whether the number of query attributes can differ from the number of attributes used during index construction. 
 				\textit{Complex Boolean} refers to whether the algorithm supports advanced Boolean logic beyond just AND and OR, such as NOT or combinations like (A AND B) OR (C AND NOT D). 
 				\textit{Dynamic Insert} indicates whether the algorithm supports the operation of dynamically inserting data points.
-				\textit{Multi Thread} indicates whether the algorithm supports multi-threaded search.
+				\textit{Multi Thread} indicates whether the algorithm supports multi-threaded search,
+				\textcolor{orange}{\textit{Disk Support} indicates whether the algorithm supports disk storage,}
+				\textit{Base} indicates that the hybrid query algorithm is an improvement based on a specific ANN search algorithm.
 		\end{minipage}}
 		
 	\end{table*}
@@ -662,7 +668,7 @@
 	On large-scale datasets, CAPS exhibits slightly lower memory usage compared to other algorithms. \textcolor{orange}{The reason is that CAPS avoids redundant storage and graph structure overhead through hierarchical partitioning and AFT, and achieves a compact, sparse and controllable index. }.
 	
 	\textit{\textbf{ \textcolor{orange}{Search peak memory.}}}
-	 \textcolor{orange}{As shown in Figure~\ref{fig:search_memory_mb_comparison}, we can find that the peak memory usage of each algorithm during search does not differ significantly. Among them, CAPS and NHQ have relatively higher peak memory usage, while \underline{the database's peak memory usage} is comparatively lower.}
+	 \textcolor{orange}{As shown in Figure~\ref{fig:search_memory_mb_comparison}, we can find that the peak memory usage of each algorithm during search does not differ significantly. Among them, CAPS and NHQ have relatively higher peak memory usage, while \underline{the peak memory usage of database} is comparatively lower.}
 	
 	\subsubsection{Performance Evaluation}
 	
@@ -916,9 +922,11 @@
 	
 	SIFT1M and Msong are similar datasets, with the key difference being that SIFT1M has lower dimensionality. The 4 algorithms (ACORN, Faiss, PASE, and NHQ) perform similarly on these two datasets, suggesting strong robustness to high dimensional datasets. In contrast, the remaining algorithms exhibit degraded performance on Msong, revealing a lack of adaptability to high dimensional datasets.
 	
-	Most algorithms struggle to achieve high recall on GloVe, because it has the highest LID. Compare to other algorithms, the 4 algorithms (UNG, Faiss, CAPS, and Milvus) manage to maintain relatively high recall, demonstrating better adaptability to complex datasets. Notably, although vanilla Faiss performs worse on SIFT1M compared to Enron dataset, Faiss+HQI\_Batch outperforms on SIFT1M. Because batch optimization in HQI reduces query overhead and increases throughput.
+	Most algorithms struggle to achieve high recall on GloVe, because it has the highest LID. Compare to other algorithms, the 4 algorithms (UNG, Faiss, CAPS, and Milvus) manage to maintain relatively high recall, demonstrating better adaptability to complex datasets. Notably, although vanilla Faiss performs worse on SIFT1M compared to Enron dataset, Faiss+HQI\_Batch outperforms on SIFT1M. Because batch optimization in HQI reduces query overhead and increases throughput.	}
 	
-	Most algorithms exhibit the worst performance on the OOD dataset Text2Image. However, ACORN, UNG, and FilteredVamana show relatively stable performance on Text2Image. Their performance drops less compared to in-distribution (ID) datasets such as GIST1M and GloVe, indicating better adaptability to OOD queries.}
+	\textcolor{green}{Most algorithms exhibit the worst performance on the OOD dataset Text2Image. However, ACORN, UNG, and FilteredVamana show relatively stable performance on Text2Image. Their performance drops less compared to in-distribution (ID) datasets such as GIST1M and GloVe, indicating better adaptability to OOD queries.}
+	
+
 	
 	\subsubsection{Scalability Study}
 	
@@ -953,22 +961,30 @@
 		\includegraphics[width=0.98\columnwidth]{figures/exp/attribute_legend.pdf}
 		
 		%\vspace{0.1cm}
-		\begin{subfigure}[t]{0.332\columnwidth}
+		\begin{subfigure}[t]{0.507\columnwidth}
 			\centering
 			\captionsetup{font=small}
 			\includegraphics[width=\linewidth]{figures/exp/attribute_multimodel.pdf}
 			\caption{\footnotesize MultiModel}
 			\label{fig:MultiModel}
-		\end{subfigure}
+		\end{subfigure}	
 		\hfill
-		\begin{subfigure}[t]{0.315\columnwidth}
+		\begin{subfigure}[t]{0.48\columnwidth}
+			\centering
+			\captionsetup{font=small}
+			\includegraphics[width=\linewidth]{figures/exp/attribute_multimodel_1.pdf}
+			\caption{\footnotesize MultiModel}
+			\label{fig:MultiModel}
+		\end{subfigure}
+		
+		\begin{subfigure}[t]{0.507\columnwidth}
 			\centering
 			\includegraphics[width=\linewidth]{figures/exp/attribute_85.pdf}
 			\caption{\footnotesize Different Computer}
 			\label{fig:Different Computer}
 		\end{subfigure}
 		\hfill
-		\begin{subfigure}[t]{0.315\columnwidth}
+		\begin{subfigure}[t]{0.48\columnwidth}
 			\centering
 			\includegraphics[width=\linewidth]{figures/exp/attribute_100M.pdf}
 			\caption{\footnotesize Big Dataset}
@@ -1115,9 +1131,9 @@
 		\label{fig:exp_8_3}
 	\end{figure*}
 	
-	\sout{To evaluate the robustness of the RF-ANNS algorithms in different scenarios, we add an OOD dataset in the experiments. As shown in Figure~\ref{fig:exp_8_3}, most methods perform worst on the Text2Image dataset. This is because OOD queries make the $k$-nearest neighbor distribution more sparse. As a result, the search needs to visit more nodes, which leads to an exponential growth in the search space and a sharp drop in efficiency.
+	\textcolor{green}{To evaluate the robustness of the RF-ANNS algorithms in different scenarios, we add an OOD dataset in the experiments. As shown in Figure~\ref{fig:exp_8_3}, most methods perform worst on the Text2Image dataset. This is because OOD queries make the $k$-nearest neighbor distribution more sparse. As a result, the search needs to visit more nodes, which leads to an exponential growth in the search space and a sharp drop in efficiency.}
 	
-	WinFilter shows the worst performance on the WIT dataset. This suggests that its performance is sensitive to the data dimensionality. ACORN has large performance differences across datasets, indicating weak robustness.
+	\sout{WinFilter shows the worst performance on the WIT dataset. This suggests that its performance is sensitive to the data dimensionality. ACORN has large performance differences across datasets, indicating weak robustness.
 	
 	Among vector databases, Milvus performs well. VBASE is sensitive to datasets and achieved recall below 0.8 on Text2Image. PASE is excluded from this round of tests because it does not support datasets with dimensions over 512 and performed poorly in earlier experiments.
 	
@@ -1153,7 +1169,7 @@
 		\includegraphics[width=0.98\columnwidth]{figures/exp/range_legend.pdf}
 		
 		%\vspace{0.1cm}
-		\begin{subfigure}[t]{0.332\columnwidth}
+		\begin{subfigure}[t]{0.507\columnwidth}
 			\centering
 			\captionsetup{font=small}
 			\includegraphics[width=\linewidth]{figures/exp/range_multimodel.pdf}
@@ -1161,14 +1177,22 @@
 			\label{fig:MultiModel range}
 		\end{subfigure}
 		\hfill
-		\begin{subfigure}[t]{0.315\columnwidth}
+		\begin{subfigure}[t]{0.48\columnwidth}
+			\centering
+			\captionsetup{font=small}
+			\includegraphics[width=\linewidth]{figures/exp/range_multimodel_1.pdf}
+			\caption{\footnotesize MultiModel}
+			\label{fig:MultiModel range}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[t]{0.507\columnwidth}
 			\centering
 			\includegraphics[width=\linewidth]{figures/exp/range_85.pdf}
 			\caption{\footnotesize Different Computer}
 			\label{fig:Different Computer range}
 		\end{subfigure}
 		\hfill
-		\begin{subfigure}[t]{0.315\columnwidth}
+		\begin{subfigure}[t]{0.48\columnwidth}
 			\centering
 			\includegraphics[width=\linewidth]{figures/exp/range_deep100M.pdf}
 			\caption{\footnotesize Big Dataset}
