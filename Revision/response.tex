@@ -273,7 +273,6 @@ While StitchedVamana achieves extremely low latency (sub-5 ms) due to its stitch
 
 \noindent
 \textbf{Response:} 
-
 Thank you for your suggestion. We are deeply aware of this shortcoming, so we provide the search peak memory usage of each algorithm in the time and space overhead section and carefully analyze the reasons.
 \begin{figure}[htbp]
 	\centering
@@ -307,6 +306,9 @@ For range filtering, please see section 4.3.1.
 
 \noindent
 \textbf{Response:} 
+Thank you for your valuable suggestion regarding our experiments. In Section 4.2.4, we add experiments on the Deep100M dataset. The results show that most algorithms struggle to balance performance with time and space costs on this large-scale dataset. In particular, StitchedVamana performs poorly on Deep100M. Please see section 4.2.4.
+
+\textcolor{blue}{"On the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating their good adaptability to large-scale datasets; however, this also comes with significant memory overhead. The clustering-based algorithm \texttt{Faiss+HQI\_Batch} shows moderate performance but has very low memory overhead, which makes it highly attractive for practical applications. We did not present the experimental results for StitchedVamana because we found that its recall consistently remained at a very low level. Its search starting point is set to 0 by default, and when the entry point is far from the target area, it easily gets stuck in a local optimum, making it difficult to navigate to the vicinity of the correct point."}
 
 %%%%%%%%%%%%%%%%%%%%%% R9 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -513,7 +515,7 @@ Thank you for the suggestion! Since there are multiple methods, listing all URLs
 
 \noindent
 \textbf{Response:} 
-
+Thank you for your suggestion. We add experiments on the Deep100M dataset in Section 4.2.4 and observed some pitfalls. For more details, please refer to our response to Meta Review R7.
 %%%%%%%%%%%%%%%%%%%%%% W2 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
 	\begin{weakness}
