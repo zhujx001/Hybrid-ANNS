@@ -303,7 +303,7 @@
 		& Complex Boolean     & N   & N   & N   & N   & Y   & N   & N   & \multicolumn{5}{c|}{} \\ \hline
 		
 		\multicolumn{2}{|l|}{\textbf{RF}}             & N & N & N & N & Y & N & N & Y & Y & Y & Y & Y \\ \hline
-		\multicolumn{2}{|l|}{\textbf{Dynamic Insert}} & N & Y & N & Y & Y & Y & Y & Y & N & Y & Y & N \\ \hline
+		\multicolumn{2}{|l|}{\textbf{Dynamic Insert}} & N & Y & N & Y & Y & Y & Y & N & Y & Y & Y & Y \\ \hline
 		\multicolumn{2}{|l|}{\textbf{Multi Thread}}   & N & Y & Y & Y & Y & Y & Y & N & Y & Y & Y & Y \\ \hline
 		\multicolumn{2}{|l|}{\textbf{Disk Storage Support}}           &N  & Y& N & N & N & N & N & N & N & N & N & N \\ \hline
 		\multicolumn{2}{|l|}{\textbf{Base}}           & Graph & Graph & Graph & IVF & Graph & Graph & IVF & Graph & Graph & Graph & Graph & Graph \\ \hline
@@ -677,7 +677,7 @@
 	
 	
 	\textit{Single-Thread Search.}  
-	\textcolor{violet}{As shown in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}, under near-perfect recall (recall approaching 1) conditions,} search often requires traversing larger candidate sets or deeper graph paths. This leads to increased computational cost and a sharp QPS \sout{(queries per second)} drop for most methods. Despite this, UNG maintains high QPS due to its LNG structure, which eliminates unnecessary online filtering of irrelevant attributes, thereby improving query efficiency. \textcolor{violet}{Puck and CAPS perform relatively well on some datasets. Partition-based methods have limitations regarding different vector data distributions, and how to configure different partitions for different datasets remains a challenge. However, this also demonstrates that IVF-based methods are still very promising for hybrid queries.}
+	\textcolor{violet}{As shown in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}, under near-perfect recall (recall approaching 1) conditions,} search often requires traversing larger candidate sets or deeper graph paths. This leads to increased computational cost and a sharp QPS (queries per second) drop for most methods. Despite this, UNG maintains high QPS due to its LNG structure, which eliminates unnecessary online filtering of irrelevant attributes, thereby improving query efficiency. \textcolor{violet}{Puck and CAPS perform relatively well on some datasets. Partition-based methods have limitations regarding different vector data distributions, and how to configure different partitions for different datasets remains a challenge. However, this also demonstrates that IVF-based methods are still very promising for hybrid queries.}
 	
 	NHQ, StitchedVamana, and FilteredVamana show similar and stable performance across all datasets. This indicates that joint filtering and search strategies can achieve consistent effectiveness under high-recall requirements. As observed in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}, StitchedVamana outperforms FilteredVamana in query efficiency. This difference arises from their pruning strategies: StitchedVamana applies pruning after merging graphs, allowing nodes to accumulate a richer candidate set; while FilteredVamana applies early pruning, potentially eliminating useful candidates prematurely.
 	
@@ -725,7 +725,7 @@
 	\end{figure}
 	
 	\textit{Effect of Multi-Attribute Building on Algorithm Performance (M vs. S).}
-	As shown in Figure \ref{fig:exp_2_1}, Puck demonstrates nearly no performance degradation.  CAPS shows a slight performance decline \underline{due to the increased query overhead caused by excessive} attribute-based grouping. In contrast, the performance of StitchedVamana, FilteredVamana, NHQ, and UNG drops significantly, with the following reasons: 1) FilteredVamana increases the complexity introduced by retaining attribute during index construction. 2) The complexity of StitchedVamana increases \underline{because data points may duplicate across} \underline{multiple subgraphs}. 3) \underline{The fusion distance of NHQ exhibits sensitivity} \underline{to the number of attributes}, which degrades its effectiveness. 4) UNG has poor performance because large number of entry points that need to be traversed. It is difficult for a graph with multiple entries to have good connectivity, degenerating into a situation closer to inverted retrieval, and the effect may be greatly impaired.
+	As shown in Figure \ref{fig:exp_2_1}, Puck demonstrates nearly no performance degradation.  CAPS shows a slight performance decline due to the increased query overhead caused by excessive attribute-based grouping. In contrast, the performance of StitchedVamana, FilteredVamana, NHQ, and UNG drops significantly, with the following reasons: 1) FilteredVamana increases the complexity introduced by retaining attribute during index construction. 2) The complexity of StitchedVamana increases because data points may duplicate across multiple subgraphs. 3) The fusion distance of NHQ exhibits sensitivity to the number of attributes, which degrades its effectiveness. 4) UNG has poor performance because large number of entry points that need to be traversed. It is difficult for a graph with multiple entries to have good connectivity, degenerating into a situation closer to inverted retrieval, and the effect may be greatly impaired.
 	
 	
 	
@@ -779,11 +779,11 @@
 	
 	\textit{\textbf{Attribute Distribution.}} To evaluate performance across different attribute distributions, we generate base and query attribute sets with 4 representative distributions—long-tailed, normal, power-law, and uniform—across the 6 datasets described in Section~4.1.1. We evaluate all algorithms under these distributions on each dataset. The performance differences observed for the same algorithm across different datasets are relatively minor. Thus, due to space constraints, we present only the results on SIFT1M.
 	
-	As illustrated in Figure~\ref{fig:exp_3_1}, the evaluated algorithms exhibit varying degrees of sensitivity to attribute distribution shifts. \textcolor{cyan}{The proximity of the four curves (representing different attribute distributions) in the figure reflects the algorithm's sensitivity to distributional variations. When the curves converge closely, the algorithm demonstrates strong resilience against attribute distribution shifts. Conversely, greater divergence among the curves indicates higher distributional dependence. Accordingly, the "Strong" label signifies robust performance consistency across varying distributions, while "Weak" denotes pronounced performance fluctuations under distributional changes.} Specifically, ACORN, Milvus, Puck, CAPS, StitchedVamana, and UNG demonstrate strong robustness to such shifts. In contrast, Faiss, FilteredVamana, NHQ, and VBASE show notable sensitivity.
+	As illustrated in Figure~\ref{fig:exp_3_1}, the evaluated algorithms exhibit varying degrees of sensitivity to attribute distribution shifts. \textcolor{cyan}{The closer the four curves (corresponding to the four distributions) in the figure approach each other, the less the algorithm is affected by attribute distributions. Conversely, the farther they diverge, the more significant the impact of attribute distributions on the algorithm becomes.} Specifically, ACORN, Milvus, Puck, CAPS, StitchedVamana, and UNG demonstrate strong robustness to such shifts. In contrast, Faiss, FilteredVamana, NHQ, VBASE, and PASE show notable sensitivity.
 	
 	Among all algorithms, ACORN-\(\gamma\) shows the highest robustness. During index construction, attribute is mainly used for pruning in the lowest layer graph, while the upper-layer hierarchical navigation graphs remain largely unaffected. As a result, changes in attribute distribution have a limited impact on overall performance.
 	
-	\textcolor{cyan}{In contrast, FilteredVamana achieves optimal performance under long-tail and uniform distributions, as these enable construction of balanced label subgraphs with minimal inter-label interference, thus improving search accuracy and efficiency. However, its performance declines under power-law and normal distributions: power-law distributions cause excessive concentration of popular labels and fragmentation of niche labels, disrupting search path connectivity, while normal distributions produce ambiguous graph structures due to label frequency similarities, leading to search divergence. The search performance of VBASE exhibits a direct dependence on attribute selectivity. As selectivity decreases, search speed declines. Notably, only uniform distribution maintains sufficient selectivity among the tested cases; the other three distributions consistently show low selectivity levels that significantly degrade VBASE's operational efficiency.}
+	In contrast, VBASE exhibits the weakest robustness. As a post-filtering system, it performs significantly better under uniform distributions but degrades under long-tailed, normal, and power-law distributions. This degradation stems from the low selectivity of certain attributes in the last 3 distributions, which increases unnecessary distance computations, thus reducing overall efficiency.
 	
 	\begin{figure}
 		\centering
@@ -980,37 +980,6 @@
 		\label{fig:TrinityExtension——Attribution}
 	\end{figure}
 	
-	\begin{table}[t]
-		\centering
-		\caption{Algorithm Recommendation per Scenario}
-		% 移除 \resizebox 和它对应的外层大括号
-		% 现在字体大小命令直接作用于 tabular 环境
-		\fontsize{5pt}{6pt}\selectfont % 字体大小设置为 5pt
-		\begin{tabular}{|c|c|c|c|c|}
-			\hline
-			\textbf{Algorithm} & \textbf{CT} & \textbf{IS} & \textbf{BPM} & \textbf{SPM}\\ 
-			
-			ACORN-1 & Puck, UNG & iRange & iRange & iRange\\[1pt]
-			\hline
-			ACORN-1 & Puck, UNG & iRange & iRange & iRange\\[1pt]
-			\hline
-			ACORN-1 & Puck, UNG & iRange & iRange & iRange\\[1pt]
-			\hline
-			ACORN-1 & Puck, UNG & iRange & iRange & iRange\\[1pt]
-			\hline
-			ACORN-1 & Puck, UNG & iRange & iRange & iRange\\[1pt]
-			\hline
-			ACORN-1 & Puck, UNG & iRange & iRange & iRange\\[1pt]
-			\hline
-			ACORN-1 & Puck, UNG & iRange & iRange & iRange\\[1pt]
-			\hline
-			ACORN-1 & Puck, UNG & iRange & iRange & iRange\\[1pt]
-			\hline
-		\end{tabular}
-		\label{tab:algo_scenarios}
-	\end{table}
-	
-	
 	\subsection{Range Filtering}
 	
 	\subsubsection{Time and Space overhead of index construction.}
@@ -1167,7 +1136,7 @@
 	\textcolor{cyan}{As described in Section 4.2.4, we performed additional range filtering experiments using the YT-Audio-Real dataset on the same server configuration, with results presented in Figure~\ref{fig:Different Computer range}. When compared with the original server's experimental results shown in Figure~\ref{fig:exp_8_2}b, our findings remain consistent with those reported in Section 4.2.4. For brevity and due to space limitations, we omit further discussion of these redundant results.}
 %	\textcolor{cyan}{Consistent with Section 4.2.4, we conducted additional range filtering experiments using the YT-Audio-Real dataset on the same server, with results shown in Figure \ref{fig:Different Computer range}. Compared with the original server's experimental results (Figure \ref{fig:exp_8_2}($e$)), the conclusions remain identical to those described in Section 4.2.4. Due to space constraints, these details are not reiterated here.}
 	
-	\textit{\textbf{\textcolor{red}{Large-scale Datasets.}}} \textcolor{red}{As shown in the figure~\ref{fig:Big Dataset range}, in the 100-million-scale dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption (300-400GB).  Meanwhile, VBASE and Faiss demonstrate moderate performance but significantly lower memory consumption than the top three algorithms.}.
+	\textit{\textbf{\textcolor{red}{Large-scale Datasets.}}} \textcolor{red}{As shown in the figure~\ref{fig:Big Dataset range}, in the 100-million-scale dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption (300-400GB). At the same time, we can see that some algorithms (e.g., SeRF, ACORN-1) perform even worse than the VBASE database, which indicates that they do not adapt well to large-scale dataset scenarios. Although Milvus has a low QPS, it can achieve a recall of 1 with an excellent memory footprint of around 80GB}.
 	
 	\textit{\textbf{\textcolor{blue}{Multi-modal Queries}}}
 	\textcolor{blue}{

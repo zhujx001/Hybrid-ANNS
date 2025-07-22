@@ -180,7 +180,9 @@ Thank you for your suggestion. Using IDs as attributes for range filtering is a 
 
 \textbf{WIT-Real dataset:} We used the \texttt{clip-vit-base-patch32} model to encode the \texttt{page\_title} field from the WIT dataset into vectors, and extracted the language type and the length of the \texttt{context\_page\_description} field as real attributes, and used them for range filtering.
 
-
+\textcolor{blue}{
+	"Additionally, we introduced two datasets with real attributes for a more comprehensive evaluation of various attribute filtering and range query algorithms: The YT-Audio-Real dataset leverages URLs provided by the YouTube8M dataset to crawl corresponding video category IDs and view counts as its real attributes; whereas for the WIT-Real dataset, we used the \texttt{clip-vit-base-patch32} model to encode the \texttt{page\_title} field into vectors, and used the language type and the length of the \texttt{context\_page\_description} field as real attributes. It should be noted that, during range filtering, due to the limitations of some algorithms, we uniformly sorted the vectors according to the query attribute."
+}
 %%%%%%%%%%%%%%%%%%%%%% R5 %%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -357,7 +359,7 @@ Thank you for your suggestion. We fully understand your concern regarding the us
 
 To address this crucial issue and enhance the real-world relevance of our evaluation, we have added two new real-world datasets with genuine attributes to our attribute filtering and range query experiments, as detailed in MetaReview R3.
 
-By incorporating the YT-Audio-Real and WIT-Real datasets with their respective real attributes, we believe our experimental study now better reflects real-world application scenarios, and, as you suggested, allows for a more comprehensive and meaningful evaluation of hybrid query functionality.
+We have revised the manuscript accordingly. (Please see page 7, Section 4.2.1, and the "Single-Attribute Building and Single-Attribute Query" subsection of Section 4.2.2 on page 8, highlighted in blue in the revised manuscript.) Furthermore, it should be noted that, in the "Single-Attribute Building and Single-Attribute Query" subsection of Section 4.2.2 on page 8, due to space constraints, we have removed two previous datasets (Audio and GloVe), as Audio is relatively small-scale, and GloVe's scale is similar to SIFT1M while its LID is similar to GIST1M.
 
 %%%%%%%%%%%%%%%%%%%%%% W2 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
