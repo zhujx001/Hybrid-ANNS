@@ -926,6 +926,7 @@
 	\textcolor{red}{We conducted additional experiments on a server equipped with two Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset, and the results are shown in Figure~\ref{fig:Different Computer}. Compared with the experimental results on the original server (as shown in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}(f)), the relative ranking of the algorithms remains largely unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency of the Xeon 6330 compared to the original server, the QPS values are slightly lower across all methods.}
 
 	\textit{\textbf{\textcolor{blue}{Large-scale Datasets.}}} 
+	\textcolor{violet}{On the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating their good adaptability to large-scale datasets; however, this also comes with significant memory overhead. The clustering-based algorithm \texttt{Faiss+HQI\_Batch} shows moderate performance but has very low memory overhead, which makes it highly attractive for practical applications. We did not present the experimental results for StitchedVamana because we found that its recall consistently remained at a very low level. Its search starting point is set to 0 by default, and when the entry point is far from the target area, it easily gets stuck in a local optimum, making it difficult to navigate to the vicinity of the correct point.}
 	
 \textit{\textbf{\textcolor{blue}{Multi-modal Queries}}} 
 
@@ -978,6 +979,37 @@
 		\caption{\textcolor{violet}TrinityExtension——Attribution}
 		\label{fig:TrinityExtension——Attribution}
 	\end{figure}
+	
+	\begin{table}[t]
+		\centering
+		\caption{Algorithm Recommendation per Scenario}
+		% 移除 \resizebox 和它对应的外层大括号
+		% 现在字体大小命令直接作用于 tabular 环境
+		\fontsize{5pt}{6pt}\selectfont % 字体大小设置为 5pt
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\textbf{Algorithm} & \textbf{CT} & \textbf{IS} & \textbf{BPM} & \textbf{SPM}\\ 
+			
+			ACORN-1 & Puck, UNG & iRange & iRange & iRange\\[1pt]
+			\hline
+			ACORN-1 & Puck, UNG & iRange & iRange & iRange\\[1pt]
+			\hline
+			ACORN-1 & Puck, UNG & iRange & iRange & iRange\\[1pt]
+			\hline
+			ACORN-1 & Puck, UNG & iRange & iRange & iRange\\[1pt]
+			\hline
+			ACORN-1 & Puck, UNG & iRange & iRange & iRange\\[1pt]
+			\hline
+			ACORN-1 & Puck, UNG & iRange & iRange & iRange\\[1pt]
+			\hline
+			ACORN-1 & Puck, UNG & iRange & iRange & iRange\\[1pt]
+			\hline
+			ACORN-1 & Puck, UNG & iRange & iRange & iRange\\[1pt]
+			\hline
+		\end{tabular}
+		\label{tab:algo_scenarios}
+	\end{table}
+	
 	
 	\subsection{Range Filtering}
 	
