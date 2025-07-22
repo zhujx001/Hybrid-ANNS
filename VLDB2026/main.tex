@@ -662,7 +662,7 @@
 	On large-scale datasets, CAPS exhibits slightly lower memory usage compared to other algorithms. \textcolor{orange}{The reason is that CAPS avoids redundant storage and graph structure overhead through hierarchical partitioning and AFT, and achieves a compact, sparse and controllable index. }.
 	
 	\textit{\textbf{ \textcolor{orange}{Search peak memory.}}}
-	 \textcolor{orange}{As shown in Figure~\ref{fig:search_memory_mb_comparison}, we can find that the peak memory usage of each algorithm during search does not differ significantly. Among them, CAPS and NHQ have relatively higher peak memory usage, while the database's peak memory usage is comparatively lower.}
+	 \textcolor{orange}{As shown in Figure~\ref{fig:search_memory_mb_comparison}, we can find that the peak memory usage of each algorithm during search does not differ significantly. Among them, CAPS and NHQ have relatively higher peak memory usage, while \underline{the database's peak memory usage} is comparatively lower.}
 	
 	\subsubsection{Performance Evaluation}
 	
@@ -911,7 +911,7 @@
 	\subsubsection{Scalability Study}
 	
 	\textit{\textbf{\textcolor{blue}{Different Hardware Environments.}}} 
-	\textcolor{red}{We conducted additional experiments on a server equipped with two Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset, and the results are shown in Figure 12(b). Compared with the experimental results on the original server (as shown in Figure 4d), the relative ranking of the algorithms remains largely unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency of the Xeon 6330 compared to the original server, the QPS values are slightly lower across all methods.}
+	\textcolor{red}{We conducted additional experiments on a server equipped with two Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset, and the results are shown in Figure~\ref{fig:Different Computer}. Compared with the experimental results on the original server (as shown in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}(f)), the relative ranking of the algorithms remains largely unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency of the Xeon 6330 compared to the original server, the QPS values are slightly lower across all methods.}
 
 	\textit{\textbf{\textcolor{blue}{Large-scale Datasets.}}} 
 	
@@ -919,7 +919,7 @@
 
 
 \textcolor{blue}{
-	We conducted experiments on the text2image-mix dataset. This dataset contains both image and text vectors. It is a more complex multimodal dataset. As shown in Figure~\ref{fig:TrinityExtension——Attribution}, although the queries are more complex, UNG and NHQ still perform the best. CAPS is the next best.
+	We conducted experiments on the text2image-mix dataset. This dataset contains both image and text vectors. It is a more complex multimodal dataset. As shown in Figure~\ref{fig:MultiModel}, although the queries are more complex, UNG and NHQ still perform the best. CAPS is the next best.
 	Since the dataset mixes two modalities, the ground truth of the query set usually corresponds to the same modality. The nearest neighbors in the index are often from the same modality because they are closer in distance. Therefore, the search results on this dataset are similar to those in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}. UNG and NHQ perform the best. CAPS clusters based on vector similarity. It actually clusters the vectors into the same modality. Then it uses attribute filtering to divide the data further. This allows CAPS to quickly find nearest neighbors that meet the filter conditions.
 	In contrast, the text2image dataset shown in Figure~\ref{fig:exp_6_1} is different. The queries and the dataset are from different modalities. The queries are far from the dataset. The ground truths are also scattered and not clustered together. To find the ground truths, the algorithm often needs to traverse more points. This is a greater challenge for the algorithms.
 	%	We conducted extensive scalability experiments on the Text2Image-Mix dataset. This dataset contains both image and text vectors. It represents a more complex multimodal query scenario. As shown in Figure 12, the UNG and NHQ algorithms still achieve the best performance, followed closely by CAPS.
@@ -945,21 +945,21 @@
 			\captionsetup{font=small}
 			\includegraphics[width=\linewidth]{figures/exp/attribute_multimodel.pdf}
 			\caption{\footnotesize MultiModel}
-			\label{fig:rangeFilter_build_time}
+			\label{fig:MultiModel}
 		\end{subfigure}
 		\hfill
 		\begin{subfigure}[t]{0.315\columnwidth}
 			\centering
 			\includegraphics[width=\linewidth]{figures/exp/attribute_85.pdf}
 			\caption{\footnotesize Different Computer}
-			\label{fig:rangeFilter_index_size_mb}
+			\label{fig:Different Computer}
 		\end{subfigure}
 		\hfill
 		\begin{subfigure}[t]{0.315\columnwidth}
 			\centering
 			\includegraphics[width=\linewidth]{figures/exp/attribute_100M.pdf}
 			\caption{\footnotesize Big Dataset}
-			\label{fig:rangeFilter_build_memory_mb}
+			\label{fig:Big Dataset}
 		\end{subfigure}
 
 		
@@ -1053,7 +1053,7 @@
 		
 	%	\textcolor{orange}{As shown in Figure~\ref{fig:rangeFilter_search_memory_mb}, Faiss and Milvus have the lowest peak memory usage during search. Similar to attribute filtering, Faiss also has a smaller index size and no other additional memory usage, so the peak memory usage in range queries is slightly higher than the index size. Milvus reason:. WinFilter achieves the highest peak memory usage on almost all datasets. The reason is:. For the high-dimensional dataset WIT, UNIFY occupies the highest peak memory. The reason is:.}
 		
-		\textcolor{orange}{As for the Search peak memory usage, we can find from the Figure ~\ref{fig:rangeFilter_search_memory_mb} that it is basically consistent with the Build peak memory usage trend. The algorithm needs to load the complete index into memory during search. Therefore, algorithms with high building overhead, such as WinFilter, also have high search overhead; algorithms with low building overhead, such as Faiss, also have low search overhead. For Milvus, search does not require full index loading and there is additional metadata overhead when building, so the performance is different from the trend.}
+		\textcolor{orange}{As for the search peak memory usage, we can find from the Figure ~\ref{fig:rangeFilter_search_memory_mb} that it is basically consistent with the build peak memory usage trend. The algorithm needs to load the complete index into memory during search. Therefore, algorithms with high building overhead, such as WinFilter, also have high search overhead; algorithms with low building overhead, such as Faiss, also have low search overhead. For Milvus, search does not require full index loading and there is additional metadata overhead when building, so the performance is different from the trend.}
 		
 	\begin{figure*}[t]
 		
@@ -1120,7 +1120,7 @@
 	\subsubsection{Scalability Study}
 		
 	\textit{\textbf{\textcolor{blue}{Different Hardware Environments.}}}
-	\textcolor{cyan}{As described in Section 4.2.4, we performed additional range filtering experiments using the YT-Audio-Real dataset on the same server configuration, with results presented in Figure~\ref{fig:Different Computer range}. When compared with the original server's experimental results shown in Figure~\ref{fig:exp_8_2}$e$, our findings remain consistent with those reported in Section 4.2.4. For brevity and due to space limitations, we omit further discussion of these redundant results.}
+	\textcolor{cyan}{As described in Section 4.2.4, we performed additional range filtering experiments using the YT-Audio-Real dataset on the same server configuration, with results presented in Figure~\ref{fig:Different Computer range}. When compared with the original server's experimental results shown in Figure~\ref{fig:exp_8_2}b, our findings remain consistent with those reported in Section 4.2.4. For brevity and due to space limitations, we omit further discussion of these redundant results.}
 %	\textcolor{cyan}{Consistent with Section 4.2.4, we conducted additional range filtering experiments using the YT-Audio-Real dataset on the same server, with results shown in Figure \ref{fig:Different Computer range}. Compared with the original server's experimental results (Figure \ref{fig:exp_8_2}($e$)), the conclusions remain identical to those described in Section 4.2.4. Due to space constraints, these details are not reiterated here.}
 	
 	\textit{\textbf{\textcolor{blue}{Large-scale Datasets.}}} 
