@@ -196,7 +196,9 @@ Thank you for your suggestion. Using IDs as attributes for range filtering is a 
 
 \textbf{WIT-Real dataset:} We used the \texttt{clip-vit-base-patch32} model to encode the \texttt{page\_title} field from the WIT dataset into vectors, and extracted the language type and the length of the \texttt{context\_page\_description} field as real attributes, and used them for range filtering.
 
-
+\textcolor{blue}{
+	"Additionally, we introduced two datasets with real attributes for a more comprehensive evaluation of various attribute filtering and range query algorithms: The YT-Audio-Real dataset leverages URLs provided by the YouTube8M dataset to crawl corresponding video category IDs and view counts as its real attributes; whereas for the WIT-Real dataset, we used the \texttt{clip-vit-base-patch32} model to encode the \texttt{page\_title} field into vectors, and used the language type and the length of the \texttt{context\_page\_description} field as real attributes. It should be noted that, during range filtering, due to the limitations of some algorithms, we uniformly sorted the vectors according to the query attribute."
+}
 %%%%%%%%%%%%%%%%%%%%%% R5 %%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -224,7 +226,7 @@ We did observe slightly lower QPS on this server compared to our original one, w
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion! Currently, except for FilteredDiskANN, other hybrid query methods are memory-based, so we added the feature of whether to support disk for each algorithm in Table 1. At the same time, we also compared the search performance difference of FilteredDiskANN on memory and SSD using real data sets. The results are shown in Figure\ref{fig:recall-latency}:
+Thank you for your suggestion. Currently, except for FilteredDiskANN, other hybrid query methods are memory-based, so we added the feature of whether to support disk for each algorithm in Table 1. At the same time, we also compared the search performance difference of FilteredDiskANN on memory and SSD using real data sets. The results are shown in Figure\ref{fig:recall-latency}:
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=\linewidth]{fig/recall_latency_all.png}
@@ -232,21 +234,22 @@ Thank you for your suggestion! Currently, except for FilteredDiskANN, other hybr
 	\label{fig:recall-latency}
 \end{figure}
 
-Due to space limitations and the fact that only one method supports disk-based execution, we provide the breakdown of I/O and CPU costs for disk-based methods in the following analysis. To this end, we conducted additional experiments on the real-world YT8M dataset, comparing three variants of DiskANN.
+We conducted additional experiments on the real-world YT8M dataset, comparing three variants of DiskANN.
+(1) SSD-based FilteredDiskANN (original disk-based method);
+(2) FilteredVamana (memory-based method);
+(3) StitchedVamana (memory-based method).
 
 
-
-\begin{itemize}
-	\item SSD-based FilteredDiskANN (original disk-based method)
-	\item FilteredVamana (memory-based method)
-	\item StitchedVamana (memory-based method)
-\end{itemize}
+%\begin{itemize}
+%	\item SSD-based FilteredDiskANN (original disk-based method)
+%	\item FilteredVamana (memory-based method)
+%	\item StitchedVamana (memory-based method)
+%\end{itemize}
 
 
 All experiments were run with 32 search threads for fair comparison. The following figure shows the mean latency (log-scale, left y-axis) and I/O vs CPU proportion (right y-axis) across different Recall\@10 levels:
 
 \textbf{ Key Observations:}
-
 Latency-Recall Tradeoff:
 As expected, SSD-based FilteredDiskANN exhibits significantly higher latency than in-memory methods, especially at higher recall levels. When Recall@10 reaches 0.96, its latency increases super-linearly to over 100 ms.
 
@@ -255,9 +258,10 @@ The CPU proportion remains low (10–15\%), indicating that I/O is the major bot
 This clearly shows that improving disk read efficiency or reducing I/O volume is critical for performance optimization.
 
 \textbf{In-memory Methods:}
-
 FilteredVamana achieves a good balance, staying under 30 ms while achieving Recall@10 > 0.97.
 While StitchedVamana achieves extremely low latency (sub-5 ms) due to its stitched multi-label index structure, its fixed edge connectivity may limit effectiveness under highly uncorrelated label distributions. Nevertheless, it consistently supports 90\%+ Recall@10 across diverse datasets, as shown in our evaluations.
+
+\textbf{Note: }Due to space limitations and the fact that only one method supports disk-based execution, we did not include the above experiments and analysis in the revised paper.
 
 %%%%%%%%%%%%%%%%%%%%%% R7 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -373,7 +377,7 @@ Thank you for your suggestion. We fully understand your concern regarding the us
 
 To address this crucial issue and enhance the real-world relevance of our evaluation, we have added two new real-world datasets with genuine attributes to our attribute filtering and range query experiments, as detailed in MetaReview R3.
 
-By incorporating the YT-Audio-Real and WIT-Real datasets with their respective real attributes, we believe our experimental study now better reflects real-world application scenarios, and, as you suggested, allows for a more comprehensive and meaningful evaluation of hybrid query functionality.
+We have revised the manuscript accordingly. (Please see page 7, Section 4.2.1, and the "Single-Attribute Building and Single-Attribute Query" subsection of Section 4.2.2 on page 8, highlighted in blue in the revised manuscript.) Furthermore, it should be noted that, in the "Single-Attribute Building and Single-Attribute Query" subsection of Section 4.2.2 on page 8, due to space constraints, we have removed two previous datasets (Audio and GloVe), as Audio is relatively small-scale, and GloVe's scale is similar to SIFT1M while its LID is similar to GIST1M.
 
 %%%%%%%%%%%%%%%%%%%%%% W2 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
