@@ -269,7 +269,7 @@
 		\centering
 		%\setlength{\belowcaptionskip}{-0.3cm}
 		
-		\caption{Comparison of AF-ANN search algorithms}
+		\caption{Comparison of AF-ANN and RF-ANN search algorithms}
 		\small
 %		\label{tab:compair_1}
 %		\begin{tabular}{|l|l|c|c|c|c|c|c|c|}
@@ -305,7 +305,7 @@
 		\multicolumn{2}{|l|}{\textbf{RF}}             & N & N & N & N & Y & N & N & Y & Y & Y & Y & Y \\ \hline
 		\multicolumn{2}{|l|}{\textbf{Dynamic Insert}} & N & Y & N & Y & Y & Y & Y & N & Y & Y & Y & Y \\ \hline
 		\multicolumn{2}{|l|}{\textbf{Multi Thread}}   & N & Y & Y & Y & Y & Y & Y & N & Y & Y & Y & Y \\ \hline
-		\multicolumn{2}{|l|}{\textbf{Disk Storage Support}}           &N  & Y& N & N & N & N & N & N & N & N & N & N \\ \hline
+		\multicolumn{2}{|l|}{\textbf{Disk Support}}           &N  & Y& N & N & N & N & N & N & N & N & N & N \\ \hline
 		\multicolumn{2}{|l|}{\textbf{Base}}           & Graph & Graph & Graph & IVF & Graph & Graph & IVF & Graph & Graph & Graph & Graph & Graph \\ \hline
 	\end{tabular}
 		
@@ -329,18 +329,24 @@
 		\footnotesize{
 			\begin{minipage}{\linewidth}
 				\vspace{0.1cm}
+				\textcolor{orange}{\textsuperscript{AF} Attribue-filtering,}
+				\textcolor{orange}{\textsuperscript{RF} Range-filtering,}
+				\textcolor{orange}{Filtered: FilteredVamana,}
+				\textcolor{orange}{Stitched: StitchedVamana,}
+				\textcolor{orange}{Win: WinFilter,}
 				\textsuperscript{A} Post-filtering, 
 				\textsuperscript{B} Pre-filtering, 
 				\textsuperscript{C} Simultaneous filtering, 
 				\textsuperscript{Y} Support, 
 				\textsuperscript{N} Unsupport. 
-				\textit{Base} indicates that the hybrid query algorithm is an improvement based on a specific ANN search algorithm. 
 				\textit{AND} indicates whether the algorithm supports attribute filtering with AND operations. 
 				\textit{OR} indicates whether the algorithm supports attribute filtering with OR operations. 
 				\textit{Flexible Attributes} indicates whether the number of query attributes can differ from the number of attributes used during index construction. 
 				\textit{Complex Boolean} refers to whether the algorithm supports advanced Boolean logic beyond just AND and OR, such as NOT or combinations like (A AND B) OR (C AND NOT D). 
 				\textit{Dynamic Insert} indicates whether the algorithm supports the operation of dynamically inserting data points.
-				\textit{Multi Thread} indicates whether the algorithm supports multi-threaded search.
+				\textit{Multi Thread} indicates whether the algorithm supports multi-threaded search,
+				\textcolor{orange}{\textit{Disk Support} indicates whether the algorithm supports disk storage,}
+				\textit{Base} indicates that the hybrid query algorithm is an improvement based on a specific ANN search algorithm.
 		\end{minipage}}
 		
 	\end{table*}
