@@ -543,7 +543,7 @@
 		\item \textbf{QPS (Queries Per Second)}: The number of queries processed per second.
 		\item \textbf{Index Construction Time}: The total time required to transform the raw dataset into a queryable index structure.
 		\item \textbf{Index Size}: The storage size of the persisted index on disk.
-		\item \textbf{Peak Memory Usage}: The maximum memory consumption observed during index construction.
+		\item \textbf{Peak Memory Usage}: The maximum memory consumption observed during index construction \textcolor{cyan}{and search}.
 	\end{enumerate}
 	
 	%\subsubsection{Parameter Settings}
@@ -557,7 +557,7 @@
 	
 	We conduct all experiments on a server running Ubuntu 20.04, equipped with an AMD EPYC 7K62 processor (2.6GHz) and 256GB of RAM. Unless otherwise stated, we execute index construction with 32 threads to accelerate the process~\cite{benchmarkindex}. By default, queries run on a single thread. We also report results for 16-thread parallelism in specific scenarios.
 	
-	We summarize the multi-threading capabilities of each algorithm in Table~\ref{tab:compair_1} and Table~\ref{tab:range_algo}. For vector database systems, we adopt a multi-process evaluation scheme (rather than multi-threaded execution), following the methodology proposed in VectorDBBench~\cite{VectorDBBench}, to better reflect their real-world performance.
+	We summarize the multi-threading capabilities of each algorithm in Table~\ref{tab:compair_1}. For vector database systems, we adopt a multi-process evaluation scheme (rather than multi-threaded execution), following the methodology proposed in VectorDBBench~\cite{VectorDBBench}, to better reflect their real-world performance.
 	
 	
 	
