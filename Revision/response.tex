@@ -191,11 +191,11 @@ As for complex query types that involve both attribute filtering and range queri
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. Using IDs as attributes for range filtering is a prevalent method in current range filtering algorithm evaluations, which indeed has considerable limitations. To address this issue, we have added two datasets that use real attributes:
+Thank you for your suggestion. Using IDs as attributes for range filtering is a prevalent method in current range filtering algorithm evaluations, which indeed has considerable limitations. To address this issue, we add two datasets that use real attributes:
 
-\textbf{YT-Audio-Real dataset:} For this dataset, we utilized the URLs provided by the YouTube8M dataset to crawl corresponding video categories and view counts as real attributes, using \textbf{video categories as attributes for attribute filtering experiments} and \textbf{view counts as attributes for range filtering experiments}, respectively.
+\textbf{YT-Audio-Real dataset:} For this dataset, we utilize the URLs provided by the YouTube8M dataset to crawl corresponding video categories and view counts as real attributes, using \textbf{video categories as attributes for attribute filtering experiments} and \textbf{view counts as attributes for range filtering experiments}, respectively.
 
-\textbf{WIT-Real dataset:} We used the \texttt{clip-vit-base-patch32} model to encode the \texttt{page\_title} field from the WIT dataset into vectors, and extracted the language type and the length of the \texttt{context\_page\_description} field as real attributes, applying them in both attribute filtering and range filtering experiments.
+\textbf{WIT-Real dataset:} We use the \texttt{clip-vit-base-patch32} model to encode the \texttt{page\_title} field from the WIT dataset into vectors, and extract the language type and the length of the \texttt{context\_page\_description} field as real attributes, applying them in both attribute filtering and range filtering experiments.
 
 \textcolor{blue}{
 	"Additionally, we introduced two datasets with real attributes for a more comprehensive evaluation of various attribute filtering and range query algorithms: The YT-Audio-Real dataset leverages URLs provided by the YouTube8M dataset to crawl corresponding video category IDs and view counts as its real attributes; whereas for the WIT-Real dataset, we used the \texttt{clip-vit-base-patch32} model to encode the \texttt{page\_title} field into vectors, and used the language type and the length of the \texttt{context\_page\_description} field as real attributes. It should be noted that, during range filtering, due to the limitations of some algorithms, we uniformly sorted the vectors according to the query attribute."
