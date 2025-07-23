@@ -135,9 +135,9 @@ and concerns, and the changes are highlighted \textcolor{blue}{in blue} accordin
 }
 
 \noindent
-\textbf{Response:} We sincerely appreciate your valuable suggestions, which provide meaningful improvements to our work. Ensuring the readability of the figures is indeed crucial. We modify both the figure and the related description in the paper to improve readability and ensure academic rigor. (Please see Section 4.2.3, highlighted in blue in the revised manuscript)
+\textbf{Response:} We sincerely appreciate your valuable suggestions, which provide meaningful improvements to our work. Ensuring the readability of the figures is indeed crucial. We have modified both the figure and the related description in the paper to improve readability and ensure academic rigor. (Please see Section 4.2.3, highlighted in blue in the revised manuscript)
 
-For performance under different attribute distributions, to illustrate how different algorithms are affected by varying attribute distributions, we add robustness indicators (Strong and Weak) in the figure. This provides more intuitive visualization of how robust each algorithm performs across different attribute distributions. As shown in Figure\ref{fig:attribute_distribution} below.
+For performance under different attribute distributions, to illustrate how different algorithms are affected by varying attribute distributions, we added robustness indicators (Strong and Weak) in the figure. This provides more intuitive visualization of how robust each algorithm performs across different attribute distributions. As shown in Figure\ref{fig:attribute_distribution} below.
 
 \begin{figure}[htbp]
 	\centering
@@ -146,7 +146,7 @@ For performance under different attribute distributions, to illustrate how diffe
 	\label{fig:attribute_distribution}
 \end{figure}
 
-For performance under different attribute selectivity, to reflect the performance differences of each algorithm under varying attribute selectivities, we add performance rankings for each algorithm across different selectivity levels in the figure. This provides a clearer illustration of how each algorithm is affected by attribute selectivity rates. As shown in Figure\ref{fig:attribute_selectivity} below.
+For performance under different attribute selectivity, to reflect the performance differences of each algorithm under varying attribute selectivities, we added performance rankings for each algorithm across different selectivity levels in the figure. This provides a clearer illustration of how each algorithm is affected by attribute selectivity rates. As shown in Figure\ref{fig:attribute_selectivity} below.
 
 \begin{figure}[htbp]
 	\centering
@@ -155,7 +155,7 @@ For performance under different attribute selectivity, to reflect the performanc
 	\label{fig:attribute_selectivity}
 \end{figure}
 
-\textcolor{blue}{"The proximity of the four curves (representing different attribute distributions) in the figure reflects algorithm sensitivity to distributional variations. When the curves converge closely, the algorithm demonstrates strong resilience against attribute distribution shifts. Conversely, greater divergence among the curves indicates higher distributional dependence. Accordingly, the "Strong" label signifies robust performance consistency across varying distributions, while "Weak" denotes pronounced performance fluctuations under distributional changes."}
+\textcolor{blue}{"The proximity of the 4 curves (representing different attribute distributions) in the figure reflects algorithm sensitivity to distributional variations. When the curves converge closely, the algorithm demonstrates strong resilience against attribute distribution shifts. Conversely, greater divergence among the curves indicates higher distributional dependence. Accordingly, the "Strong" label signifies robust performance consistency across varying distributions, while "Weak" denotes pronounced performance fluctuations under distributional changes."}
 
 %%%%%%%%%%%%%%%%%%%%%% R2 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -211,9 +211,9 @@ Thank you for your suggestion. Using IDs as attributes for range filtering is a 
 
 \noindent
 \textbf{Response:} 
-That's a great suggestion. In order to figure out if the server setting affects the relative ordering of methods, we conduct additional experiments on a server equipped with two Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset.
+That is a great suggestion. In order to figure out if the server setting affects the relative ordering of methods, we conducted additional experiments on a server equipped with two Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset.
 The results show that the performance differences across algorithms remain small, and their relative rankings do not change significantly across servers.
-We observe slightly lower QPS on this server compared to our original one, which is mainly due to the lower CPU frequency of the Xeon 6330 processors. Please see section 4.2.4.
+We did observe slightly lower QPS on this server compared to our original one, which is mainly due to the lower CPU frequency of the Xeon 6330 processors. Please see section 4.2.4.
 
 \textcolor{blue}{"To investigate the impact of different server configurations on the performance of the algorithms, we conducted additional experiments on a server equipped with two Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset, and the results are shown in Figure 12(b). Compared with the experimental results on the original server (as shown in Figure 4d), the relative ranking of the algorithms remains largely unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency of the Xeon 6330 compared to the original server, the QPS values are slightly lower across all methods."}
 
@@ -227,7 +227,7 @@ We observe slightly lower QPS on this server compared to our original one, which
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. Currently, except for FilteredDiskANN, other hybrid query methods are memory-based, so we add the feature of whether to support disk for each algorithm in Table 1. At the same time, we also compare the search performance difference of FilteredDiskANN on memory and SSD using real data sets. The results are shown in Figure\ref{fig:recall-latency}:
+Thank you for your suggestion. Currently, except for FilteredDiskANN, other hybrid query methods are memory-based, so we added the feature of whether to support disk for each algorithm in Table 1. At the same time, we also compared the search performance difference of FilteredDiskANN on memory and SSD using real data sets. The results are shown in Figure\ref{fig:recall-latency}:
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=\linewidth]{fig/recall_latency_all.png}
@@ -235,7 +235,7 @@ Thank you for your suggestion. Currently, except for FilteredDiskANN, other hybr
 	\label{fig:recall-latency}
 \end{figure}
 
-We conduct additional experiments on the real-world YT8M dataset, comparing three variants of DiskANN.
+We conducted additional experiments on the real-world YT8M dataset, comparing three variants of DiskANN.
 (1) SSD-based FilteredDiskANN (original disk-based method);
 (2) FilteredVamana (memory-based method);
 (3) StitchedVamana (memory-based method).
@@ -262,7 +262,7 @@ This clearly shows that improving disk read efficiency or reducing I/O volume is
 FilteredVamana achieves a good balance, staying under 30 ms while achieving Recall@10 > 0.97.
 While StitchedVamana achieves extremely low latency (sub-5 ms) due to its stitched multi-label index structure, its fixed edge connectivity may limit effectiveness under highly uncorrelated label distributions. Nevertheless, it consistently supports 90\%+ Recall@10 across diverse datasets, as shown in our evaluations.
 
-\textbf{Note: }Due to space limitations and the fact that only one method supports disk-based execution, we do not include the above experiments and analysis in the revised paper.
+\textbf{Note: }Due to space limitations and the fact that only one method supports disk-based execution, we did not include the above experiments and analysis in the revised paper.
 
 %%%%%%%%%%%%%%%%%%%%%% R7 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -349,7 +349,7 @@ To address this, we add a summary table that provides a clearer and more structu
 }
 
 \noindent
-\textbf{Response:} I really appreciate your suggestion. In real-world applications, vectors and their attributes often have complex relationships. To better reflect such scenarios, we introduce two real-world datasets, which are described in detail in Meta-Review R3.
+\textbf{Response:} I really appreciate your suggestion. In real-world applications, vectors and their attributes often have complex relationships. To better reflect such scenarios, we have introduced two real-world datasets, which are described in detail in Meta-Review R3.
 Interestingly, our results indicate that using real attribute values has limited impact on the overall performance trends.(Please see the experimental results in Section 4.2.2 and Section 4.3.2)
 
 Regarding the more intricate semantic relationships—such as those between vectors and attributes, or among different attributes themselves—current hybrid search algorithms do not explicitly model or leverage such correlations. Nevertheless, our evaluation covers a range of realistic scenarios, including multi-attribute settings and diverse  distributions, to assess the generalization ability of the algorithms.
@@ -375,7 +375,7 @@ Thank you for your feedback. We improve the readability of the two figures in Se
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We address this issue in detail in our response to Meta-Review R2. Specifically, we add complex multimodal query experiments and provided an in-depth analysis of the results. For more details, please refer to our response to Meta-Review R2.
+Thank you for your suggestion. We have addressed this issue in detail in our response to Meta-Review R2. Specifically, we add complex multimodal query experiments and provided an in-depth analysis of the results. For more details, please refer to our response to Meta-Review R2.
 %We think this is an excellent suggestion. We have enhanced our experiments by incorporating more complex multimodal dataset evaluations in Section \textcolor{blue}{XXX} of the paper. Initially, our paper utilized the Text2Image dataset, which is commonly used in existing multimodal ANN algorithms. This dataset presents a modality gap, as the base vectors are images while the query set consists of text, often requiring algorithms to exhibit stronger robustness for good performance. To further enrich the evaluation of complex multimodal queries, we selected 500,000 text vectors and 500,000 image vectors from the Text2Image dataset to form a mixed base query dataset. Similarly, we chose 5,000 image vectors and 5,000 text vectors as query vectors, combining both text and image modalities. We then performed attribute filtering and range queries on this multimodal dataset to further analyze algorithm robustness.  The relevant experimental results are presented and discussed in Section\textcolor{blue}{XXX}of our paper.
 
 \section*{Response to Review 2}
@@ -404,7 +404,7 @@ Thank you for your suggestion. We fully understand your concern regarding the us
 
 To address this crucial issue and enhance the real-world relevance of our evaluation, we have added two new real-world datasets with genuine attributes to our attribute filtering and range query experiments, as detailed in MetaReview R3.
 
-We revise the manuscript accordingly. (Please see page 7, Section 4.2.1, and the "Single-Attribute Building and Single-Attribute Query" subsection of Section 4.2.2 on page 8, highlighted in blue in the revised manuscript.) Furthermore, it should be noted that, in the "Single-Attribute Building and Single-Attribute Query" subsection of Section 4.2.2 on page 8, due to space constraints, we remove two previous datasets (Audio and GloVe), as Audio is relatively small-scale, and GloVe's scale is similar to SIFT1M while its LID is similar to GIST1M.
+We have revised the manuscript accordingly. (Please see page 7, Section 4.2.1, and the "Single-Attribute Building and Single-Attribute Query" subsection of Section 4.2.2 on page 8, highlighted in blue in the revised manuscript.) Furthermore, it should be noted that, in the "Single-Attribute Building and Single-Attribute Query" subsection of Section 4.2.2 on page 8, due to space constraints, we have removed two previous datasets (Audio and GloVe), as Audio is relatively small-scale, and GloVe's scale is similar to SIFT1M while its LID is similar to GIST1M.
 
 %%%%%%%%%%%%%%%%%%%%%% W2 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -434,7 +434,7 @@ Thank you for your suggestion. We add relevant experiments conducted on differen
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We make a detailed response to this question in R5 of Response To Meta-reviewer. Please see R5 for details.
+Thank you for your suggestion. We have made a detailed response to this question in R5 of Response To Meta-reviewer. Please see R5 for details.
 
 
 %%%%%%%%%%%%%%%%%%%%%% W4 %%%%%%%%%%%%%%%%%%%%%%
@@ -447,7 +447,7 @@ Thank you for your suggestion. We make a detailed response to this question in R
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We make a detailed response to this question in R6 of Response To Meta-reviewer. Please see R6 for details.
+Thank you for your suggestion. We have made a detailed response to this question in R6 of Response To Meta-reviewer. Please see R6 for details.
 	
 %%%%%%%%%%%%%%%%%%%%%% D1 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -461,7 +461,7 @@ Thank you for your suggestion. We make a detailed response to this question in R
 
 \noindent
 \textbf{Response:} 
-Thank you for pointing this out. Both paper [49] and our paper are benchmarks. Paper [49] provides a comprehensive review and evaluation of graph-based approximate nearest neighbor search algorithms. Our paper is the first benchmark to evaluate hybrid queries. Since hybrid queries are developed based on ANN, we refer to the evaluation metrics proposed in the cited paper. We realize that we do not clearly explain the difference between our paper and the cited paper, so we add a description in the introduction, please see section XXX.
+Thank you for pointing this out. Both paper [49] and our paper are benchmarks. Paper [49] provides a comprehensive review and evaluation of graph-based approximate nearest neighbor search algorithms. Our paper is the first benchmark to evaluate hybrid queries. Since hybrid queries are developed based on ANN, we refer to the evaluation metrics proposed in the cited paper. We realize that we did not clearly explain the difference between our paper and the cited paper, so we add a description in the introduction, please see section XXX.
 \textcolor{blue}{""}
 
 
@@ -477,11 +477,10 @@ Thank you for pointing this out. Both paper [49] and our paper are benchmarks. P
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We cite these two papers in the introduction to show that there are several papers that study attribute distribution and selectivity.
-In addition, attribute distribution and selectivity are indeed widely used in real-world scenarios. For attribute distribution, the label attributes of many recommendation application scenarios in reality conform to the power-law distribution. For attribute selectivity: For example, if you need to query data with a very small proportion of a certain attribute, choosing a better algorithm will greatly improve the search effect. There are also some databases with practical applications that mention attribute selectivity, such as Milvus and AnalyticDB-V. For the two parts you suggested, we add more comprehensive references in the paper.
-Please see section 1.1. 
+Thank you for your suggestion. We cited these two papers in the introduction to show that there are several papers that study attribute distribution and selectivity.
+In addition, attribute distribution and selectivity are indeed widely used in real-world scenarios. For attribute distribution, the label attributes of many recommendation application scenarios in reality conform to the power-law distribution. For attribute selectivity: For example, if you need to query data with a very small proportion of a certain attribute, choosing a better algorithm will greatly improve the search effect. There are also some databases with practical applications that mention attribute selectivity, such as Milvus and AnalyticDB-V. For the two parts you suggested, we will add more comprehensive references in the paper.
 
-\textcolor{blue}{"For attribute filtering algorithms, factors such as the number of attributes, attribute distribution[12], and attribute  selectivity [46,51] significantly impact algorithm performance."}
+Please see section 1.1. \textcolor{blue}{"For attribute filtering algorithms, factors such as the number of attributes, attribute distribution[12], and attribute  selectivity [46,51] significantly impact algorithm performance."}
 
 %%%%%%%%%%%%%%%%%%%%%% D3 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -493,7 +492,7 @@ Please see section 1.1.
 
 \noindent
 \textbf{Response:} 
-Thank you for pointing it out. We sincerely apologize for the misuse of notation in Definition 2.3. This is corrected in the revised version. (Please see Definition 2.3 in Section 2.1, highlighted in blue in the revised manuscript)
+Thank you for pointing it out. We sincerely apologize for the misuse of notation in Definition 2.3. This has been corrected in the revised version. (Please see Definition 2.3 in Section 2.1, highlighted in blue in the revised manuscript)
 
 \textcolor{blue}{Let \( D = \{(v_1, a_1), \ldots, (v_n, a_n)\} \) be a dataset of \( n \) \( d \)-dimensional vectors, each associated with an attribute value \( a_i \).}
 
@@ -567,7 +566,7 @@ Thank you for pointing this out. We agree that the initial explanations accompan
 
 \noindent
 \textbf{Response:}
-Thank you for your suggestion. We acknowledge that the original manuscript do not clearly explain how attribute filtering (AF) and range filtering (RF) are embedded into standard graph-based and IVF-based index structures. We revise Section 2.2 and add two paragraphs. These paragraphs summarize how the algorithms discussed in this paper implement hybrid query functionality based on these foundational indexing structures.
+Thank you for your suggestion. We acknowledge that the original manuscript did not clearly explain how attribute filtering (AF) and range filtering (RF) are embedded into standard graph-based and IVF-based index structures. We revise Section 2.2 and add two paragraphs. These paragraphs summarize how the algorithms discussed in this paper implement hybrid query functionality based on these foundational indexing structures.
 
 \textcolor{blue}{"Graph-based indexes are widely adopted in Hybrid ANN search algorithms due to their excellent performance. To support hybrid queries, existing approaches usually augment the original graph structures by explicitly associating attribute or range information with vertices or edges. In attribute filtering, a common approach is to attach attribute metadata to vertices or edges, allowing the traversal process to skip nodes or edges that do not meet the query's attribute conditions (e.g., NHQ, Filtered-DiskANN, ACORN). In range filtering, edges typically store valid attribute intervals, and traversal proceeds only along edges satisfying the range constraints, effectively narrowing down the search space (e.g., SeRF, DSG)."}
 	
@@ -595,30 +594,30 @@ Thank you for your insightful comments.
 
 \textbf{Regarding dataset scale and scalability:}
 
-We conduct experiments on a 100M-scale deep dataset and analyze the performance of each algorithm on the large dataset. Please refer to MR.R7.
+We conducted experiments on a 100M-scale deep dataset and analyzed the performance of each algorithm on the large dataset. Please refer to MR.R7.
 
 \textbf{Regarding the experimental parameter settings:}
 
-For datasets with recommended parameters provided in the original papers, we directly use those recommended settings. For other datasets, we select the parameter combinations that performed best through empirical evaluation. All parameters used in the experiments are available in our public code repository.
+For datasets with recommended parameters provided in the original papers, we directly used those recommended settings. For other datasets, we select the parameter combinations that performed best through empirical evaluation. All parameters used in the experiments are available in our public code repository.
 
-According to our experimental results, for datasets using the recommended parameters, the algorithm rankings remained unchanged. During the search process, we adjust the search parameters to obtain different Recall and QPS values. The search parameters typically span a wide range of values to ensure the completeness of the experimental results.
+According to our experimental results, for datasets using the recommended parameters, the algorithm rankings remained unchanged. During the search process, we adjusted the search parameters to obtain different Recall and QPS values. The search parameters typically span a wide range of values to ensure the completeness of the experimental results.
 
-Due to the large number of algorithms and datasets involved, we do not include all parameter settings in the paper because of space limitations. The detailed parameter configurations can be found in our public code repository. (\textbf{Please refer to Section 4.1.4, highlighted in blue in the revised manuscript.})
+Due to the large number of algorithms and datasets involved, we did not include all parameter settings in the paper because of space limitations. The detailed parameter configurations can be found in our public code repository. (\textbf{Please refer to Section 4.1.4, highlighted in blue in the revised manuscript.})
 
 	\textcolor{blue}{
 "In the experiments, for datasets with recommended parameters in the original paper, we use the recommended settings. For datasets without recommended parameters, we conduct experiments with different parameter settings and select the one that performs best for the final experiment.Due to the large number of datasets and algorithms involved, the parameters are not listed individually, but they are provided in the code repository."}
  
 \textbf{Regarding index partitioning and merging:}
 
-For partitioning and merging, only Filtered-DiskANN, which supports disk storage, builds indices separately and then merges them. However, the algorithms we focus on and evaluate in this study (with the exception of Filtered-DiskANN) are all designed and implemented based on in-memory index construction. Therefore, for the vast majority of algorithms, index partitioning and merging are not involved, which differs from DiskANN's design considerations.
+For partitioning and merging, only Filtered-DiskANN, which supports disk storage, builds indices separately and then merges them. However, the algorithms we focused on and evaluated in this study (with the exception of Filtered-DiskANN) are all designed and implemented based on in-memory index construction. Therefore, for the vast majority of algorithms, index partitioning and merging are not involved, which differs from DiskANN's design considerations.
 
 \textbf{Regarding quantization time in index build:}
 
-Of all the evaluated algorithms, only Faiss supports quantization. However, in our experiments, we use the IVF index structure of Faiss without employing quantization. Therefore, no quantization time is included in the reported index build times.
+Of all the evaluated algorithms, only Faiss supports quantization. However, in our experiments, we used the IVF index structure of Faiss without employing quantization. Therefore, no quantization time was included in the reported index build times.
 
 \textbf{Regarding Figure 7 and the exclusion of Vamana:}
 
-We appreciate the reviewer’s observation. Figure 7 presents experiments on multi-attribute construction and search, using Boolean AND logic. The Vamana-based methods (FilteredVamana and StitchedVamana) only support Boolean OR logic for multi-attribute search, which is why they are not included. We clarify this point in the revised version of the paper, specifically in the section on \textcolor{blue}{Multi-Attribute Construction and Multi-Attribute Query}.\textcolor{blue}{"Note that FilterDiskANN only supports Boolean OR logic and does not support Boolean AND. Therefore, its two Vamana-based methods are excluded from the multi-attribute construction and search experiments."}
+We appreciate the observation of reviewer. Figure 7 presents experiments on multi-attribute construction and search, using Boolean AND logic. The Vamana-based methods (FilteredVamana and StitchedVamana) only support Boolean OR logic for multi-attribute search, which is why they were not included. We will clarify this point in the revised version of the paper, specifically in the section on \textcolor{blue}{Multi-Attribute Construction and Multi-Attribute Query}.\textcolor{blue}{"Note that FilterDiskANN only supports Boolean OR logic and does not support Boolean AND. Therefore, its two Vamana-based methods are excluded from the multi-attribute construction and search experiments."}
 %Thanks to the reviewer for suggesting that there is no explanation in Figure 7 why Vamana is not included. Figure 7 is an experiment on multi-label construction and search, and the Boolean logic of multi-label search is AND. The two algorithms using Vamana, FilteredVamana and StitchedVamana, only support Boolean logic OR for multi-label search, so we did not include them. We will add an explanation of this in the paper.
 
 %All the evaluated algorithms in our experiments build the index in a one-shot manner, without applying any partitioning or merging strategies.
@@ -635,7 +634,7 @@ We appreciate the reviewer’s observation. Figure 7 presents experiments on mul
 
 \noindent
 \textbf{Response:} 
-Thank you for the suggestion. We realize that the original wording is somewhat vague and lead to confusion among readers. To address this, we merge the tables for attribute filtering (AF) and range filtering (RF), and clarify each algorithm's support for AF and RF in the unified table.
+Thank you for the suggestion. We realized that the original wording is somewhat vague and lead to confusion among readers. To address this, we merged the tables for attribute filtering (AF) and range filtering (RF), and clarified the support of each algorithm for AF and RF in the unified table.
 \textcolor{blue}{The fused table is Table1: Comparison of AF-ANN and RF-ANN search algorithms.}
 
 %%%%%%%%%%%%%%%%%%%%%% D4 %%%%%%%%%%%%%%%%%%%%%%
