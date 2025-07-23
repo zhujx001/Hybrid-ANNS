@@ -506,24 +506,35 @@
 		
 		\label{tab:datasets_combined}
 		\resizebox{\columnwidth}{!}{
-			\begin{tabular}{cccccc}
+			\begin{tabular}{ccccccc}
 				\toprule
-				Dataset & Dimension & Base Data & Queries & LID & Type \\
+				Dataset & Dimension & Base Data & Queries & LID & Type& Used \\
 				\midrule
-				Msong & 420 & 992,272 & 200 & 23& Audio \\
-				Audio & 192 & 53,387 & 200 & 14& Audio \\
-				SIFT1M & 128 & 1,000,000 & 10,000 & 19& Image \\
-				GIST1M & 960 & 1,000,000 & 1,000 & 45& Image \\
-				GloVe & 100 & 1,183,514 & 10,000 & 47& Text \\
-				Enron & 1369 & 94,987 & 200 & 23& Text \\
-				%Deep & 96 & 1,000,000 & 10,000 & 22& Image \\
+				
+				Audio & 192 & 53,387 & 200 & 14& Audio& AF \\
+				Deep & 96 & 1,000,000 & 10,000 & 22& Image& RF \\
+				Enron & 1369 & 94,987 & 200 & 23& Text& AF \\
+				GIST1M & 960 & 1,000,000 & 1,000 & 45& Image& AF \\
+				GloVe & 100 & 1,183,514 & 10,000 & 47& Text& AF \\
+				Msong & 420 & 992,272 & 200 & 23& Audio& AF \\
+				SIFT1M & 128 & 1,000,000 & 10,000 & 19& Image& AF \\
+				
 				%YT-Audio& 128 & 1,000,000 & 10,000 & 15& Audio \\
+<<<<<<< Updated upstream
 				Deep1M & 96 & 1,000,000 & 10,000 & 22 & Image \\
 				YT-Audio-Real& 128 & 1,000,000 & 10,000 & 15& Audio \\
 				WIT-Real & 512 & 1,000,000 & 40,300 & 48& Image \\
 				Text2Image & 200 & 10,000,000 &10,000 & 59& Text,Image \\
 				Text2Image-Mix & 200 & 1,000,000 &10,000 & 59& Text,Image \\
 				Deep100M & 96 & 100,000,000 & 10,000 & 22& Image \\
+=======
+%				WIT & 2048 & 1,000,000 & 40,300 & 48& Image& RF \\
+				WIT-Real & 512 & 1,000,000 & 40,300 & 48& Image& Both \\
+				YT-Audio-Real& 128 & 1,000,000 & 10,000 & 15& Audio& Both \\
+				Text2Image & 200 & 10,000,000 &10,000 & 59& Text,Image& Both \\
+				Text2Image-Mix & 200 & 1,000,000 &10,000 & 59& Text,Image& Both \\
+				Deep100M & 96 & 100,000,000 & 10,000 & 22& Image& Both \\
+>>>>>>> Stashed changes
 				\bottomrule
 			\end{tabular}
 		}
@@ -940,7 +951,7 @@
 %	\textcolor{red}{To investigate the impact of different server configurations on the performance of the algorithms, we conducted additional experiments on a server equipped with two Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset, and the results are shown in Figure~\ref{fig:Different Computer}. Compared with the experimental results on the original server (as shown in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}(f)), the relative ranking of the algorithms remains largely unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency of the Xeon 6330 compared to the original server, the QPS values are slightly lower across all methods.}
 
 	\textit{\textbf{\textcolor{blue}{Large-scale Datasets.}}} 
-	\textcolor{violet}{On the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating their good adaptability to large-scale datasets; however, this also comes with significant memory overhead. The clustering-based algorithm \texttt{Faiss+HQI\_Batch} shows moderate performance but has very low memory overhead, which makes it highly attractive for practical applications. We did not present the experimental results for StitchedVamana because we found that its recall consistently remained at a very low level. Its search starting point is set to 0 by default, and when the entry point is far from the target area, it easily gets stuck in a local optimum, making it difficult to navigate to the vicinity of the correct point.}
+	\textcolor{violet}{As shown in the figure~\ref{fig:Big Dataset}, On the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating their good adaptability to large-scale datasets; however, this also comes with significant memory overhead. The clustering-based algorithm Faiss+HQI\_Batch shows moderate performance but has very low memory overhead, which makes it highly attractive for practical applications. We did not present the experimental results for StitchedVamana because we found that its recall consistently remained at a very low level. Its search starting point is set to 0 by default, and when the entry point is far from the target area, it easily gets stuck in a local optimum, making it difficult to navigate to the vicinity of the correct point.}
 	
 \textit{\textbf{\textcolor{blue}{Multi-modal Queries}}} 
 
