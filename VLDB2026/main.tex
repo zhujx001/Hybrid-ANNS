@@ -309,7 +309,7 @@
 		\multicolumn{2}{|l|}{\textbf{Base}}           & Graph & Graph & Graph & IVF & Graph & Graph & IVF & Graph & Graph & Graph & Graph & Graph \\ \hline
 	\end{tabular}
 		
-%			\begin{tabular}{|c|c|c|c|}
+%		\begin{tabular}{|c|c|c|c|}
 %			\hline
 %			\textbf{Algorithm} & \textbf{Base} & \textbf{Dynamic Insert} & \textbf{Multi Thread} \\
 %			\hline
@@ -329,23 +329,17 @@
 		\footnotesize{
 			\begin{minipage}{\linewidth}
 				\vspace{0.1cm}
-				\textcolor{orange}{\textsuperscript{AF} Attribue-filtering,}
-				\textcolor{orange}{\textsuperscript{RF} Range-filtering,}
-				\textcolor{orange}{Filtered: FilteredVamana,}
-				\textcolor{orange}{Stitched: StitchedVamana,}
-				\textcolor{orange}{Win: WinFilter,}
 				\textsuperscript{A} Post-filtering, 
 				\textsuperscript{B} Pre-filtering, 
 				\textsuperscript{C} Simultaneous filtering, 
 				\textsuperscript{Y} Support, 
 				\textsuperscript{N} Unsupport. 
-				\textit{AND} indicates whether the algorithm supports attribute filtering with AND operations. 
-				\textit{OR} indicates whether the algorithm supports attribute filtering with OR operations. 
+				\textit{AND} and \textit{OR} indicate whether the algorithm supports the corresponding logical operations.
 				\textit{Flexible Attributes} indicates whether the number of query attributes can differ from the number of attributes used during index construction. 
-				\textit{Complex Boolean} refers to whether the algorithm supports advanced Boolean logic beyond just AND and OR, such as NOT or combinations like (A AND B) OR (C AND NOT D). 
+				\textit{Complex Boolean} indicates if the algorithm supports complex expressions, such as using the NOT operator or nested logic with parentheses.
 				\textit{Dynamic Insert} indicates whether the algorithm supports the operation of dynamically inserting data points.
-				\textit{Multi Thread} indicates whether the algorithm supports multi-threaded search,
-				\textcolor{orange}{\textit{Disk Support} indicates whether the algorithm supports disk storage,}
+				\textit{Multi Thread} indicates whether the algorithm supports multi-threaded search.
+				\textit{Disk Support} indicates whether the algorithm supports disk storage.
 				\textit{Base} indicates that the hybrid query algorithm is an improvement based on a specific ANN search algorithm.
 		\end{minipage}}
 		
@@ -353,11 +347,10 @@
 	
 	
 	%We provide an overview and analysis of 15 hybrid query methods, all drawn from recent studies, and collectively referred to as algorithms in the following. Specifically, Section~3.1 describes methods for attribute filtering, Section~3.2 discusses those for range filtering, and Section~3.3 introduces vector libraries and databases that support both attribute filtering and range filtering.
-	
+	Table~\ref{tab:compair_1} provides a comparative overview of six attribute filtering and five representative range filtering algorithms. 
 	
 	\subsection{Attribute Filtering Algorithms}
 	
-	We summarize 6 attribute filtering algorithms and provide an intuitive comparison in Table~\ref{tab:compair_1}.
 
 %	\noindent\textbf{\underline{NHQ \cite{NHQ}.}}  
 %	\footnote{https://github.com/KGLab-HDU/TKDE-under-review-Native-Hybrid-Queries-via-ANNS}
@@ -444,8 +437,6 @@
 %	\end{table}
 	
 	\subsection{Range Filtering Algorithms}
-	
-	We introduce 5 representative range filtering algorithms and present a comparative overview in \textcolor{orange}{Table~\ref{tab:compair_1}.}
 	
 	\noindent\textbf{\underline{SeRF} \footnote{https://github.com/rutgers-db/SeRF} \cite{serf}} Conventional RF-ANN search approaches typically follow one of two paradigms: 1) Conducting ANN search first followed by attribute-based filtering. 2) Filtering the dataset based on attribute ranges before performing ANN search. Building a separate neighbor graph (e.g., HNSW) for each attribute range could ensure efficient querying but incurs an $O(n^2)$ cost in constructing and storing $n$ graphs. Since many edges are shared across these graphs, SeRF introduces a validity-range aware design where each edge records the interval in which it is valid, indicating in which subgraphs the edge remains valid. This compresses $n$ graphs into a single unified graph, maintaining search effectiveness while significantly reducing memory and index construction overhead.
 	
