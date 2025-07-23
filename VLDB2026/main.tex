@@ -293,7 +293,7 @@
 		\hline
 		
 	
-		\multicolumn{2}{|c|}{\textbf{Algorithm}} & \textbf{NHQ} & \textbf{Filtered} & \textbf{Stitched} & \textbf{CAPS} & \textbf{ACORN} & \textbf{UNG} & \textbf{Puck} & \textbf{DSG} & \textbf{iRange} & \textbf{SeRF} & \textbf{UNIFY} & \textbf{Win}
+		\multicolumn{2}{|c|}{\textbf{Characteristics/Algorithm}} & \textbf{NHQ} & \textbf{Filtered} & \textbf{Stitched} & \textbf{CAPS} & \textbf{ACORN} & \textbf{UNG} & \textbf{Puck} & \textbf{DSG} & \textbf{iRange} & \textbf{SeRF} & \textbf{UNIFY} & \textbf{Win}
 		 \\ \hline
 		\multirow{6}{*}{\textbf{AF}} 
 		& Filter Type         & C   & C   & C   & C   & B   & B   & B   & \multicolumn{5}{c|}{} \\ \cline{2-9}
@@ -1156,7 +1156,7 @@ a}
 	\textcolor{cyan}{As described in Section 4.2.4, we performed additional range filtering experiments using the YT-Audio-Real dataset on the same server configuration, with results presented in Figure~\ref{fig:Different_Computer_range}. When compared with the original server's experimental results shown in Figure~\ref{fig:exp_8_2}a, our findings remain consistent with those reported in Section 4.2.4. For brevity and due to space limitations, we omit further discussion of these redundant results.}
 %	\textcolor{cyan}{Consistent with Section 4.2.4, we conducted additional range filtering experiments using the YT-Audio-Real dataset on the same server, with results shown in Figure \ref{fig:Different Computer range}. Compared with the original server's experimental results (Figure \ref{fig:exp_8_2}($e$)), the conclusions remain identical to those described in Section 4.2.4. Due to space constraints, these details are not reiterated here.}
 	
-	\textit{\textbf{\textcolor{red}{Large-scale Datasets.}}} \textcolor{red}{As shown in the figure~\ref{fig:Big_Dataset_range}, in the 100-million-scale dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption (300-400GB). At the same time, we can see that some algorithms (e.g., SeRF, ACORN-1) perform even worse than the VBASE database, which indicates that they do not adapt well to large-scale dataset scenarios. Although Milvus has a low QPS, it can achieve a recall of 1 with an excellent memory footprint of around 80GB}.
+	\textit{\textbf{\textcolor{red}{Large-scale Datasets.}}} \textcolor{red}{As shown in the figure~\ref{fig:Big_Dataset_range}, On the 100M dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption, as detailed in Figure~\ref{fig:rangeFilter_search_memory_mb}. Meanwhile, VBASE and Faiss demonstrate moderate performance but significantly lower memory consumption than the top three algorithms}.
 	
 	\textit{\textbf{\textcolor{blue}{Multi-modal Queries}}}
 	\textcolor{blue}{
@@ -1216,37 +1216,35 @@ a}
 	\subsection{Recommendations.}
 	%Based on the performance of different algorithms in experiments, we recommend algorithms suitable for different scenarios, as shown in the table \ref{tab:algo_scenarios}.
 	
-	
-	\begin{table}[t]
+	\renewcommand{\arraystretch}{0.9}
+	\begin{table*}[t]
 		\centering
+		%\setlength{\belowcaptionskip}{-0.3cm}
 		
-		\caption{Algorithm Recommendation per Scenario}
-		\resizebox{\columnwidth}{!}{
-			\begin{tabular}{|l|c|c|}
+		\caption{\textcolor{orange}{Recommendations}}
+		\small
+		
+		\label{tab:compair_2}
+		
+		\resizebox{\textwidth}{!}{
+			\begin{tabular}{|l|*{16}{c|}}
 				\hline
-				\textbf{Scenario} & \textbf{Attribute Filtering} & \textbf{Range Filtering}\\
+				\textbf{Application Scenarios / Algorithm} & \textbf{NHQ} & \textbf{Filtered} & \textbf{Stitched} & \textbf{CAPS} & \textbf{ACORN} & \textbf{UNG} & \textbf{Puck} & \textbf{DSG} & \textbf{iRange} & \textbf{SeRF} & \textbf{UNIFY} & \textbf{Win} & \textbf{Faiss} & \textbf{Milvus} & \textbf{VBASE} & \textbf{PASE} \\
 				\hline
-				S1: Large-scale Datasets & Puck, UNG & iRange\\[1pt]
-				\hline
-				S2: Fast Index Construction & ACORN-1, UNG  &Faiss\\[1pt]
-				\hline
-				S3: Query on Hard Datasets & CAPS, UNG &WinFilter, iRange, DSG\\[1pt]
-				\hline
-				S4: Query on Easy Datasets & StitchedVamana, NHQ, UNG & WinFilter, iRange\\[1pt]
-				
-				\hline
-				S5: General-purpose Use & Milvus, Faiss &DSG, UNIFY\\[1pt]
-				\hline
-				S6: Resource constraint& CAPS, Faiss&Faiss, SeRF \\[1pt]
-				\hline
-				S7: High-Recall Querying & UNG & WinFilter \\[1pt]
-				\hline
-				S8: OOD scenarios & UNG &WinFilter  \\[1pt]
+				\textbf{Query Performance} & H & M & H &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+				\textbf{Index Time} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+				\textbf{High LID Dataset} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+				\textbf{Peak Memory} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+				\textbf{General-Purpose} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+				\textbf{Large-Scale Dataset} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+				\textbf{Rare Attribute \& Low Range} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+				\textbf{Insensitive to Data Distribution} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
 				\hline
 			\end{tabular}
 		}
-		\label{tab:algo_scenarios}
-	\end{table}
+		\centering
+	\end{table*}
+
 	
 	\subsubsection{\textbf{Attribute Filtering}}
 	We summarize the applicability of different algorithms across various attribute filtering scenarios in Table~\ref{tab:algo_scenarios}. Puck and UNG excel on large-scale datasets (S1). ACORN-1 and UNG achieve fast index construction (S2). UNG performs well on different datasets (S3, S4). In addition, CAPS performs well on hard datasets with high LID (S3), while NHQ and StitchedVamana perform better on easy datasets with low LID (S4).
