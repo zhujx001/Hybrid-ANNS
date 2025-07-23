@@ -583,14 +583,14 @@
 		
 		
 		% 上面的图例，居中并可通过 hspace 调整左右位置
-		\hspace*{10pt} % 可调整的参数，负值左移，正值右移，例如 -20pt 或 20pt
+		\hspace*{8pt} % 可调整的参数，负值左移，正值右移，例如 -20pt 或 20pt
 		\includegraphics[width=0.95\columnwidth]{figures/indexData/legend_only.pdf} % 图例图片路径
 		
 		
 		\begin{subfigure}{\columnwidth}
 			\centering
 			
-			\includegraphics[width=0.95\linewidth]{figures/indexData/exp_7_build_time_comparison_query1.pdf}
+			\includegraphics[width=0.99\linewidth]{figures/indexData/exp_7_build_time_comparison_query1.pdf}
 			\caption{Construction time}
 			\label{fig:build_time_comparison_query1}
 		\end{subfigure}
@@ -600,7 +600,7 @@
 		\begin{subfigure}{\columnwidth}
 			\centering
 			
-			\includegraphics[width=0.95\linewidth]{figures/indexData/exp_7_index_size_mb_comparison_query1.pdf}
+			\includegraphics[width=0.99\linewidth]{figures/indexData/exp_7_index_size_mb_comparison_query1.pdf}
 			\caption{Index size (including original dataset)}
 			\label{fig:index_size_mb_comparison_query1}
 		\end{subfigure}
@@ -610,7 +610,7 @@
 		\begin{subfigure}{\columnwidth}
 			\centering
 			
-			\includegraphics[width=0.95\linewidth]{figures/indexData/exp_7_memory_mb_comparison_query1.pdf}
+			\includegraphics[width=0.99\linewidth]{figures/indexData/exp_7_memory_mb_comparison_query1.pdf}
 			\caption{Build peak memory }
 			\label{fig:build_memory_mb_comparison}
 		\end{subfigure}
@@ -618,7 +618,7 @@
 		\begin{subfigure}{\columnwidth}
 			\centering
 			
-			\includegraphics[width=0.95\linewidth]{figures/searchMem/label_memory_comparison.pdf}
+			\includegraphics[width=0.99\linewidth]{figures/searchMem/label_memory_comparison.pdf}
 			\caption{Search peak memory}
 			\label{fig:search_memory_mb_comparison}
 		\end{subfigure}
@@ -1015,7 +1015,7 @@ a}
 		%\vspace{0.1cm}
 		
 		% 三图横排
-		\begin{subfigure}[t]{0.49\columnwidth}
+		\begin{subfigure}[t]{0.495\columnwidth}
 			\centering
 			\captionsetup{font=small}
 			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_build_time_comparison_query.pdf}
@@ -1023,21 +1023,21 @@ a}
 			\label{fig:rangeFilter_build_time}
 		\end{subfigure}
 		\hfill
-		\begin{subfigure}[t]{0.49\columnwidth}
+		\begin{subfigure}[t]{0.495\columnwidth}
 			\centering
 			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_index_size_mb_comparison_query.pdf}
 			\caption{\footnotesize Index size}
 			\label{fig:rangeFilter_index_size_mb}
 		\end{subfigure}
 		\hfill
-		\begin{subfigure}[t]{0.49\columnwidth}
+		\begin{subfigure}[t]{0.495\columnwidth}
 			\centering
 			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_memory_mb_comparison_query.pdf}
 			\caption{\footnotesize Build peak memory}
 			\label{fig:rangeFilter_build_memory_mb}
 		\end{subfigure}
 		\hfill
-		\begin{subfigure}[t]{0.49\columnwidth}
+		\begin{subfigure}[t]{0.495\columnwidth}
 			\centering
 			\includegraphics[width=\linewidth]{figures/searchMem/range_memory_comparison.pdf}
 			\caption{\footnotesize Search peak memory}
