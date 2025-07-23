@@ -549,17 +549,20 @@
 	
 	
 	
-	\subsubsection{Platform}
+	\subsubsection{\textcolor{cyan}{Setting}}
 	
 	
-	We conduct all experiments on a server running Ubuntu 20.04, equipped with an AMD EPYC 7K62 processor (2.6GHz) and 256GB of RAM. Unless otherwise stated, we execute index construction with 32 threads to accelerate the process~\cite{benchmarkindex}. By default, queries run on a single thread. We also report results for 16-thread parallelism in specific scenarios.
+	We conduct all experiments on a server running Ubuntu 20.04, equipped with an AMD EPYC 7K62 processor (2.6GHz) and 256GB of RAM.  \textcolor{cyan}{Additionally, to investigate the impact of different server configurations on algorithm performance, we also conducted partial experiments on a server equipped with dual Intel(R) Xeon(R) Gold 6330 CPU @ 2.00GHz and 128GB of RAM.} Unless otherwise stated, we execute index construction with 32 threads to accelerate the process~\cite{benchmarkindex}. By default, queries run on a single thread. We also report results for 16-thread parallelism in specific scenarios.
 	
 	We summarize the multi-threading capabilities of each algorithm in Table~\ref{tab:compair_1}. For vector database systems, we adopt a multi-process evaluation scheme (rather than multi-threaded execution), following the methodology proposed in VectorDBBench~\cite{VectorDBBench}, to better reflect their real-world performance.
 	
-	\textcolor{blue}{
-	\subsubsection{Parameters}
-	In the experiments, for datasets with recommended parameters in the original paper, we use the recommended settings. For datasets without recommended parameters, we conduct experiments with different parameter settings and select the one that performs best for the final experiment. Due to the large number of datasets and algorithms involved, the parameters are not listed individually, but they are provided in the code repository.
+	\textcolor{cyan}{
+	Regarding experimental parameter selection, we adopted the recommended settings from original papers when available. For datasets without suggested parameters, we experimented with different configurations and selected the optimal one for final evaluation. Due to the extensive number of datasets and algorithms involved, specific parameters are not listed individually but are provided in our code repository.
 }
+%	\textcolor{blue}{
+%	\subsubsection{Parameters}
+%	In the experiments, for datasets with recommended parameters in the original paper, we use the recommended settings. For datasets without recommended parameters, we conduct experiments with different parameter settings and select the one that performs best for the final experiment. Due to the large number of datasets and algorithms involved, the parameters are not listed individually, but they are provided in the code repository.
+%}
 	
 	
 	%4.2
