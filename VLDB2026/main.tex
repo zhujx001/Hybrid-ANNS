@@ -514,8 +514,8 @@
 				Enron & 1369 & 94,987 & 200 & 23& Text \\
 				%Deep & 96 & 1,000,000 & 10,000 & 22& Image \\
 				%YT-Audio& 128 & 1,000,000 & 10,000 & 15& Audio \\
+				Deep1M & 96 & 1,000,000 & 10,000 & 22 & Image \\
 				YT-Audio-Real& 128 & 1,000,000 & 10,000 & 15& Audio \\
-				WIT & 2048 & 1,000,000 & 40,300 & 48& Image \\
 				WIT-Real & 512 & 1,000,000 & 40,300 & 48& Image \\
 				Text2Image & 200 & 10,000,000 &10,000 & 59& Text,Image \\
 				Text2Image-Mix & 200 & 1,000,000 &10,000 & 59& Text,Image \\
@@ -1098,7 +1098,7 @@ a}
 	In this experiment, we follow the query range definition adopted by prior work~\cite{HQI}. \textcolor{red}{Specifically, for a given query, the range ratio is defined as $2^{-i}$	when the query range covers $\frac{n}{2^i}$ data points, where $n$ is the total dataset size.} Based on this definition, we evaluate algorithm performance under 4 query range settings: $2^{-2}$, $2^{-4}$, $2^{-6}$, and $2^{-8}$. 
 	%\textcolor{red}{Some algorithms don't support using actual attributes as search keys, instead requiring an ID (the primary key, ranging from $0$ to $n-1$). Therefore, we uniformly use this ID as the search key. This ID is pre-sorted according to its corresponding real attribute, allowing us to map an attribute to its ID without loss of generality for efficient range queries.}
 	
-	Due to space constraints, Figure~\ref{fig:exp_8_2} reports results for only the largest ($2^{-2}$) and smallest ($2^{-8}$) range ratios. The experimental results show that across all datasets (YT-Audio-Real, WIT-Real, and WIT) and query ranges, WinFilter consistently delivers the best performance. This highlights its robustnes, which performs ANN search over only relevant tree nodes and merges results efficiently, making it highly effective for static range query scenarios.
+	Due to space constraints, Figure~\ref{fig:exp_8_2} reports results for only the largest ($2^{-2}$) and smallest ($2^{-8}$) range ratios. The experimental results show that across all datasets (YT-Audio-Real, WIT-Real, and Deep1M) and query ranges, WinFilter consistently delivers the best performance. This highlights its robustnes, which performs ANN search over only relevant tree nodes and merges results efficiently, making it highly effective for static range query scenarios.
 	
 	iRange offers a good balance between query efficiency and recall, demonstrating stable performance across both datasets and range sizes. In contrast, UNIFY experiences a notable drop in performance under narrow query ranges, suggesting that its HSIG structure—despite incorporating skip lists for pre-filtering—still has limitations in such scenarios. However, by leveraging HNSW and bitmap-based post-filtering, UNIFY performs competitively under broader range conditions, demonstrating strong scalability.
 	
