@@ -618,11 +618,11 @@ Of all the evaluated algorithms, only Faiss supports quantization. However, in o
 
 \textbf{Regarding Figure 7 and the exclusion of Vamana:}
 
-We appreciate the reviewer’s observation. Figure 7 presents experiments on multi-attribute construction and search, using Boolean AND logic. The Vamana-based methods (FilteredVamana and StitchedVamana) only support Boolean OR logic for multi-attribute search, which is why they were not included. We will clarify this point in the revised version of the paper, specifically in the section on \textcolor{blue}{Multi-Attribute Construction and Multi-Attribute Query}.\textcolor{blue}{"Note that FilterDiskANN only supports Boolean OR logic and does not support Boolean AND. Therefore, its two Vamana-based methods are excluded from the multi-attribute construction and search experiments."}
+We appreciate the reviewer’s observation. Figure 7 presents experiments on multi-attribute construction and search, using Boolean AND logic. The Vamana-based methods (FilteredVamana and StitchedVamana) only support Boolean OR logic for multi-attribute search, which is why they are not included. We clarify this point in the revised version of the paper, specifically in the section on \textcolor{blue}{Multi-Attribute Construction and Multi-Attribute Query}.\textcolor{blue}{"Note that FilterDiskANN only supports Boolean OR logic and does not support Boolean AND. Therefore, its two Vamana-based methods are excluded from the multi-attribute construction and search experiments."}
 %Thanks to the reviewer for suggesting that there is no explanation in Figure 7 why Vamana is not included. Figure 7 is an experiment on multi-label construction and search, and the Boolean logic of multi-label search is AND. The two algorithms using Vamana, FilteredVamana and StitchedVamana, only support Boolean logic OR for multi-label search, so we did not include them. We will add an explanation of this in the paper.
 
-All the evaluated algorithms in our experiments build the index in a one-shot manner, without applying any partitioning or merging strategies.
-Additionally, although some of the methods we used—such as FAISS, PUCK, DiskANN, and Milvus—support vector quantization during index construction, we did not enable quantization in any of our experiments. Therefore, the reported index build times do not include quantization.
+%All the evaluated algorithms in our experiments build the index in a one-shot manner, without applying any partitioning or merging strategies.
+%Additionally, although some of the methods we used—such as FAISS, PUCK, DiskANN, and Milvus—support vector quantization during index construction, we do not enable quantization in any of our experiments. Therefore, the reported index build times do not include quantization.
 
 %%%%%%%%%%%%%%%%%%%%%% D3 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -635,7 +635,7 @@ Additionally, although some of the methods we used—such as FAISS, PUCK, DiskAN
 
 \noindent
 \textbf{Response:} 
-Thank you for the suggestion. We realized that the original wording was somewhat vague and led to confusion among readers. To address this, we merged the tables for attribute filtering (AF) and range filtering (RF), and clarified each algorithm's support for AF and RF in the unified table.
+Thank you for the suggestion. We realize that the original wording is somewhat vague and lead to confusion among readers. To address this, we merge the tables for attribute filtering (AF) and range filtering (RF), and clarify each algorithm's support for AF and RF in the unified table.
 \textcolor{blue}{The fused table is Table1: Comparison of AF-ANN and RF-ANN search algorithms.}
 
 %%%%%%%%%%%%%%%%%%%%%% D4 %%%%%%%%%%%%%%%%%%%%%%
