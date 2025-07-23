@@ -565,6 +565,10 @@
 	
 	We summarize the multi-threading capabilities of each algorithm in Table~\ref{tab:compair_1}. For vector database systems, we adopt a multi-process evaluation scheme (rather than multi-threaded execution), following the methodology proposed in VectorDBBench~\cite{VectorDBBench}, to better reflect their real-world performance.
 	
+	\textcolor{blue}{
+	\subsubsection{Parameters}
+	In the experiments, for datasets with recommended parameters in the original paper, we use the recommended settings. For datasets without recommended parameters, we conduct experiments with different parameter settings and select the one that performs best for the final experiment.Due to the large number of datasets and algorithms involved, the parameters are not listed individually, but they are provided in the code repository.
+}
 	
 	
 	%4.2
@@ -963,20 +967,18 @@
 		\includegraphics[width=0.98\columnwidth]{figures/exp/attribute_legend.pdf}
 		
 		%\vspace{0.1cm}
-		\begin{subfigure}[t]{0.507\columnwidth}
-			\centering
-			\captionsetup{font=small}
-			\includegraphics[width=\linewidth]{figures/exp/attribute_multimodel.pdf}
-			\caption{\footnotesize MultiModel}
-			\label{fig:MultiModel}
-		\end{subfigure}	
-		\hfill
-		\begin{subfigure}[t]{0.48\columnwidth}
-			\centering
-			\captionsetup{font=small}
-			\includegraphics[width=\linewidth]{figures/exp/attribute_multimodel_1.pdf}
-			\caption{\footnotesize MultiModel}
-			\label{fig:MultiModel}
+		\begin{subfigure}[t]{0.98\columnwidth}
+		\centering
+		% First plot for the shared subfigure
+		\includegraphics[width=0.507\linewidth]{figures/exp/attribute_multimodel.pdf}
+		\hfill % Pushes the two plots apart
+		% Second plot for the shared subfigure
+		\includegraphics[width=0.48\linewidth]{figures/exp/attribute_multimodel_1.pdf}
+	
+		% Shared caption for the two plots above
+		\captionsetup{font=small}
+		\caption{MultiModel}
+		\label{fig:MultiModel_range} % A single label for the combined subfigure
 		\end{subfigure}
 		
 		\begin{subfigure}[t]{0.507\columnwidth}
@@ -1151,61 +1153,61 @@
 	\subsubsection{Scalability Study}
 		
 	\textit{\textbf{\textcolor{blue}{Different Hardware Environments.}}}
-	\textcolor{cyan}{As described in Section 4.2.4, we performed additional range filtering experiments using the YT-Audio-Real dataset on the same server configuration, with results presented in Figure~\ref{fig:Different Computer range}. When compared with the original server's experimental results shown in Figure~\ref{fig:exp_8_2}b, our findings remain consistent with those reported in Section 4.2.4. For brevity and due to space limitations, we omit further discussion of these redundant results.}
+	\textcolor{cyan}{As described in Section 4.2.4, we performed additional range filtering experiments using the YT-Audio-Real dataset on the same server configuration, with results presented in Figure~\ref{fig:Different_Computer_range}. When compared with the original server's experimental results shown in Figure~\ref{fig:exp_8_2}a, our findings remain consistent with those reported in Section 4.2.4. For brevity and due to space limitations, we omit further discussion of these redundant results.}
 %	\textcolor{cyan}{Consistent with Section 4.2.4, we conducted additional range filtering experiments using the YT-Audio-Real dataset on the same server, with results shown in Figure \ref{fig:Different Computer range}. Compared with the original server's experimental results (Figure \ref{fig:exp_8_2}($e$)), the conclusions remain identical to those described in Section 4.2.4. Due to space constraints, these details are not reiterated here.}
 	
-	\textit{\textbf{\textcolor{red}{Large-scale Datasets.}}} \textcolor{red}{As shown in the figure~\ref{fig:Big Dataset range}, in the 100-million-scale dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption (300-400GB). At the same time, we can see that some algorithms (e.g., SeRF, ACORN-1) perform even worse than the VBASE database, which indicates that they do not adapt well to large-scale dataset scenarios. Although Milvus has a low QPS, it can achieve a recall of 1 with an excellent memory footprint of around 80GB}.
+	\textit{\textbf{\textcolor{red}{Large-scale Datasets.}}} \textcolor{red}{As shown in the figure~\ref{fig:Big_Dataset_range}, in the 100-million-scale dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption (300-400GB). At the same time, we can see that some algorithms (e.g., SeRF, ACORN-1) perform even worse than the VBASE database, which indicates that they do not adapt well to large-scale dataset scenarios. Although Milvus has a low QPS, it can achieve a recall of 1 with an excellent memory footprint of around 80GB}.
 	
 	\textit{\textbf{\textcolor{blue}{Multi-modal Queries}}}
 	\textcolor{blue}{
-	Similar to attribute filtering, the performance of multimodal queries with range filtering shown in Figure~\ref{fig:MultiModel range} is also consistent with the single-modality results in Figure~\ref{fig:exp_8_2}. As shown in Figure~\ref{fig:exp_8_3}, the algorithms still perform the worst on multimodal datasets like Text2Image. This is because these range query algorithms are almost graph-based. Graph algorithms need more iterations to find true neighbors in OOD datasets.}
+	Similar to attribute filtering, the performance of multimodal queries with range filtering shown in Figure~\ref{fig:MultiModel_range} is also consistent with the single-modality results in Figure~\ref{fig:exp_8_2}. As shown in Figure~\ref{fig:exp_8_3}, the algorithms still perform the worst on multimodal datasets like Text2Image. This is because these range query algorithms are almost graph-based. Graph algorithms need more iterations to find true neighbors in OOD datasets.}
 	
 %	\textit{\textbf{Multimodel, 85 and Deep100M.}} \textcolor{red}{The fig is Figure \ref{fig:TrinityExtension——Range}}
 	
-	\begin{figure}[t]
-		\centering
-		
-		
-		\hspace*{5pt}
-		% 放大的图例（占满单栏）
-		\includegraphics[width=0.98\columnwidth]{figures/exp/range_legend.pdf}
-		
-		%\vspace{0.1cm}
-		\begin{subfigure}[t]{0.507\columnwidth}
-			\centering
-			\captionsetup{font=small}
-			\includegraphics[width=\linewidth]{figures/exp/range_multimodel.pdf}
-			\caption{\footnotesize MultiModel}
-			\label{fig:MultiModel range}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[t]{0.48\columnwidth}
-			\centering
-			\captionsetup{font=small}
-			\includegraphics[width=\linewidth]{figures/exp/range_multimodel_1.pdf}
-			\caption{\footnotesize MultiModel}
-			\label{fig:MultiModel range}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[t]{0.507\columnwidth}
-			\centering
-			\includegraphics[width=\linewidth]{figures/exp/range_85.pdf}
-			\caption{\footnotesize Different Computer}
-			\label{fig:Different Computer range}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[t]{0.48\columnwidth}
-			\centering
-			\includegraphics[width=\linewidth]{figures/exp/range_deep100M.pdf}
-			\caption{\footnotesize Big Dataset}
-			\label{fig:Big Dataset range}
-		\end{subfigure}
-		
-		
-		\caption{\textcolor{red}TrinityExtension——Range}
-		\label{fig:TrinityExtension——Range}
-	\end{figure}
+\begin{figure}[t]
+	\centering
 	
+	% Legend
+	\includegraphics[width=0.98\columnwidth]{figures/exp/range_legend.pdf}
+	\vspace{0.2cm} % Added a little space after the legend
+	
+	% --- Subfigure (a) containing two plots ---
+	\begin{subfigure}[t]{0.98\columnwidth}
+		\centering
+		% First plot for the shared subfigure
+		\includegraphics[width=0.507\linewidth]{figures/exp/range_multimodel.pdf}
+		\hfill % Pushes the two plots apart
+		% Second plot for the shared subfigure
+		\includegraphics[width=0.48\linewidth]{figures/exp/range_multimodel_1.pdf}
+		
+		% Shared caption for the two plots above
+		\captionsetup{font=small}
+		\caption{MultiModel}
+		\label{fig:MultiModel_range} % A single label for the combined subfigure
+	\end{subfigure}
+	
+	% --- Subfigure (b) ---
+	\begin{subfigure}[t]{0.507\columnwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/exp/range_85.pdf}
+		\captionsetup{font=small}
+		\caption{Different Computer}
+		\label{fig:Different_Computer_range}
+	\end{subfigure}
+	\hfill
+	% --- Subfigure (c) ---
+	\begin{subfigure}[t]{0.48\columnwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/exp/range_deep100M.pdf}
+		\captionsetup{font=small}
+		\caption{Big Dataset}
+		\label{fig:Big_Dataset_range}
+	\end{subfigure}
+	
+	
+	\caption{\textcolor{red}{TrinityExtension——Range}}
+	\label{fig:TrinityExtension——Range}
+\end{figure}
 	
 	\section{DISCUSSION}
 	Based on the performance of the algorithms on different experimental scenarios, we discuss our findings as follows.

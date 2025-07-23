@@ -135,7 +135,7 @@ and concerns, and the changes are highlighted \textcolor{blue}{in blue} accordin
 }
 
 \noindent
-\textbf{Response:} We sincerely appreciate your valuable suggestions, which provide meaningful improvements to our work. Ensuring the readability of the figures is indeed crucial. We modified both the figure and the related description in the paper to improve readability and ensure academic rigor. We have revised the manuscript accordingly. (Please see Section 4.2.3, highlighted in blue in the revised manuscript)
+\textbf{Response:} We sincerely appreciate your valuable suggestions, which provide meaningful improvements to our work. Ensuring the readability of the figures is indeed crucial. We modified both the figure and the related description in the paper to improve readability and ensure academic rigor. (Please see Section 4.2.3, highlighted in blue in the revised manuscript)
 
 For performance under different attribute distributions, to illustrate how different algorithms are affected by varying attribute distributions, we have added robustness indicators (Strong and Weak) in the figure. This provides more intuitive visualization of how robust each algorithm performs across different attribute distributions. As shown in Figure\ref{fig:attribute_distribution} below.
 
@@ -421,7 +421,7 @@ We have revised the manuscript accordingly. (Please see page 7, Section 4.2.1, a
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion! We add relevant experiments conducted on different servers in Section 4.2.4. Please refer to the response MR.R4 for more details.
+Thank you for your suggestion. We add relevant experiments conducted on different servers in Section 4.2.4. Please refer to the response MR.R4 for more details.
 %%%%%%%%%%%%%%%%%%%%%% W3 %%%%%%%%%%%%%%%%%%%%%%
 
 \myfbox{
@@ -434,7 +434,7 @@ Thank you for your suggestion! We add relevant experiments conducted on differen
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion! We have made a detailed response to this question in R5 of Response To Meta-reviewer. Please see R5 for details.
+Thank you for your suggestion. We have made a detailed response to this question in R5 of Response To Meta-reviewer. Please see R5 for details.
 
 
 %%%%%%%%%%%%%%%%%%%%%% W4 %%%%%%%%%%%%%%%%%%%%%%
@@ -447,7 +447,7 @@ Thank you for your suggestion! We have made a detailed response to this question
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion! We have made a detailed response to this question in R6 of Response To Meta-reviewer. Please see R6 for details.
+Thank you for your suggestion. We have made a detailed response to this question in R6 of Response To Meta-reviewer. Please see R6 for details.
 	
 %%%%%%%%%%%%%%%%%%%%%% D1 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -588,20 +588,22 @@ Thank you for your suggestion. We acknowledge that the original manuscript did n
 
 \noindent
 \textbf{Response:} 
-Thank you for your insightful comments!
+Thank you for your insightful comments.
 
 \textbf{Regarding dataset scale and scalability:}
 
-We have elaborated on the scalability implementations of various algorithms on the 100-million-scale Deep dataset in \textcolor{blue}{ Section XXX of our paper. We also provide a comprehensive analysis of their performance on large-scale datasets.}
+We conducted experiments on a 100M-scale deep dataset and analyzed the performance of each algorithm on the large dataset. Please refer to MR.R7.
 
 \textbf{Regarding the experimental parameter settings:}
 
-During index construction, for datasets where recommended parameters were explicitly provided in the original papers of the respective algorithms, we strictly adhered to those settings.. For the remaining datasets, we used the default parameters provided in their open-source code repositories. All detailed configurations of experimental parameters are publicly available in our code repository.
+For datasets with recommended parameters provided in the original papers, we directly used those recommended settings. For other datasets, we selected the parameter combinations that performed best through empirical evaluation. All parameters used in the experiments are available in our public code repository.
 
- Our experimental results show that on datasets where recommended parameters were used, the relative performance ranking of the algorithms did not change significantly.
-During the search phase, we obtained performance data at different Recall and QPS by adjusting the search parameters. These search parameters covered a wide range to ensure we could obtain comprehensive experimental result curves.
+According to our experimental results, for datasets using the recommended parameters, the algorithm rankings remained unchanged. During the search process, we adjusted the search parameters to obtain different Recall and QPS values. The search parameters typically span a wide range of values to ensure the completeness of the experimental results.
 
- Given the large number of datasets and algorithms involved, to maintain the conciseness of the paper, we did not list the detailed running parameters for all algorithms and datasets in the main text. These specific parameters can all be found in our code repository. For algorithms that are sensitive to specific parameters, we have highlighted them in the relevant sections of the paper.
+Due to the large number of algorithms and datasets involved, we did not include all parameter settings in the paper because of space limitations. The detailed parameter configurations can be found in our public code repository. (\textbf{Please refer to Section 4.1.4, highlighted in blue in the revised manuscript.})
+
+	\textcolor{blue}{
+"In the experiments, for datasets with recommended parameters in the original paper, we use the recommended settings. For datasets without recommended parameters, we conduct experiments with different parameter settings and select the one that performs best for the final experiment.Due to the large number of datasets and algorithms involved, the parameters are not listed individually, but they are provided in the code repository."}
  
 \textbf{Regarding index partitioning and merging:}
 
@@ -630,7 +632,7 @@ Additionally, although some of the methods we used—such as FAISS, PUCK, DiskAN
 
 \noindent
 \textbf{Response:} 
-Thank you for the suggestion! We realized that the original wording was somewhat vague and led to confusion among readers. To address this, we merged the tables for attribute filtering (AF) and range filtering (RF), and clarified each algorithm's support for AF and RF in the unified table.
+Thank you for the suggestion. We realized that the original wording was somewhat vague and led to confusion among readers. To address this, we merged the tables for attribute filtering (AF) and range filtering (RF), and clarified each algorithm's support for AF and RF in the unified table.
 \textcolor{blue}{The fused table is Table1: Comparison of AF-ANN and RF-ANN search algorithms.}
 
 %%%%%%%%%%%%%%%%%%%%%% D4 %%%%%%%%%%%%%%%%%%%%%%
