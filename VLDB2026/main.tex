@@ -963,20 +963,18 @@
 		\includegraphics[width=0.98\columnwidth]{figures/exp/attribute_legend.pdf}
 		
 		%\vspace{0.1cm}
-		\begin{subfigure}[t]{0.507\columnwidth}
-			\centering
-			\captionsetup{font=small}
-			\includegraphics[width=\linewidth]{figures/exp/attribute_multimodel.pdf}
-			\caption{\footnotesize MultiModel}
-			\label{fig:MultiModel}
-		\end{subfigure}	
-		\hfill
-		\begin{subfigure}[t]{0.48\columnwidth}
-			\centering
-			\captionsetup{font=small}
-			\includegraphics[width=\linewidth]{figures/exp/attribute_multimodel_1.pdf}
-			\caption{\footnotesize MultiModel}
-			\label{fig:MultiModel}
+		\begin{subfigure}[t]{0.98\columnwidth}
+		\centering
+		% First plot for the shared subfigure
+		\includegraphics[width=0.507\linewidth]{figures/exp/attribute_multimodel.pdf}
+		\hfill % Pushes the two plots apart
+		% Second plot for the shared subfigure
+		\includegraphics[width=0.48\linewidth]{figures/exp/attribute_multimodel_1.pdf}
+	
+		% Shared caption for the two plots above
+		\captionsetup{font=small}
+		\caption{MultiModel}
+		\label{fig:MultiModel_range} % A single label for the combined subfigure
 		\end{subfigure}
 		
 		\begin{subfigure}[t]{0.507\columnwidth}
@@ -1162,50 +1160,50 @@
 	
 %	\textit{\textbf{Multimodel, 85 and Deep100M.}} \textcolor{red}{The fig is Figure \ref{fig:TrinityExtension——Range}}
 	
-	\begin{figure}[t]
-		\centering
-		
-		
-		\hspace*{5pt}
-		% 放大的图例（占满单栏）
-		\includegraphics[width=0.98\columnwidth]{figures/exp/range_legend.pdf}
-		
-		%\vspace{0.1cm}
-		\begin{subfigure}[t]{0.507\columnwidth}
-			\centering
-			\captionsetup{font=small}
-			\includegraphics[width=\linewidth]{figures/exp/range_multimodel.pdf}
-			\caption{\footnotesize MultiModel}
-			\label{fig:MultiModel range}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[t]{0.48\columnwidth}
-			\centering
-			\captionsetup{font=small}
-			\includegraphics[width=\linewidth]{figures/exp/range_multimodel_1.pdf}
-			\caption{\footnotesize MultiModel}
-			\label{fig:MultiModel range}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[t]{0.507\columnwidth}
-			\centering
-			\includegraphics[width=\linewidth]{figures/exp/range_85.pdf}
-			\caption{\footnotesize Different Computer}
-			\label{fig:Different Computer range}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[t]{0.48\columnwidth}
-			\centering
-			\includegraphics[width=\linewidth]{figures/exp/range_deep100M.pdf}
-			\caption{\footnotesize Big Dataset}
-			\label{fig:Big Dataset range}
-		\end{subfigure}
-		
-		
-		\caption{\textcolor{red}TrinityExtension——Range}
-		\label{fig:TrinityExtension——Range}
-	\end{figure}
+\begin{figure}[t]
+	\centering
 	
+	% Legend
+	\includegraphics[width=0.98\columnwidth]{figures/exp/range_legend.pdf}
+	\vspace{0.2cm} % Added a little space after the legend
+	
+	% --- Subfigure (a) containing two plots ---
+	\begin{subfigure}[t]{0.98\columnwidth}
+		\centering
+		% First plot for the shared subfigure
+		\includegraphics[width=0.507\linewidth]{figures/exp/range_multimodel.pdf}
+		\hfill % Pushes the two plots apart
+		% Second plot for the shared subfigure
+		\includegraphics[width=0.48\linewidth]{figures/exp/range_multimodel_1.pdf}
+		
+		% Shared caption for the two plots above
+		\captionsetup{font=small}
+		\caption{MultiModel}
+		\label{fig:MultiModel_range} % A single label for the combined subfigure
+	\end{subfigure}
+	
+	% --- Subfigure (b) ---
+	\begin{subfigure}[t]{0.507\columnwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/exp/range_85.pdf}
+		\captionsetup{font=small}
+		\caption{Different Computer}
+		\label{fig:Different_Computer_range}
+	\end{subfigure}
+	\hfill
+	% --- Subfigure (c) ---
+	\begin{subfigure}[t]{0.48\columnwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/exp/range_deep100M.pdf}
+		\captionsetup{font=small}
+		\caption{Big Dataset}
+		\label{fig:Big_Dataset_range}
+	\end{subfigure}
+	
+	
+	\caption{\textcolor{red}{TrinityExtension——Range}}
+	\label{fig:TrinityExtension——Range}
+\end{figure}
 	
 	\section{DISCUSSION}
 	Based on the performance of the algorithms on different experimental scenarios, we discuss our findings as follows.
