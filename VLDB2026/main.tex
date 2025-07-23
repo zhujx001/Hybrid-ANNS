@@ -659,32 +659,37 @@
 		\label{fig:exp_1_2_SingleLabel_16thread}
 	\end{figure*}
 	
-	\textit{\textbf{Index construction time.}}
-	%As shown in Figure~\ref{fig:build_time_comparison_query1}, among the aforementioned 6 datasets, PASE has the longest index construction time due to its single-thread indexing support. Additionally, VBASE also supports only single-thread indexing but achieves better performance than PASE.
-	 \textcolor{orange}{As shown in Figure~\ref{fig:build_time_comparison_query1}, in the above datasets, both PASE and VBASE are single-threaded indexing methods, with PASE having the longest construction time. The on-demand loading and caching strategy used by PASE results in frequent disk I/O and page scheduling, which significantly slow down the construction process. In contrast, VBASE uses full in-memory construction, leading to faster indexing.}
+\textit{\textbf{Index construction time.}}
+%As shown in Figure~\ref{fig:build_time_comparison_query1}, among the aforementioned 6 datasets, PASE has the longest index construction time due to its single-thread indexing support. Additionally, VBASE also supports only single-thread indexing but achieves better performance than PASE.
+\textcolor{orange}{As shown in Figure~\ref{fig:build_time_comparison_query1}, in the above datasets, both PASE and VBASE are single-threaded indexing methods, with PASE having the longest construction time. The on-demand loading and caching strategy used by PASE results in frequent disk I/O and page scheduling, which significantly slow down the construction process. In contrast, VBASE uses full in-memory construction, leading to faster indexing.}
 
-	
-	For algorithms supporting 32-thread, ACORN-1 achieves the fastest index construction. This efficiency stems from its similarity to the original HNSW construction process and the use of a limited number of candidate neighbors. In contrast, ACORN-$\gamma$ incurs the highest index construction time, as it expands neighbor lists and evaluates a large candidate pool, leading to increased computational overhead. \textcolor{orange}{Its construction time on some datasets is even slower than that of the single-threaded VBASE.}
-	
-	
-	\textit{\textbf{Index size.}}
-	As shown in the Figure~\ref{fig:index_size_mb_comparison_query1}, PASE exhibits significantly larger index sizes across all supported datasets. This overhead stems primarily from its extensive metadata requirements. The index sizes of other methods show moderate variation.
-	 \textcolor{orange}{Among these, we observe a trend that IVF-based methods tend to produce more compact indexes compared to graph-based methods.}
-	 
-	 %\underline{Faiss generates slightly smaller indexes due to its efficient index design}.
-	
-	
-	
-	\textit{\textbf{Build peak memory.}}
-	As shown in Figure~\ref{fig:build_memory_mb_comparison}, 
-	%on small-scale datasets, all methods except NHQ exhibit low memory usage. 
-	\textcolor{orange}{NHQ has the highest peak memory usage on almost all datasets.}
-	This is because NHQ adopts the kgraph approach for index construction, which requires loading the entire graph data into memory and maintaining a complete graph structure, leading to relatively high memory overhead. 
-	
-	On large-scale datasets, CAPS exhibits slightly lower memory usage compared to other algorithms. \textcolor{orange}{The reason is that CAPS avoids redundant storage and graph structure overhead through hierarchical partitioning and AFT, and achieves a compact, sparse and controllable index. }.
-	
-	\textit{\textbf{ \textcolor{orange}{Search peak memory.}}}
-	 \textcolor{orange}{As shown in Figure~\ref{fig:search_memory_mb_comparison}, we can find that the peak memory usage of each algorithm during search does not differ significantly. Among them, CAPS and NHQ have relatively higher peak memory usage, while the peak memory usage of database is comparatively lower.}
+
+For algorithms supporting 32-thread, ACORN-1 achieves the fastest index construction. This efficiency stems from its similarity to the original HNSW construction process and the use of a limited number of candidate neighbors. In contrast, ACORN-$\gamma$ incurs the highest index construction time, as it expands neighbor lists and evaluates a large candidate pool, leading to increased computational overhead. \textcolor{orange}{Its construction time on some datasets is even slower than that of the single-threaded VBASE.}
+
+for big dataset:
+
+\textit{\textbf{Index size.}}
+As shown in the Figure~\ref{fig:index_size_mb_comparison_query1}, PASE exhibits significantly larger index sizes across all supported datasets. This overhead stems primarily from its extensive metadata requirements. The index sizes of other methods show moderate variation.
+\textcolor{orange}{Among these, we observe a trend that IVF-based methods tend to produce more compact indexes compared to graph-based methods.}
+
+for big dataset:
+%\underline{Faiss generates slightly smaller indexes due to its efficient index design}.
+
+
+
+\textit{\textbf{Build peak memory.}}
+% As shown in Figure~\ref{fig:build_memory_mb_comparison}, 
+% %on small-scale datasets, all methods except NHQ exhibit low memory usage. 
+% \textcolor{orange}{NHQ has the highest peak memory usage on almost all datasets.}
+% This is because NHQ adopts the kgraph approach for index construction, which requires loading the entire graph data into memory and maintaining a complete graph structure, leading to relatively high memory overhead. 
+% 
+% On large-scale datasets, CAPS exhibits slightly lower memory usage compared to other algorithms. \textcolor{orange}{The reason is that CAPS avoids redundant storage and graph structure overhead through hierarchical partitioning and AFT, and achieves a compact, sparse and controllable index. }.
+\textcolor{orange}{As shown in the Figure~\ref{fig:build_memory_mb_comparison}, the build peak memory usage is generally correlated with the sum of the index size generated by the algorithm and the dataset size. This trend holds consistently across different datasets. However, PASE breaks this pattern due to its on-demand loading strategy, resulting in peak memory usage even lower than the index size itself. For large-scale datasets, algorithms that produce larger indexes tend to cause significantly higher peak memory consumption during construction.}
+
+\textit{\textbf{ \textcolor{orange}{Search peak memory.}}}
+%  \textcolor{orange}{As shown in Figure~\ref{fig:search_memory_mb_comparison}, we can find that the peak memory usage of each algorithm during search does not differ significantly. Among them, CAPS and NHQ have relatively higher peak memory usage, while the peak memory usage of database is comparatively lower.}
+\textcolor{orange}{For most algorithms, the query phase requires loading both the index and the dataset into memory, so its peak memory usage is usually comparable to that of the construction phase. However, as shown in the Figure~\ref{fig:search_memory_mb_comparison}, CAPS exhibits significantly higher peak memory during querying due to the need to dynamically maintain large candidate sets. In contrast, Milvus has lower query-time memory usage because it does not fully load the index and incurs additional metadata overhead during construction.
+}
 	
 	\subsubsection{Performance Evaluation}
 	
