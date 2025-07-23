@@ -485,7 +485,7 @@
 	\subsection{Experimental Setup}
 	\subsubsection{Datasets}
 	
-	\textcolor{violet}{Our experiments employ 12 real-world datasets covering diverse domains: Audio, Deep1M, Enron, GIST1M, GloVe, Msong, SIFT1M, WIT-Real, YT-Audio-Real, Text2image, Text2image-Mix, and Deep100M.}
+	\textcolor{violet}{Our experiments employ 12 real-world datasets covering diverse domains: Audio~\cite{audio_unknown}, Deep1M~\cite{yandex_deep_dataset}, Enron~\cite{enron2015}, GIST1M~\cite{sift2010}, GloVe~\cite{GloVe2015}, Msong~\cite{msong2011}, SIFT1M~\cite{sift2010}, WIT-Real~\cite{wit_dataset}, YT-Audio-Real~\cite{youtube8m_dataset}, Text2image~\cite{texttoimage}, Text2image-Mix, and Deep100M.}
 	
 	\textcolor{violet}{The first seven datasets are widely used in existing literature. As they do not inherently come with attributes, we generate attributes for them to precisely control attribute quantity and distribution.}
 	
@@ -495,17 +495,17 @@
 	
 	Table~\ref{tab:datasets_combined} summarizes the key characteristics of all datasets and their applicable filtering scenarios. In particular, we report the Local Intrinsic Dimensionality (LID)~\cite{Lid}, which is a commonly used metric to quantify dataset hardness. Following the standard evaluation protocol~\cite{LID2}, we randomly sample 10,000 data points from each dataset to compute LID. The higher the LID value, the harder the dataset.
 	
-	For attribute filtering tasks, we employ 6 real-world datasets widely adopted in existing literature: Msong~\cite{msong2011}, Audio~\cite{audio_unknown}, SIFT1M~\cite{sift2010}, GIST1M~\cite{sift2010}, GloVe~\cite{GloVe2015}, Enron~\cite{enron2015}, covering a diverse range of domains. We independently generate attribute for each dataset.
+	%For attribute filtering tasks, we employ 6 real-world datasets widely adopted in existing literature: Msong~\cite{msong2011}, Audio~\cite{audio_unknown}, SIFT1M~\cite{sift2010}, GIST1M~\cite{sift2010}, GloVe~\cite{GloVe2015}, Enron~\cite{enron2015}, covering a diverse range of domains. We independently generate attribute for each dataset.
 	
-	\textcolor{violet}{For range filtering queries, we evaluate 1 widely used dataset: WIT~\cite{wit_dataset}. Following prior work~\cite{DSG}, we use the data point ID within each dataset as its attribute. This ensures that the data is initially sorted.}
+	%\textcolor{violet}{For range filtering queries, we evaluate 1 widely used dataset: WIT~\cite{wit_dataset}. Following prior work~\cite{DSG}, we use the data point ID within each dataset as its attribute. This ensures that the data is initially sorted.}
 	
-	\textcolor{violet}{Additionally, we introduced two datasets with real attributes for a more comprehensive evaluation of various attribute filtering and range query algorithms: The YT-Audio-Real dataset leverages URLs provided by the YouTube8M dataset to crawl corresponding video category IDs and view counts as its real attributes; whereas for the WIT-Real dataset, we used the \texttt{clip-vit-base-patch32} model to encode the \texttt{page\_title} field into vectors, and used the language type and the length of the \texttt{context\_page\_description} field as real attributes. It should be noted that, during range filtering, due to the limitations of some algorithms, we uniformly sorted the vectors according to the query attribute.}
+	%\textcolor{violet}{Additionally, we introduced two datasets with real attributes for a more comprehensive evaluation of various attribute filtering and range query algorithms: The YT-Audio-Real dataset leverages URLs provided by the YouTube8M dataset to crawl corresponding video category IDs and view counts as its real attributes; whereas for the WIT-Real dataset, we used the \texttt{clip-vit-base-patch32} model to encode the \texttt{page\_title} field into vectors, and used the language type and the length of the \texttt{context\_page\_description} field as real attributes. It should be noted that, during range filtering, due to the limitations of some algorithms, we uniformly sorted the vectors according to the query attribute.}
 	
-	\textcolor{violet}{To validate the algorithm generalization capability, we also further evaluated the performance of various algorithms on the Out-of-Distribution (OOD) dataset Text2Image~\cite{texttoimage} and the large-scale dataset Deep100M. Specifically, the Text2Image dataset comprises two versions: the original version contains 1 million image embeddings as the base dataset and uses 10 thousand text embeddings as the query set; the Text2Image-Mix version is composed of 0.5 million image embeddings and 0.5 million text embeddings as the base dataset, with a query set of 5 thousand image embeddings and 5 thousand text embeddings.}
+	%\textcolor{violet}{To validate the algorithm generalization capability, we also further evaluated the performance of various algorithms on the Out-of-Distribution (OOD) dataset Text2Image~\cite{texttoimage} and the large-scale dataset Deep100M. Specifically, the Text2Image dataset comprises two versions: the original version contains 1 million image embeddings as the base dataset and uses 10 thousand text embeddings as the query set; the Text2Image-Mix version is composed of 0.5 million image embeddings and 0.5 million text embeddings as the base dataset, with a query set of 5 thousand image embeddings and 5 thousand text embeddings.}
 	
 %	In addition, we evaluate the performance of different algorithms on the Out-of-Distribution (OOD) dataset Text2Image~\cite{texttoimage}.		
 	
-	Table~\ref{tab:datasets_combined} summarizes the key characteristics of all datasets. In particular, we report the Local Intrinsic Dimensionality (LID)~\cite{Lid}, a commonly used metric to quantify dataset hardness. Following the standard evaluation protocol~\cite{LID2}, we randomly sample 10,000 data points from each dataset for LID computation.The higher the LID value, the harder the dataset.
+	%Table~\ref{tab:datasets_combined} summarizes the key characteristics of all datasets. In particular, we report the Local Intrinsic Dimensionality (LID)~\cite{Lid}, a commonly used metric to quantify dataset hardness. Following the standard evaluation protocol~\cite{LID2}, we randomly sample 10,000 data points from each dataset for LID computation.The higher the LID value, the harder the dataset.
 	
 	
 	\renewcommand{\arraystretch}{0.9}
