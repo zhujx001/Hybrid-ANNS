@@ -641,7 +641,8 @@
 	
 	
 	
-	To investigate the performance of different attribute filtering algorithms during index construction, we evaluate \textcolor{orange}{4} key metrics in the single-attribute scenario: index construction time, index size, \textcolor{orange}{build peak memory and search peak memory}. Notably, PASE on GIST1M and Enron is omitted, as it supports only data with dimensionality less than 512. 
+	To investigate the performance of different attribute filtering algorithms during index construction, we evaluate \textcolor{orange}{4} key metrics in the single-attribute scenario: index construction time, index size, \textcolor{orange}{build peak memory and search peak memory}. Notably, PASE on GIST1M and Enron is omitted, as it supports only data with dimensionality less than 512. \textcolor{orange}{Except for algorithms that only support single-threaded construction, all other algorithms are built using 32 threads on the 6 datasets shown in the left figure, and 64 threads on the large-scale Deep100M dataset.}
+	
 	
 	\begin{figure*}
 		\centering
@@ -660,13 +661,19 @@
 	\end{figure*}
 	
 \textit{\textbf{Index construction time.}}
-%As shown in Figure~\ref{fig:build_time_comparison_query1}, among the aforementioned 6 datasets, PASE has the longest index construction time due to its single-thread indexing support. Additionally, VBASE also supports only single-thread indexing but achieves better performance than PASE.
-\textcolor{orange}{As shown in Figure~\ref{fig:build_time_comparison_query1}, in the above datasets, both PASE and VBASE are single-threaded indexing methods, with PASE having the longest construction time. The on-demand loading and caching strategy used by PASE results in frequent disk I/O and page scheduling, which significantly slow down the construction process. In contrast, VBASE uses full in-memory construction, leading to faster indexing.}
+\textcolor{orange}{Among the six regular-scale datasets shown in the left part of Figure~\ref{fig:build_time_comparison_query1}, the ones with longer build times are mainly PASE, VBASE, and ACORN. PASE and VBASE only support single-threaded builds, and PASE is the slowest to build because its on-demand loading and caching strategies frequently trigger disk I/O and page scheduling, which seriously affects efficiency; VBASE uses full-memory builds and is relatively faster. ACORN-$\gamma$  has a large computational overhead because it needs to expand the neighbor list and evaluate a large number of candidates. The build time on some datasets even exceeds that of single-threaded VBASE. }
 
+\textcolor{orange}{On large-scale dataset Deep100M, besides the three methods already mentioned with long build times, we also find that graph-based algorithms using pruning strategies (such as FilteredDiskANN and UNG) exhibit significantly increased construction time, especially when the pruning is complex and extensive, leading to higher computational overhead. In contrast, the construction time of IVF-based algorithms grows much more slowly with dataset size, thanks to their shard-based design and high parallel efficiency, making them more scalable and advantageous in large-scale scenarios.}
 
-For algorithms supporting 32-thread, ACORN-1 achieves the fastest index construction. This efficiency stems from its similarity to the original HNSW construction process and the use of a limited number of candidate neighbors. In contrast, ACORN-$\gamma$ incurs the highest index construction time, as it expands neighbor lists and evaluates a large candidate pool, leading to increased computational overhead. \textcolor{orange}{Its construction time on some datasets is even slower than that of the single-threaded VBASE.}
+%ACORN-1 achieves the fastest index construction. This efficiency stems from its similarity to the original HNSW construction process and the use of a limited number of candidate neighbors.
 
-for big dataset:
+%\textcolor{orange}{As shown in Figure~\ref{fig:build_time_comparison_query1}, in the above datasets, both PASE and VBASE are single-threaded indexing methods, with PASE having the longest construction time. The on-demand loading and caching strategy used by PASE results in frequent disk I/O and page scheduling, which significantly slow down the construction process. In contrast, VBASE uses full in-memory construction, leading to faster indexing.}
+%
+%
+%For algorithms supporting 32-thread, ACORN-1 achieves the fastest index construction. This efficiency stems from its similarity to the original HNSW construction process and the use of a limited number of candidate neighbors. In contrast, ACORN-$\gamma$ incurs the highest index construction time, as it expands neighbor lists and evaluates a large candidate pool, leading to increased computational overhead. \textcolor{orange}{Its construction time on some datasets is even slower than that of the single-threaded VBASE.}
+%
+%On large dataset Deep100M, VBASE takes longer to build because it only supports single-threaded construction. The other time-consuming algorithms are all graph-based methods, which employ complex pruning strategies during construction to optimize query performance, leading to significantly increased build times.
+
 
 \textit{\textbf{Index size.}}
 As shown in the Figure~\ref{fig:index_size_mb_comparison_query1}, PASE exhibits significantly larger index sizes across all supported datasets. This overhead stems primarily from its extensive metadata requirements. The index sizes of other methods show moderate variation.
