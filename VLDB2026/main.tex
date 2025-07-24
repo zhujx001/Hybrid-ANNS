@@ -298,7 +298,7 @@
 		\hline
 		
 	
-		\multicolumn{2}{|c|}{\textbf{Characteristics/Algorithm}} & \textbf{NHQ} & \textbf{Filtered} & \textbf{Stitched} & \textbf{CAPS} & \textbf{ACORN} & \textbf{UNG} & \textbf{Puck} & \textbf{DSG} & \textbf{iRange} & \textbf{SeRF} & \textbf{UNIFY} & \textbf{Win}
+		\multicolumn{2}{|c|}{\textbf{Characteristics/Algorithms}} & \textbf{NHQ} & \textbf{Filtered} & \textbf{Stitched} & \textbf{CAPS} & \textbf{ACORN} & \textbf{UNG} & \textbf{Puck} & \textbf{DSG} & \textbf{iRange} & \textbf{SeRF} & \textbf{UNIFY} & \textbf{Win}
 		 \\ \hline
 		\multirow{6}{*}{\textbf{AF}} 
 		& Filter Type         & C   & C   & C   & C   & B   & B   & B   & \multicolumn{5}{c|}{} \\ \cline{2-9}
@@ -334,7 +334,7 @@
 		\footnotesize{
 			\begin{minipage}{\linewidth}
 				\vspace{0.1cm}
-				\textsuperscript{A} Post-filtering, 
+				Win: WinFilter, Filtered: Filtered-DiskANN, Stitched: StitchedVamana. 
 				\textsuperscript{B} Pre-filtering, 
 				\textsuperscript{C} Simultaneous filtering, 
 				\textsuperscript{Y} Support, 
@@ -345,7 +345,7 @@
 				\textit{Dynamic Insert} indicates whether the algorithm supports the operation of dynamically inserting data points.
 				\textit{Multi Thread} indicates whether the algorithm supports multi-threaded search.
 				\textit{Disk Support} indicates whether the algorithm supports disk storage.
-				\textit{Base} indicates that the hybrid query algorithm is an improvement based on a specific ANN search algorithm.
+				\textit{Base} indicates the foundational ANN algorithm for the hybrid query method.
 		\end{minipage}}
 		
 	\end{table*}
@@ -641,7 +641,8 @@
 	
 	
 	
-	To investigate the performance of different attribute filtering algorithms during index construction, we evaluate \textcolor{orange}{4} key metrics in the single-attribute scenario: index construction time, index size, \textcolor{orange}{build peak memory and search peak memory}. Notably, PASE on GIST1M and Enron is omitted, as it supports only data with dimensionality less than 512. 
+	To investigate the performance of different attribute filtering algorithms during index construction, we evaluate \textcolor{orange}{4} key metrics in the single-attribute scenario: index construction time, index size, \textcolor{orange}{build peak memory and search peak memory}. Notably, PASE on GIST1M and Enron is omitted, as it supports only data with dimensionality less than 512. \textcolor{orange}{Except for algorithms that only support single-threaded construction, all other algorithms are built using 32 threads on the 6 datasets shown in the left figure, and 64 threads on the large-scale Deep100M dataset.}
+	
 	
 	\begin{figure*}
 		\centering
@@ -659,32 +660,43 @@
 		\label{fig:exp_1_2_SingleLabel_16thread}
 	\end{figure*}
 	
-	\textit{\textbf{Index construction time.}}
-	%As shown in Figure~\ref{fig:build_time_comparison_query1}, among the aforementioned 6 datasets, PASE has the longest index construction time due to its single-thread indexing support. Additionally, VBASE also supports only single-thread indexing but achieves better performance than PASE.
-	 \textcolor{orange}{As shown in Figure~\ref{fig:build_time_comparison_query1}, in the above datasets, both PASE and VBASE are single-threaded indexing methods, with PASE having the longest construction time. The on-demand loading and caching strategy used by PASE results in frequent disk I/O and page scheduling, which significantly slow down the construction process. In contrast, VBASE uses full in-memory construction, leading to faster indexing.}
+\textit{\textbf{Index construction time.}}
+\textcolor{orange}{Among the six regular-scale datasets shown in the left part of Figure~\ref{fig:build_time_comparison_query1}, the ones with longer build times are mainly PASE, VBASE, and ACORN. PASE and VBASE only support single-threaded builds, and PASE is the slowest to build because its on-demand loading and caching strategies frequently trigger disk I/O and page scheduling, which seriously affects efficiency; VBASE uses full-memory builds and is relatively faster. ACORN-$\gamma$  has a large computational overhead because it needs to expand the neighbor list and evaluate a large number of candidates. The build time on some datasets even exceeds that of single-threaded VBASE. }
 
-	
-	For algorithms supporting 32-thread, ACORN-1 achieves the fastest index construction. This efficiency stems from its similarity to the original HNSW construction process and the use of a limited number of candidate neighbors. In contrast, ACORN-$\gamma$ incurs the highest index construction time, as it expands neighbor lists and evaluates a large candidate pool, leading to increased computational overhead. \textcolor{orange}{Its construction time on some datasets is even slower than that of the single-threaded VBASE.}
-	
-	
-	\textit{\textbf{Index size.}}
-	As shown in the Figure~\ref{fig:index_size_mb_comparison_query1}, PASE exhibits significantly larger index sizes across all supported datasets. This overhead stems primarily from its extensive metadata requirements. The index sizes of other methods show moderate variation.
-	 \textcolor{orange}{Among these, we observe a trend that IVF-based methods tend to produce more compact indexes compared to graph-based methods.}
-	 
-	 %\underline{Faiss generates slightly smaller indexes due to its efficient index design}.
-	
-	
-	
-	\textit{\textbf{Build peak memory.}}
-	As shown in Figure~\ref{fig:build_memory_mb_comparison}, 
-	%on small-scale datasets, all methods except NHQ exhibit low memory usage. 
-	\textcolor{orange}{NHQ has the highest peak memory usage on almost all datasets.}
-	This is because NHQ adopts the kgraph approach for index construction, which requires loading the entire graph data into memory and maintaining a complete graph structure, leading to relatively high memory overhead. 
-	
-	On large-scale datasets, CAPS exhibits slightly lower memory usage compared to other algorithms. \textcolor{orange}{The reason is that CAPS avoids redundant storage and graph structure overhead through hierarchical partitioning and AFT, and achieves a compact, sparse and controllable index. }.
-	
-	\textit{\textbf{ \textcolor{orange}{Search peak memory.}}}
-	 \textcolor{orange}{As shown in Figure~\ref{fig:search_memory_mb_comparison}, we can find that the peak memory usage of each algorithm during search does not differ significantly. Among them, CAPS and NHQ have relatively higher peak memory usage, while the peak memory usage of database is comparatively lower.}
+\textcolor{orange}{On large-scale dataset Deep100M, besides the three methods already mentioned with long build times, we also find that graph-based algorithms using pruning strategies (such as FilteredDiskANN and UNG) exhibit significantly increased construction time, especially when the pruning is complex and extensive, leading to higher computational overhead. In contrast, the construction time of IVF-based algorithms grows much more slowly with dataset size, thanks to their shard-based design and high parallel efficiency, making them more scalable and advantageous in large-scale scenarios.}
+
+%ACORN-1 achieves the fastest index construction. This efficiency stems from its similarity to the original HNSW construction process and the use of a limited number of candidate neighbors.
+
+%\textcolor{orange}{As shown in Figure~\ref{fig:build_time_comparison_query1}, in the above datasets, both PASE and VBASE are single-threaded indexing methods, with PASE having the longest construction time. The on-demand loading and caching strategy used by PASE results in frequent disk I/O and page scheduling, which significantly slow down the construction process. In contrast, VBASE uses full in-memory construction, leading to faster indexing.}
+%
+%
+%For algorithms supporting 32-thread, ACORN-1 achieves the fastest index construction. This efficiency stems from its similarity to the original HNSW construction process and the use of a limited number of candidate neighbors. In contrast, ACORN-$\gamma$ incurs the highest index construction time, as it expands neighbor lists and evaluates a large candidate pool, leading to increased computational overhead. \textcolor{orange}{Its construction time on some datasets is even slower than that of the single-threaded VBASE.}
+%
+%On large dataset Deep100M, VBASE takes longer to build because it only supports single-threaded construction. The other time-consuming algorithms are all graph-based methods, which employ complex pruning strategies during construction to optimize query performance, leading to significantly increased build times.
+
+
+\textit{\textbf{Index size.}}
+As shown in the Figure~\ref{fig:index_size_mb_comparison_query1}, PASE exhibits significantly larger index sizes across all supported datasets. This overhead stems primarily from its extensive metadata requirements. The index sizes of other methods show moderate variation.
+\textcolor{orange}{Among these, we observe a trend that IVF-based methods tend to produce more compact indexes compared to graph-based methods.}
+
+for big dataset:
+%\underline{Faiss generates slightly smaller indexes due to its efficient index design}.
+
+
+
+\textit{\textbf{Build peak memory.}}
+% As shown in Figure~\ref{fig:build_memory_mb_comparison}, 
+% %on small-scale datasets, all methods except NHQ exhibit low memory usage. 
+% \textcolor{orange}{NHQ has the highest peak memory usage on almost all datasets.}
+% This is because NHQ adopts the kgraph approach for index construction, which requires loading the entire graph data into memory and maintaining a complete graph structure, leading to relatively high memory overhead. 
+% 
+% On large-scale datasets, CAPS exhibits slightly lower memory usage compared to other algorithms. \textcolor{orange}{The reason is that CAPS avoids redundant storage and graph structure overhead through hierarchical partitioning and AFT, and achieves a compact, sparse and controllable index. }.
+\textcolor{orange}{As shown in the Figure~\ref{fig:build_memory_mb_comparison}, the build peak memory usage is generally correlated with the sum of the index size generated by the algorithm and the dataset size. This trend holds consistently across different datasets. However, PASE breaks this pattern due to its on-demand loading strategy, resulting in peak memory usage even lower than the index size itself. For large-scale datasets, algorithms that produce larger indexes tend to cause significantly higher peak memory consumption during construction.}
+
+\textit{\textbf{ \textcolor{orange}{Search peak memory.}}}
+%  \textcolor{orange}{As shown in Figure~\ref{fig:search_memory_mb_comparison}, we can find that the peak memory usage of each algorithm during search does not differ significantly. Among them, CAPS and NHQ have relatively higher peak memory usage, while the peak memory usage of database is comparatively lower.}
+\textcolor{orange}{For most algorithms, the query phase requires loading both the index and the dataset into memory, so its peak memory usage is usually comparable to that of the construction phase. However, as shown in the Figure~\ref{fig:search_memory_mb_comparison}, CAPS exhibits significantly higher peak memory during querying due to the need to dynamically maintain large candidate sets. In contrast, Milvus has lower query-time memory usage because it does not fully load the index and incurs additional metadata overhead during construction.
+}
 	
 	\subsubsection{Performance Evaluation}
 	
@@ -769,6 +781,15 @@
 		\includegraphics[width=0.95\textwidth]{figures/exp/exp_3_1.pdf}
 		\caption{Effect of attribute distribution on query performance (single thread)}
 		\label{fig:exp_3_1}
+		
+		\footnotesize{
+		\begin{center}
+			\begin{minipage}{\linewidth}
+				\centering	
+				\textit{Strong} : robust to attribute distribution shifts,  \textit{Weak} : sensitive to attribute distribution shifts
+			\end{minipage}
+		\end{center}
+		}
 	\end{figure*}
 	
 	
@@ -811,7 +832,7 @@
 	
 	\textit{\textbf{Attribute Distribution.}} To evaluate performance across different attribute distributions, we generate base and query attribute sets with 4 representative distributions—long-tailed, normal, power-law, and uniform—across the 6 datasets described in Section~4.1.1. We evaluate all algorithms under these distributions on each dataset. The performance differences observed for the same algorithm across different datasets are relatively minor. Thus, due to space constraints, we present only the results on SIFT1M.
 	
-	As illustrated in Figure~\ref{fig:exp_3_1}, the evaluated algorithms exhibit varying degrees of sensitivity to attribute distribution shifts. \textcolor{cyan}{The proximity of the 4 curves (representing different attribute distributions) in the figure reflects algorithm sensitivity to distributional variations. When the curves converge closely, the algorithm demonstrates strong resilience against attribute distribution shifts. Conversely, greater divergence among the curves indicates higher distributional dependence. Accordingly, the "Strong" label signifies robust performance consistency across varying distributions, while "Weak" denotes pronounced performance fluctuations under distributional changes.} Specifically, ACORN, Milvus, Puck, CAPS, StitchedVamana, and UNG demonstrate strong robustness to such shifts. In contrast, Faiss, FilteredVamana, NHQ, VBASE, and PASE show notable sensitivity.
+	As illustrated in Figure~\ref{fig:exp_3_1}, the evaluated algorithms exhibit varying degrees of sensitivity to attribute distribution shifts. \textcolor{cyan}{The proximity of the 4 curves in the figure reflects algorithm sensitivity to distributional variations. When the curves converge closely, the algorithm demonstrates strong resilience against attribute distribution shifts.} Specifically, ACORN, Milvus, Puck, CAPS, StitchedVamana, and UNG demonstrate strong robustness to such shifts. In contrast, Faiss, FilteredVamana, NHQ, VBASE, and PASE show notable sensitivity.
 	
 	Among all algorithms, ACORN-\(\gamma\) shows the highest robustness. During index construction, attribute is mainly used for pruning in the lowest layer graph, while the upper-layer hierarchical navigation graphs remain largely unaffected. As a result, changes in attribute distribution have a limited impact on overall performance.
 	
@@ -954,13 +975,56 @@
 	
 	\textcolor{green}{Most algorithms exhibit the worst performance on the OOD dataset Text2Image. However, ACORN, UNG, and FilteredVamana show relatively stable performance on Text2Image. Their performance drops less compared to in-distribution (ID) datasets such as GIST1M and GloVe, indicating better adaptability to OOD queries.}
 	
-
+\begin{figure*}[t]
+	\centering
+	
+	% 1. 全局图例 (Legend) - 位置保持不变
+	\includegraphics[width=0.9\textwidth]{figures/exp/attribute_legend.pdf}
+	
+	% --- 主要改动：将以下三个 subfigure 全部放在同一行 ---
+	
+	% 2. 第一部分：两张图，共用标题
+	% [b]表示按底部对齐，在一行内通常比顶部对齐[t]效果好
+	% 宽度从\textwidth缩小到0.32\textwidth
+	\begin{subfigure}[b]{0.39\textwidth}
+		\centering
+		% 内部图片宽度使用\linewidth，它会自适应为容器宽度(0.32\textwidth)
+		\includegraphics[width=0.495\linewidth]{figures/exp/attribute_multimodel.pdf}
+		\hfill 
+		\includegraphics[width=0.47\linewidth]{figures/exp/attribute_multimodel_1.pdf}
+		\caption{MultiModal}
+		\label{fig:attribute-multimodal} 
+	\end{subfigure}
+	\hfill % 在第一部分和第二部分之间添加弹性间距
+	% 3. 第二部分：两张图，共用标题
+	\begin{subfigure}[b]{0.39\textwidth}
+		\centering
+		\includegraphics[width=0.495\linewidth]{figures/exp/attribute_85.pdf}
+		\hfill
+		\includegraphics[width=0.47\linewidth]{figures/exp/attribute_71.pdf}
+		\caption{Cross-Platform}
+		\label{fig:attribute-cross-platform}
+	\end{subfigure}
+	\hfill % 在第二部分和第三部分之间添加弹性间距
+	% 4. 第三部分：只有一张图
+	\begin{subfigure}[b]{0.203\textwidth}
+		\centering
+		% !!! 注意：这是一个占位符，请替换成您自己的第五张图 !!!
+		\includegraphics[width=0.96\linewidth]{figures/exp/attribute_100M.pdf} 
+		\caption{Dig Dataset}
+		\label{fig:attribute big dataset}
+	\end{subfigure}
+	
+	% 5. 全局总标题
+	\caption{\textcolor{violet}TrinityExtension——Attribution}
+	\label{fig:TrinityExtension——Attribution_main}
+\end{figure*}
 	
 	\subsubsection{Scalability Study}
 	
 	\textit{\textbf{\textcolor{blue}{Different Hardware Environments.}}} 
-	\textcolor{cyan}{To investigate the impact of different server configurations on the performance of the algorithms, we conducted additional experiments on Server B using the YT-Audio-Real dataset, and the results are shown in Figure~\ref{fig:Different Computer}. Compared with the experimental results on Server A shown in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}f, the relative ranking of the algorithms remains largely unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency and smaller RAM capacity of Server B compared to Server A, the QPS values are slightly lower across all methods.}
-%	\textcolor{red}{To investigate the impact of different server configurations on the performance of the algorithms, we conducted additional experiments on a server equipped with two Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset, and the results are shown in Figure~\ref{fig:Different Computer}. Compared with the experimental results on the original server (as shown in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}(f)), the relative ranking of the algorithms remains largely unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency of the Xeon 6330 compared to the original server, the QPS values are slightly lower across all methods.}
+%	\textcolor{cyan}{To investigate the impact of different server configurations on the performance of the algorithms, we conducted additional experiments on Server B using the YT-Audio-Real dataset, and the results are shown in Figure~\ref{fig:Different Computer}. Compared with the experimental results on Server A shown in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}f, the relative ranking of the algorithms remains largely unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency and smaller RAM capacity of Server B compared to Server A, the QPS values are slightly lower across all methods.}
+	\textcolor{red}{To investigate the impact of different server configurations on the performance of the algorithms, we conduct additional experiments on a server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset, and the results are shown in Figure~\ref{fig:Different Computer}. Compared with the experimental results on the original server (as shown in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}(f)), the relative ranking of the algorithms remains largely unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency and smaller RAM capacity, the QPS values are slightly lower across all methods.}
 
 	\textit{\textbf{\textcolor{blue}{Large-scale Datasets.}}} 
 	\textcolor{violet}{As shown in the figure~\ref{fig:Big Dataset}, On the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating their good adaptability to large-scale datasets; however, this also comes with significant memory overhead. The clustering-based algorithm Faiss+HQI\_Batch shows moderate performance but has very low memory overhead, which makes it highly attractive for practical applications. We did not present the experimental results for StitchedVamana because we found that its recall consistently remained at a very low level. Its search starting point is set to 0 by default, and when the entry point is far from the target area, it easily gets stuck in a local optimum, making it difficult to navigate to the vicinity of the correct point.}
@@ -981,101 +1045,62 @@ a}
 	
 %	\textit{\textbf{Multimodel, 85 and Deep100M.}} \textcolor{red}{The fig is Figure \ref{fig:TrinityExtension——Attribution}}
 	
-	\begin{figure}[t]
-		\centering
-		
-		
-		\hspace*{5pt}
-		% 放大的图例（占满单栏）
-		\includegraphics[width=0.98\columnwidth]{figures/exp/attribute_legend.pdf}
-		
-		%\vspace{0.1cm}
-		\begin{subfigure}[t]{0.98\columnwidth}
-		\centering
-		% First plot for the shared subfigure
-		\includegraphics[width=0.507\linewidth]{figures/exp/attribute_multimodel.pdf}
-		\hfill % Pushes the two plots apart
-		% Second plot for the shared subfigure
-		\includegraphics[width=0.48\linewidth]{figures/exp/attribute_multimodel_1.pdf}
-	
-		% Shared caption for the two plots above
-		\captionsetup{font=small}
-		\caption{MultiModal}
-		\label{fig:MultiModal} % A single label for the combined subfigure
-		\end{subfigure}
-		
-		\begin{subfigure}[t]{0.507\columnwidth}
-			\centering
-			\includegraphics[width=\linewidth]{figures/exp/attribute_85.pdf}
-			\caption{\footnotesize Different Computer}
-			\label{fig:Different Computer}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[t]{0.48\columnwidth}
-			\centering
-			\includegraphics[width=\linewidth]{figures/exp/attribute_100M.pdf}
-			\caption{\footnotesize Big Dataset}
-			\label{fig:Big Dataset}
-		\end{subfigure}
+% 使用 figure* 环境来实现图片横跨双栏
+% 使用 figure* 环境来实现图片横跨双栏
 
-		
-		\caption{\textcolor{violet}TrinityExtension——Attribution}
-		\label{fig:TrinityExtension——Attribution}
-	\end{figure}
 	
 	\subsection{Range Filtering}
 	
 	\subsubsection{Time and Space overhead of index construction.}
 	
-	\begin{figure}[t]
+\begin{figure*}[t]
+	\centering
+	
+	% 1. 全局图例 (Legend) - 位置保持不变
+	\includegraphics[width=0.9\textwidth]{figures/exp/range_legend.pdf}
+	
+	% --- 主要改动：将以下三个 subfigure 全部放在同一行 ---
+	
+	% 2. 第一部分：两张图，共用标题
+	% [b]表示按底部对齐，在一行内通常比顶部对齐[t]效果好
+	% 宽度从\textwidth缩小到0.32\textwidth
+	\begin{subfigure}[b]{0.39\textwidth}
 		\centering
-		
-		
-		\hspace*{5pt}
-		% 放大的图例（占满单栏）
-		\includegraphics[width=0.98\columnwidth]{figures/indexData/rangeFilter_legend_only.pdf}
-		
-		%\vspace{0.1cm}
-		
-		% 三图横排
-		\begin{subfigure}[t]{0.495\columnwidth}
-			\centering
-			\captionsetup{font=small}
-			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_build_time_comparison_query.pdf}
-			\caption{\footnotesize Construction time}
-			\label{fig:rangeFilter_build_time}
-		\end{subfigure}
+		% 内部图片宽度使用\linewidth，它会自适应为容器宽度(0.32\textwidth)
+		\includegraphics[width=0.495\linewidth]{figures/exp/range_multimodel.pdf}
+		\hfill 
+		\includegraphics[width=0.47\linewidth]{figures/exp/range_multimodel_1.pdf}
+		\caption{MultiModal}
+		\label{fig:range-multimodal} 
+	\end{subfigure}
+	\hfill % 在第一部分和第二部分之间添加弹性间距
+	% 3. 第二部分：两张图，共用标题
+	\begin{subfigure}[b]{0.39\textwidth}
+		\centering
+		\includegraphics[width=0.495\linewidth]{figures/exp/range_85.pdf}
 		\hfill
-		\begin{subfigure}[t]{0.495\columnwidth}
-			\centering
-			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_index_size_mb_comparison_query.pdf}
-			\caption{\footnotesize Index size}
-			\label{fig:rangeFilter_index_size_mb}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[t]{0.495\columnwidth}
-			\centering
-			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_memory_mb_comparison_query.pdf}
-			\caption{\footnotesize Build peak memory}
-			\label{fig:rangeFilter_build_memory_mb}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[t]{0.495\columnwidth}
-			\centering
-			\includegraphics[width=\linewidth]{figures/searchMem/range_memory_comparison.pdf}
-			\caption{\footnotesize Search peak memory}
-			\label{fig:rangeFilter_search_memory_mb}
-		\end{subfigure}
-		
-		%		\caption{Time and space overhead of range filtering index construction}
-%		\caption{Time and space overhead of index construction}
-		\caption{\textcolor{violet}{Time and space overhead}}
-		\label{fig:rangeFilter_build_index_comparison}
-	\end{figure}
+		\includegraphics[width=0.47\linewidth]{figures/exp/range_71.pdf}
+		\caption{Cross-Platform}
+		\label{fig:range-cross-platform}
+	\end{subfigure}
+	\hfill % 在第二部分和第三部分之间添加弹性间距
+	% 4. 第三部分：只有一张图
+	\begin{subfigure}[b]{0.203\textwidth}
+		\centering
+		% !!! 注意：这是一个占位符，请替换成您自己的第五张图 !!!
+		\includegraphics[width=0.96\linewidth]{figures/exp/range_deep100M.pdf} 
+		\caption{Dig Dataset}
+		\label{fig: range big dataset}
+	\end{subfigure}
+	
+	% 5. 全局总标题
+	\caption{\textcolor{violet}TrinityExtension——Range}
+	\label{fig:TrinityExtension——Attribution_main}
+\end{figure*}
 	
 	%Similar to the evaluation of \textit{Attribute Filtering} algorithms, 
-	Similarly, we also evaluate \textcolor{orange}{4} key metrics mentioned above in \textit{Range Filtering} algorithms. \textcolor{orange}{For the YT-Audio dataset with synthetic attributes and the YT-Audio dataset with real attributes, we can found that the data for index construction is basically the same, indicating that the authenticity of the attribute has almost no effect on index construction.
-	However, the WIT dataset with synthetic labels is 2048-dimensional, while the WIT-Real dataset with real labels is 512-dimensional, so the dimension will cause a big difference.}
+	Similarly, we also evaluate \textcolor{orange}{4} key metrics mentioned above in \textit{Range Filtering} algorithms. 
+%	\textcolor{orange}{For the YT-Audio dataset with synthetic attributes and the YT-Audio dataset with real attributes, we can found that the data for index construction is basically the same, indicating that the authenticity of the attribute has almost no effect on index construction.However, the WIT dataset with synthetic labels is 2048-dimensional, while the WIT-Real dataset with real labels is 512-dimensional, so the dimension will cause a big difference.}
 	
 	\textit{\textbf{Index construction time.}}
 	Figure~\ref{fig:rangeFilter_build_time} shows the single-threaded index construction time. Faiss builds the index fastest. As Faiss obtains subsamples through sampling and calculates the cluster centroid, the computational complexity is significantly reduced.
@@ -1086,30 +1111,33 @@ a}
 	WinFilter relies on a tree structure, requiring separate nearest-neighbor graphs per node. This causes redundant computation and high costs, especially for large datasets.
 	ACORN-\(\gamma\) expands the neighbor list of each node to provide more candidate paths, which increases both computation and storage costs. It also prunes distant neighbors to save storage space. However, this introduces additional overhead and slows down the construction process.
 	
+	\textcolor{orange}{Note: For large-scale datasets, all algorithms are built using 64 threads for efficiency, except DSG, which only supports single-threaded construction. As a result, DSG takes significantly longer to build on Deep100M.
+	}
+	
 	\textit{\textbf{Index size.}} 
 	As shown in Figure~\ref{fig:rangeFilter_index_size_mb}, Among all algorithms, Faiss has the smallest index size. Because IVF only adds centroid data and partition information to the vector dataset, the IVF index is only slightly larger than the vector dataset.
-	On low-dimensional datasets (Deep, YT-Audio), PASE requires the most storage. Its implementation likely wastes space due to alignment padding and inefficient encoding. %(e.g., Base64).
+	%On low-dimensional datasets (Deep, YT-Audio), 
+	PASE requires the most storage. Its implementation likely wastes space due to alignment padding and inefficient encoding. %(e.g., Base64).
+	\textcolor{orange}{DSG is an improvement over SeRF. Compared to SeRF, DSG stores additional information for each edge in its index structure, resulting in a significant increase in index size on large-scale datasets.
+	}
 	
-	SeRF maintains a compact index for low-dimensional data. However, for high-dimensional dataset (WIT), SeRF stores more edges and dynamic range data, significantly increasing its size.
+	%SeRF maintains a compact index for low-dimensional data. However, for high-dimensional dataset (WIT), SeRF stores more edges and dynamic range data, significantly increasing its size.
 	
 	\textit{\textbf{Build peak memory.}}
-	As Figure~\ref{fig:rangeFilter_build_memory_mb} shows, Faiss uses the least memory on low-dimensional datasets. It stores minimal temporary data during index construction.
+	\textcolor{orange}{As explained in the build peak memory analysis for attribute filtering, the build peak memory depends on the sum of the index size and the dataset size, as shown in Figure~\ref{fig:rangeFilter_build_memory_mb}. Range filtering also follows this pattern. The reason why PASE deviates from this trend has been discussed earlier, and is not repeated here to save space.}
 	
-	On low-dimensional datasets, DSG and WinFilter exhibit higher peak memory usage compared to other algorithms. This suggests that their index structures suffer from severe structural redundancy and are difficult to compress in low-dimensional scenarios.
-	%因为低维空间中数据点之间的欧氏距离普遍较小，点与点之间更易互为近邻，从而导致图索引中产生大量冗余的边连接。
-	
-	
-	%As Figure~\ref{fig:rangeFilter_memory_mb} shows, Faiss uses the least memory on low-dimensional datasets (Deep, YT-Audio). It stores minimal temporary data (e.g., vectors, centroids, distances) during index construction.
-	
-	For high-dimensional dataset WIT, iRange achieves the lowest peak memory usage. It pre-builds graphs only for a limited number of intervals, avoiding explicit index construction for all possible query ranges. Its index structure remains stable in high dimensions without significant graph growth. This effectively controls index size, making iRange more advantageous for high-dimensional datasets.
-	In contrast, \textcolor{orange}{Milvus exhibits the highest memory consumption,}
-	%Unify exhibits the highest memory consumption, indicating that its index construction process is highly sensitive to the dimensionality of the data.
+%	As Figure~\ref{fig:rangeFilter_build_memory_mb} shows, Faiss uses the least memory on low-dimensional datasets. It stores minimal temporary data during index construction.
+%	
+%	On low-dimensional datasets, DSG and WinFilter exhibit higher peak memory usage compared to other algorithms. This suggests that their index structures suffer from severe structural redundancy and are difficult to compress in low-dimensional scenarios.
+%	
+%	For high-dimensional dataset WIT, iRange achieves the lowest peak memory usage. It pre-builds graphs only for a limited number of intervals, avoiding explicit index construction for all possible query ranges. Its index structure remains stable in high dimensions without significant graph growth. This effectively controls index size, making iRange more advantageous for high-dimensional datasets.
+%	In contrast, \textcolor{orange}{Milvus exhibits the highest memory consumption,}
+
+
 	
 		\textit{\textbf{\textcolor{orange}{Search peak memory.}}}
-		
-	%	\textcolor{orange}{As shown in Figure~\ref{fig:rangeFilter_search_memory_mb}, Faiss and Milvus have the lowest peak memory usage during search. Similar to attribute filtering, Faiss also has a smaller index size and no other additional memory usage, so the peak memory usage in range queries is slightly higher than the index size. Milvus reason:. WinFilter achieves the highest peak memory usage on almost all datasets. The reason is:. For the high-dimensional dataset WIT, UNIFY occupies the highest peak memory. The reason is:.}
-		
-		\textcolor{orange}{As for the search peak memory usage, we can find from the Figure ~\ref{fig:rangeFilter_search_memory_mb} that it is basically consistent with the build peak memory usage trend. The algorithm needs to load the complete index into memory during search. Therefore, algorithms with high building overhead, such as WinFilter, also have high search overhead; algorithms with low building overhead, such as Faiss, also have low search overhead. For Milvus, search does not require full index loading and there is additional metadata overhead when building, so the performance is different from the trend.}
+		\textcolor{orange}{As for the search peak memory usage, we can find from the Figure ~\ref{fig:rangeFilter_search_memory_mb} that it is basically consistent with the build peak memory usage trend. As we analyzed in the section on attribute filtering.
+		}
 		
 	\begin{figure*}[t]
 		
@@ -1176,7 +1204,7 @@ a}
 	\subsubsection{Scalability Study}
 		
 	\textit{\textbf{\textcolor{blue}{Different Hardware Environments.}}}
-	\textcolor{cyan}{As described in Section 4.2.4, we performed additional range filtering experiments using the YT-Audio-Real dataset on Server B, with results presented in Figure~\ref{fig:Different_Computer_range}. When compared with the experimental results of Server A shown in Figure~\ref{fig:exp_8_2}a, our findings remain consistent with those reported in Section 4.2.4. For brevity and due to space limitations, we omit further discussion of these redundant results.}
+	\textcolor{cyan}{Consistent with Section 4.2.4, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure~\ref{fig:Different_Computer_range}. When compared with the experimental results of the original server shown in Figure~\ref{fig:exp_8_2}a, our findings remain consistent with those reported in Section 4.2.4. For brevity and due to space limitations, we omit further discussion of these redundant results.}
 %	\textcolor{cyan}{Consistent with Section 4.2.4, we conducted additional range filtering experiments using the YT-Audio-Real dataset on the same server, with results shown in Figure \ref{fig:Different Computer range}. Compared with the original server's experimental results (Figure \ref{fig:exp_8_2}($e$)), the conclusions remain identical to those described in Section 4.2.4. Due to space constraints, these details are not reiterated here.}
 	
 	\textit{\textbf{\textcolor{red}{Large-scale Datasets.}}} \textcolor{red}{As shown in the figure~\ref{fig:Big_Dataset_range}, On the 100M dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption, as detailed in Figure~\ref{fig:rangeFilter_search_memory_mb}. Meanwhile, VBASE and Faiss demonstrate moderate performance but significantly lower memory consumption than the top three algorithms}.
@@ -1253,14 +1281,15 @@ a}
 			& \textbf{DSG} & \textbf{iRange} & \textbf{SeRF} & \textbf{UNIFY} & \textbf{Win} 
 			& \textbf{ACORN}& \textbf{Faiss} & \textbf{Milvus} & \textbf{VBASE} & \textbf{PASE} \\
 			\hline
-			\textbf{Query Performance} & H & M & H & M &\textbf{ H} & H & M & M & L & M & H & M/M & M/M & M/M & L/L & L/L \\
+			\textbf{Query Performance} & H & M & H & M &\textbf{H} & H & M & M & L & M & H & M/M & M/M & M/M & L/L & L/L \\
 			\textbf{Index Time} &M  &M  &M  &M  &M  &H  &L  &M  &H  &L  &L  &L/L &\textbf{H}/ \textbf{H} &M/H  &M/M  &L/L  \\
 			\textbf{Peak Memory} &L  &M  &M  &M  &M  &H  &L  &L  &M  &L  &L  &L/L  &\textbf{H}/\textbf{H}  &M/M  &H/M  &H/H \\
 		
-			\textbf{Large-Scale Dataset} & H & H & L & L &\textbf{H } &H  &M  &H  &M  &H  &\textbf{H}  &M/L  &L/M  &L/L  &M/M  &-  \\
+			\textbf{Large-Scale Dataset} & H & H & L & L &\textbf{H} &H  &M  &H  &M  &H  &\textbf{H}  &M/L  &L/M  &L/L  &M/M  &-  \\
 			\textbf{Rare Attribute \& Low Range} &M  &M  &H  &H &\textbf{H}  &H  &H  &H  &L  &M  &\textbf{H} &M/M  &M/M  &L/L  &L/L  &L/L  \\
-			\textbf{Insensitive to Data Distribution} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
-			\textbf{High LID Dataset} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+			\textbf{Robust to MultiModal Dataset} &H  &H  &L  &H  &\textbf{H}  &L  &M  &H  &M  &H  &\textbf{H}  &H/H  &M/M  &L/L  &L/L  &-/-  \\
+			\textbf{Robust to Attribute Distribution} &L  &L  &H  &H  &H  &H  &-  &-  &-  &-  &-  &H/-  &L/-  &\textbf{H}/-  &L/-  &L/-  \\
+			\textbf{High LID Dataset} &H  &M  &H  &M  &\textbf{H}  &M  &M  &H  &M  &H  &\textbf{H}  &L/L  &M/H  &L/L  &L/M  &L/L  \\
 			\textbf{General-Purpose} &\faCheck  &\faCheck  &\faTimes  &\faTimes  &\faCheck  &\faTimes  &\faTimes  &\faCheck &\faTimes  & \faTimes &\faCheck&\faTimes  &\faCheck  &\faCheck  &\faTimes &\faTimes  \\
 			\hline
 		\end{tabular}
