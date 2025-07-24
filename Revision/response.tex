@@ -619,10 +619,11 @@ Of all the evaluated algorithms, only Faiss supports quantization. However, in o
 
 \textbf{Regarding Figure 7 and the exclusion of Vamana:}
 
-We appreciate the observation of reviewer. Figure 7 presents experiments on multi-attribute construction and search, using Boolean AND logic. The Vamana-based methods (FilteredVamana and StitchedVamana) only support Boolean OR logic for multi-attribute search, which is why they were not included. We will clarify this point in the revised version of the paper.
+We appreciate the observation of reviewer. Figure 7 presents experiments on multi-attribute construction and search, using Boolean AND logic. The Vamana-based methods (FilteredVamana and StitchedVamana) only support Boolean OR logic for multi-attribute search, which is why they were not included. Since other algorithms also do not support multi-attribute queries, we will explain this situation collectively in the corresponding section of the paper to save space.
+
 Please see the section 4.2.2 on Multi-Attribute Construction and Multi-Attribute Query.
 
-\textcolor{blue}{"Note that FilterDiskANN only supports Boolean OR logic and does not support Boolean AND. Therefore, its two Vamana-based methods are excluded from the multi-attribute construction and search experiments."}
+\textcolor{blue}{"In this experiment, we only evaluate the algorithms that support this query scenario."}
 
 %Thanks to the reviewer for suggesting that there is no explanation in Figure 7 why Vamana is not included. Figure 7 is an experiment on multi-label construction and search, and the Boolean logic of multi-label search is AND. The two algorithms using Vamana, FilteredVamana and StitchedVamana, only support Boolean logic OR for multi-label search, so we did not include them. We will add an explanation of this in the paper.
 
