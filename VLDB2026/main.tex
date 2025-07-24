@@ -678,10 +678,14 @@
 
 
 \textit{\textbf{Index size.}}
-As shown in the Figure~\ref{fig:index_size_mb_comparison_query1}, PASE exhibits significantly larger index sizes across all supported datasets. This overhead stems primarily from its extensive metadata requirements. The index sizes of other methods show moderate variation.
-\textcolor{orange}{Among these, we observe a trend that IVF-based methods tend to produce more compact indexes compared to graph-based methods.}
+\textcolor{orange}{
+	As shown in Figure~\ref{fig:index_size_mb_comparison_query1}, PASE exhibits significantly larger index sizes across all supported datasets, mainly due to its reliance on a large amount of metadata. For regular-scale datasets, other methods show moderate variation. However, on large-scale dataset, the index sizes of ACORN and FilteredDiskANN increase sharply. The reason is xxx. Overall, IVF-based methods tend to produce more compact indexes.
+}
 
-for big dataset:
+%As shown in the Figure~\ref{fig:index_size_mb_comparison_query1}, PASE exhibits significantly larger index sizes across all supported datasets. This overhead stems primarily from its extensive metadata requirements. The index sizes of other methods show moderate variation.
+%\textcolor{orange}{Among these, we observe a trend that IVF-based methods tend to produce more compact indexes compared to graph-based methods.}
+
+
 %\underline{Faiss generates slightly smaller indexes due to its efficient index design}.
 
 
