@@ -301,13 +301,14 @@
 		\multicolumn{2}{|c|}{\textbf{Characteristics/Algorithms}} & \textbf{NHQ} & \textbf{Filtered} & \textbf{Stitched} & \textbf{CAPS} & \textbf{ACORN} & \textbf{UNG} & \textbf{Puck} & \textbf{DSG} & \textbf{iRange} & \textbf{SeRF} & \textbf{UNIFY} & \textbf{Win}
 		 \\ \hline
 		\multirow{6}{*}{\textbf{AF}} 
-		& Filter Type         & C   & C   & C   & C   & B   & B   & B   & \multicolumn{5}{c|}{} \\ \cline{2-9}
+		%& Filter Type         & C   & C   & C   & C   & B   & B   & B   & \multicolumn{5}{c|}{} \\ \cline{2-9}
 		& AND                 & Y   & N   & N   & Y   & Y   & Y   & Y   & \multicolumn{5}{c|}{\multirow{4}{*}{\centering\shortstack{AF\\not support}}} \\ \cline{2-9}
 		& OR                  & N   & Y   & Y   & N   & Y   & Y   & Y   & \multicolumn{5}{c|}{} \\ \cline{2-9}
 		& Flexible Attributes & N   & Y   & Y   & Y   & Y   & Y   & Y   & \multicolumn{5}{c|}{} \\ \cline{2-9}
 		& Complex Boolean     & N   & N   & N   & N   & Y   & N   & N   & \multicolumn{5}{c|}{} \\ \hline
 		
 		\multicolumn{2}{|l|}{\textbf{RF}}             & N & N & N & N & Y & N & N & Y & Y & Y & Y & Y \\ \hline
+			\multicolumn{2}{|l|}{\textbf{Filter Type }}             & C & C & C & C & B & B & B & B & B & B & A/B/C & A \\ \hline
 		\multicolumn{2}{|l|}{\textbf{Dynamic Insert}} & N & Y & N & Y & Y & Y & Y & N & Y & Y & Y & Y \\ \hline
 		\multicolumn{2}{|l|}{\textbf{Multi Thread}}   & N & Y & Y & Y & Y & Y & Y & N & Y & Y & Y & Y \\ \hline
 		\multicolumn{2}{|l|}{\textbf{Disk Support}}           &N  & Y& N & N & N & N & N & N & N & N & N & N \\ \hline
@@ -334,7 +335,8 @@
 		\footnotesize{
 			\begin{minipage}{\linewidth}
 				\vspace{0.1cm}
-				Win: WinFilter, Filtered: Filtered-DiskANN, Stitched: StitchedVamana. 
+				Win: WinFilter, Filtered: FilteredVamana, Stitched: StitchedVamana. 
+				\textsuperscript{A} Post-filtering, 
 				\textsuperscript{B} Pre-filtering, 
 				\textsuperscript{C} Simultaneous filtering, 
 				\textsuperscript{Y} Support, 
@@ -797,14 +799,25 @@ for big dataset:
 	
 	
 	\textit{\textbf{Multi-Attribute Building and Multi-Attribute Query.}}  
-	Compared to single-attribute filtering, multi-attribute joint filtering better reflects real-world scenarios. To evaluate algorithm performance under this setting, we construct the index using 3 uniformly distributed attributes and apply filtering on all 3 attributes simultaneously during queries. \textcolor{orange}{In this experiment, we only evaluate the algorithms that support this query scenario.}
-	%	\textcolor{red}{As Filtered-DiskANN does not support the AND rule used in our multi-attribute queries, it is excluded.}
-	%	Compared to single-attribute filtering, multi-attribute joint filtering better reflects real-world application scenarios. To evaluate algorithm performance under such scenario, we construct the index using 3 uniformly distributed attributes and apply filtering conditions on all 3 attributes simultaneously during the query process.
+	Compared to single-attribute filtering, multi-attribute joint filtering better reflects real-world scenarios. To evaluate algorithm performance under this setting, we construct the index using 3 uniformly distributed attributes and apply filtering on all 3 attributes simultaneously during queries. \textcolor{violet}{In this experiment, we only evaluate algorithms that support this multi-attribute query scenario.}
 	
-	As shown in Figure~\ref{fig:exp_4_1_MultiLabel_1thread}, UNG achieves the best performance across all datasets. For IVF-based methods not specifically optimized for hybrid queries (Faiss\_IVF and Milvus), their QPS remains relatively stable as recall varies. Milvus, as a general-purpose system, exhibits comparatively poor performance. 
+	As shown in Figure~\ref{fig:exp_4_1_MultiLabel_1thread}, UNG still maintains the best performance across all datasets. Since some strong competing algorithms do not support multi-attribute querying, CAPS becomes the second-best algorithm, but its performance on small datasets is relatively poor. This is because CAPS performs multi-level partitioning based on attributes on top of the IVF index, which introduces additional overhead. While this overhead negatively impacts performance on small datasets, on large datasets, the overhead is amortized, and the increasing dataset scale makes the advantages of attribute-aware partitioning evident.
 	
-
-		The IVF-based algorithm Faiss---especially when combined with HQI\_Batch---achieves moderate performance. It naturally supports pre-filtering and remains unaffected by the increasing number of attributes. In fact, filtering can reduce the effective candidate set, thereby improving search efficiency. In contrast, the IVF-based algorithm CAPS, which is optimized for hybrid queries, employs a multi-level partitioning strategy that introduces additional overhead. This overhead negatively impacts performance on small datasets. However, on large datasets, the overhead is amortized, and the advantages of attribute-aware partitioning become evident, making CAPS the second-best performer after UNG.
+	NHQ performs moderately overall in multi-attribute joint filtering scenarios but poorly on small datasets. Its reliance on fusion distance computations makes it highly sensitive to the number of attributes, impacting both efficiency and accuracy under multi-attribute filtering.
+	
+	For IVF-based methods not specifically optimized for hybrid queries (Faiss and Milvus), their QPS shows a similar and relatively stable trend as recall varies. Among them, Milvus, as a general-purpose system, exhibits comparatively poor performance.
+	
+%	Compared to single-attribute filtering, multi-attribute joint filtering better reflects real-world scenarios. To evaluate algorithm performance under this setting, we construct the index using 3 uniformly distributed attributes and apply filtering on all 3 attributes simultaneously during queries. \textcolor{orange}{Note that FilterDiskANN only supports Boolean OR logic and does not support Boolean AND. Therefore, its two Vamana-based methods are excluded from the multi-attribute construction and search experiments.}
+%	%	\textcolor{red}{As Filtered-DiskANN does not support the AND rule used in our multi-attribute queries, it is excluded.}
+%	%	Compared to single-attribute filtering, multi-attribute joint filtering better reflects real-world application scenarios. To evaluate algorithm performance under such scenario, we construct the index using 3 uniformly distributed attributes and apply filtering conditions on all 3 attributes simultaneously during the query process.
+%	
+%	As shown in Figure~\ref{fig:exp_4_1_MultiLabel_1thread}, UNG achieves the best performance across all datasets. For IVF-based methods not specifically optimized for hybrid queries (Faiss\_IVF and Milvus), their QPS remains relatively stable as recall varies. Milvus, as a general-purpose system, exhibits comparatively poor performance. 
+%	
+%
+%	The IVF-based algorithm Faiss---especially when combined with HQI\_Batch---achieves moderate performance. It naturally supports pre-filtering and remains unaffected by the increasing number of attributes. In fact, filtering can reduce the effective candidate set, thereby improving search efficiency. In contrast, the IVF-based algorithm CAPS, which is optimized for hybrid queries, employs a multi-level partitioning strategy that introduces additional overhead. This overhead negatively impacts performance on small datasets. However, on large datasets, the overhead is amortized, and the advantages of attribute-aware partitioning become evident, making CAPS the second-best performer after UNG.
+%	
+%	NHQ performs moderately overall but poorly on small datasets. Its reliance on fusion distance computations makes it highly sensitive to the number of attributes, impacting both efficiency and accuracy under multi-attribute filtering.
+	
 	
 	
 	%	In contrast, Faiss—especially when combined with HQI\_Batch—achieves medium-level performance. Its original IVF implementation naturally supports pre-filtering and does not suffer from the complexity introduced by an increased number of attributes. In fact, filtering can reduce the effective candidate set, improving efficiency.
@@ -813,7 +826,6 @@ for big dataset:
 	%	The IVF-based algorithm CAPS, optimized for hybrid queries, employs a multi-level partitioning strategy that introduces additional overhead. This overhead negatively impacts performance on small datasets. However, on large datasets, the overhead is amortized, and the benefits of attribute-aware partitioning become evident, making CAPS the second-best performer after UNG.
 	
 	%	NHQ exhibits mediocre performance overall and performs particularly poorly on small datasets. It relies on fusion distance calculations. The fusion distance computation is highly sensitive to the number of attributes involved, thus impacting both efficiency and accuracy under multi-attribute filtering.
-	NHQ performs moderately overall but poorly on small datasets. Its reliance on fusion distance computations makes it highly sensitive to the number of attributes, impacting both efficiency and accuracy under multi-attribute filtering.
 	
 	
 	
@@ -824,11 +836,16 @@ for big dataset:
 	
 	As illustrated in Figure~\ref{fig:exp_3_1}, the evaluated algorithms exhibit varying degrees of sensitivity to attribute distribution shifts. \textcolor{cyan}{The proximity of the 4 curves in the figure reflects algorithm sensitivity to distributional variations. When the curves converge closely, the algorithm demonstrates strong resilience against attribute distribution shifts.} Specifically, ACORN, Milvus, Puck, CAPS, StitchedVamana, and UNG demonstrate strong robustness to such shifts. In contrast, Faiss, FilteredVamana, NHQ, VBASE, and PASE show notable sensitivity.
 	
-	Among all algorithms, ACORN-\(\gamma\) shows the highest robustness. During index construction, attribute is mainly used for pruning in the lowest layer graph, while the upper-layer hierarchical navigation graphs remain largely unaffected. As a result, changes in attribute distribution have a limited impact on overall performance.
-	
-	\textcolor{cyan}{In contrast, FilteredVamana achieves optimal performance under long-tail and uniform distributions, as these enable construction of balanced label subgraphs with minimal inter-label interference, thus improving search accuracy and efficiency. However, its performance declines under power-law and normal distributions: power-law distributions cause excessive concentration of popular labels and fragmentation of niche labels, disrupting search path connectivity, while normal distributions produce ambiguous graph structures due to label frequency similarities, leading to search divergence. 
-	Under the power-law distribution, when the NHQ algorithm constructs an index based on fusion distance, points corresponding to high-frequency attribute values make the graph connections extremely dense, while points corresponding to low-frequency attribute values tend to become isolated due to sparse connections. This extreme imbalance in connectivity severely distorts the structure of the graph, ultimately significantly impairing the overall performance of the algorithm.
-	The search performance of VBASE exhibits a direct dependence on attribute selectivity. As selectivity decreases, search speed declines. Notably, only uniform distribution maintains sufficient selectivity among the tested cases; the other three distributions consistently show low selectivity levels that significantly degrade the operational efficiency of VBASE.}
+	{\color{blue}{
+		Algorithms that are highly sensitive to attribute distribution tend to rely passively on the statistical characteristics of the attributes in their design. For instance, graph-based indexing methods like FilteredVamana and NHQ are prone to degraded connectivity or distorted structures under power-law distributions, where label frequencies are highly imbalanced. Similarly, VBASE, which employs a post-filtering strategy, shows efficiency that directly correlates with attribute selectivity—the more selective the filter, the more computational resources are wasted on retrieving irrelevant vectors. FAISS-IVF, which searches within the nearest clusters, may also suffer when relevant data points are unevenly distributed across clusters due to attribute skew, potentially excluding qualified results.
+		
+		In contrast, algorithms with low sensitivity to attribute distribution incorporate smarter indexing designs or adaptive query strategies to mitigate these challenges. Milvus, for example, leverages a built-in query optimizer that dynamically determines whether to filter by attributes or search vectors first, based on the selectivity of the query, thus ensuring more robust performance. Other approaches enhance robustness by separating attribute and vector indexing into distinct stages: UNG uses a logical graph to navigate attribute relationships, while CAPS employs an attribute frequency tree to adapt to power-law patterns. ACORN takes a different approach by disregarding attribute distribution entirely during index construction—it builds an ultra-dense, oversaturated graph to ensure that the remaining subgraph, even after aggressive attribute filtering, is still likely to be well-connected and searchable.}}
+		
+%	Among all algorithms, ACORN-\(\gamma\) shows the highest robustness. During index construction, attribute is mainly used for pruning in the lowest layer graph, while the upper-layer hierarchical navigation graphs remain largely unaffected. As a result, changes in attribute distribution have a limited impact on overall performance.
+%	
+%	\textcolor{cyan}{In contrast, FilteredVamana achieves optimal performance under long-tail and uniform distributions, as these enable construction of balanced label subgraphs with minimal inter-label interference, thus improving search accuracy and efficiency. However, its performance declines under power-law and normal distributions: power-law distributions cause excessive concentration of popular labels and fragmentation of niche labels, disrupting search path connectivity, while normal distributions produce ambiguous graph structures due to label frequency similarities, leading to search divergence. 
+%	Under the power-law distribution, when the NHQ algorithm constructs an index based on fusion distance, points corresponding to high-frequency attribute values make the graph connections extremely dense, while points corresponding to low-frequency attribute values tend to become isolated due to sparse connections. This extreme imbalance in connectivity severely distorts the structure of the graph, ultimately significantly impairing the overall performance of the algorithm.
+%	The search performance of VBASE exhibits a direct dependence on attribute selectivity. As selectivity decreases, search speed declines. Notably, only uniform distribution maintains sufficient selectivity among the tested cases; the other three distributions consistently show low selectivity levels that significantly degrade the operational efficiency of VBASE.}
 	
 	\begin{figure}
 		\centering
@@ -1014,7 +1031,7 @@ for big dataset:
 	
 	\textit{\textbf{\textcolor{blue}{Different Hardware Environments.}}} 
 %	\textcolor{cyan}{To investigate the impact of different server configurations on the performance of the algorithms, we conducted additional experiments on Server B using the YT-Audio-Real dataset, and the results are shown in Figure~\ref{fig:Different Computer}. Compared with the experimental results on Server A shown in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}f, the relative ranking of the algorithms remains largely unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency and smaller RAM capacity of Server B compared to Server A, the QPS values are slightly lower across all methods.}
-	\textcolor{red}{To investigate the impact of different server configurations on the performance of the algorithms, we conduct additional experiments on a server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset, and the results are shown in Figure~\ref{fig:Different Computer}. Compared with the experimental results on the original server (as shown in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}(f)), the relative ranking of the algorithms remains largely unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency and smaller RAM capacity, the QPS values are slightly lower across all methods.}
+	\textcolor{red}{To investigate the impact of different server configurations on the performance of the algorithms, we conduct additional experiments on a server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset, and the results are shown in Figure~\ref{fig:attribute-cross-platform}. Compared with the experimental results on the original server, the relative ranking of the algorithms remains largely unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency and smaller RAM capacity, the QPS values are slightly lower across all methods.}
 
 	\textit{\textbf{\textcolor{blue}{Large-scale Datasets.}}} 
 	\textcolor{violet}{As shown in the figure~\ref{fig:Big Dataset}, On the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating their good adaptability to large-scale datasets; however, this also comes with significant memory overhead. The clustering-based algorithm Faiss+HQI\_Batch shows moderate performance but has very low memory overhead, which makes it highly attractive for practical applications. We did not present the experimental results for StitchedVamana because we found that its recall consistently remained at a very low level. Its search starting point is set to 0 by default, and when the entry point is far from the target area, it easily gets stuck in a local optimum, making it difficult to navigate to the vicinity of the correct point.}
@@ -1190,7 +1207,22 @@ a}
 	%	This suggests that the effectiveness of RF-ANN search is mainly influenced by LID of the dataset. A higher LID inherently increases the difficulty of hybrid query.
 	%	
 	%	However, the DSG algorithm shows a noticeable performance gap between the Deep and YT-Audio datasets, despite their comparable LID. This indicates that DSG is less robust than other methods when facing dataset-dependent variations, possibly due to its sensitivity to data distribution beyond LID alone.
-\begin{figure*}[t]
+	
+	\subsubsection{Scalability Study}
+		
+	\textit{\textbf{\textcolor{blue}{Different Hardware Environments.}}}
+	\textcolor{cyan}{Consistent with Section 4.2.4, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure~\ref{fig:Different_Computer_range}. When compared with the experimental results of the original server, our findings remain consistent with those reported in Section 4.2.4. For brevity and due to space limitations, we omit further discussion of these redundant results.}
+%	\textcolor{cyan}{Consistent with Section 4.2.4, we conducted additional range filtering experiments using the YT-Audio-Real dataset on the same server, with results shown in Figure \ref{fig:Different Computer range}. Compared with the original server's experimental results (Figure \ref{fig:exp_8_2}($e$)), the conclusions remain identical to those described in Section 4.2.4. Due to space constraints, these details are not reiterated here.}
+	
+	\textit{\textbf{\textcolor{red}{Large-scale Datasets.}}} \textcolor{red}{As shown in the figure~\ref{fig:Big_Dataset_range}, On the 100M dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption, as detailed in Figure~\ref{fig:rangeFilter_search_memory_mb}. Meanwhile, VBASE and Faiss demonstrate moderate performance but significantly lower memory consumption than the top three algorithms}.
+	
+	\textit{\textbf{\textcolor{blue}{Multi-modal Queries}}}
+	\textcolor{blue}{
+	Similar to attribute filtering, the performance of multimodal queries with range filtering shown in Figure~\ref{fig:MultiModal_range} is also consistent with the single-modality results in Figure~\ref{fig:exp_8_2}. As shown in Figure~\ref{fig:exp_8_3}, the algorithms still perform the worst on multimodal datasets like Text2Image. This is because these range query algorithms are almost graph-based. Graph algorithms need more iterations to find true neighbors in OOD datasets.}
+	
+%	\textit{\textbf{Multimodel, 85 and Deep100M.}} \textcolor{red}{The fig is Figure \ref{fig:TrinityExtension——Range}}
+	
+\begin{figure}[t]
 	\centering
 	
 	% 1. 全局图例 (Legend) - 位置保持不变
