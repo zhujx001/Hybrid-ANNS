@@ -535,7 +535,7 @@ Thank you for the suggestion. Since there are multiple methods, listing all URLs
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We add experiments on the Deep100M dataset in Section 4.2.4 and Section 4.3.4, and we observe some pitfalls. For more details, please refer to our response to Meta Review R7.
+Thank you for your suggestion. We have added experiments on the Deep100M dataset in Section 4.2.4 and Section 4.3.4, and we observed some pitfalls. For more details, please refer to our response to Meta Review R7.
 
 %%%%%%%%%%%%%%%%%%%%%% W2 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -546,7 +546,7 @@ Thank you for your suggestion. We add experiments on the Deep100M dataset in Sec
 
 \noindent
 \textbf{Response:} 
-Thank you for pointing this out. We agree that the initial explanations accompanying the performance results were not sufficiently detailed in highlighting the strengths and weaknesses of the compared algorithms. We have conducted a more in-depth analysis of the reasons behind certain behaviors observed in the experimental results. The specific revisions are as follows:
+Thank you for pointing this out. We agree that the initial explanations accompanying the performance results were not sufficiently detailed in highlighting the strengths and weaknesses of the compared algorithms. We have conducted a more in-depth analysis of the reasons behind certain behaviors observed in the experimental results. 
 %下面写每个修改过的理由
 %%%%%%%%%%%%%%%%%%%%%% W3 %%%%%%%%%%%%%%%%%%%%%%
 
@@ -575,7 +575,7 @@ Thank you for pointing this out. We agree that the initial explanations accompan
 
 \noindent
 \textbf{Response:}
-Thank you for your suggestion. We acknowledge that the original manuscript did not clearly explain how attribute filtering (AF) and range filtering (RF) are embedded into standard graph-based and IVF-based index structures. We revise Section 2.2 and add two paragraphs. These paragraphs summarize how the algorithms discussed in this paper implement hybrid query functionality based on these foundational indexing structures.
+Thank you for your suggestion. We acknowledge that the original manuscript did not clearly explain how attribute filtering (AF) and range filtering (RF) are embedded into standard graph-based and IVF-based index structures. We have revised Section 2.2 and added two paragraphs. These paragraphs summarize how the algorithms discussed in this paper implement hybrid query functionality based on these foundational indexing structures.
 
 \textcolor{blue}{"Graph-based indexes are widely adopted in Hybrid ANN search algorithms due to their excellent performance. To support hybrid queries, existing approaches usually augment the original graph structures by explicitly associating attribute or range information with vertices or edges. In attribute filtering, a common approach is to attach attribute metadata to vertices or edges, allowing the traversal process to skip nodes or edges that do not meet the query's attribute conditions (e.g., NHQ, Filtered-DiskANN, ACORN). In range filtering, edges typically store valid attribute intervals, and traversal proceeds only along edges satisfying the range constraints, effectively narrowing down the search space (e.g., SeRF, DSG)."}
 	
@@ -607,7 +607,7 @@ We conducted experiments on a 100M-scale deep dataset and analyzed the performan
 
 \textbf{Regarding the experimental parameter settings:}
 
-For datasets with recommended parameters provided in the original papers, we directly used those recommended settings. For other datasets, we select the parameter combinations that performed best through empirical evaluation. All parameters used in the experiments are available in our public code repository.
+For datasets with recommended parameters provided in the original papers, we directly used those recommended settings. For other datasets, we selected the parameter combinations that performed best through empirical evaluation. All parameters used in the experiments are available in our public code repository.
 
 According to our experimental results, for datasets using the recommended parameters, the algorithm rankings remained unchanged. During the search process, we adjusted the search parameters to obtain different Recall and QPS values. The search parameters typically span a wide range of values to ensure the completeness of the experimental results.
 
@@ -622,7 +622,7 @@ For partitioning and merging, only Filtered-DiskANN, which supports disk storage
 
 \textbf{Regarding quantization time in index build:}
 
-Of all the evaluated algorithms, only Faiss supports quantization. However, in our experiments, we used the IVF index structure of Faiss without employing quantization. Therefore, no quantization time was included in the reported index build times.
+Of all the evaluated algorithms, Faiss, Puck, DiskANN, and Milvus support quantization. However, in our experiments, we did not enable quantization in any of our experiments. Therefore, no quantization time was included in the reported index build times.
 
 \textbf{Regarding Figure 7 and the exclusion of Vamana:}
 
@@ -648,7 +648,7 @@ Please see the section 4.2.2 on Multi-Attribute Construction and Multi-Attribute
 
 \noindent
 \textbf{Response:} 
-Thank you for the suggestion. We realized that the original wording is somewhat vague and lead to confusion among readers. To address this, we merged the tables for attribute filtering (AF) and range filtering (RF), and clarified the support of each algorithm for AF and RF in the unified table.
+Thank you for the suggestion. We realized that the original wording is somewhat vague and led to confusion among readers. To address this, we merged the tables for attribute filtering (AF) and range filtering (RF), and clarified the support of each algorithm for AF and RF in the unified table.
 
 \textcolor{blue}{"The fused table is Table1: Comparison of AF-ANN and RF-ANN search algorithms."}
 
