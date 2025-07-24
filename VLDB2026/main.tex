@@ -230,18 +230,26 @@
 	\textcolor{violet}{Here, we briefly review the core concepts of these indexes and outline how attributes and range constraints are embedded to support hybrid query functionality.}
 	
 	\noindent\textbf{\underline{Graph.}}
-	Graph-based ANN search algorithms accelerate queries by building graph indexes on datasets. As illustrated in Figure~\ref{fig:graph}, each data point in the dataset corresponds to a point in the graph, and neighboring vertices (e.g., $a$ and $b$) are connected via edges based on their distance $\textit{dist}(a, b)$. In the graph index, each point maintains connections only to its nearest neighbors to preserve query efficiency. For instance, in Figure~\ref{fig:graph}, the gray point $c$ is connected to 5 neighbors $(a, b, d, e, f)$ and can traverse to them via corresponding edges.
+	Graph structures accelerate ANN search by connecting each data point with its nearest neighbors, as shown in Figure~\ref{fig:graph}. During querying, algorithms start from an initial point and use a greedy strategy to progressively move towards closer neighbors until convergence (e.g., the path from $c$ to $j$ in the 1NN case).
 	
-	Given a query point $q$, the graph-based ANN search typically follows a greedy search strategy to find the $k$ nearest neighbors. For illustration, consider the case where $k = 1$ (i.e., 1NN): The algorithm initiates the search from an entry point (the gray point $c$). If there exists a neighbor $n$ (the point $f$) of the current point such that $\textit{dist}(n, q) < \textit{dist}(c, q)$, the algorithm updates the current point to $n$. This process is iteratively repeated—always moving to the neighbor closest to $q$—until no neighbor is found that is closer than the current point. The final point reached (the blue point $j$) is returned as the approximate nearest neighbor of $q$.
+	Graph indexes are widely used in Hybrid ANN due to their efficiency. To support hybrid queries, in attribute filtering, a common practice involves attaching attribute metadata to nodes or edges, thereby skipping parts that do not satisfy query conditions during traversal (e.g., NHQ, Filtered-DiskANN, ACORN). In range filtering, edges typically store valid attribute intervals, and traversal proceeds only along edges that satisfy range constraints, thus narrowing the search space (e.g., SeRF, DSG).
 	
-	\textcolor{violet}{Graph-based indexes are widely adopted in Hybrid ANN search algorithms due to their excellent performance. To support hybrid queries, existing approaches usually augment the original graph structures by explicitly associating attribute or range information with vertices or edges. In attribute filtering, a common approach is to attach attribute metadata to vertices or edges, allowing the traversal process to skip nodes or edges that do not meet attribute conditions of the query (e.g., NHQ, Filtered-DiskANN, ACORN). In range filtering, edges typically store valid attribute intervals, and traversal proceeds only along edges satisfying the range constraints, effectively narrowing down the search space (e.g., SeRF, DSG).}
+%	Graph-based ANN search algorithms accelerate queries by building graph indexes on datasets. As illustrated in Figure~\ref{fig:graph}, each data point in the dataset corresponds to a point in the graph, and neighboring vertices (e.g., $a$ and $b$) are connected via edges based on their distance $\textit{dist}(a, b)$. In the graph index, each point maintains connections only to its nearest neighbors to preserve query efficiency. For instance, in Figure~\ref{fig:graph}, the gray point $c$ is connected to 5 neighbors $(a, b, d, e, f)$ and can traverse to them via corresponding edges.
+%	
+%	Given a query point $q$, the graph-based ANN search typically follows a greedy search strategy to find the $k$ nearest neighbors. For illustration, consider the case where $k = 1$ (i.e., 1NN): The algorithm initiates the search from an entry point (the gray point $c$). If there exists a neighbor $n$ (the point $f$) of the current point such that $\textit{dist}(n, q) < \textit{dist}(c, q)$, the algorithm updates the current point to $n$. This process is iteratively repeated—always moving to the neighbor closest to $q$—until no neighbor is found that is closer than the current point. The final point reached (the blue point $j$) is returned as the approximate nearest neighbor of $q$.
+%	
+%	\textcolor{violet}{Graph-based indexes are widely adopted in Hybrid ANN search algorithms due to their excellent performance. To support hybrid queries, existing approaches usually augment the original graph structures by explicitly associating attribute or range information with vertices or edges. In attribute filtering, a common approach is to attach attribute metadata to vertices or edges, allowing the traversal process to skip nodes or edges that do not meet attribute conditions of the query (e.g., NHQ, Filtered-DiskANN, ACORN). In range filtering, edges typically store valid attribute intervals, and traversal proceeds only along edges satisfying the range constraints, effectively narrowing down the search space (e.g., SeRF, DSG).}
 	
 	
-	\noindent\textbf{\underline{IVF.}}  IVF-based ANN search algorithms improve computational efficiency by partitioning the dataset into clusters and restricting the search to clusters nearest to the query point. Specifically, as shown in Figure~\ref{fig:ivf}, IVF first selects a subset of data points and applies a clustering algorithm (e.g., K-Means) to obtain a set of centroids $(C_0, C_1, ..., C_6)$, each representing a distinct cluster. Every data point (gray dots) is then assigned to the cluster corresponding to its nearest centroid based on the distance metric, thereby forming the index structure.
+	\noindent\textbf{\underline{IVF.}} 
+	IVF divides data into multiple clusters through clustering (e.g., K-Means), with each cluster represented by a center (Figure~\ref{fig:ivf}). During querying, algorithms search only within the few clusters closest to the query point, which reduces computational load.
 	
-	During the query process, given a query point $q$, the algorithm computes distances between $q$ and all centroids, selects a small number of the closest centroids ($C_0, C_1, C_2$), and then performs a search only within the associated clusters to identify the approximate nearest neighbors.
-	
-	\textcolor{violet}{IVF-based indexes also offer unique advantages in Hybrid ANN search scenarios, such as naturally supporting pre-filtering and requiring significantly lower memory consumption and smaller index sizes compared to graph-based indexes. With minor modifications, IVF indexes achieve attribute and range filtering by directly excluding vectors that do not meet query constraints through pre-filtering, thus skipping irrelevant vectors during intra-cluster distance computations (e.g., Faiss, Milvus). Moreover, clusters can be further partitioned hierarchically based on attributes (hierarchical partitioning), resulting in finer-grained sub-partitions that significantly enhance the efficiency of attribute filtering (e.g., CAPS, PUCK).}
+	IVF-based indexes also offer unique advantages in Hybrid ANN search scenarios, including natural support for pre-filtering, low memory footprint, and small index size. Efficient filtering is achieved by excluding vectors that do not satisfy attribute constraints before distance computation (e.g., Faiss, Milvus). Furthermore, hierarchical partitioning by attributes can form finer-grained sub-clusters to enhance filtering efficiency (e.g., CAPS, PUCK).
+%	IVF-based ANN search algorithms improve computational efficiency by partitioning the dataset into clusters and restricting the search to clusters nearest to the query point. Specifically, as shown in Figure~\ref{fig:ivf}, IVF first selects a subset of data points and applies a clustering algorithm (e.g., K-Means) to obtain a set of centroids $(C_0, C_1, ..., C_6)$, each representing a distinct cluster. Every data point (gray dots) is then assigned to the cluster corresponding to its nearest centroid based on the distance metric, thereby forming the index structure.
+%	
+%	During the query process, given a query point $q$, the algorithm computes distances between $q$ and all centroids, selects a small number of the closest centroids ($C_0, C_1, C_2$), and then performs a search only within the associated clusters to identify the approximate nearest neighbors.
+%	
+%	\textcolor{violet}{IVF-based indexes also offer unique advantages in Hybrid ANN search scenarios, such as naturally supporting pre-filtering and requiring significantly lower memory consumption and smaller index sizes compared to graph-based indexes. With minor modifications, IVF indexes achieve attribute and range filtering by directly excluding vectors that do not meet query constraints through pre-filtering, thus skipping irrelevant vectors during intra-cluster distance computations (e.g., Faiss, Milvus). Moreover, clusters can be further partitioned hierarchically based on attributes (hierarchical partitioning), resulting in finer-grained sub-partitions that significantly enhance the efficiency of attribute filtering (e.g., CAPS, PUCK).}
 	
 	\begin{figure}
 		\begin{subfigure}{0.60\columnwidth}
@@ -1110,20 +1118,16 @@ a}
 	\subsubsection{Time and Space overhead of index construction.}
 	
 	%Similar to the evaluation of \textit{Attribute Filtering} algorithms, 
-	Similarly, we also evaluate \textcolor{orange}{4} key metrics mentioned above in \textit{Range Filtering} algorithms. 
+	Similarly, we also evaluate \textcolor{orange}{4} key metrics mentioned above in \textit{Range Filtering} algorithms. \textcolor{orange}{Note: For regular-scale datasets, all algorithms build indexes using a single thread. For the large-scale dataset Deep100M, all algorithms use 64 threads for index construction to improve efficiency, except DSG, which only supports single-threaded construction.}
 %	\textcolor{orange}{For the YT-Audio dataset with synthetic attributes and the YT-Audio dataset with real attributes, we can found that the data for index construction is basically the same, indicating that the authenticity of the attribute has almost no effect on index construction.However, the WIT dataset with synthetic labels is 2048-dimensional, while the WIT-Real dataset with real labels is 512-dimensional, so the dimension will cause a big difference.}
 	
 	\textit{\textbf{Index construction time.}}
-	Figure~\ref{fig:rangeFilter_build_time} shows the single-threaded index construction time. Faiss builds the index fastest. As Faiss obtains subsamples through sampling and calculates the cluster centroid, the computational complexity is significantly reduced.
-	%	shows the single-threaded index construction time. Faiss builds the index fastest. Because Faiss obtains subsamples through sampling and then calculates the cluster centroid, the computational complexity is significantly reduced.
-	
-	
+%	Figure~\ref{fig:rangeFilter_build_time} shows the single-threaded index construction time. 
+	As shown in the Figure~\ref{fig:rangeFilter_build_time}, for regular-scale datasets, Faiss builds the index fastest. As Faiss obtains subsamples through sampling and calculates the cluster centroid, the computational complexity is significantly reduced.
+
 	WinFilter and ACORN-\(\gamma\) take the longest.
 	WinFilter relies on a tree structure, requiring separate nearest-neighbor graphs per node. This causes redundant computation and high costs, especially for large datasets.
 	ACORN-\(\gamma\) expands the neighbor list of each node to provide more candidate paths, which increases both computation and storage costs. It also prunes distant neighbors to save storage space. However, this introduces additional overhead and slows down the construction process.
-	
-	\textcolor{orange}{Note: For large-scale datasets, all algorithms are built using 64 threads for efficiency, except DSG, which only supports single-threaded construction. As a result, DSG takes significantly longer to build on Deep100M.
-	}
 	
 	\textit{\textbf{Index size.}} 
 	As shown in Figure~\ref{fig:rangeFilter_index_size_mb}, Among all algorithms, Faiss has the smallest index size. Because IVF only adds centroid data and partition information to the vector dataset, the IVF index is only slightly larger than the vector dataset.
@@ -1300,7 +1304,7 @@ a}
 			\textbf{Robust to MultiModal Dataset} &H  &H  &L  &H  &\textbf{H}  &L  &M  &H  &M  &H  &\textbf{H}  &H/H  &M/M  &L/L  &L/L  &-/-  \\
 			\textbf{Robust to Attribute Distribution} &L  &L  &H  &H  &H  &H  &-  &-  &-  &-  &-  &H/-  &L/-  &\textbf{H}/-  &L/-  &L/-  \\
 			\textbf{High LID Dataset} &H  &M  &H  &M  &\textbf{H}  &M  &M  &H  &M  &H  &\textbf{H}  &L/L  &M/H  &L/L  &L/M  &L/L  \\
-			\textbf{General-Purpose} &\faCheck  &\faCheck  &\faTimes  &\faTimes  &\faCheck  &\faTimes  &\faTimes  &\faCheck &\faTimes  & \faTimes &\faCheck&\faTimes  &\faCheck  &\faCheck  &\faTimes &\faTimes  \\
+			\textbf{General-Purpose} &\faCheck  &\faCheck  &\faTimes  &\faTimes  &\faCheck  &\faTimes  &\faTimes  &\faTimes &\faTimes  & \faCheck &\faCheck&\faTimes  &\faCheck  &\faCheck  &\faCheck&\faTimes  \\
 			\hline
 		\end{tabular}
 	}
