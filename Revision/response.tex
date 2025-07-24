@@ -622,7 +622,7 @@ For partitioning and merging, only Filtered-DiskANN, which supports disk storage
 
 \textbf{Regarding quantization time in index build:}
 
-Of all the evaluated algorithms, only Faiss supports quantization. However, in our experiments, we used the IVF index structure of Faiss without employing quantization. Therefore, no quantization time was included in the reported index build times.
+Of all the evaluated algorithms, Faiss, Puck, DiskANN, and Milvus support quantization. However, in our experiments, we did not enable quantization in any of our experiments. Therefore, no quantization time was included in the reported index build times.
 
 \textbf{Regarding Figure 7 and the exclusion of Vamana:}
 
