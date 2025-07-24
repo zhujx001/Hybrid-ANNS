@@ -334,7 +334,7 @@
 		\footnotesize{
 			\begin{minipage}{\linewidth}
 				\vspace{0.1cm}
-				\textsuperscript{A} Post-filtering, 
+				Win: WinFilter, Filtered: Filtered-DiskANN, Stitched: StitchedVamana. 
 				\textsuperscript{B} Pre-filtering, 
 				\textsuperscript{C} Simultaneous filtering, 
 				\textsuperscript{Y} Support, 
@@ -345,7 +345,7 @@
 				\textit{Dynamic Insert} indicates whether the algorithm supports the operation of dynamically inserting data points.
 				\textit{Multi Thread} indicates whether the algorithm supports multi-threaded search.
 				\textit{Disk Support} indicates whether the algorithm supports disk storage.
-				\textit{Base} indicates that the hybrid query algorithm is an improvement based on a specific ANN search algorithm.
+				\textit{Base} indicates the foundational ANN algorithm for the hybrid query method.
 		\end{minipage}}
 		
 	\end{table*}
@@ -949,7 +949,50 @@ for big dataset:
 	
 	\textcolor{green}{Most algorithms exhibit the worst performance on the OOD dataset Text2Image. However, ACORN, UNG, and FilteredVamana show relatively stable performance on Text2Image. Their performance drops less compared to in-distribution (ID) datasets such as GIST1M and GloVe, indicating better adaptability to OOD queries.}
 	
-
+\begin{figure*}[t]
+	\centering
+	
+	% 1. 全局图例 (Legend) - 位置保持不变
+	\includegraphics[width=0.9\textwidth]{figures/exp/attribute_legend.pdf}
+	
+	% --- 主要改动：将以下三个 subfigure 全部放在同一行 ---
+	
+	% 2. 第一部分：两张图，共用标题
+	% [b]表示按底部对齐，在一行内通常比顶部对齐[t]效果好
+	% 宽度从\textwidth缩小到0.32\textwidth
+	\begin{subfigure}[b]{0.39\textwidth}
+		\centering
+		% 内部图片宽度使用\linewidth，它会自适应为容器宽度(0.32\textwidth)
+		\includegraphics[width=0.495\linewidth]{figures/exp/attribute_multimodel.pdf}
+		\hfill 
+		\includegraphics[width=0.47\linewidth]{figures/exp/attribute_multimodel_1.pdf}
+		\caption{MultiModal}
+		\label{fig:attribute-multimodal} 
+	\end{subfigure}
+	\hfill % 在第一部分和第二部分之间添加弹性间距
+	% 3. 第二部分：两张图，共用标题
+	\begin{subfigure}[b]{0.39\textwidth}
+		\centering
+		\includegraphics[width=0.495\linewidth]{figures/exp/attribute_85.pdf}
+		\hfill
+		\includegraphics[width=0.47\linewidth]{figures/exp/attribute_71.pdf}
+		\caption{Cross-Platform}
+		\label{fig:attribute-cross-platform}
+	\end{subfigure}
+	\hfill % 在第二部分和第三部分之间添加弹性间距
+	% 4. 第三部分：只有一张图
+	\begin{subfigure}[b]{0.203\textwidth}
+		\centering
+		% !!! 注意：这是一个占位符，请替换成您自己的第五张图 !!!
+		\includegraphics[width=0.96\linewidth]{figures/exp/attribute_100M.pdf} 
+		\caption{Dig Dataset}
+		\label{fig:attribute big dataset}
+	\end{subfigure}
+	
+	% 5. 全局总标题
+	\caption{\textcolor{violet}TrinityExtension——Attribution}
+	\label{fig:TrinityExtension——Attribution_main}
+\end{figure*}
 	
 	\subsubsection{Scalability Study}
 	
@@ -976,97 +1019,58 @@ a}
 	
 %	\textit{\textbf{Multimodel, 85 and Deep100M.}} \textcolor{red}{The fig is Figure \ref{fig:TrinityExtension——Attribution}}
 	
-	\begin{figure}[t]
-		\centering
-		
-		
-		\hspace*{5pt}
-		% 放大的图例（占满单栏）
-		\includegraphics[width=0.98\columnwidth]{figures/exp/attribute_legend.pdf}
-		
-		%\vspace{0.1cm}
-		\begin{subfigure}[t]{0.98\columnwidth}
-		\centering
-		% First plot for the shared subfigure
-		\includegraphics[width=0.507\linewidth]{figures/exp/attribute_multimodel.pdf}
-		\hfill % Pushes the two plots apart
-		% Second plot for the shared subfigure
-		\includegraphics[width=0.48\linewidth]{figures/exp/attribute_multimodel_1.pdf}
-	
-		% Shared caption for the two plots above
-		\captionsetup{font=small}
-		\caption{MultiModal}
-		\label{fig:MultiModal} % A single label for the combined subfigure
-		\end{subfigure}
-		
-		\begin{subfigure}[t]{0.507\columnwidth}
-			\centering
-			\includegraphics[width=\linewidth]{figures/exp/attribute_85.pdf}
-			\caption{\footnotesize Different Computer}
-			\label{fig:Different Computer}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[t]{0.48\columnwidth}
-			\centering
-			\includegraphics[width=\linewidth]{figures/exp/attribute_100M.pdf}
-			\caption{\footnotesize Big Dataset}
-			\label{fig:Big Dataset}
-		\end{subfigure}
+% 使用 figure* 环境来实现图片横跨双栏
+% 使用 figure* 环境来实现图片横跨双栏
 
-		
-		\caption{\textcolor{violet}TrinityExtension——Attribution}
-		\label{fig:TrinityExtension——Attribution}
-	\end{figure}
 	
 	\subsection{Range Filtering}
 	
 	\subsubsection{Time and Space overhead of index construction.}
 	
-	\begin{figure}[t]
+\begin{figure*}[t]
+	\centering
+	
+	% 1. 全局图例 (Legend) - 位置保持不变
+	\includegraphics[width=0.9\textwidth]{figures/exp/range_legend.pdf}
+	
+	% --- 主要改动：将以下三个 subfigure 全部放在同一行 ---
+	
+	% 2. 第一部分：两张图，共用标题
+	% [b]表示按底部对齐，在一行内通常比顶部对齐[t]效果好
+	% 宽度从\textwidth缩小到0.32\textwidth
+	\begin{subfigure}[b]{0.39\textwidth}
 		\centering
-		
-		
-		\hspace*{5pt}
-		% 放大的图例（占满单栏）
-		\includegraphics[width=0.98\columnwidth]{figures/indexData/rangeFilter_legend_only.pdf}
-		
-		%\vspace{0.1cm}
-		
-		% 三图横排
-		\begin{subfigure}[t]{0.495\columnwidth}
-			\centering
-			\captionsetup{font=small}
-			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_build_time_comparison_query.pdf}
-			\caption{\footnotesize Construction time}
-			\label{fig:rangeFilter_build_time}
-		\end{subfigure}
+		% 内部图片宽度使用\linewidth，它会自适应为容器宽度(0.32\textwidth)
+		\includegraphics[width=0.495\linewidth]{figures/exp/range_multimodel.pdf}
+		\hfill 
+		\includegraphics[width=0.47\linewidth]{figures/exp/range_multimodel_1.pdf}
+		\caption{MultiModal}
+		\label{fig:range-multimodal} 
+	\end{subfigure}
+	\hfill % 在第一部分和第二部分之间添加弹性间距
+	% 3. 第二部分：两张图，共用标题
+	\begin{subfigure}[b]{0.39\textwidth}
+		\centering
+		\includegraphics[width=0.495\linewidth]{figures/exp/range_85.pdf}
 		\hfill
-		\begin{subfigure}[t]{0.495\columnwidth}
-			\centering
-			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_index_size_mb_comparison_query.pdf}
-			\caption{\footnotesize Index size}
-			\label{fig:rangeFilter_index_size_mb}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[t]{0.495\columnwidth}
-			\centering
-			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_memory_mb_comparison_query.pdf}
-			\caption{\footnotesize Build peak memory}
-			\label{fig:rangeFilter_build_memory_mb}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[t]{0.495\columnwidth}
-			\centering
-			\includegraphics[width=\linewidth]{figures/searchMem/range_memory_comparison.pdf}
-			\caption{\footnotesize Search peak memory}
-			\label{fig:rangeFilter_search_memory_mb}
-		\end{subfigure}
-		
-		%		\caption{Time and space overhead of range filtering index construction}
-%		\caption{Time and space overhead of index construction}
-		\caption{\textcolor{violet}{Time and space overhead}}
-		\label{fig:rangeFilter_build_index_comparison}
-	\end{figure}
+		\includegraphics[width=0.47\linewidth]{figures/exp/range_71.pdf}
+		\caption{Cross-Platform}
+		\label{fig:range-cross-platform}
+	\end{subfigure}
+	\hfill % 在第二部分和第三部分之间添加弹性间距
+	% 4. 第三部分：只有一张图
+	\begin{subfigure}[b]{0.203\textwidth}
+		\centering
+		% !!! 注意：这是一个占位符，请替换成您自己的第五张图 !!!
+		\includegraphics[width=0.96\linewidth]{figures/exp/range_deep100M.pdf} 
+		\caption{Dig Dataset}
+		\label{fig: range big dataset}
+	\end{subfigure}
+	
+	% 5. 全局总标题
+	\caption{\textcolor{violet}TrinityExtension——Range}
+	\label{fig:TrinityExtension——Attribution_main}
+\end{figure*}
 	
 	%Similar to the evaluation of \textit{Attribute Filtering} algorithms, 
 	Similarly, we also evaluate \textcolor{orange}{4} key metrics mentioned above in \textit{Range Filtering} algorithms. \textcolor{orange}{For the YT-Audio dataset with synthetic attributes and the YT-Audio dataset with real attributes, we can found that the data for index construction is basically the same, indicating that the authenticity of the attribute has almost no effect on index construction.
