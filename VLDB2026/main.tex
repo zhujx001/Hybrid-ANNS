@@ -163,8 +163,10 @@
 	3) It does not evaluate algorithm performance under different attribute distributions. 
 	%	\sout{However, variations in attribute distribution may directly affect the filtering strategies and index construction efficiency of hybrid query algorithms.}
 	
-	Moreover, beyond BigANN, systematic evaluations of hybrid query algorithms remain limited. To fill this gap, we conduct a comprehensive experimental evaluation of hybrid query algorithms, analyzing the index construction costs and query efficiency across different scenarios. Additionally, we further assess the robustness of each algorithm under varying conditions.
+%	Moreover, beyond BigANN, systematic evaluations of hybrid query algorithms remain limited.
+%	To fill this gap, we conduct a comprehensive experimental evaluation of hybrid query algorithms, analyzing the index construction costs and query efficiency across different scenarios. Additionally, we further assess the robustness of each algorithm under varying conditions.
 	
+	Moreover, beyond BigANN, systematic evaluations of hybrid query algorithms remain limited. \textcolor{orange}{Although existing work, such as the survey by \cite{compare}, reviews graph-based ANN methods, the literature still lacks an experimental study specifically targeting hybrid query algorithms. To address this gap, we conduct the first comprehensive experimental evaluation of hybrid query algorithms, systematically analyzing their index construction costs and query efficiency across diverse scenarios. Furthermore, we rigorously assess the robustness of each algorithm under varying conditions, thereby providing valuable insights for future research and practical applications.}
 	
 	\subsection{Our Contributions}
 	
@@ -665,7 +667,8 @@
 \textit{\textbf{Index construction time.}}
 \textcolor{orange}{Among the six regular-scale datasets shown in the left part of Figure~\ref{fig:build_time_comparison_query1}, the ones with longer build times are mainly PASE, VBASE, and ACORN. PASE and VBASE only support single-threaded builds, and PASE is the slowest to build because its on-demand loading and caching strategies frequently trigger disk I/O and page scheduling, which seriously affects efficiency; VBASE uses full-memory builds and is relatively faster. ACORN-$\gamma$  has a large computational overhead because it needs to expand the neighbor list and evaluate a large number of candidates. The build time on some datasets even exceeds that of single-threaded VBASE. }
 
-\textcolor{orange}{On large-scale dataset Deep100M, besides the three methods already mentioned with long build times, we also find that graph-based algorithms using pruning strategies (such as FilteredDiskANN and UNG) exhibit significantly increased construction time, especially when the pruning is complex and extensive, leading to higher computational overhead. In contrast, the construction time of IVF-based algorithms grows much more slowly with dataset size, thanks to their shard-based design and high parallel efficiency, making them more scalable and advantageous in large-scale scenarios.}
+\textcolor{orange}{On large-scale dataset Deep100M, besides the three methods already mentioned with long build times, we also observe that algorithms based on Vamana (such as FilteredDiskANN and UNG) exhibit significantly increased construction time. Vamana adopts a two-pass graph construction and optimization strategy (greedy search + robust pruning), resulting in extremely high computational overhead. 
+In contrast, the construction time of IVF-based algorithms grows much more slowly with dataset size, thanks to their shard-based design and high parallel efficiency, making them more scalable and advantageous in large-scale scenarios.}
 
 %ACORN-1 achieves the fastest index construction. This efficiency stems from its similarity to the original HNSW construction process and the use of a limited number of candidate neighbors.
 
@@ -1120,6 +1123,8 @@ a}
 	WinFilter and ACORN-\(\gamma\) take the longest.
 	WinFilter relies on a tree structure, requiring separate nearest-neighbor graphs per node. This causes redundant computation and high costs, especially for large datasets.
 	ACORN-\(\gamma\) expands the neighbor list of each node to provide more candidate paths, which increases both computation and storage costs. It also prunes distant neighbors to save storage space. However, this introduces additional overhead and slows down the construction process.
+	
+	\textcolor{orange}{For large-scale dataset, DSG only supports single-threaded construction, resulting in the longest build time.}
 	
 	\textit{\textbf{Index size.}} 
 	As shown in Figure~\ref{fig:rangeFilter_index_size_mb}, Among all algorithms, Faiss has the smallest index size. Because IVF only adds centroid data and partition information to the vector dataset, the IVF index is only slightly larger than the vector dataset.
