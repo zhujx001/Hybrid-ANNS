@@ -1035,7 +1035,7 @@
 	
 	\textit{\textbf{\textcolor{blue}{Different Hardware Environments.}}} 
 %	\textcolor{cyan}{To investigate the impact of different server configurations on the performance of the algorithms, we conducted additional experiments on Server B using the YT-Audio-Real dataset, and the results are shown in Figure~\ref{fig:Different Computer}. Compared with the experimental results on Server A shown in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}f, the relative ranking of the algorithms remains largely unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency and smaller RAM capacity of Server B compared to Server A, the QPS values are slightly lower across all methods.}
-	\textcolor{red}{To investigate the impact of different server configurations on the performance of the algorithms, we conduct additional experiments on a server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset, and the results are shown in Figure~\ref{fig:Different Computer}. Compared with the experimental results on the original server (as shown in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}(f)), the relative ranking of the algorithms remains largely unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency and smaller RAM capacity, the QPS values are slightly lower across all methods.}
+	\textcolor{red}{To investigate the impact of different server configurations on the performance of the algorithms, we conduct additional experiments on a server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset, and the results are shown in Figure~\ref{fig:attribute-cross-platform}. Compared with the experimental results on the original server, the relative ranking of the algorithms remains largely unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency and smaller RAM capacity, the QPS values are slightly lower across all methods.}
 
 	\textit{\textbf{\textcolor{blue}{Large-scale Datasets.}}} 
 	\textcolor{violet}{As shown in the figure~\ref{fig:Big Dataset}, On the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating their good adaptability to large-scale datasets; however, this also comes with significant memory overhead. The clustering-based algorithm Faiss+HQI\_Batch shows moderate performance but has very low memory overhead, which makes it highly attractive for practical applications. We did not present the experimental results for StitchedVamana because we found that its recall consistently remained at a very low level. Its search starting point is set to 0 by default, and when the entry point is far from the target area, it easily gets stuck in a local optimum, making it difficult to navigate to the vicinity of the correct point.}
@@ -1059,55 +1059,55 @@ a}
 % 使用 figure* 环境来实现图片横跨双栏
 % 使用 figure* 环境来实现图片横跨双栏
 
-	
+
+	\begin{figure}[t]
+		\centering
+		
+		
+		\hspace*{5pt}
+		% 放大的图例（占满单栏）
+		\includegraphics[width=0.98\columnwidth]{figures/indexData/rangeFilter_legend_only.pdf}
+		
+		%\vspace{0.1cm}
+		
+		% 三图横排
+		\begin{subfigure}[t]{0.495\columnwidth}
+			\centering
+			\captionsetup{font=small}
+			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_build_time_comparison_query.pdf}
+			\caption{\footnotesize Construction time}
+			\label{fig:rangeFilter_build_time}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[t]{0.495\columnwidth}
+			\centering
+			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_index_size_mb_comparison_query.pdf}
+			\caption{\footnotesize Index size}
+			\label{fig:rangeFilter_index_size_mb}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[t]{0.495\columnwidth}
+			\centering
+			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_memory_mb_comparison_query.pdf}
+			\caption{\footnotesize Build peak memory}
+			\label{fig:rangeFilter_build_memory_mb}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[t]{0.495\columnwidth}
+			\centering
+			\includegraphics[width=\linewidth]{figures/searchMem/range_memory_comparison.pdf}
+			\caption{\footnotesize Search peak memory}
+			\label{fig:rangeFilter_search_memory_mb}
+		\end{subfigure}
+		
+		%		\caption{Time and space overhead of range filtering index construction}
+%		\caption{Time and space overhead of index construction}
+		\caption{\textcolor{violet}{Time and space overhead}}
+		\label{fig:rangeFilter_build_index_comparison}
+	\end{figure}
 	\subsection{Range Filtering}
 	
 	\subsubsection{Time and Space overhead of index construction.}
-	
-\begin{figure*}[t]
-	\centering
-	
-	% 1. 全局图例 (Legend) - 位置保持不变
-	\includegraphics[width=0.9\textwidth]{figures/exp/range_legend.pdf}
-	
-	% --- 主要改动：将以下三个 subfigure 全部放在同一行 ---
-	
-	% 2. 第一部分：两张图，共用标题
-	% [b]表示按底部对齐，在一行内通常比顶部对齐[t]效果好
-	% 宽度从\textwidth缩小到0.32\textwidth
-	\begin{subfigure}[b]{0.39\textwidth}
-		\centering
-		% 内部图片宽度使用\linewidth，它会自适应为容器宽度(0.32\textwidth)
-		\includegraphics[width=0.495\linewidth]{figures/exp/range_multimodel.pdf}
-		\hfill 
-		\includegraphics[width=0.47\linewidth]{figures/exp/range_multimodel_1.pdf}
-		\caption{MultiModal}
-		\label{fig:range-multimodal} 
-	\end{subfigure}
-	\hfill % 在第一部分和第二部分之间添加弹性间距
-	% 3. 第二部分：两张图，共用标题
-	\begin{subfigure}[b]{0.39\textwidth}
-		\centering
-		\includegraphics[width=0.495\linewidth]{figures/exp/range_85.pdf}
-		\hfill
-		\includegraphics[width=0.47\linewidth]{figures/exp/range_71.pdf}
-		\caption{Cross-Platform}
-		\label{fig:range-cross-platform}
-	\end{subfigure}
-	\hfill % 在第二部分和第三部分之间添加弹性间距
-	% 4. 第三部分：只有一张图
-	\begin{subfigure}[b]{0.203\textwidth}
-		\centering
-		% !!! 注意：这是一个占位符，请替换成您自己的第五张图 !!!
-		\includegraphics[width=0.96\linewidth]{figures/exp/range_deep100M.pdf} 
-		\caption{Dig Dataset}
-		\label{fig: range big dataset}
-	\end{subfigure}
-	
-	% 5. 全局总标题
-	\caption{\textcolor{violet}TrinityExtension——Range}
-	\label{fig:TrinityExtension——Attribution_main}
-\end{figure*}
 	
 	%Similar to the evaluation of \textit{Attribute Filtering} algorithms, 
 	Similarly, we also evaluate \textcolor{orange}{4} key metrics mentioned above in \textit{Range Filtering} algorithms. 
@@ -1212,65 +1212,64 @@ a}
 	%	
 	%	However, the DSG algorithm shows a noticeable performance gap between the Deep and YT-Audio datasets, despite their comparable LID. This indicates that DSG is less robust than other methods when facing dataset-dependent variations, possibly due to its sensitivity to data distribution beyond LID alone.
 	
+\begin{figure*}[t]
+	\centering
+	
+	% 1. 全局图例 (Legend) - 位置保持不变
+	\includegraphics[width=0.9\textwidth]{figures/exp/range_legend.pdf}
+	
+	% --- 主要改动：将以下三个 subfigure 全部放在同一行 ---
+	
+	% 2. 第一部分：两张图，共用标题
+	% [b]表示按底部对齐，在一行内通常比顶部对齐[t]效果好
+	% 宽度从\textwidth缩小到0.32\textwidth
+	\begin{subfigure}[b]{0.39\textwidth}
+		\centering
+		% 内部图片宽度使用\linewidth，它会自适应为容器宽度(0.32\textwidth)
+		\includegraphics[width=0.495\linewidth]{figures/exp/range_multimodel.pdf}
+		\hfill 
+		\includegraphics[width=0.47\linewidth]{figures/exp/range_multimodel_1.pdf}
+		\caption{MultiModal}
+		\label{fig:range-multimodal} 
+	\end{subfigure}
+	\hfill % 在第一部分和第二部分之间添加弹性间距
+	% 3. 第二部分：两张图，共用标题
+	\begin{subfigure}[b]{0.39\textwidth}
+		\centering
+		\includegraphics[width=0.495\linewidth]{figures/exp/range_85.pdf}
+		\hfill
+		\includegraphics[width=0.47\linewidth]{figures/exp/range_71.pdf}
+		\caption{Cross-Platform}
+		\label{fig:range-cross-platform}
+	\end{subfigure}
+	\hfill % 在第二部分和第三部分之间添加弹性间距
+	% 4. 第三部分：只有一张图
+	\begin{subfigure}[b]{0.203\textwidth}
+		\centering
+		% !!! 注意：这是一个占位符，请替换成您自己的第五张图 !!!
+		\includegraphics[width=0.96\linewidth]{figures/exp/range_deep100M.pdf} 
+		\caption{Dig Dataset}
+		\label{fig: range big dataset}
+	\end{subfigure}
+	
+	% 5. 全局总标题
+	\caption{\textcolor{violet}TrinityExtension——Range}
+	\label{fig:TrinityExtension——Attribution_main}
+\end{figure*}
+	
 	\subsubsection{Scalability Study}
 		
 	\textit{\textbf{\textcolor{blue}{Different Hardware Environments.}}}
-	\textcolor{cyan}{Consistent with Section 4.2.4, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure~\ref{fig:Different_Computer_range}. When compared with the experimental results of the original server shown in Figure~\ref{fig:exp_8_2}a, our findings remain consistent with those reported in Section 4.2.4. For brevity and due to space limitations, we omit further discussion of these redundant results.}
+	\textcolor{cyan}{Consistent with Section 4.2.4, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure~\ref{fig:range-cross-platform}. When compared with the experimental results of the original server shown in Figure~\ref{fig:exp_8_2}a, our findings remain consistent with those reported in Section 4.2.4. For brevity and due to space limitations, we omit further discussion of these redundant results.}
 %	\textcolor{cyan}{Consistent with Section 4.2.4, we conducted additional range filtering experiments using the YT-Audio-Real dataset on the same server, with results shown in Figure \ref{fig:Different Computer range}. Compared with the original server's experimental results (Figure \ref{fig:exp_8_2}($e$)), the conclusions remain identical to those described in Section 4.2.4. Due to space constraints, these details are not reiterated here.}
 	
-	\textit{\textbf{\textcolor{red}{Large-scale Datasets.}}} \textcolor{red}{As shown in the figure~\ref{fig:Big_Dataset_range}, On the 100M dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption, as detailed in Figure~\ref{fig:rangeFilter_search_memory_mb}. Meanwhile, VBASE and Faiss demonstrate moderate performance but significantly lower memory consumption than the top three algorithms}.
+	\textit{\textbf{\textcolor{red}{Large-scale Datasets.}}} \textcolor{red}{As shown in the figure~\ref{fig: range big dataset}, On the 100M dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption, as detailed in Figure~\ref{fig:rangeFilter_search_memory_mb}. Meanwhile, VBASE and Faiss demonstrate moderate performance but significantly lower memory consumption than the top three algorithms}.
 	
 	\textit{\textbf{\textcolor{blue}{Multi-modal Queries}}}
 	\textcolor{blue}{
-	Similar to attribute filtering, the performance of multimodal queries with range filtering shown in Figure~\ref{fig:MultiModal_range} is also consistent with the single-modality results in Figure~\ref{fig:exp_8_2}. As shown in Figure~\ref{fig:exp_8_3}, the algorithms still perform the worst on multimodal datasets like Text2Image. This is because these range query algorithms are almost graph-based. Graph algorithms need more iterations to find true neighbors in OOD datasets.}
+	Similar to attribute filtering, the performance of multimodal queries with range filtering shown in Figure~\ref{fig:range-multimodal} is also consistent with the single-modality results in Figure~\ref{fig:exp_8_2}. As shown in Figure~\ref{fig:exp_8_3}, the algorithms still perform the worst on multimodal datasets like Text2Image. This is because these range query algorithms are almost graph-based. Graph algorithms need more iterations to find true neighbors in OOD datasets.}
 	
 %	\textit{\textbf{Multimodel, 85 and Deep100M.}} \textcolor{red}{The fig is Figure \ref{fig:TrinityExtension——Range}}
-	
-\begin{figure}[t]
-	\centering
-	
-	% Legend
-	\includegraphics[width=0.98\columnwidth]{figures/exp/range_legend.pdf}
-	\vspace{0.2cm} % Added a little space after the legend
-	
-	% --- Subfigure (a) containing two plots ---
-	\begin{subfigure}[t]{0.98\columnwidth}
-		\centering
-		% First plot for the shared subfigure
-		\includegraphics[width=0.507\linewidth]{figures/exp/range_multimodel.pdf}
-		\hfill % Pushes the two plots apart
-		% Second plot for the shared subfigure
-		\includegraphics[width=0.48\linewidth]{figures/exp/range_multimodel_1.pdf}
-		
-		% Shared caption for the two plots above
-		\captionsetup{font=small}
-		\caption{MultiModal}
-		\label{fig:MultiModal_range} % A single label for the combined subfigure
-	\end{subfigure}
-	
-	% --- Subfigure (b) ---
-	\begin{subfigure}[t]{0.507\columnwidth}
-		\centering
-		\includegraphics[width=\linewidth]{figures/exp/range_85.pdf}
-		\captionsetup{font=small}
-		\caption{Different Computer}
-		\label{fig:Different_Computer_range}
-	\end{subfigure}
-	\hfill
-	% --- Subfigure (c) ---
-	\begin{subfigure}[t]{0.48\columnwidth}
-		\centering
-		\includegraphics[width=\linewidth]{figures/exp/range_deep100M.pdf}
-		\captionsetup{font=small}
-		\caption{Big Dataset}
-		\label{fig:Big_Dataset_range}
-	\end{subfigure}
-	
-	
-	\caption{\textcolor{red}{TrinityExtension——Range}}
-	\label{fig:TrinityExtension——Range}
-\end{figure}
-	
 	\section{DISCUSSION}
 	Based on the performance of the algorithms on different experimental scenarios, we discuss our findings as follows.
 	
