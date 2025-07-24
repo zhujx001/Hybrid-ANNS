@@ -195,7 +195,8 @@ Thank you for your suggestion. Using IDs as attributes for range filtering is a 
 
 \textbf{YT-Audio-Real dataset:} For this dataset, we utilize the URLs provided by the YouTube8M dataset to crawl corresponding video categories and view counts as real attributes, using \textbf{video categories as attributes for attribute filtering experiments} and \textbf{view counts as attributes for range filtering experiments}, respectively.
 
-\textbf{WIT-Real dataset:} We use the \texttt{clip-vit-base-patch32} model to encode the \texttt{page\_title} field from the WIT dataset into vectors, and extract the language type and the length of the \texttt{context\_page\_description} field as real attributes, applying them in both attribute filtering and range filtering experiments.
+\textbf{WIT-Real dataset:} We use the \texttt{clip-vit-base-patch32} model to encode the \texttt{page\_title} field from the WIT dataset into vectors, and extract the language type and the length of the \texttt{context\_page\_}
+\texttt{description} field as real attributes, applying them in both attribute filtering and range filtering experiments.
 
 \textcolor{blue}{
 	"Additionally, we introduced two datasets with real attributes for a more comprehensive evaluation of various attribute filtering and range query algorithms: The YT-Audio-Real dataset leverages URLs provided by the YouTube8M dataset to crawl corresponding video category IDs and view counts as its real attributes; whereas for the WIT-Real dataset, we used the \texttt{clip-vit-base-patch32} model to encode the \texttt{page\_title} field into vectors, and used the language type and the length of the \texttt{context\_page\_description} field as real attributes. It should be noted that, during range filtering, due to the limitations of some algorithms, we uniformly sorted the vectors according to the query attribute."
@@ -306,7 +307,7 @@ For range filtering, please see section 4.3.1.
 
 \noindent
 \textbf{Response:} 
-Thank you for your valuable suggestion regarding our experiments. In Section 4.2.4 and Section 4.3.4, we add experiments on the Deep100M dataset. The results show that most algorithms struggle to balance performance with time and space costs on this large-scale dataset. In particular, StitchedVamana performs poorly on Deep100M. For attribute filtering, please see section 4.2.4.
+Thank you for your valuable suggestion regarding our experiments. In Section 4.2.4 and Section 4.3.4, we have added experiments on the Deep100M dataset. The results show that most algorithms struggle to balance performance with time and space costs on this large-scale dataset. In particular, StitchedVamana performs poorly on Deep100M. For attribute filtering, please see section 4.2.4.
 
 \textcolor{blue}{"On the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating their good adaptability to large-scale datasets; however, this also comes with significant memory overhead. The clustering-based algorithm \texttt{Faiss+HQI\_Batch} shows moderate performance but has very low memory overhead, which makes it highly attractive for practical applications. We did not present the experimental results for StitchedVamana because we found that its recall consistently remained at a very low level. Its search starting point is set to 0 by default, and when the entry point is far from the target area, it easily gets stuck in a local optimum, making it difficult to navigate to the vicinity of the correct point."}
 
@@ -480,7 +481,9 @@ Thank you for pointing this out. Both paper [49] and our paper are benchmarks. P
 Thank you for your suggestion. We cited these two papers in the introduction to show that there are several papers that study attribute distribution and selectivity.
 In addition, attribute distribution and selectivity are indeed widely used in real-world scenarios. For attribute distribution, the label attributes of many recommendation application scenarios in reality conform to the power-law distribution. For attribute selectivity: For example, if you need to query data with a very small proportion of a certain attribute, choosing a better algorithm will greatly improve the search effect. There are also some databases with practical applications that mention attribute selectivity, such as Milvus and AnalyticDB-V. For the two parts you suggested, we will add more comprehensive references in the paper.
 
-Please see section 1.1. \textcolor{blue}{"For attribute filtering algorithms, factors such as the number of attributes, attribute distribution[12], and attribute  selectivity [46,51] significantly impact algorithm performance."}
+Please see section 1.1. 
+
+\textcolor{blue}{"For attribute filtering algorithms, factors such as the number of attributes, attribute distribution[12], and attribute  selectivity [46,51] significantly impact algorithm performance."}
 
 %%%%%%%%%%%%%%%%%%%%%% D3 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -494,7 +497,7 @@ Please see section 1.1. \textcolor{blue}{"For attribute filtering algorithms, fa
 \textbf{Response:} 
 Thank you for pointing it out. We sincerely apologize for the misuse of notation in Definition 2.3. This has been corrected in the revised version. (Please see Definition 2.3 in Section 2.1, highlighted in blue in the revised manuscript)
 
-\textcolor{blue}{Let \( D = \{(v_1, a_1), \ldots, (v_n, a_n)\} \) be a dataset of \( n \) \( d \)-dimensional vectors, each associated with an attribute value \( a_i \).}
+\textcolor{blue}{"Let \( D = \{(v_1, a_1), \ldots, (v_n, a_n)\} \) be a dataset of \( n \) \( d \)-dimensional vectors, each associated with an attribute value \( a_i \)."}
 
 %%%%%%%%%%%%%%%%%%%%%% D4 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -537,7 +540,7 @@ Thank you for your suggestion. We add experiments on the Deep100M dataset in Sec
 
 \noindent
 \textbf{Response:} 
-Thank you for pointing this out. We agree that the initial explanations accompanying the performance results were not sufficiently detailed in highlighting the strengths and weaknesses of the compared algorithms. We conduct a more in-depth analysis of the reasons behind certain behaviors observed in the experimental results. The specific revisions are as follows:
+Thank you for pointing this out. We agree that the initial explanations accompanying the performance results were not sufficiently detailed in highlighting the strengths and weaknesses of the compared algorithms. We have conducted a more in-depth analysis of the reasons behind certain behaviors observed in the experimental results. The specific revisions are as follows:
 %下面写每个修改过的理由
 %%%%%%%%%%%%%%%%%%%%%% W3 %%%%%%%%%%%%%%%%%%%%%%
 
@@ -640,7 +643,8 @@ Please see the section 4.2.2 on Multi-Attribute Construction and Multi-Attribute
 \noindent
 \textbf{Response:} 
 Thank you for the suggestion. We realized that the original wording is somewhat vague and lead to confusion among readers. To address this, we merged the tables for attribute filtering (AF) and range filtering (RF), and clarified the support of each algorithm for AF and RF in the unified table.
-\textcolor{blue}{The fused table is Table1: Comparison of AF-ANN and RF-ANN search algorithms.}
+
+\textcolor{blue}{"The fused table is Table1: Comparison of AF-ANN and RF-ANN search algorithms."}
 
 %%%%%%%%%%%%%%%%%%%%%% D4 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
