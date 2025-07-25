@@ -163,8 +163,10 @@
 	3) It does not evaluate algorithm performance under different attribute distributions. 
 	%	\sout{However, variations in attribute distribution may directly affect the filtering strategies and index construction efficiency of hybrid query algorithms.}
 	
-	Moreover, beyond BigANN, systematic evaluations of hybrid query algorithms remain limited. To fill this gap, we conduct a comprehensive experimental evaluation of hybrid query algorithms, analyzing the index construction costs and query efficiency across different scenarios. Additionally, we further assess the robustness of each algorithm under varying conditions.
+%	Moreover, beyond BigANN, systematic evaluations of hybrid query algorithms remain limited.
+%	To fill this gap, we conduct a comprehensive experimental evaluation of hybrid query algorithms, analyzing the index construction costs and query efficiency across different scenarios. Additionally, we further assess the robustness of each algorithm under varying conditions.
 	
+	Moreover, beyond BigANN, systematic evaluations of hybrid query algorithms remain limited. \textcolor{orange}{Although existing work, such as the survey by \cite{compare}, reviews graph-based ANN methods, the literature still lacks an experimental study specifically targeting hybrid query algorithms. To address this gap, we conduct the first comprehensive experimental evaluation of hybrid query algorithms, systematically analyzing their index construction costs and query efficiency across diverse scenarios. Furthermore, we rigorously assess the robustness of each algorithm under varying conditions, thereby providing valuable insights for future research and practical applications.}
 	
 	\subsection{Our Contributions}
 	
@@ -673,7 +675,8 @@
 \textit{\textbf{Index construction time.}}
 \textcolor{orange}{Among the six regular-scale datasets shown in the left part of Figure~\ref{fig:build_time_comparison_query1}, the ones with longer build times are mainly PASE, VBASE, and ACORN. PASE and VBASE only support single-threaded builds, and PASE is the slowest to build because its on-demand loading and caching strategies frequently trigger disk I/O and page scheduling, which seriously affects efficiency; VBASE uses full-memory builds and is relatively faster. ACORN-$\gamma$  has a large computational overhead because it needs to expand the neighbor list and evaluate a large number of candidates. The build time on some datasets even exceeds that of single-threaded VBASE. }
 
-\textcolor{orange}{On large-scale dataset Deep100M, besides the three methods already mentioned with long build times, we also find that graph-based algorithms using pruning strategies (such as FilteredDiskANN and UNG) exhibit significantly increased construction time, especially when the pruning is complex and extensive, leading to higher computational overhead. In contrast, the construction time of IVF-based algorithms grows much more slowly with dataset size, thanks to their shard-based design and high parallel efficiency, making them more scalable and advantageous in large-scale scenarios.}
+\textcolor{orange}{On large-scale dataset Deep100M, besides the three methods already mentioned with long build times, we also observe that algorithms based on Vamana (such as FilteredDiskANN and UNG) exhibit significantly increased construction time. Vamana adopts a two-pass graph construction and optimization strategy (greedy search + robust pruning), resulting in extremely high computational overhead. 
+In contrast, the construction time of IVF-based algorithms grows much more slowly with dataset size, thanks to their shard-based design and high parallel efficiency, making them more scalable and advantageous in large-scale scenarios.}
 
 %ACORN-1 achieves the fastest index construction. This efficiency stems from its similarity to the original HNSW construction process and the use of a limited number of candidate neighbors.
 
@@ -1043,7 +1046,7 @@
 	
 	\textit{\textbf{\textcolor{blue}{Different Hardware Environments.}}} 
 %	\textcolor{cyan}{To investigate the impact of different server configurations on the performance of the algorithms, we conducted additional experiments on Server B using the YT-Audio-Real dataset, and the results are shown in Figure~\ref{fig:Different Computer}. Compared with the experimental results on Server A shown in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}f, the relative ranking of the algorithms remains largely unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency and smaller RAM capacity of Server B compared to Server A, the QPS values are slightly lower across all methods.}
-	\textcolor{red}{To investigate the impact of different server configurations on the performance of the algorithms, we conduct additional experiments on a server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset, and the results are shown in Figure~\ref{fig:attribute-cross-platform}. Compared with the experimental results on the original server, the relative ranking of the algorithms remains largely unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency and smaller RAM capacity, the QPS values are slightly lower across all methods.}
+	\textcolor{red}{To investigate the impact of different server configurations on the performance of the algorithms, we conduct additional experiments on a server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset, and the results are shown in Figure~\ref{fig:attribute-cross-platform}. It is not difficult to see that the relative ranking of the algorithms under the two servers essentially remains unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency and smaller RAM capacity, the QPS values are slightly lower across all methods.}
 
 	\textit{\textbf{\textcolor{blue}{Large-scale Datasets.}}} 
 	\textcolor{violet}{As shown in the figure~\ref{fig:attribute big dataset}, On the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating their good adaptability to large-scale datasets; however, this also comes with significant memory overhead. The clustering-based algorithm Faiss+HQI\_Batch shows moderate performance but has very low memory overhead, which makes it highly attractive for practical applications. We did not present the experimental results for StitchedVamana because we found that its recall consistently remained at a very low level. Its search starting point is set to 0 by default, and when the entry point is far from the target area, it easily gets stuck in a local optimum, making it difficult to navigate to the vicinity of the correct point.}
@@ -1129,6 +1132,8 @@ a}
 	WinFilter relies on a tree structure, requiring separate nearest-neighbor graphs per node. This causes redundant computation and high costs, especially for large datasets.
 	ACORN-\(\gamma\) expands the neighbor list of each node to provide more candidate paths, which increases both computation and storage costs. It also prunes distant neighbors to save storage space. However, this introduces additional overhead and slows down the construction process.
 	
+	\textcolor{orange}{For large-scale dataset, DSG only supports single-threaded construction, resulting in the longest build time.}
+	
 	\textit{\textbf{Index size.}} 
 	As shown in Figure~\ref{fig:rangeFilter_index_size_mb}, Among all algorithms, Faiss has the smallest index size. Because IVF only adds centroid data and partition information to the vector dataset, the IVF index is only slightly larger than the vector dataset.
 	%On low-dimensional datasets (Deep, YT-Audio), 
@@ -1138,8 +1143,12 @@ a}
 	
 	%SeRF maintains a compact index for low-dimensional data. However, for high-dimensional dataset (WIT), SeRF stores more edges and dynamic range data, significantly increasing its size.
 	
-	\textit{\textbf{Build peak memory.}}
-	\textcolor{orange}{As explained in the build peak memory analysis for attribute filtering, the build peak memory depends on the sum of the index size and the dataset size, as shown in Figure~\ref{fig:rangeFilter_build_memory_mb}. Range filtering also follows this pattern. The reason why PASE deviates from this trend has been discussed earlier, and is not repeated here to save space.}
+	\textit{\textbf{Build peak memory.}}  
+	\textcolor{orange}{As explained in the attribute filtering analysis, the peak memory usage during index construction generally depends on the combined size of the dataset and the index, as illustrated in Figure~\ref{fig:rangeFilter_build_memory_mb}. Range filtering adheres to this pattern, while PASE deviates due to reasons discussed earlier.}  
+	
+	\textcolor{orange}{WinFilter also presents an exception:  its peak memory usage is also affected by the level of parallelism. Although the final index size remains relatively small, the peak memory usage increases significantly during both construction and search. During construction, this is caused by the parallel building of local indices for each tree node, which results in substantial temporary memory usage. Similarly, during search, WinFilter needs to load multiple local indices in parallel for different tree nodes, further contributing to high peak memory consumption.}
+	
+
 	
 %	As Figure~\ref{fig:rangeFilter_build_memory_mb} shows, Faiss uses the least memory on low-dimensional datasets. It stores minimal temporary data during index construction.
 %	
@@ -1149,10 +1158,8 @@ a}
 %	In contrast, \textcolor{orange}{Milvus exhibits the highest memory consumption,}
 
 
-	
-		\textit{\textbf{\textcolor{orange}{Search peak memory.}}}
-		\textcolor{orange}{As for the search peak memory usage, we can find from the Figure ~\ref{fig:rangeFilter_search_memory_mb} that it is basically consistent with the build peak memory usage trend. As we analyzed in the section on attribute filtering.
-		}
+		\textit{\textbf{\textcolor{orange}{Search peak memory.}}}  
+		\textcolor{orange}{As shown in Figure~\ref{fig:rangeFilter_search_memory_mb}, the peak memory usage during search generally follows a similar trend to that observed during index construction. This observation is consistent with our earlier analysis in the attribute filtering section.}
 		
 	\begin{figure*}[t]
 		
@@ -1169,9 +1176,9 @@ a}
 	In this experiment, we follow the query range definition adopted by prior work~\cite{HQI}. \textcolor{red}{Specifically, for a given query, the range ratio is defined as $2^{-i}$	when the query range covers $\frac{n}{2^i}$ data points, where $n$ is the total dataset size.} Based on this definition, we evaluate algorithm performance under 4 query range settings: $2^{-2}$, $2^{-4}$, $2^{-6}$, and $2^{-8}$. 
 	%\textcolor{red}{Some algorithms don't support using actual attributes as search keys, instead requiring an ID (the primary key, ranging from $0$ to $n-1$). Therefore, we uniformly use this ID as the search key. This ID is pre-sorted according to its corresponding real attribute, allowing us to map an attribute to its ID without loss of generality for efficient range queries.}
 	
-	Due to space constraints, Figure~\ref{fig:exp_8_2} reports results for only the largest ($2^{-2}$) and smallest ($2^{-8}$) range ratios. The experimental results show that across all datasets (YT-Audio-Real, WIT-Real, and Deep1M) and query ranges, WinFilter consistently delivers the best performance. This highlights its robustnes, which performs ANN search over only relevant tree nodes and merges results efficiently, making it highly effective for static range query scenarios.
+	Due to space constraints, Figure~\ref{fig:exp_8_2} reports results for only the largest ($2^{-2}$) and smallest ($2^{-8}$) range ratios. The experimental results show that across all datasets (YT-Audio-Real, WIT-Real, and Deep1M) and query ranges, WinFilter consistently delivers the best performance. This highlights its \textcolor{red}{robustness}, which performs ANN search over only relevant tree nodes and merges results efficiently, making it highly effective for static range query scenarios.
 	
-	iRange offers a good balance between query efficiency and recall, demonstrating stable performance across both datasets and range sizes. In contrast, UNIFY experiences a notable drop in performance under narrow query ranges, suggesting that its HSIG structure—despite incorporating skip lists for pre-filtering—still has limitations in such scenarios. However, by leveraging HNSW and bitmap-based post-filtering, UNIFY performs competitively under broader range conditions, demonstrating strong scalability.
+	\textcolor{red}{iRange and Faiss} offers a good balance between query efficiency and recall, demonstrating stable performance across both datasets and range sizes. In contrast, UNIFY experiences a notable drop in performance under narrow query ranges, suggesting that its HSIG structure—despite incorporating skip lists for pre-filtering—still has limitations in such scenarios. However, by leveraging HNSW and bitmap-based post-filtering, UNIFY performs competitively under broader range conditions, demonstrating strong scalability.
 	
 %	SeRF exhibits relatively weak overall performance, with a significant drop in recall under small-range query scenarios. This suggests that while its compressed graph structure is space-efficient, it has a substantial negative impact on query performance.
 
@@ -1264,7 +1271,7 @@ a}
 	\subsubsection{Scalability Study}
 		
 	\textit{\textbf{\textcolor{blue}{Different Hardware Environments.}}}
-	\textcolor{cyan}{Consistent with Section 4.2.4, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure~\ref{fig:range-cross-platform}. When compared with the experimental results of the original server, our findings remain consistent with those reported in Section 4.2.4. For brevity and due to space limitations, we omit further discussion of these redundant results.}
+	\textcolor{cyan}{Consistent with Section 4.2.4, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure~\ref{fig:range-cross-platform}. Our findings remain consistent with those reported in Section 4.2.4. For brevity and due to space limitations, we omit further discussion of these redundant results.}
 %	\textcolor{cyan}{Consistent with Section 4.2.4, we conducted additional range filtering experiments using the YT-Audio-Real dataset on the same server, with results shown in Figure \ref{fig:Different Computer range}. Compared with the original server's experimental results (Figure \ref{fig:exp_8_2}($e$)), the conclusions remain identical to those described in Section 4.2.4. Due to space constraints, these details are not reiterated here.}
 	
 	\textit{\textbf{\textcolor{red}{Large-scale Datasets.}}} \textcolor{red}{As shown in the figure~\ref{fig: range big dataset}, On the 100M dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption, as detailed in Figure~\ref{fig:rangeFilter_search_memory_mb}. Meanwhile, VBASE and Faiss demonstrate moderate performance but significantly lower memory consumption than the top three algorithms}.
