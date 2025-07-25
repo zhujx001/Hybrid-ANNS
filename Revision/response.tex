@@ -364,7 +364,24 @@ To address this, we add a summary table that provides a clearer and more structu
 \noindent
 \textbf{Response:} I really appreciate your suggestion. Current hybrid search algorithms don't explicitly model or leverage complex semantic relationships, such as those between vectors and their attributes, or among different attributes. However, our evaluation covered a range of realistic scenarios, including multi-attribute setting, diverse distributions and selectivity, to assess the algorithms' generalization capabilities (though we used synthetic attributes).
 
-To demonstrate that the choice between synthetic and real attributes has little impact on algorithm performance, we conducted an additional set of experiments. We used the YouTube-Audio dataset for vectors and compared results with both synthetic and real attributes (video classification). The experimental outcomes validated our hypothesis.
+To demonstrate that the choice between synthetic and real attributes has little impact on algorithm performance, we conducted an additional set of experiments. We used the YouTube-Audio dataset for vectors and compared results with both synthetic and real attributes (video classification). As shown in Figure~\ref{fig:compare}, the experimental outcomes validated our hypothesis.
+
+\begin{figure}[t]
+	\centering
+	
+	% 上面的图例，居中并可通过 hspace 调整左右位置
+	\hspace*{8pt} % 可调整的参数，负值左移，正值右移，例如 -20pt 或 20pt
+	\includegraphics[width=0.95\columnwidth]{fig/review_real_syn_legend.pdf} % 图例图片路径
+	
+	% --- 不再使用 subfigure ---
+	% 直接放置第二张图片，可以加一点垂直间距
+	\vspace{5pt} 
+	\includegraphics[width=0.99\columnwidth]{fig/review_real_syn.pdf}
+	
+	\caption{Comparison of Real and Synthetic Attributes}
+	\label{fig:compare}
+	
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%% W2 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
