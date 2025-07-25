@@ -135,7 +135,7 @@ and concerns, and the changes are highlighted \textcolor{blue}{in blue} accordin
 }
 
 \noindent
-\textbf{Response:} We sincerely appreciate your valuable suggestions, which provide meaningful improvements to our work. Ensuring the readability of the figures is indeed crucial. We have modified both the figure and the related description in the paper to improve readability and ensure academic rigor. (Please see Section 4.2.3, highlighted in blue in the revised manuscript)
+\textbf{Response:} We sincerely appreciate your valuable suggestions, which provide meaningful improvements to our work. Ensuring the readability of the figures is indeed crucial. We have modified both the figure and the related description in the paper to improve readability and ensure academic rigor. \textbf{(Please see Section 4.2.3, highlighted in blue in the revised manuscript)}
 
 For performance under different attribute distributions, to illustrate how different algorithms are affected by varying attribute distributions, we added robustness indicators (Strong and Weak) in the figure. This provides more intuitive visualization of how robust each algorithm performs across different attribute distributions. As shown in Figure\ref{fig:attribute_distribution} below.
 
@@ -155,7 +155,7 @@ For performance under different attribute selectivity, to reflect the performanc
 	\label{fig:attribute_selectivity}
 \end{figure}
 
-\textcolor{blue}{"The proximity of the 4 curves (representing different attribute distributions) in the figure reflects algorithm sensitivity to distributional variations. When the curves converge closely, the algorithm demonstrates strong resilience against attribute distribution shifts. Conversely, greater divergence among the curves indicates higher distributional dependence. Accordingly, the "Strong" label signifies robust performance consistency across varying distributions, while "Weak" denotes pronounced performance fluctuations under distributional changes."}
+\textcolor{blue}{"The proximity of the 4 curves in the figure reflects algorithm sensitivity to distributional variations. When the curves converge closely, the algorithm demonstrates strong resilience against attribute distribution shifts."}
 
 %%%%%%%%%%%%%%%%%%%%%% R2 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -287,23 +287,24 @@ Thank you for your suggestion. We are deeply aware of this shortcoming, so we pr
 	\centering
 	\includegraphics[width=\linewidth]{fig/searchMem/label_memory_comparison.pdf}
 	\caption{attribute filtering search peak memory}
-	\label{fig:attribute filtering search peak memory}
+	\label{fig:search_memory_mb_comparison}
 \end{figure}
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=\linewidth]{fig/searchMem/range_memory_comparison.pdf}
-	\caption{range filtering search peak memory}
-	\label{fig:range filtering search peak memory}
+	\includegraphics[height=2.5cm]{fig/searchMem/range_memory_comparison.pdf}
+	\caption{Range filtering search peak memory}
+	\label{fig:rangeFilter_search_memory_mb}
 \end{figure}
+
 
 For attribute filtering, please see section 4.2.1.
 
-\textcolor{blue}{"As for the search peak memory usage, we can find from the Figure ~\ref{fig:attribute filtering search peak memory} that the peak memory usage of each algorithm during search does not differ significantly. Among them, CAPS and NHQ have relatively higher peak memory usage, while the peak memory usage of database is comparatively lower."}
+\textcolor{blue}{"For most algorithms, the query phase requires loading both the index and the dataset into memory, so its peak memory usage is usually comparable to that of the construction phase. However, as shown in the Figure~\ref{fig:search_memory_mb_comparison}, CAPS exhibits significantly higher peak memory during querying due to the need to dynamically maintain large candidate sets. In contrast, Milvus has lower query-time memory usage because it does not fully load the index and incurs additional metadata overhead during construction."}
 
 For range filtering, please see section 4.3.1.
 
-\textcolor{blue}{"As for the Search peak memory usage, we can find from the Figure ~\ref{fig:range filtering search peak memory} that it is basically consistent with the Build peak memory usage trend. The algorithm needs to load the complete index into memory during search. Therefore, algorithms with high building overhead, such as WinFilter, also have high search overhead; algorithms with low building overhead, such as Faiss, also have low search overhead. For Milvus, search does not require full index loading and there is additional metadata overhead when building, so the performance is different from the trend."}
+\textcolor{blue}{"As for the search peak memory usage, we can find from the Figure ~\ref{fig:rangeFilter_search_memory_mb} that it is basically consistent with the build peak memory usage trend. As we analyzed in the section on attribute filtering."}
 
 
 %%%%%%%%%%%%%%%%%%%%%% R8 %%%%%%%%%%%%%%%%%%%%%%
@@ -315,12 +316,12 @@ For range filtering, please see section 4.3.1.
 
 \noindent
 \textbf{Response:} 
-Thank you for your valuable suggestion regarding our experiments. In Section 4.2.4 and Section 4.3.4, we have added experiments on the Deep100M dataset. The results show that most algorithms struggle to balance performance with time and space costs on this large-scale dataset. In particular, StitchedVamana performs poorly on Deep100M. For attribute filtering, please see section 4.2.4.
+Thank you for your valuable suggestion regarding our experiments. In Section 4.2.4 and Section 4.3.4, we have added experiments on the Deep100M dataset. The results show that most algorithms struggle to balance performance with time and space costs on this large-scale dataset. In particular, StitchedVamana performs poorly on Deep100M. For attribute filtering. \textbf{(Please refer to the blue highlighted parts in Section 4.2.4 and Section 4.3.4 under Large-scale Datasets.)}
 
-\textcolor{blue}{"On the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating their good adaptability to large-scale datasets; however, this also comes with significant memory overhead. The clustering-based algorithm \texttt{Faiss+HQI\_Batch} shows moderate performance but has very low memory overhead, which makes it highly attractive for practical applications. We did not present the experimental results for StitchedVamana because we found that its recall consistently remained at a very low level. Its search starting point is set to 0 by default, and when the entry point is far from the target area, it easily gets stuck in a local optimum, making it difficult to navigate to the vicinity of the correct point."}
 
-For range filtering, please see section 4.3.4.
+Attribute filtering:\textcolor{blue}{"On the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating their good adaptability to large-scale datasets; however, this also comes with significant memory overhead. The clustering-based algorithm \texttt{Faiss+HQI\_Batch} shows moderate performance but has very low memory overhead, which makes it highly attractive for practical applications. We did not present the experimental results for StitchedVamana because we found that its recall consistently remained at a very low level. Its search starting point is set to 0 by default, and when the entry point is far from the target area, it easily gets stuck in a local optimum, making it difficult to navigate to the vicinity of the correct point."}
 
+Range filtering:
 \textcolor{blue}{"As shown in the figure 16c, in the 100-million-scale dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption (300-400GB). At the same time, we can see that some algorithms (e.g., SeRF, ACORN-1) perform even worse than the VBASE database, which indicates that they do not adapt well to large-scale dataset scenarios. Although Milvus has a low QPS, it can achieve a recall of 1 with an excellent memory footprint of around 80GB"}
 
 %%%%%%%%%%%%%%%%%%%%%% R9 %%%%%%%%%%%%%%%%%%%%%%
@@ -502,7 +503,7 @@ Please see section 1.1.
 
 \noindent
 \textbf{Response:} 
-Thank you for pointing it out. We sincerely apologize for the misuse of notation in Definition 2.3. This has been corrected in the revised version. (Please see Definition 2.3 in Section 2.1, highlighted in blue in the revised manuscript)
+Thank you for pointing it out. We sincerely apologize for the misuse of notation in Definition 2.3. This has been corrected in the revised version.\textbf{(Please see Definition 2.3 in Section 2.1, highlighted in blue in the revised manuscript)}
 
 \textcolor{blue}{"Let \( D = \{(v_1, a_1), \ldots, (v_n, a_n)\} \) be a dataset of \( n \) \( d \)-dimensional vectors, each associated with an attribute value \( a_i \)."}
 
