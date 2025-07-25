@@ -1143,8 +1143,12 @@ a}
 	
 	%SeRF maintains a compact index for low-dimensional data. However, for high-dimensional dataset (WIT), SeRF stores more edges and dynamic range data, significantly increasing its size.
 	
-	\textit{\textbf{Build peak memory.}}
-	\textcolor{orange}{As explained in the build peak memory analysis for attribute filtering, the build peak memory depends on the sum of the index size and the dataset size, as shown in Figure~\ref{fig:rangeFilter_build_memory_mb}. Range filtering also follows this pattern. The reason why PASE deviates from this trend has been discussed earlier, and is not repeated here to save space.}
+	\textit{\textbf{Build peak memory.}}  
+	\textcolor{orange}{As explained in the attribute filtering analysis, the peak memory usage during index construction generally depends on the combined size of the dataset and the index, as illustrated in Figure~\ref{fig:rangeFilter_build_memory_mb}. Range filtering adheres to this pattern, while PASE deviates due to reasons discussed earlier.}  
+	
+	\textcolor{orange}{WinFilter also presents an exception:  its peak memory usage is also affected by the level of parallelism. Although the final index size remains relatively small, the peak memory usage increases significantly during both construction and search. During construction, this is caused by the parallel building of local indices for each tree node, which results in substantial temporary memory usage. Similarly, during search, WinFilter needs to load multiple local indices in parallel for different tree nodes, further contributing to high peak memory consumption.}
+	
+
 	
 %	As Figure~\ref{fig:rangeFilter_build_memory_mb} shows, Faiss uses the least memory on low-dimensional datasets. It stores minimal temporary data during index construction.
 %	
@@ -1154,10 +1158,8 @@ a}
 %	In contrast, \textcolor{orange}{Milvus exhibits the highest memory consumption,}
 
 
-	
-		\textit{\textbf{\textcolor{orange}{Search peak memory.}}}
-		\textcolor{orange}{As for the search peak memory usage, we can find from the Figure ~\ref{fig:rangeFilter_search_memory_mb} that it is basically consistent with the build peak memory usage trend. As we analyzed in the section on attribute filtering.
-		}
+		\textit{\textbf{\textcolor{orange}{Search peak memory.}}}  
+		\textcolor{orange}{As shown in Figure~\ref{fig:rangeFilter_search_memory_mb}, the peak memory usage during search generally follows a similar trend to that observed during index construction. This observation is consistent with our earlier analysis in the attribute filtering section.}
 		
 	\begin{figure*}[t]
 		
