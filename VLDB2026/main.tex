@@ -1137,11 +1137,11 @@ In contrast, the construction time of IVF-based algorithms grows much more slowl
 	WinFilter relies on a tree structure, requiring separate nearest-neighbor graphs per node. This causes redundant computation and high costs, especially for large datasets.
 	ACORN-\(\gamma\) expands the neighbor list of each node to provide more candidate paths, which increases both computation and storage costs. It also prunes distant neighbors to save storage space. However, this introduces additional overhead and slows down the construction process.
 	
-	\textcolor{orange}{For large-scale dataset, DSG only supports single-threaded construction, resulting in the longest build time.}
+	\textcolor{orange}{For large-scale dataset, ACORN-1 achieves the fastest index construction. This efficiency stems from its similarity to the original HNSW construction process and the use of a limited number of candidate neighbors.DSG only supports single-threaded construction, resulting in the longest build time.}
 	
 	\textit{\textbf{Index size.}} 
 	As shown in Figure~\ref{fig:rangeFilter_index_size_mb}, Among all algorithms, Faiss has the smallest index size. Because IVF only adds centroid data and partition information to the vector dataset, the IVF index is only slightly larger than the vector dataset.
-	%On low-dimensional datasets (Deep, YT-Audio), 
+
 	
 	PASE requires the most storage. Its implementation likely wastes space due to alignment padding and inefficient encoding. %(e.g., Base64).
 	\textcolor{orange}{DSG is an improvement over SeRF. Compared to SeRF, DSG stores additional information for each edge in its index structure, resulting in a significant increase in index size on large-scale datasets.
