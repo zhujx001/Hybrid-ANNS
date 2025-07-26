@@ -1144,8 +1144,9 @@ In contrast, the construction time of IVF-based algorithms grows much more slowl
 
 	
 	PASE requires the most storage. Its implementation likely wastes space due to alignment padding and inefficient encoding. %(e.g., Base64).
-	\textcolor{orange}{DSG is an improvement over SeRF. Compared to SeRF, DSG stores additional information for each edge in its index structure, resulting in a significant increase in index size on large-scale datasets.
-	}
+	\textcolor{orange}{Additionally, DSG also results in a large index size, especially on large-scale datasets. As an enhancement over SeRF, DSG stores additional metadata for each edge in its index structure. While this design improves retrieval accuracy, it significantly increases the index size on massive datasets.}
+%	\textcolor{orange}{DSG is an improvement over SeRF. Compared to SeRF, DSG stores additional information for each edge in its index structure, resulting in a significant increase in index size on large-scale datasets.
+%	}
 	
 	%SeRF maintains a compact index for low-dimensional data. However, for high-dimensional dataset (WIT), SeRF stores more edges and dynamic range data, significantly increasing its size.
 	
