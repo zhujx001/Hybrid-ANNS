@@ -195,15 +195,10 @@ Range filtering:\textcolor{blue}{
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. Using IDs as attributes for range filtering is a prevalent method in current range filtering algorithm evaluations, which indeed has considerable limitations. To address this issue, we add two datasets that use real attributes:
-
-\textbf{YT-Audio-Real dataset:} For this dataset, we utilize the URLs provided by the YouTube8M dataset to crawl corresponding video categories and view counts as real attributes, using \textbf{video categories as attributes for attribute filtering experiments} and \textbf{view counts as attributes for range filtering experiments}, respectively.
-
-\textbf{WIT-Real dataset:} We use the \texttt{clip-vit-base-patch32} model to encode the \texttt{page\_title} field from the WIT dataset into vectors, and extract the language type and the length of the \texttt{context\_page\_}
-\texttt{description} field as real attributes, applying them in both attribute filtering and range filtering experiments.
+Thank you for your suggestion. Using IDs as attributes for range filtering is a prevalent method in current range filtering algorithm evaluations, which indeed has considerable limitations. To address this issue, we add two datasets that use real attributes.
 
 \textcolor{blue}{
-	"Additionally, we introduced two datasets with real attributes for a more comprehensive evaluation of various attribute filtering and range query algorithms: The YT-Audio-Real dataset leverages URLs provided by the YouTube8M dataset to crawl corresponding video category IDs and view counts as its real attributes; whereas for the WIT-Real dataset, we used the \texttt{clip-vit-base-patch32} model to encode the \texttt{page\_title} field into vectors, and used the language type and the length of the \texttt{context\_page\_description} field as real attributes. It should be noted that, during range filtering, due to the limitations of some algorithms, we uniformly sorted the vectors according to the query attribute."
+	"WIT-Real and YT-Audio-Real datasets use real attributes: For the WIT-Real dataset, we use the CLIP model to encode the \texttt{page\_title} field into vectors, and extract the language type and the length of the \texttt{context\_page\_description} field as real attributes. The YT-Audio-Real dataset uses YouTube8M data, employing the video category ID and view counts as real attributes for this dataset."
 }
 %%%%%%%%%%%%%%%%%%%%%% R5 %%%%%%%%%%%%%%%%%%%%%%
 
@@ -362,9 +357,9 @@ To address this, we add a summary table that provides a clearer and more structu
 }
 
 \noindent
-\textbf{Response:} I really appreciate your suggestion. Current hybrid search algorithms don't explicitly model or leverage complex semantic relationships, such as those between vectors and their attributes, or among different attributes. However, our evaluation covered a range of realistic scenarios, including multi-attribute setting, diverse distributions and selectivity, to assess the algorithms' generalization capabilities (though we used synthetic attributes).
+\textbf{Response:} I really appreciate your suggestion. Current hybrid search algorithms do not explicitly model or leverage complex semantic relationships, such as those between vectors and their attributes, or among different attributes. However, our evaluation covered a range of realistic scenarios, including multi-attribute setting, diverse distributions and selectivity, to assess the algorithms' generalization capabilities (though we used synthetic attributes).
 
-To demonstrate that the choice between synthetic and real attributes has little impact on algorithm performance, we conducted an additional set of experiments. We used the YouTube-Audio dataset for vectors and compared results with both synthetic and real attributes (video classification). As shown in Figure~\ref{fig:compare}, the experimental outcomes validated our hypothesis.
+To demonstrate that the choice between synthetic and real attributes has little impact on algorithm performance, we have conducted an additional set of experiments. We used the YouTube-Audio dataset for vectors and compared results with both synthetic and real attributes (video classification). As shown in Figure~\ref{fig:compare}, the experimental outcomes have validated our hypothesis.
 
 \begin{figure}[t]
 	\centering
