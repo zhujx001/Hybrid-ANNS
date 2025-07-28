@@ -195,7 +195,7 @@ Range filtering:\textcolor{blue}{
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. Using IDs as attributes for range filtering is a prevalent method in current range filtering algorithm evaluations, which indeed has considerable limitations. To address this issue, we add two datasets that use real attributes.
+Thank you for your suggestion. Using ID as attribute for range filtering is a prevalent method in current range filtering algorithm evaluations, which indeed has considerable limitations. To address this issue, we add two datasets that use real attributes.
 
 \textcolor{blue}{
 	"WIT-Real and YT-Audio-Real datasets use real attributes: For the WIT-Real dataset, we use the CLIP model to encode the \texttt{page\_title} field into vectors, and extract the language type and the length of the \texttt{context\_page\_description} field as real attributes. The YT-Audio-Real dataset uses YouTube8M data, employing the video category ID and view counts as real attributes for this dataset."
@@ -234,7 +234,7 @@ Range filtering:
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. Currently, except for FilteredDiskANN, other hybrid query methods are memory-based, so we added the feature of whether to support disk for each algorithm in Table 1. At the same time, we also compared the search performance difference of FilteredDiskANN on memory and SSD using real data sets. The results are shown in Figure\ref{fig:recall-latency}:
+Thank you for your suggestion. Currently, except for FilteredDiskANN, other hybrid query methods are memory-based, so we added the feature of whether to support disk for each algorithm in Table 1. At the same time, we also compared the search performance difference of FilteredDiskANN on memory and SSD using real data sets. The results are shown in Figure~\ref{fig:recall-latency}:
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=\linewidth]{fig/recall_latency_all.png}
@@ -242,7 +242,7 @@ Thank you for your suggestion. Currently, except for FilteredDiskANN, other hybr
 	\label{fig:recall-latency}
 \end{figure}
 
-We conducted additional experiments on the real-world YT8M dataset, comparing three variants of DiskANN.
+We conducted additional experiments on the YT-Audio-Real dataset, comparing three variants of DiskANN.
 (1) SSD-based FilteredDiskANN (original disk-based method);
 (2) FilteredVamana (memory-based method);
 (3) StitchedVamana (memory-based method).

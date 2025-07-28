@@ -1127,21 +1127,33 @@ In contrast, the construction time of IVF-based algorithms grows much more slowl
 	
 	%Similar to the evaluation of \textit{Attribute Filtering} algorithms, 
 	Similarly, we also evaluate \textcolor{orange}{4} key metrics mentioned above in \textit{Range Filtering} algorithms. \textcolor{orange}{Note: For regular-scale datasets, all algorithms build indexes using a single thread. For the large-scale dataset Deep100M, all algorithms use 64 threads for index construction to improve efficiency, except DSG, which only supports single-threaded construction.}
-%	\textcolor{orange}{For the YT-Audio dataset with synthetic attributes and the YT-Audio dataset with real attributes, we can found that the data for index construction is basically the same, indicating that the authenticity of the attribute has almost no effect on index construction.However, the WIT dataset with synthetic labels is 2048-dimensional, while the WIT-Real dataset with real labels is 512-dimensional, so the dimension will cause a big difference.}
 	
 	\textit{\textbf{Index construction time.}}
-
-	As shown in the Figure~\ref{fig:rangeFilter_build_time}, for regular-scale datasets, Faiss builds the index fastest. As Faiss obtains subsamples through sampling and calculates the cluster centroid, the computational complexity is significantly reduced.
-
-	WinFilter and ACORN-\(\gamma\) take the longest.
-	WinFilter relies on a tree structure, requiring separate nearest-neighbor graphs per node. This causes redundant computation and high costs, especially for large datasets.
-	ACORN-\(\gamma\) expands the neighbor list of each node to provide more candidate paths, which increases both computation and storage costs. It also prunes distant neighbors to save storage space. However, this introduces additional overhead and slows down the construction process.
-	
-	\textcolor{orange}{On large-scale datasets, ACORN-1 achieves the fastest index construction, primarily due to its similarity to the original HNSW construction process and its use of fewer candidate neighbors in the upper layers. SeRF, another HNSW-based method, also exhibits very short construction time by losslessly compressing multiple HNSW graphs into a unified structure and accelerating the process through dynamic pruning and skip-connection optimizations.
-	As two methods both based on IVF\_Flat, Milvus and Faiss achieve short indexing times. Milvus is even faster, mainly due to its cache-aware optimization, which significantly reduces CPU cache misses.}
-	
+%	As shown in the Figure~\ref{fig:rangeFilter_build_time}, for regular-scale datasets, Faiss builds the index fastest. As Faiss obtains subsamples through sampling and calculates the cluster centroid, the computational complexity is significantly reduced.
+%
+%	WinFilter and ACORN-\(\gamma\) take the longest.
+%	WinFilter relies on a tree structure, requiring separate nearest-neighbor graphs per node. This causes redundant computation and high costs, especially for large datasets.
+%	ACORN-\(\gamma\) expands the neighbor list of each node to provide more candidate paths, which increases both computation and storage costs. It also prunes distant neighbors to save storage space. However, this introduces additional overhead and slows down the construction process.
+%	
+%	\textcolor{orange}{On large-scale datasets, ACORN-1 achieves the fastest index construction, primarily due to its similarity to the original HNSW construction process and its use of fewer candidate neighbors in the upper layers. SeRF, another HNSW-based method, also exhibits very short construction time by losslessly compressing multiple HNSW graphs into a unified structure and accelerating the process through dynamic pruning and skip-connection optimizations.
+%	As two methods both based on IVF\_Flat, Milvus and Faiss achieve short indexing times. Milvus is even faster, mainly due to its cache-aware optimization, which significantly reduces CPU cache misses.}
+%	\textcolor{orange}{
+%	DSG only supports single-threaded construction, resulting in the longest build time.}
 	\textcolor{orange}{
-	DSG only supports single-threaded construction, resulting in the longest build time.}
+	As shown in Figure~\ref{fig:rangeFilter_build_time}, Faiss, based on the IVF\_Flat architecture, achieves fast index construction through subset sampling and centroid computation, which lowers the computational cost. 
+	As another IVF\_Flat-based method, Milvus performs even better on large-scale datasets, mainly due to its cache-aware optimization that greatly reduces CPU cache misses.}
+	
+		\textcolor{orange}{
+	ACORN-1 also achieves highly efficient index construction, especially on large-scale datasets. This efficiency stems from its construction process, which closely resembles that of the original HNSW, and from reducing the number of candidate neighbors in the upper layers, thereby lowering computational cost. SeRF, another HNSW-based method, also exhibits very short construction time. During construction, it attaches timestamp information to edges, keeping the total time comparable to building a single HNSW graph, which enables efficient construction even on large datasets.}
+	
+		\textcolor{orange}{
+	In contrast, WinFilter relies on a tree-based structure, where a separate nearest neighbor graph must be built for each node. This design introduces redundant computation and high construction cost. However, on large-scale datasets, the preprocessing phase of WinFilter was replaced with a base algorithm in the experiments, thus avoiding significant time overhead.}
+	
+		\textcolor{orange}{
+	ACORN-\(\gamma\)  extends the neighbor list of each node to provide more candidate paths, which increases both computational and memory overhead. Although it prunes distant neighbors to save storage, the additional construction logic still incurs substantial time cost.}
+	
+		\textcolor{orange}{
+	DSG is an optimization over SeRF, incorporating a rectangular tree structure for index management. This makes the construction process more complex and costly. In addition, DSG only supports single-threaded construction, resulting in the longest construction time on large-scale datasets.}
 	
 	\textit{\textbf{Index size.}} 
 	As shown in Figure~\ref{fig:rangeFilter_index_size_mb}, Among all algorithms, Faiss has the smallest index size. Because IVF only adds centroid data and partition information to the vector dataset, the IVF index is only slightly larger than the vector dataset.
