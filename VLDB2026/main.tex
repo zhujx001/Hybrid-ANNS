@@ -1140,7 +1140,8 @@ In contrast, the construction time of IVF-based algorithms grows much more slowl
 %	\textcolor{orange}{
 %	DSG only supports single-threaded construction, resulting in the longest build time.}
 	\textcolor{orange}{
-	As shown in Figure~\ref{fig:rangeFilter_build_time}, Faiss demonstrates very fast index construction speed, primarily due to its strategy of sampling subsets and computing clustering centroids, which significantly reduces overall computational complexity. Both Milvus and Faiss adopt the IVF\_Flat architecture, achieving short construction times on both medium-scale and large-scale datasets. On large-scale datasets in particular, Milvus performs faster, mainly owing to its cache-aware optimization, which substantially reduces CPU cache misses.}
+	As shown in Figure~\ref{fig:rangeFilter_build_time}, Faiss, based on the IVF\_Flat architecture, achieves fast index construction through subset sampling and centroid computation, which lowers the computational cost. 
+	As another IVF\_Flat-based method, Milvus performs even better on large-scale datasets, mainly due to its cache-aware optimization that greatly reduces CPU cache misses.}
 	
 		\textcolor{orange}{
 	ACORN-1 also achieves highly efficient index construction, especially on large-scale datasets. This efficiency stems from its construction process, which closely resembles that of the original HNSW, and from reducing the number of candidate neighbors in the upper layers, thereby lowering computational cost. SeRF, another HNSW-based method, also exhibits very short construction time. During construction, it attaches timestamp information to edges, keeping the total time comparable to building a single HNSW graph, which enables efficient construction even on large datasets.}
