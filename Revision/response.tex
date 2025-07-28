@@ -316,7 +316,7 @@ For range filtering, please see section 4.3.1.
 
 \noindent
 \textbf{Response:} 
-Thank you for your valuable suggestion regarding our experiments. In Section 4.2.4 and Section 4.3.4, we have added experiments on the Deep100M dataset. The results show that most algorithms struggle to balance performance with time and space costs on this large-scale dataset. In particular, StitchedVamana performs poorly on Deep100M. For attribute filtering. \textbf{(Please refer to the blue highlighted parts in Section 4.2.4 and Section 4.3.4 under Large-scale Datasets.)}
+Thank you for your valuable suggestion regarding our experiments. In Section 4.2.4 and Section 4.3.4, we have added experiments on the Deep100M dataset. The results show that most algorithms struggle to balance performance with time and space costs on this large-scale dataset. In particular, StitchedVamana performs poorly on Deep100M. \textbf{(Please refer to the blue highlighted parts in Section 4.2.4 and Section 4.3.4 under Large-scale Datasets.)}
 
 
 Attribute filtering:\textcolor{blue}{"On the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating their good adaptability to large-scale datasets; however, this also comes with significant memory overhead. The clustering-based algorithm \texttt{Faiss+HQI\_Batch} shows moderate performance but has very low memory overhead, which makes it highly attractive for practical applications. We did not present the experimental results for StitchedVamana because we found that its recall consistently remained at a very low level. Its search starting point is set to 0 by default, and when the entry point is far from the target area, it easily gets stuck in a local optimum, making it difficult to navigate to the vicinity of the correct point."}
@@ -401,7 +401,7 @@ Thank you for your feedback. We improve the readability of the two figures in Se
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We have addressed this issue in detail in our response to Meta-Review R2. Specifically, we add complex multimodal query experiments and provided an in-depth analysis of the results. For more details, please refer to our response to Meta-Review R2.
+Thank you for your suggestion. We have addressed this issue in detail in our response to Meta-Review R2. Specifically, we added complex multimodal query experiments and provided an in-depth analysis of the results. For more details, please refer to our response to Meta-Review R2.
 %We think this is an excellent suggestion. We have enhanced our experiments by incorporating more complex multimodal dataset evaluations in Section \textcolor{blue}{XXX} of the paper. Initially, our paper utilized the Text2Image dataset, which is commonly used in existing multimodal ANN algorithms. This dataset presents a modality gap, as the base vectors are images while the query set consists of text, often requiring algorithms to exhibit stronger robustness for good performance. To further enrich the evaluation of complex multimodal queries, we selected 500,000 text vectors and 500,000 image vectors from the Text2Image dataset to form a mixed base query dataset. Similarly, we chose 5,000 image vectors and 5,000 text vectors as query vectors, combining both text and image modalities. We then performed attribute filtering and range queries on this multimodal dataset to further analyze algorithm robustness.  The relevant experimental results are presented and discussed in Section\textcolor{blue}{XXX}of our paper.
 
 \section*{Response to Review 2}
@@ -428,9 +428,9 @@ Thank you for your suggestion. We have addressed this issue in detail in our res
 \textbf{Response:} 
 Thank you for your suggestion. We fully understand your concern regarding the use of synthetic or less meaningful attributes in our hybrid query experimental setup.
 
-To address this crucial issue and enhance the real-world relevance of our evaluation, we have added two new real-world datasets with genuine attributes to our attribute filtering and range query experiments, as detailed in MetaReview R3.
+To address this crucial issue and enhance the real-world relevance of our evaluation, we have added two new real-world datasets with genuine attributes to our attribute filtering and range query experiments, as detailed in Meta-Review R3.
 
-We have revised the manuscript accordingly. (Please see page 7, Section 4.2.1, and the "Single-Attribute Building and Single-Attribute Query" subsection of Section 4.2.2 on page 8, highlighted in blue in the revised manuscript.) Furthermore, it should be noted that, in the "Single-Attribute Building and Single-Attribute Query" subsection of Section 4.2.2 on page 8, due to space constraints, we have removed two previous datasets (Audio and GloVe), as Audio is relatively small-scale, and GloVe's scale is similar to SIFT1M while its LID is similar to GIST1M.
+We have revised the manuscript accordingly.\textbf{ (Please see page 7, Section 4.2.1, and the "Single-Attribute Building and Single-Attribute Query" subsection of Section 4.2.2 on page 8, highlighted in blue in the revised manuscript.)} Furthermore, it should be noted that, in the "Single-Attribute Building and Single-Attribute Query" subsection of Section 4.2.2 on page 8, due to space constraints, we have removed two previous datasets (Audio and GloVe), as Audio is relatively small-scale, and GloVe's scale is similar to SIFT1M while its LID is similar to GIST1M.
 
 %%%%%%%%%%%%%%%%%%%%%% W2 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -447,7 +447,7 @@ We have revised the manuscript accordingly. (Please see page 7, Section 4.2.1, a
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We have added relevant experiments conducted on different servers in Section 4.2.4 and 4.3.4. Please refer to the response MR.R4 for more details.
+Thank you for your suggestion. We have added relevant experiments conducted on different servers in Section 4.2.4 and 4.3.4. Please refer to the response Meta-Review R4 for more details.
 %%%%%%%%%%%%%%%%%%%%%% W3 %%%%%%%%%%%%%%%%%%%%%%
 
 \myfbox{
@@ -487,7 +487,7 @@ Thank you for your suggestion. We have made a detailed response to this question
 
 \noindent
 \textbf{Response:} 
-Thank you for pointing this out. Both paper [49] and our paper are benchmarks. Paper [49] provides a comprehensive review and evaluation of graph-based approximate nearest neighbor search algorithms. Our paper is the first benchmark to evaluate hybrid queries. Since hybrid queries are developed based on ANN, we refer to the evaluation metrics proposed in the cited paper. We realize that we did not clearly explain the difference between our paper and the cited paper, so we add a description in the introduction, please see section 1.1.
+Thank you for pointing this out. Both paper [49] and our paper are benchmarks. Paper [49] provides a comprehensive review and evaluation of graph-based approximate nearest neighbor search algorithms. Our paper is the first benchmark to evaluate hybrid queries. Since hybrid queries are developed based on ANN, we refer to the evaluation metrics proposed in the cited paper. We realize that we did not clearly explain the difference between our paper and the cited paper, so we have added a description in the introduction, please see section 1.1.
 
 \textcolor{blue}{"Although existing work, such as the survey [49] by reviews graph-based ANN methods, the literature still lacks an experimental study specifically targeting hybrid query algorithms. To address this gap, we conduct the first comprehensive experimental evaluation of hybrid query algorithms, systematically analyzing their index construction costs and query efficiency across diverse scenarios. Furthermore, we rigorously assess the robustness of each algorithm under varying conditions, thereby providing valuable insights for future research and practical applications."}
 
@@ -535,7 +535,7 @@ Thank you for pointing it out. We sincerely apologize for the misuse of notation
 
 \noindent
 \textbf{Response:} 
-Thank you for the suggestion. Since there are multiple methods, listing all URLs in Section 4.1 would be overwhelming. Instead, in Section 3, we add superscript markers next to each algorithm name and provide the corresponding implementation URLs as footnotes on the same page. (Please see the relevant footnotes in Section 3 in the revised manuscript)
+Thank you for the suggestion. Since there are multiple methods, listing all URLs in Section 4.1 would be overwhelming. Instead, in Section 3, we add superscript markers next to each algorithm name and provide the corresponding implementation URLs as footnotes on the same page. \textbf{(Please see the relevant footnotes in Section 3 in the revised manuscript.)}
 
 
 
@@ -555,7 +555,7 @@ Thank you for the suggestion. Since there are multiple methods, listing all URLs
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We have added experiments on the Deep100M dataset in Section 4.2.4 and Section 4.3.4, and we observed some pitfalls. For more details, please refer to our response to Meta Review R7.
+Thank you for your suggestion. We have added experiments on the Deep100M dataset in Section 4.2.4 and Section 4.3.4, and we observed some pitfalls. For more details, please refer to our response to Meta-Review R7.
 
 %%%%%%%%%%%%%%%%%%%%%% W2 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -623,7 +623,7 @@ Thank you for your insightful comments.
 
 \textbf{Regarding dataset scale and scalability:}
 
-We conducted experiments on a 100M-scale deep dataset and analyzed the performance of each algorithm on the large dataset.\textbf{ Please refer to the response to MetaReview R7.}
+We conducted experiments on a 100M-scale deep dataset and analyzed the performance of each algorithm on the large dataset. Please refer to the response to Meta-Review R7.
 
 \textbf{Regarding the experimental parameter settings:}
 
@@ -687,7 +687,7 @@ Thank you for the suggestion. We realized that the original wording is somewhat 
 \noindent
 \textbf{Response:} Thank you very much for your careful review and valuable suggestions. We greatly appreciate your feedback and sincerely apologize for any lack of clarity in our paper.
 
-Regarding the issue of range attributes, we indeed used only one range attribute for evaluation. At present, most existing range filtering algorithms only support filtering on a single attribute. This is a major limitation of current range filtering methods. We have clearly pointed this out in \textcolor{blue}{Section 5.2.2} of the "Discussion" part of the paper and listed it as an important challenge for future work. Thank you for highlighting this point, which further emphasizes the significance of our work.\textbf{(Please refer to the "Build peak memory" part of Section 5.2.2, highlighted in green in the revised manuscript)}
+Regarding the issue of range attributes, we indeed used only one range attribute for evaluation. At present, most existing range filtering algorithms only support filtering on a single attribute. This is a major limitation of current range filtering methods. We have clearly pointed this out in Section 5.2.2 of the "Discussion" part of the paper and listed it as an important challenge for future work. Thank you for highlighting this point, which further emphasizes the significance of our work. \textbf{(Please refer to the "Build peak memory" part of Section 5.2.2, highlighted in green in the revised manuscript)}
 
 To make the paper more readable, we have added a more detailed explanation of the range attribute in Section 4.3.2.\textbf{(Please see paragraph 1 of Section 4.3, which is highlighted in blue in the revised manuscript.)}
 
@@ -695,7 +695,7 @@ In response to the large difference in index construction time shown in Figure 1
 
 Finally, your observation about the missing peak memory usage data for Milvus in Figure 12c is very insightful. Initially, we hesitated to include the peak memory usage of databases (such as Milvus) because they are full systems that run continuously and contain many components. This makes them quite different from other algorithms.
 
-However, we agree with your point. To provide a more comprehensive evaluation, we have added the peak memory usage data of the database systems  in the revised version of the paper. This offers a more complete comparative view.\textbf{(Please refer to the "Build peak memory" part of Section 4.2.1 and  4.3.1, highlighted in blue in the revised manuscript)}
+However, we agree with your point. To provide a more comprehensive evaluation, we have added the peak memory usage data of the database systems  in the revised version of the paper. This offers a more complete comparative view. \textbf{(Please refer to the "Build peak memory" part of Section 4.2.1 and  4.3.1, highlighted in blue in the revised manuscript)}
 
 Once again, thank you for your constructive comments. Your valuable feedback has helped us improve the paper further.
 
@@ -711,7 +711,7 @@ Once again, thank you for your constructive comments. Your valuable feedback has
 
 
 \noindent
-\textbf{Response:} Thank you for your feedback. We have revised \textcolor{blue}{Section 4.3.2 in our paper to provide a more specific and clearer explanation.}
+\textbf{Response:} Thank you for your feedback. We have revised Section 4.3.2 in our paper to provide a more specific and clearer explanation.
 
 Specifically, SeRF compresses the entire HNSW graph collection by adding range information to the edges. While this approach saves space, it leads to significant performance degradation when executing small-range queries. This is because SeRF’s multi-filtering mechanism needs to inspect a large number of edge entries that are irrelevant to the current small-range query, thereby introducing fixed computational and memory access overhead. Additionally, during graph traversal, many invalid neighbors may be visited, causing the search to fall into local optima, which further degrades query performance and recall.\textbf{(Please see  Section 4.3.2, which is highlighted in blue in the revised manuscript.)}
 
