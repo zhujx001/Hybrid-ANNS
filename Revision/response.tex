@@ -135,7 +135,7 @@ and concerns, and the changes are highlighted \textcolor{blue}{in blue} accordin
 }
 
 \noindent
-\textbf{Response:} We sincerely appreciate your valuable suggestions, which provide meaningful improvements to our work. Ensuring the readability of the figures is indeed crucial. We have modified both the figure and the related description in the paper to improve readability and ensure academic rigor. \textbf{(Please see Section 4.2.3, highlighted in blue in the revised manuscript)}
+\textbf{Response:} We sincerely appreciate your valuable suggestions, which provide meaningful improvements to our work. Ensuring the readability of the figures is indeed crucial. We have modified both the figure and the related description in the paper to improve readability and ensure academic rigor. \textbf{(Please see Section 4.2.3, highlighted in blue in the revised manuscript.)}
 
 For performance under different attribute distributions, to illustrate how different algorithms are affected by varying attribute distributions, we added robustness indicators (Strong and Weak) in the figure. This provides more intuitive visualization of how robust each algorithm performs across different attribute distributions. As shown in Figure\ref{fig:attribute_distribution} below.
 
@@ -167,7 +167,7 @@ For performance under different attribute selectivity, to reflect the performanc
 \noindent
 \textbf{Response:} We believe this is an excellent suggestion. In fact, in the initial version of our paper, we used the text-to-image dataset that has been widely adopted by existing multimodal ANN algorithms. In this dataset, the base vectors are images, while the query set consists of texts, resulting in a modality gap between the two. Achieving good performance on such a dataset often requires the algorithm to demonstrate stronger robustness. \textbf{(Please refer to the last paragraph of Section 4.2.3 and the green highlighted part in Section 4.3.3.)}
 
-To further enrich the evaluation of complex multimodal queries, we add new experiments in the Multi-modal Queries sections of Section 4.2.4 and Section 4.3.4. Specifically, we construct a more challenging multimodal dataset by selecting 500,000 text vectors and 500,000 image vectors as the base set, and 5,000 text vectors and 5,000 image vectors as the query set. We then perform both attribute filtering and range queries over this dataset, combining text and image queries to further analyze the robustness of the algorithms. The corresponding experimental results are presented in Section 4.2.4 and Section 4.3.4 under Multi-modal Queries.
+To further enrich the evaluation of complex multimodal queries, we have added new experiments in the Multi-modal Queries sections of Section 4.2.4 and Section 4.3.4. Specifically, we constructed a more challenging multimodal dataset by selecting 500,000 text vectors and 500,000 image vectors as the base set, and 5,000 text vectors and 5,000 image vectors as the query set. We then perform both attribute filtering and range queries over this dataset, combining text and image queries to further analyze the robustness of the algorithms. The corresponding experimental results are presented in Section 4.2.4 and Section 4.3.4 under Multi-modal Queries.
 
 As for complex query types that involve both attribute filtering and range queries simultaneously, to the best of our knowledge, existing algorithms—except for general-purpose systems such as Milvus and Faiss—do not support this functionality. For example, ACORN needs to build separate indexes for each scenario and cannot handle attribute filtering and range queries simultaneously. Therefore, we do not consider this type of complex query in our experiments but instead study the two query types separately. \textbf{(Please refer to the blue highlighted parts in  Section 4.1.1 paragraph 4 and  Section 4.2.4 and Section 4.3.4 under Multi-modal Queries.)
 }
@@ -195,10 +195,10 @@ Range filtering:\textcolor{blue}{
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. Using ID as attribute for range filtering is a prevalent method in current range filtering algorithm evaluations, which indeed has considerable limitations. To address this issue, we add two datasets that use real attributes.
+Thank you for your suggestion. Using ID as attribute for range filtering is a prevalent method in current range filtering algorithm evaluations, which indeed has considerable limitations. To address this issue, we have added two datasets that use real attributes.
 
 \textcolor{blue}{
-	"WIT-Real and YT-Audio-Real datasets use real attributes: For the WIT-Real dataset, we use the CLIP model to encode the \texttt{page\_title} field into vectors, and extract the language type and the length of the \texttt{context\_page\_description} field as real attributes. The YT-Audio-Real dataset uses YouTube8M data, employing the video category ID and view counts as real attributes for this dataset."
+	"WIT-Real and YT-Audio-Real datasets use real attributes: For the WIT-Real dataset, we use the CLIP model to encode the page title into vectors, and extract the language type and the length of the context page description as real attributes. The YT-Audio-Real dataset uses YouTube8M data, employing the video category ID and view counts as real attributes for this dataset."
 }
 %%%%%%%%%%%%%%%%%%%%%% R5 %%%%%%%%%%%%%%%%%%%%%%
 
@@ -319,7 +319,7 @@ For range filtering, please see section 4.3.1.
 Thank you for your valuable suggestion regarding our experiments. In Section 4.2.4 and Section 4.3.4, we have added experiments on the Deep100M dataset. The results show that most algorithms struggle to balance performance with time and space costs on this large-scale dataset. In particular, StitchedVamana performs poorly on Deep100M. \textbf{(Please refer to the blue highlighted parts in Section 4.2.4 and Section 4.3.4 under Large-scale Datasets.)}
 
 
-Attribute filtering:\textcolor{blue}{"As shown in the figure~\ref{fig:attribute big dataset}, on the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating good adaptability to large-scale datasets. However, this also comes with significant memory overhead. The clustering-based algorithm Faiss+HQI\_Batch shows moderate performance but has very low memory overhead, which also has certain practical significance. Furthermore, we do not present the experimental results for StitchedVamana because its recall consistently remains at a very low level. This is due to its search starting point being set to 0 by default, when the entry point is far from the target area, it easily gets stuck in a local optimum, making it difficult to navigate to the vicinity of the correct point."}
+Attribute filtering:\textcolor{blue}{"As shown in the figure 12c, on the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating good adaptability to large-scale datasets. However, this also comes with significant memory overhead. The clustering-based algorithm Faiss+HQI\_Batch shows moderate performance but has very low memory overhead, which also has certain practical significance. Furthermore, we do not present the experimental results for StitchedVamana because its recall consistently remains at a very low level. This is due to its search starting point being set to 0 by default, when the entry point is far from the target area, it easily gets stuck in a local optimum, making it difficult to navigate to the vicinity of the correct point."}
 
 Range filtering:
 \textcolor{blue}{"As shown in the figure 16c, in the 100-million-scale dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption (300-400GB). At the same time, we can see that some algorithms (e.g., SeRF, ACORN-1) perform even worse than the VBASE database, which indicates that they do not adapt well to large-scale dataset scenarios. Although Milvus has a low QPS, it can achieve a recall of 1 with an excellent memory footprint of around 80GB"}
@@ -494,7 +494,7 @@ Thank you for your suggestion. We have added relevant experiments conducted on d
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We have made a detailed response to this question in R5 of Response To Meta-reviewer. Please see R5 for details.
+Thank you for your suggestion. We have already provided a detailed response to this issue in our reply to Meta-Review R5. Please refer to that response for more information.
 
 
 %%%%%%%%%%%%%%%%%%%%%% W4 %%%%%%%%%%%%%%%%%%%%%%
@@ -507,7 +507,7 @@ Thank you for your suggestion. We have made a detailed response to this question
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We have made a detailed response to this question in R6 of Response To Meta-reviewer. Please see R6 for details.
+Thank you for your suggestion. We have made a detailed response to this issue in our reply to Meta-Review R6. Please refer to that response for more information.
 	
 %%%%%%%%%%%%%%%%%%%%%% D1 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -539,7 +539,7 @@ Thank you for pointing this out. Both paper [49] and our paper are benchmarks. P
 \noindent
 \textbf{Response:} 
 Thank you for your suggestion. We cited these two papers in the introduction to show that there are several papers that study attribute distribution and selectivity.
-In addition, attribute distribution and selectivity are indeed widely used in real-world scenarios. For attribute distribution, the label attributes of many recommendation application scenarios in reality conform to the power-law distribution. For attribute selectivity: For example, if you need to query data with a very small proportion of a certain attribute, choosing a better algorithm will greatly improve the search effect. There are also some databases with practical applications that mention attribute selectivity, such as Milvus and AnalyticDB-V. For the two parts you suggested, we will add more comprehensive references in the paper.
+In addition, attribute distribution and selectivity are indeed widely used in real-world scenarios. For attribute distribution, the label attributes of many recommendation application scenarios in reality conform to the power-law distribution. For attribute selectivity: For example, if you need to query data with a very small proportion of a certain attribute, choosing a better algorithm will greatly improve the search effect. There are also some databases with practical applications that mention attribute selectivity, such as Milvus and AnalyticDB-V. For the two parts you suggested, we have added more comprehensive references in the paper.
 
 Please see section 1.1. 
 
@@ -555,7 +555,7 @@ Please see section 1.1.
 
 \noindent
 \textbf{Response:} 
-Thank you for pointing it out. We sincerely apologize for the misuse of notation in Definition 2.3. This has been corrected in the revised version.\textbf{(Please see Definition 2.3 in Section 2.1, highlighted in blue in the revised manuscript)}
+Thank you for pointing it out. We sincerely apologize for the misuse of notation in Definition 2.3. This has been corrected in the revised version.\textbf{(Please see Definition 2.3 in Section 2.1, highlighted in blue in the revised manuscript.)}
 
 \textcolor{blue}{"Let \( D = \{(v_1, a_1), \ldots, (v_n, a_n)\} \) be a dataset of \( n \) \( d \)-dimensional vectors, each associated with an attribute value \( a_i \)."}
 
@@ -569,7 +569,7 @@ Thank you for pointing it out. We sincerely apologize for the misuse of notation
 
 \noindent
 \textbf{Response:} 
-Thank you for the suggestion. Since there are multiple methods, listing all URLs in Section 4.1 would be overwhelming. Instead, in Section 3, we add superscript markers next to each algorithm name and provide the corresponding implementation URLs as footnotes on the same page. \textbf{(Please see the relevant footnotes in Section 3 in the revised manuscript.)}
+Thank you for the suggestion. Since there are multiple methods, listing all URLs in Section 4.1 would be overwhelming. Instead, in Section 3, we added superscript markers next to each algorithm name and provided the corresponding implementation URLs as footnotes on the same page. \textbf{(Please see the relevant footnotes in Section 3 in the revised manuscript.)}
 
 
 
@@ -615,6 +615,9 @@ Thank you for pointing this out. We agree that the initial explanations accompan
 
 \noindent
 \textbf{Response:} 
+Thank you for your suggestion. We have already addressed this issue in detail in our responses to Meta-Review R8 and R9. Specifically, we analyzed the strengths and weaknesses of each algorithm and recommended those with strong performance. Additionally, we provided a summary table illustrating how each algorithm performs across different application scenarios. For more details, please refer to our responses to Meta-Review R8 and R9.
+
+
 
 \setcounter{detailed}{0}
 
