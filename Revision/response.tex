@@ -319,7 +319,7 @@ For range filtering, please see section 4.3.1.
 Thank you for your valuable suggestion regarding our experiments. In Section 4.2.4 and Section 4.3.4, we have added experiments on the Deep100M dataset. The results show that most algorithms struggle to balance performance with time and space costs on this large-scale dataset. In particular, StitchedVamana performs poorly on Deep100M. \textbf{(Please refer to the blue highlighted parts in Section 4.2.4 and Section 4.3.4 under Large-scale Datasets.)}
 
 
-Attribute filtering:\textcolor{blue}{"As shown in the figure~\ref{fig:attribute big dataset}, on the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating good adaptability to large-scale datasets. However, this also comes with significant memory overhead. The clustering-based algorithm Faiss+HQI\_Batch shows moderate performance but has very low memory overhead, which also has certain practical significance. Furthermore, we do not present the experimental results for StitchedVamana because its recall consistently remains at a very low level. This is due to its search starting point being set to 0 by default, when the entry point is far from the target area, it easily gets stuck in a local optimum, making it difficult to navigate to the vicinity of the correct point."}
+Attribute filtering:\textcolor{blue}{"As shown in the figure 12c, on the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating good adaptability to large-scale datasets. However, this also comes with significant memory overhead. The clustering-based algorithm Faiss+HQI\_Batch shows moderate performance but has very low memory overhead, which also has certain practical significance. Furthermore, we do not present the experimental results for StitchedVamana because its recall consistently remains at a very low level. This is due to its search starting point being set to 0 by default, when the entry point is far from the target area, it easily gets stuck in a local optimum, making it difficult to navigate to the vicinity of the correct point."}
 
 Range filtering:
 \textcolor{blue}{"As shown in the figure 16c, in the 100-million-scale dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption (300-400GB). At the same time, we can see that some algorithms (e.g., SeRF, ACORN-1) perform even worse than the VBASE database, which indicates that they do not adapt well to large-scale dataset scenarios. Although Milvus has a low QPS, it can achieve a recall of 1 with an excellent memory footprint of around 80GB"}
@@ -494,7 +494,7 @@ Thank you for your suggestion. We have added relevant experiments conducted on d
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We have made a detailed response to this question in R5 of Response To Meta-reviewer. Please see R5 for details.
+Thank you for your suggestion. We have already provided a detailed response to this issue in our reply to Meta-Review R5. Please refer to that response for more information.
 
 
 %%%%%%%%%%%%%%%%%%%%%% W4 %%%%%%%%%%%%%%%%%%%%%%
@@ -507,7 +507,7 @@ Thank you for your suggestion. We have made a detailed response to this question
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We have made a detailed response to this question in R6 of Response To Meta-reviewer. Please see R6 for details.
+Thank you for your suggestion. We have made a detailed response to this issue in our reply to Meta-Review R6. Please refer to that response for more information.
 	
 %%%%%%%%%%%%%%%%%%%%%% D1 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -539,7 +539,7 @@ Thank you for pointing this out. Both paper [49] and our paper are benchmarks. P
 \noindent
 \textbf{Response:} 
 Thank you for your suggestion. We cited these two papers in the introduction to show that there are several papers that study attribute distribution and selectivity.
-In addition, attribute distribution and selectivity are indeed widely used in real-world scenarios. For attribute distribution, the label attributes of many recommendation application scenarios in reality conform to the power-law distribution. For attribute selectivity: For example, if you need to query data with a very small proportion of a certain attribute, choosing a better algorithm will greatly improve the search effect. There are also some databases with practical applications that mention attribute selectivity, such as Milvus and AnalyticDB-V. For the two parts you suggested, we will add more comprehensive references in the paper.
+In addition, attribute distribution and selectivity are indeed widely used in real-world scenarios. For attribute distribution, the label attributes of many recommendation application scenarios in reality conform to the power-law distribution. For attribute selectivity: For example, if you need to query data with a very small proportion of a certain attribute, choosing a better algorithm will greatly improve the search effect. There are also some databases with practical applications that mention attribute selectivity, such as Milvus and AnalyticDB-V. For the two parts you suggested, we have added more comprehensive references in the paper.
 
 Please see section 1.1. 
 
@@ -555,7 +555,7 @@ Please see section 1.1.
 
 \noindent
 \textbf{Response:} 
-Thank you for pointing it out. We sincerely apologize for the misuse of notation in Definition 2.3. This has been corrected in the revised version.\textbf{(Please see Definition 2.3 in Section 2.1, highlighted in blue in the revised manuscript)}
+Thank you for pointing it out. We sincerely apologize for the misuse of notation in Definition 2.3. This has been corrected in the revised version.\textbf{(Please see Definition 2.3 in Section 2.1, highlighted in blue in the revised manuscript.)}
 
 \textcolor{blue}{"Let \( D = \{(v_1, a_1), \ldots, (v_n, a_n)\} \) be a dataset of \( n \) \( d \)-dimensional vectors, each associated with an attribute value \( a_i \)."}
 
@@ -569,7 +569,7 @@ Thank you for pointing it out. We sincerely apologize for the misuse of notation
 
 \noindent
 \textbf{Response:} 
-Thank you for the suggestion. Since there are multiple methods, listing all URLs in Section 4.1 would be overwhelming. Instead, in Section 3, we add superscript markers next to each algorithm name and provide the corresponding implementation URLs as footnotes on the same page. \textbf{(Please see the relevant footnotes in Section 3 in the revised manuscript.)}
+Thank you for the suggestion. Since there are multiple methods, listing all URLs in Section 4.1 would be overwhelming. Instead, in Section 3, we added superscript markers next to each algorithm name and provided the corresponding implementation URLs as footnotes on the same page. \textbf{(Please see the relevant footnotes in Section 3 in the revised manuscript.)}
 
 
 
@@ -615,6 +615,9 @@ Thank you for pointing this out. We agree that the initial explanations accompan
 
 \noindent
 \textbf{Response:} 
+Thank you for your suggestion. We have already addressed this issue in detail in our responses to Meta-Review R8 and R9. Specifically, we analyzed the strengths and weaknesses of each algorithm and recommended those with strong performance. Additionally, we provided a summary table illustrating how each algorithm performs across different application scenarios. For more details, please refer to our responses to Meta-Review R8 and R9.
+
+
 
 \setcounter{detailed}{0}
 
