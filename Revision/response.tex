@@ -195,15 +195,10 @@ Range filtering:\textcolor{blue}{
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. Using IDs as attributes for range filtering is a prevalent method in current range filtering algorithm evaluations, which indeed has considerable limitations. To address this issue, we add two datasets that use real attributes:
-
-\textbf{YT-Audio-Real dataset:} For this dataset, we utilize the URLs provided by the YouTube8M dataset to crawl corresponding video categories and view counts as real attributes, using \textbf{video categories as attributes for attribute filtering experiments} and \textbf{view counts as attributes for range filtering experiments}, respectively.
-
-\textbf{WIT-Real dataset:} We use the \texttt{clip-vit-base-patch32} model to encode the \texttt{page\_title} field from the WIT dataset into vectors, and extract the language type and the length of the \texttt{context\_page\_}
-\texttt{description} field as real attributes, applying them in both attribute filtering and range filtering experiments.
+Thank you for your suggestion. Using ID as attribute for range filtering is a prevalent method in current range filtering algorithm evaluations, which indeed has considerable limitations. To address this issue, we add two datasets that use real attributes.
 
 \textcolor{blue}{
-	"Additionally, we introduced two datasets with real attributes for a more comprehensive evaluation of various attribute filtering and range query algorithms: The YT-Audio-Real dataset leverages URLs provided by the YouTube8M dataset to crawl corresponding video category IDs and view counts as its real attributes; whereas for the WIT-Real dataset, we used the \texttt{clip-vit-base-patch32} model to encode the \texttt{page\_title} field into vectors, and used the language type and the length of the \texttt{context\_page\_description} field as real attributes. It should be noted that, during range filtering, due to the limitations of some algorithms, we uniformly sorted the vectors according to the query attribute."
+	"WIT-Real and YT-Audio-Real datasets use real attributes: For the WIT-Real dataset, we use the CLIP model to encode the \texttt{page\_title} field into vectors, and extract the language type and the length of the \texttt{context\_page\_description} field as real attributes. The YT-Audio-Real dataset uses YouTube8M data, employing the video category ID and view counts as real attributes for this dataset."
 }
 %%%%%%%%%%%%%%%%%%%%%% R5 %%%%%%%%%%%%%%%%%%%%%%
 
@@ -239,7 +234,7 @@ Range filtering:
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. Currently, except for FilteredDiskANN, other hybrid query methods are memory-based, so we added the feature of whether to support disk for each algorithm in Table 1. At the same time, we also compared the search performance difference of FilteredDiskANN on memory and SSD using real data sets. The results are shown in Figure\ref{fig:recall-latency}:
+Thank you for your suggestion. Currently, except for FilteredDiskANN, other hybrid query methods are memory-based, so we added the feature of whether to support disk for each algorithm in Table 1. At the same time, we also compared the search performance difference of FilteredDiskANN on memory and SSD using real data sets. The results are shown in Figure~\ref{fig:recall-latency}:
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=\linewidth]{fig/recall_latency_all.png}
@@ -247,7 +242,7 @@ Thank you for your suggestion. Currently, except for FilteredDiskANN, other hybr
 	\label{fig:recall-latency}
 \end{figure}
 
-We conducted additional experiments on the real-world YT8M dataset, comparing three variants of DiskANN.
+We conducted additional experiments on the YT-Audio-Real dataset, comparing three variants of DiskANN.
 (1) SSD-based FilteredDiskANN (original disk-based method);
 (2) FilteredVamana (memory-based method);
 (3) StitchedVamana (memory-based method).
@@ -288,6 +283,7 @@ While StitchedVamana achieves extremely low latency (sub-5 ms) due to its stitch
 Thank you for your suggestion. We are deeply aware of this shortcoming, so we provide the search peak memory usage of each algorithm in the time and space overhead section and carefully analyze the reasons.
 \begin{figure}[htbp]
 	\centering
+	\includegraphics[width=\linewidth]{fig/legend_only.pdf}
 	\includegraphics[width=\linewidth]{fig/searchMem/label_memory_comparison.pdf}
 	\caption{attribute filtering search peak memory}
 	\label{fig:search_memory_mb_comparison}
@@ -295,6 +291,7 @@ Thank you for your suggestion. We are deeply aware of this shortcoming, so we pr
 
 \begin{figure}[htbp]
 	\centering
+	\includegraphics[width=\linewidth]{fig/rangeFilter_legend_only.pdf}
 	\includegraphics[height=2.5cm]{fig/searchMem/range_memory_comparison.pdf}
 	\caption{Range filtering search peak memory}
 	\label{fig:rangeFilter_search_memory_mb}
@@ -362,9 +359,9 @@ To address this, we add a summary table that provides a clearer and more structu
 }
 
 \noindent
-\textbf{Response:} I really appreciate your suggestion. Current hybrid search algorithms don't explicitly model or leverage complex semantic relationships, such as those between vectors and their attributes, or among different attributes. However, our evaluation covered a range of realistic scenarios, including multi-attribute setting, diverse distributions and selectivity, to assess the algorithms' generalization capabilities (though we used synthetic attributes).
+\textbf{Response:} I really appreciate your suggestion. Current hybrid search algorithms do not explicitly model or leverage complex semantic relationships, such as those between vectors and their attributes, or among different attributes. However, our evaluation covered a range of realistic scenarios, including multi-attribute setting, diverse distributions and selectivity, to assess the algorithms' generalization capabilities (though we used synthetic attributes).
 
-To demonstrate that the choice between synthetic and real attributes has little impact on algorithm performance, we conducted an additional set of experiments. We used the YouTube-Audio dataset for vectors and compared results with both synthetic and real attributes (video classification). As shown in Figure~\ref{fig:compare}, the experimental outcomes validated our hypothesis.
+To demonstrate that the choice between synthetic and real attributes has little impact on algorithm performance, we have conducted an additional set of experiments. We used the YouTube-Audio dataset for vectors and compared results with both synthetic and real attributes (video classification). As shown in Figure~\ref{fig:compare}, the experimental outcomes have validated our hypothesis.
 
 \begin{figure}[t]
 	\centering
@@ -626,7 +623,7 @@ Thank you for your insightful comments.
 
 \textbf{Regarding dataset scale and scalability:}
 
-We conducted experiments on a 100M-scale deep dataset and analyzed the performance of each algorithm on the large dataset. Please refer to MR.R7.
+We conducted experiments on a 100M-scale deep dataset and analyzed the performance of each algorithm on the large dataset.\textbf{ Please refer to the response to MetaReview R7.}
 
 \textbf{Regarding the experimental parameter settings:}
 
@@ -649,9 +646,8 @@ Of all the evaluated algorithms, Faiss, Puck, DiskANN, and Milvus support quanti
 
 \textbf{Regarding Figure 7 and the exclusion of Vamana:}
 
-We appreciate the observation of reviewer. Figure 7 presents experiments on multi-attribute construction and search, using Boolean AND logic. The Vamana-based methods (FilteredVamana and StitchedVamana) only support Boolean OR logic for multi-attribute search, which is why they were not included. Since other algorithms also do not support multi-attribute queries, we will explain this situation collectively in the corresponding section of the paper to save space.
-
-Please see the section 4.2.2 on Multi-Attribute Construction and Multi-Attribute Query.
+We appreciate the observation of reviewer. Figure 7 presents experiments on multi-attribute construction and search, using Boolean AND logic. The Vamana-based methods (FilteredVamana and StitchedVamana) only support Boolean OR logic for multi-attribute search, which is why they were not included. Since other algorithms also do not support multi-attribute queries, we will explain this situation collectively in the corresponding section of the paper to save space.(
+\textbf{Please see the section 4.2.2 on Multi-Attribute Construction and Multi-Attribute Query.})
 
 \textcolor{blue}{"In this experiment, we only evaluate the algorithms that support this query scenario."}
 
@@ -691,13 +687,15 @@ Thank you for the suggestion. We realized that the original wording is somewhat 
 \noindent
 \textbf{Response:} Thank you very much for your careful review and valuable suggestions. We greatly appreciate your feedback and sincerely apologize for any lack of clarity in our paper.
 
-Regarding the issue of range attributes, we indeed used only one range attribute for evaluation. At present, most existing range filtering algorithms only support filtering on a single attribute. This is a major limitation of current range filtering methods. We have clearly pointed this out in \textcolor{blue}{Section 5.2.2} of the "Discussion" part of the paper and listed it as an important challenge for future work. Thank you for highlighting this point, which further emphasizes the significance of our work.
+Regarding the issue of range attributes, we indeed used only one range attribute for evaluation. At present, most existing range filtering algorithms only support filtering on a single attribute. This is a major limitation of current range filtering methods. We have clearly pointed this out in \textcolor{blue}{Section 5.2.2} of the "Discussion" part of the paper and listed it as an important challenge for future work. Thank you for highlighting this point, which further emphasizes the significance of our work.\textbf{(Please refer to the "Build peak memory" part of Section 5.2.2, highlighted in green in the revised manuscript)}
 
-In response to the large difference in index construction time shown in Figure 12a, we have revised the paper based on your suggestion. We added more detailed and in-depth analysis to provide a clearer explanation.
+To make the paper more readable, we have added a more detailed explanation of the range attribute in Section 4.3.2.\textbf{(Please see paragraph 1 of Section 4.3, which is highlighted in blue in the revised manuscript.)}
 
-Finally, your observation about the missing peak memory usage data for Milvus in Figure 12c is very insightful. Initially, we hesitated to include the peak memory usage of databases (including Milvus) because they are full systems that run continuously and contain many components. This makes them quite different from other algorithms.
+In response to the large difference in index construction time shown in Figure 12a, we have revised the paper based on your suggestion. We added more detailed and in-depth analysis to provide a clearer explanation.\textbf{(Please refer to the "Index construction time" part of Section 4.3.1, highlighted in blue in the revised manuscript.)}
 
-However, we agree with your point. To provide a more comprehensive evaluation, we have added the peak memory usage data of the database systems (including Milvus) in the revised version of the paper. This offers a more complete comparative view.
+Finally, your observation about the missing peak memory usage data for Milvus in Figure 12c is very insightful. Initially, we hesitated to include the peak memory usage of databases (such as Milvus) because they are full systems that run continuously and contain many components. This makes them quite different from other algorithms.
+
+However, we agree with your point. To provide a more comprehensive evaluation, we have added the peak memory usage data of the database systems  in the revised version of the paper. This offers a more complete comparative view.\textbf{(Please refer to the "Build peak memory" part of Section 4.2.1 and  4.3.1, highlighted in blue in the revised manuscript)}
 
 Once again, thank you for your constructive comments. Your valuable feedback has helped us improve the paper further.
 
@@ -715,9 +713,12 @@ Once again, thank you for your constructive comments. Your valuable feedback has
 \noindent
 \textbf{Response:} Thank you for your feedback. We have revised \textcolor{blue}{Section 4.3.2 in our paper to provide a more specific and clearer explanation.}
 
-Specifically, SeRF compresses the entire HNSW graph collection by adding range information to the edges. While this approach saves space, it leads to significant performance degradation when executing small-range queries. This is because SeRF’s multi-filtering mechanism needs to inspect a large number of edge entries that are irrelevant to the current small-range query, thereby introducing fixed computational and memory access overhead. Additionally, during graph traversal, many invalid neighbors may be visited, causing the search to fall into local optima, which further degrades query performance and recall.
+Specifically, SeRF compresses the entire HNSW graph collection by adding range information to the edges. While this approach saves space, it leads to significant performance degradation when executing small-range queries. This is because SeRF’s multi-filtering mechanism needs to inspect a large number of edge entries that are irrelevant to the current small-range query, thereby introducing fixed computational and memory access overhead. Additionally, during graph traversal, many invalid neighbors may be visited, causing the search to fall into local optima, which further degrades query performance and recall.\textbf{(Please see  Section 4.3.2, which is highlighted in blue in the revised manuscript.)}
 
-We believe this explanation better clarifies the specific reasons why SeRF performs poorly in small-range query scenarios. Thank you again for your valuable suggestions.
+
+\textcolor{blue}{"SeRF demonstrates relatively weak overall performance, with a pronounced drop in recall under small-range query scenarios. This is because SeRF compresses the entire HNSW graph by attaching range information to its edges. However, during small-range queries, its multi-filtering mechanism requires scanning a large number of edge entries that are irrelevant to the current query range, introducing fixed computational and memory access overhead. Additionally, graph traversal may lead to the exploration of numerous invalid neighbors, increasing the likelihood of the search becoming trapped in local optima and further degrading performance."}
+
+%We believe this explanation better clarifies the specific reasons why SeRF performs poorly in small-range query scenarios. Thank you again for your valuable suggestions.
 
 
 \balance
