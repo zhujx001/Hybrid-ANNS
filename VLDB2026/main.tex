@@ -673,7 +673,7 @@
 	\end{figure*}
 	
 \textit{\textbf{Index construction time.}}
-\textcolor{orange}{Among the six regular-scale datasets shown in the left part of Figure~\ref{fig:build_time_comparison_query1}, the ones with longer build times are mainly PASE, VBASE, and ACORN. PASE and VBASE only support single-threaded builds, and PASE is the slowest to build because its on-demand loading and caching strategies frequently trigger disk I/O and page scheduling, which seriously affects efficiency; VBASE uses full-memory builds and is relatively faster. ACORN-$\gamma$  has a large computational overhead because it needs to expand the neighbor list and evaluate a large number of candidates. The build time on some datasets even exceeds that of single-threaded VBASE. }
+\textcolor{orange}{Among the six regular-scale datasets shown in the left part of Figure~\ref{fig:build_time_comparison_query1}, the ones with longer build times are mainly PASE, VBASE, and ACORN-$\gamma$. PASE and VBASE only support single-threaded builds, and PASE is the slowest to build because its on-demand loading and caching strategies frequently trigger disk I/O and page scheduling, which seriously affects efficiency; VBASE uses full-memory builds and is relatively faster. ACORN-$\gamma$  has a large computational overhead because it needs to expand the neighbor list and evaluate a large number of candidates. The build time on some datasets even exceeds that of single-threaded VBASE. }
 
 \textcolor{orange}{On large-scale dataset Deep100M, besides the three methods already mentioned with long build times, we also observe that algorithms based on Vamana (such as FilteredDiskANN and UNG) exhibit significantly increased construction time. Vamana adopts a two-pass graph construction and optimization strategy (greedy search + robust pruning), resulting in extremely high computational overhead. 
 In contrast, the construction time of IVF-based algorithms grows much more slowly with dataset size, thanks to their shard-based design and high parallel efficiency, making them more scalable and advantageous in large-scale scenarios.}
@@ -730,7 +730,7 @@ In contrast, the construction time of IVF-based algorithms grows much more slowl
 	
 	
 	\textit{Single-Thread Search.}  
-	\textcolor{violet}{As shown in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}, under near-perfect recall (recall approaching 1) conditions,} search often requires traversing larger candidate sets or deeper graph paths. This leads to increased computational cost and a sharp QPS (queries per second) drop for most methods. Despite this, UNG maintains high QPS due to its LNG structure, which eliminates unnecessary online filtering of irrelevant attributes, thereby improving query efficiency. \textcolor{violet}{Puck and CAPS perform relatively well on some datasets. Partition-based methods have limitations regarding different vector data distributions, and how to configure different partitions for different datasets remains a challenge. However, this also demonstrates that IVF-based methods are still very promising for hybrid queries.}
+	\textcolor{violet}{As shown in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}, under near-perfect recall (recall approaching 1) conditions,} search often requires traversing larger candidate sets or deeper graph paths. This leads to increased computational cost and a sharp QPS drop for most methods. Despite this, UNG maintains high QPS due to its LNG structure, which eliminates unnecessary online filtering of irrelevant attributes, thereby improving query efficiency. \textcolor{violet}{Puck and CAPS perform relatively well on some datasets. Partition-based methods have limitations regarding different vector data distributions, and how to configure different partitions for different datasets remains a challenge. However, this also demonstrates that IVF-based methods are still very promising for hybrid queries.}
 	
 	NHQ, StitchedVamana, and FilteredVamana show similar and stable performance across all datasets. This indicates that joint filtering and search strategies can achieve consistent effectiveness under high-recall requirements. As observed in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}, StitchedVamana outperforms FilteredVamana in query efficiency. This difference arises from their pruning strategies: StitchedVamana applies pruning after merging graphs, allowing nodes to accumulate a richer candidate set; while FilteredVamana applies early pruning, potentially eliminating useful candidates prematurely.
 	
@@ -1326,7 +1326,7 @@ In contrast, the construction time of IVF-based algorithms grows much more slowl
 		
 			\textbf{Large-Scale Dataset} & H & H & L & L &\textbf{H} &H  &M  &H  &M  &H  &\textbf{H}  &M/L  &L/M  &L/L  &M/M  &-  \\
 			\textbf{Rare Attribute \& Low Range} &M  &M  &H  &H &\textbf{H}  &H  &H  &H  &L  &M  &\textbf{H} &M/M  &M/M  &L/L  &L/L  &L/L  \\
-			\textbf{Robust to MultiModal Dataset} &H  &H  &L  &H  &\textbf{H}  &L  &M  &H  &M  &H  &\textbf{H}  &H/H  &M/M  &L/L  &L/L  &-/-  \\
+			\textbf{Robust to MultiModal Dataset} &H  &H  &L  &H  &\textbf{H}  &L  &M  &H  &M  &H  &\textbf{H}  &M/M  &M/M  &L/L  &L/L  &-/-  \\
 			\textbf{Robust to Attribute Distribution} &L  &L  &H  &H  &H  &H  &-  &-  &-  &-  &-  &H/-  &L/-  &\textbf{H}/-  &L/-  &L/-  \\
 			\textbf{High LID Dataset} &H  &M  &H  &M  &\textbf{H}  &M  &M  &H  &M  &H  &\textbf{H}  &L/L  &M/H  &L/L  &L/M  &L/L  \\
 			\textbf{General-Purpose} &\faCheck  &\faCheck  &\faTimes  &\faTimes  &\faCheck  &\faTimes  &\faTimes  &\faTimes &\faTimes  & \faCheck &\faCheck&\faTimes  &\faCheck  &\faCheck  &\faCheck&\faTimes  \\
@@ -1356,12 +1356,17 @@ Puck is well-suited for large-scale datasets such as those with 100 million poin
 	\textcolor{orange}{
 	iRange has relatively low time and space costs for index construction; however, its search performance declines significantly with increasing query range. Despite offering threading parameters for indexing, it does not effectively utilize multi-core parallelism in practical scenarios.
 	SeRF incurs low time and space overhead but achieves only moderate overall query performance, with notably weaker results in small-range query scenarios.
-	DSG supports unordered dynamic insertions and range queries, but its index construction is limited to single-threaded execution, resulting in long build times and poor practical applicability.
+	DSG supports unordered dynamic insertions and range queries, but its index construction is limited to single-threaded execution, resulting in long build times and poor practical applicability.}
+	
+		\textcolor{orange}{
 	UNIFY adopts multiple filtering strategies tailored to different query range sizes, avoiding the limitations of a single strategy in specific scenarios. It requires only one index to support all queries, allows dynamic insertions, and features low time and space overhead during index construction, making it a more general-purpose solution.}
 %	Table~\ref{tab:algo_scenarios} also shows the application scenarios of range filtering. iRange performs well on large-scale datasets, combining efficient construction and excellent query capabilities (S1). Faiss performs well in fast index construction (S2). When processing hard datasets, WinFilter, iRange, and DSG are recommended (S3), while WinFilter and iRange also perform well on easy datasets (S4). For general applications, DSG supports dynamic updates, while UNIFY provides flexible filtering strategies (S5). Faiss and SeRF show superior memory efficiency (S6). For static queries with high recall, WinFilter is the best choice (S7). In addition, WinFilter also performs well in OOD scenarios (S8).
 
 	\subsubsection{\textbf{General Algorithm}}
-\textcolor{orange}{ACORN requires a separate index construction. Among its variants, ACORN-1 shows significant advantages in indexing speed on billion-scale datasets, but suffers from high memory consumption and delivers only moderate performance.}
+\textcolor{orange}{All of the following methods support both attribute filtering and range filtering.}
+
+\textcolor{orange}{
+ACORN demonstrates average overall performance. Among its variants, ACORN-1 shows significant advantages in indexing speed on billion-scale datasets, but suffers from high memory consumption and delivers only moderate performance.}
 
 \textcolor{orange}{
 Faiss, Milvus, and VBASE are better suited for complex scenarios involving advanced filtering operations. While they offer strong flexibility, their overall search performance is relatively modest. Relatively speaking, PASE performs less well across various aspects.}
