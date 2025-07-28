@@ -673,9 +673,9 @@
 	\end{figure*}
 	
 \textit{\textbf{Index construction time.}}
-\textcolor{orange}{Among the six regular-scale datasets shown in the left part of Figure~\ref{fig:build_time_comparison_query1}, the ones with longer build times are mainly PASE, VBASE, and ACORN-$\gamma$. PASE and VBASE only support single-threaded builds, and PASE is the slowest to build because its on-demand loading and caching strategies frequently trigger disk I/O and page scheduling, which seriously affects efficiency; VBASE uses full-memory builds and is relatively faster. ACORN-$\gamma$  has a large computational overhead because it needs to expand the neighbor list and evaluate a large number of candidates. The build time on some datasets even exceeds that of single-threaded VBASE. }
+\textcolor{orange}{Among the regular-scale datasets shown in the left part of Figure~\ref{fig:build_time_comparison_query1}, the methods with longer build times are mainly PASE, VBASE, and ACORN-$\gamma$. PASE and VBASE only support single-threaded builds, and PASE is the slowest because its on-demand loading and caching strategies frequently trigger disk I/O and page scheduling, which seriously affects efficiency; VBASE uses full-memory builds and is relatively faster. ACORN-$\gamma$  has a large computational overhead because it needs to expand the neighbor list and evaluate a large number of candidates. The build time on some datasets even exceeds that of single-threaded VBASE. }
 
-\textcolor{orange}{On large-scale dataset Deep100M, besides the three methods already mentioned with long build times, we also observe that algorithms based on Vamana (such as FilteredDiskANN and UNG) exhibit significantly increased construction time. Vamana adopts a two-pass graph construction and optimization strategy (greedy search + robust pruning), resulting in extremely high computational overhead. 
+\textcolor{orange}{On large-scale dataset Deep100M, besides the three methods already mentioned, we also observe that algorithms based on Vamana (such as FilteredDiskANN and UNG) exhibit significantly increased construction time. Vamana adopts a two-pass graph construction and optimization strategy (greedy search + robust pruning), resulting in extremely high computational overhead. 
 In contrast, the construction time of IVF-based algorithms grows much more slowly with dataset size, thanks to their shard-based design and high parallel efficiency, making them more scalable and advantageous in large-scale scenarios.}
 
 %ACORN-1 achieves the fastest index construction. This efficiency stems from its similarity to the original HNSW construction process and the use of a limited number of candidate neighbors.
@@ -690,7 +690,7 @@ In contrast, the construction time of IVF-based algorithms grows much more slowl
 
 \textit{\textbf{Index size.}}
 \textcolor{orange}{
-	As shown in Figure~\ref{fig:index_size_mb_comparison_query1}, PASE exhibits significantly larger index sizes across all supported datasets, mainly due to its reliance on a large amount of metadata. For regular-scale datasets, other methods show moderate variation. However, on large-scale dataset, Graph-based algorithms such as ACORN, FilteredDiskANN, and UNG tend to exhibit a sharp increase in index size as the dataset scales up, primarily due to the large number of candidate neighbors they maintain. Overall, IVF-based methods tend to produce more compact indexes.
+	As shown in Figure~\ref{fig:index_size_mb_comparison_query1}, PASE exhibits significantly larger index sizes across all supported datasets, mainly due to its reliance on a large amount of metadata. For regular-scale datasets, other methods show moderate variation. However, on large-scale dataset, Graph-based algorithms such as ACORN, FilteredDiskANN, and UNG tend to exhibit a sharp increase in index size, primarily due to the large number of candidate neighbors they maintain. Overall, IVF-based methods tend to produce more compact indexes.
 }
 
 %As shown in the Figure~\ref{fig:index_size_mb_comparison_query1}, PASE exhibits significantly larger index sizes across all supported datasets. This overhead stems primarily from its extensive metadata requirements. The index sizes of other methods show moderate variation.
@@ -714,7 +714,7 @@ In contrast, the construction time of IVF-based algorithms grows much more slowl
 
 \textit{\textbf{ \textcolor{orange}{Search peak memory.}}}
 %  \textcolor{orange}{As shown in Figure~\ref{fig:search_memory_mb_comparison}, we can find that the peak memory usage of each algorithm during search does not differ significantly. Among them, CAPS and NHQ have relatively higher peak memory usage, while the peak memory usage of database is comparatively lower.}
-\textcolor{orange}{For most algorithms, the query phase requires loading both the index and the dataset into memory, so its peak memory usage is usually comparable to that of the construction phase. However, as shown in the Figure~\ref{fig:search_memory_mb_comparison}, CAPS exhibits significantly higher peak memory during querying due to the need to dynamically maintain large candidate sets. In contrast, Milvus has lower query-time memory usage because it does not fully load the index and incurs additional metadata overhead during construction.
+\textcolor{orange}{For most algorithms, the query phase requires loading both the index and the dataset into memory, so its peak memory usage is usually comparable to that of the construction phase. However, as shown in the Figure~\ref{fig:search_memory_mb_comparison}, CAPS exhibits significantly higher peak memory during querying due to the need to dynamically maintain large candidate sets. In contrast, Milvus has lower peak memory usage because it does not fully load the index and incurs additional metadata overhead during construction.
 }
 	
 	\subsubsection{Performance Evaluation}
@@ -1152,8 +1152,10 @@ In contrast, the construction time of IVF-based algorithms grows much more slowl
 		\textcolor{orange}{
 	ACORN-\(\gamma\)  extends the neighbor list of each node to provide more candidate paths, which increases both computational and memory overhead. Although it prunes distant neighbors to save storage, the additional construction logic still incurs substantial time cost.}
 	
+%	The reason for the high construction time of ACORN-$\gamma$ has been explained in the attribute filtering section and is therefore omitted here.
+	
 		\textcolor{orange}{
-	DSG is an optimization over SeRF, incorporating a rectangular tree structure for index management. This makes the construction process more complex and costly. In addition, DSG only supports single-threaded construction, resulting in the longest construction time on large-scale datasets.}
+	DSG is an optimization over SeRF, incorporating a rectangular tree structure for index management. This makes the construction process more complex and costly. In addition, on Deep100M, DSG uses single-threaded construction, resulting in the longest build time.}
 	
 	\textit{\textbf{Index size.}} 
 	As shown in Figure~\ref{fig:rangeFilter_index_size_mb}, Among all algorithms, Faiss has the smallest index size. Because IVF only adds centroid data and partition information to the vector dataset, the IVF index is only slightly larger than the vector dataset.
@@ -1325,31 +1327,36 @@ In contrast, the construction time of IVF-based algorithms grows much more slowl
 \begin{table*}[htbp]
 	\caption{Algorithm Recommendation}
 	\resizebox{\textwidth}{!}{
-		\begin{tabular}{|l|*{16}{c|}}
-			\hline
-			\multirow{2}{*}{\textbf{Application Scenarios / Algorithms}} 
-			& \multicolumn{6}{c|}{\textbf{AF}} 
-			& \multicolumn{5}{c|}{\textbf{RF}} 
-			& \multicolumn{5}{c|}{\textbf{AF / RF}} \\
-			\cline{2-17}
-			& \textbf{NHQ} & \textbf{Filtered} & \textbf{Stitched} & \textbf{CAPS}  & \textbf{UNG} & \textbf{Puck} 
-			& \textbf{DSG} & \textbf{iRange} & \textbf{SeRF} & \textbf{UNIFY} & \textbf{Win} 
-			& \textbf{ACORN}& \textbf{Faiss} & \textbf{Milvus} & \textbf{VBASE} & \textbf{PASE} \\
-			\hline
-			\textbf{Query Performance} & H & M & H & M &\textbf{H} & H & M & M & L & M & H & M/M & M/M & M/M & L/L & L/L \\
-			\textbf{Index Time} &M  &M  &M  &M  &M  &H  &L  &M  &H  &L  &L  &L/L &\textbf{H}/ \textbf{H} &M/H  &M/M  &L/L  \\
-			\textbf{Peak Memory} &L  &M  &M  &M  &M  &H  &L  &L  &M  &L  &L  &L/L  &\textbf{H}/\textbf{H}  &M/M  &H/M  &H/H \\
-		
-			\textbf{Large-Scale Dataset} & H & H & L & L &\textbf{H} &H  &M  &H  &M  &H  &\textbf{H}  &M/L  &L/M  &L/L  &M/M  &-  \\
-			\textbf{Rare Attribute \& Low Range} &M  &M  &H  &H &\textbf{H}  &H  &H  &H  &L  &M  &\textbf{H} &M/M  &M/M  &L/L  &L/L  &L/L  \\
-			\textbf{Robust to MultiModal Dataset} &H  &H  &L  &H  &\textbf{H}  &L  &M  &H  &M  &H  &\textbf{H}  &M/M  &M/M  &L/L  &L/L  &-/-  \\
-			\textbf{Robust to Attribute Distribution} &L  &L  &H  &H  &H  &H  &-  &-  &-  &-  &-  &H/-  &L/-  &\textbf{H}/-  &L/-  &L/-  \\
-			\textbf{High LID Dataset} &H  &M  &H  &M  &\textbf{H}  &M  &M  &H  &M  &H  &\textbf{H}  &L/L  &M/H  &L/L  &L/M  &L/L  \\
-			\textbf{General-Purpose} &\faCheck  &\faCheck  &\faTimes  &\faTimes  &\faCheck  &\faTimes  &\faTimes  &\faTimes &\faTimes  & \faCheck &\faCheck&\faTimes  &\faCheck  &\faCheck  &\faCheck&\faTimes  \\
-			\hline
-		\end{tabular}
+\begin{tabular}{|l|*{16}{c|}}
+	\hline
+	\multirow{2}{*}{\textbf{Application Scenarios / Algorithms}} 
+	& \multicolumn{6}{c|}{\textbf{AF}} 
+	& \multicolumn{5}{c|}{\textbf{RF}} 
+	& \multicolumn{5}{c|}{\textbf{AF / RF}} \\
+	\cline{2-17}
+	& \textbf{NHQ} & \textbf{Filtered} & \textbf{Stitched} & \textbf{CAPS}  & \textbf{UNG} & \textbf{Puck} 
+	& \textbf{DSG} & \textbf{iRange} & \textbf{SeRF} & \textbf{UNIFY} & \textbf{Win} 
+	& \textbf{ACORN}& \textbf{Faiss} & \textbf{Milvus} & \textbf{VBASE} & \textbf{PASE} \\
+	\hline
+	\textbf{Query Performance} & S & M & S & M &\textbf{S} & S & M & M & W & M & S & M/M & M/M & M/M & W/W & W/W \\
+	\textbf{Index Time} &M  &M  &M  &M  &M  &S  &W  &M  &S  &W  &W  &W/W &\textbf{S}/ \textbf{S} &M/S  &M/M  &W/W  \\
+	\textbf{Peak Memory} &W  &M  &M  &M  &M  &S  &W  &W  &M  &W  &W  &W/W  &\textbf{S}/\textbf{S}  &M/M  &S/M  &S/S \\
+	\textbf{Large-Scale Dataset} & S & S & W & W &\textbf{S} &S  &M  &S  &M  &S  &\textbf{S}  &M/W  &W/M  &W/W  &M/M  &-  \\
+	\textbf{Rare Attribute \& Low Range} &M  &M  &S  &S &\textbf{S}  &S  &S  &S  &W  &M  &\textbf{S} &M/M  &M/M  &W/W  &W/W  &W/W  \\
+	\textbf{Robust to MultiModal Dataset} &S  &S  &W  &S  &\textbf{S}  &W  &M  &S  &M  &S  &\textbf{S}  &M/M  &M/M  &W/W  &W/W  &-/-  \\
+	\textbf{Robust to Attribute Distribution} &W  &W  &S  &S  &S  &S  &-  &-  &-  &-  &-  &S/-  &W/-  &\textbf{S}/-  &W/-  &W/-  \\
+	\textbf{High LID Dataset} &S  &M  &S  &M  &\textbf{S}  &M  &M  &S  &M  &S  &\textbf{S}  &W/W  &M/S  &W/W  &W/M  &W/W  \\
+	\textbf{General-Purpose} &\faCheck  &\faCheck  &\faTimes  &\faTimes  &\faCheck  &\faTimes  &\faTimes  &\faTimes &\faTimes  & \faCheck &\faCheck&\faTimes  &\faCheck  &\faCheck  &\faCheck&\faTimes  \\
+	\hline
+\end{tabular}
 	}
+	\vspace{1mm}
+	\begin{flushleft}
+	\textbf{Note:} S = Strong performance, \textbf{S} = Strongest performance, M = Medium performance, W = Weak performance, 
+	\faCheck = Recommended, \faTimes = Not Recommended.
+	\end{flushleft}
 	\centering
+
 \end{table*}
 
 	
