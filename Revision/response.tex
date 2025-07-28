@@ -623,7 +623,7 @@ Thank you for your insightful comments.
 
 \textbf{Regarding dataset scale and scalability:}
 
-We conducted experiments on a 100M-scale deep dataset and analyzed the performance of each algorithm on the large dataset.\textbf{ Please refer to MR.R7.}
+We conducted experiments on a 100M-scale deep dataset and analyzed the performance of each algorithm on the large dataset.\textbf{ Please refer to the response to MetaReview R7.}
 
 \textbf{Regarding the experimental parameter settings:}
 
@@ -646,9 +646,8 @@ Of all the evaluated algorithms, Faiss, Puck, DiskANN, and Milvus support quanti
 
 \textbf{Regarding Figure 7 and the exclusion of Vamana:}
 
-We appreciate the observation of reviewer. Figure 7 presents experiments on multi-attribute construction and search, using Boolean AND logic. The Vamana-based methods (FilteredVamana and StitchedVamana) only support Boolean OR logic for multi-attribute search, which is why they were not included. Since other algorithms also do not support multi-attribute queries, we will explain this situation collectively in the corresponding section of the paper to save space.
-
-Please see the section 4.2.2 on Multi-Attribute Construction and Multi-Attribute Query.
+We appreciate the observation of reviewer. Figure 7 presents experiments on multi-attribute construction and search, using Boolean AND logic. The Vamana-based methods (FilteredVamana and StitchedVamana) only support Boolean OR logic for multi-attribute search, which is why they were not included. Since other algorithms also do not support multi-attribute queries, we will explain this situation collectively in the corresponding section of the paper to save space.(
+\textbf{Please see the section 4.2.2 on Multi-Attribute Construction and Multi-Attribute Query.})
 
 \textcolor{blue}{"In this experiment, we only evaluate the algorithms that support this query scenario."}
 
@@ -688,10 +687,11 @@ Thank you for the suggestion. We realized that the original wording is somewhat 
 \noindent
 \textbf{Response:} Thank you very much for your careful review and valuable suggestions. We greatly appreciate your feedback and sincerely apologize for any lack of clarity in our paper.
 
-Regarding the issue of range attributes, we indeed used only one range attribute for evaluation. At present, most existing range filtering algorithms only support filtering on a single attribute. This is a major limitation of current range filtering methods. We have clearly pointed this out in \textcolor{blue}{Section 5.2.2} of the "Discussion" part of the paper and listed it as an important challenge for future work. Thank you for highlighting this point, which further emphasizes the significance of our work.
-To make the paper more readable, we have added a more detailed explanation of the range attribute in Section 4.3.2.
+Regarding the issue of range attributes, we indeed used only one range attribute for evaluation. At present, most existing range filtering algorithms only support filtering on a single attribute. This is a major limitation of current range filtering methods. We have clearly pointed this out in \textcolor{blue}{Section 5.2.2} of the "Discussion" part of the paper and listed it as an important challenge for future work. Thank you for highlighting this point, which further emphasizes the significance of our work.\textbf{(Please refer to the "Build peak memory" part of Section 5.2.2, highlighted in green in the revised manuscript)}
 
-In response to the large difference in index construction time shown in Figure 12a, we have revised the paper based on your suggestion. We added more detailed and in-depth analysis to provide a clearer explanation.(Please refer to the "Index construction time" part of Section 4.3.1, highlighted in blue in the revised manuscript)
+To make the paper more readable, we have added a more detailed explanation of the range attribute in Section 4.3.2.\textbf{(Please see paragraph 1 of Section 4.3, which is highlighted in blue in the revised manuscript.)}
+
+In response to the large difference in index construction time shown in Figure 12a, we have revised the paper based on your suggestion. We added more detailed and in-depth analysis to provide a clearer explanation.\textbf{(Please refer to the "Index construction time" part of Section 4.3.1, highlighted in blue in the revised manuscript.)}
 
 Finally, your observation about the missing peak memory usage data for Milvus in Figure 12c is very insightful. Initially, we hesitated to include the peak memory usage of databases (such as Milvus) because they are full systems that run continuously and contain many components. This makes them quite different from other algorithms.
 
@@ -713,9 +713,12 @@ Once again, thank you for your constructive comments. Your valuable feedback has
 \noindent
 \textbf{Response:} Thank you for your feedback. We have revised \textcolor{blue}{Section 4.3.2 in our paper to provide a more specific and clearer explanation.}
 
-Specifically, SeRF compresses the entire HNSW graph collection by adding range information to the edges. While this approach saves space, it leads to significant performance degradation when executing small-range queries. This is because SeRF’s multi-filtering mechanism needs to inspect a large number of edge entries that are irrelevant to the current small-range query, thereby introducing fixed computational and memory access overhead. Additionally, during graph traversal, many invalid neighbors may be visited, causing the search to fall into local optima, which further degrades query performance and recall.
+Specifically, SeRF compresses the entire HNSW graph collection by adding range information to the edges. While this approach saves space, it leads to significant performance degradation when executing small-range queries. This is because SeRF’s multi-filtering mechanism needs to inspect a large number of edge entries that are irrelevant to the current small-range query, thereby introducing fixed computational and memory access overhead. Additionally, during graph traversal, many invalid neighbors may be visited, causing the search to fall into local optima, which further degrades query performance and recall.\textbf{(Please see  Section 4.3.2, which is highlighted in blue in the revised manuscript.)}
 
-We believe this explanation better clarifies the specific reasons why SeRF performs poorly in small-range query scenarios. Thank you again for your valuable suggestions.
+
+\textcolor{blue}{"SeRF demonstrates relatively weak overall performance, with a pronounced drop in recall under small-range query scenarios. This is because SeRF compresses the entire HNSW graph by attaching range information to its edges. However, during small-range queries, its multi-filtering mechanism requires scanning a large number of edge entries that are irrelevant to the current query range, introducing fixed computational and memory access overhead. Additionally, graph traversal may lead to the exploration of numerous invalid neighbors, increasing the likelihood of the search becoming trapped in local optima and further degrading performance."}
+
+%We believe this explanation better clarifies the specific reasons why SeRF performs poorly in small-range query scenarios. Thank you again for your valuable suggestions.
 
 
 \balance
