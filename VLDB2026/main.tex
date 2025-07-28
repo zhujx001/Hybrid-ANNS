@@ -1137,7 +1137,11 @@ In contrast, the construction time of IVF-based algorithms grows much more slowl
 	WinFilter relies on a tree structure, requiring separate nearest-neighbor graphs per node. This causes redundant computation and high costs, especially for large datasets.
 	ACORN-\(\gamma\) expands the neighbor list of each node to provide more candidate paths, which increases both computation and storage costs. It also prunes distant neighbors to save storage space. However, this introduces additional overhead and slows down the construction process.
 	
-	\textcolor{orange}{For large-scale dataset, ACORN-1 achieves the fastest index construction. This efficiency stems from its similarity to the original HNSW construction process and the use of a limited number of candidate neighbors.DSG only supports single-threaded construction, resulting in the longest build time.}
+	\textcolor{orange}{On large-scale datasets, ACORN-1 achieves the fastest index construction, primarily due to its similarity to the original HNSW construction process and its use of fewer candidate neighbors in the upper layers. SeRF, another HNSW-based method, also exhibits very short construction time by losslessly compressing multiple HNSW graphs into a unified structure and accelerating the process through dynamic pruning and skip-connection optimizations.
+	As two methods both based on IVF\_Flat, Milvus and Faiss achieve short indexing times. Milvus is even faster, mainly due to its cache-aware optimization, which significantly reduces CPU cache misses.}
+	
+	\textcolor{orange}{
+	DSG only supports single-threaded construction, resulting in the longest build time.}
 	
 	\textit{\textbf{Index size.}} 
 	As shown in Figure~\ref{fig:rangeFilter_index_size_mb}, Among all algorithms, Faiss has the smallest index size. Because IVF only adds centroid data and partition information to the vector dataset, the IVF index is only slightly larger than the vector dataset.
@@ -1341,7 +1345,9 @@ In contrast, the construction time of IVF-based algorithms grows much more slowl
 %	We summarize the applicability of different algorithms across various attribute filtering scenarios in Table~\ref{tab:algo_scenarios}. Puck and UNG excel on large-scale datasets (S1). ACORN-1 and UNG achieve fast index construction (S2). UNG performs well on different datasets (S3, S4). In addition, CAPS performs well on hard datasets with high LID (S3), while NHQ and StitchedVamana perform better on easy datasets with low LID (S4).
 %	Faiss and CAPS can generate relatively compact indexes with low memory usage, which is suitable for resource-constrained situations (S6). Milvus and Faiss serve as general-purpose solutions (S5). UNG stands out for its higher recall, precision, and QPS, and performs well in the OOD scenario (S7, S8).
 \textcolor{orange}{
-Overall, UNG, NHQ, and FilteredDisk\\-ANN demonstrate strong performance. However, UNG suffers from performance degradation when the attribute count differs between indexing and querying. NHQ, due to its distance fusion design, also experiences performance drops when there is a significant mismatch in attribute numbers between indexing and querying, and its performance is sensitive to attribute distribution. FilteredDiskANN supports dynamic insertion and disk-based indexing, making it suitable for memory-constrained scenarios. However, disk-based construction significantly increases indexing time. Additionally, it only supports single-attribute and multi-attribute OR queries, and its performance is highly affected by attribute distribution. }
+Overall, UNG, NHQ, and FilteredDisk\\-ANN demonstrate strong performance. However, UNG suffers from performance degradation when the attribute count differs between indexing and querying. NHQ, due to its distance fusion design, also experiences performance drops when there is a significant mismatch in attribute numbers between indexing and querying, and its performance is sensitive to attribute distribution. }
+
+\textcolor{orange}{The two variants of FilteredDiskANN (FilteredVamana and StitchedVamana) support only single-attribute queries and multi-attribute OR queries. FilteredVamana supports dynamic insertion and disk-based indexing, making it suitable for memory-constrained scenarios. However, its disk-based construction significantly increases indexing time, and its performance is highly sensitive to attribute distribution. In contrast, StitchedVamana offers better search performance but performs poorly on 100M-scale datasets and OOD datasets.}
 
 \textcolor{orange}{
 CAPS, based on clustering, features low index space overhead. It offers flexible support for varying numbers of attributes and is optimized for low-selectivity attribute scenarios, but its overall performance is relatively moderate.
@@ -1369,7 +1375,7 @@ Puck is well-suited for large-scale datasets such as those with 100 million poin
 ACORN demonstrates average overall performance. Among its variants, ACORN-1 shows significant advantages in indexing speed on billion-scale datasets, but suffers from high memory consumption and delivers only moderate performance.}
 
 \textcolor{orange}{
-Faiss, Milvus, and VBASE are better suited for complex scenarios involving advanced filtering operations. While they offer strong flexibility, their overall search performance is relatively modest. Relatively speaking, PASE performs less well across various aspects.}
+Faiss, Milvus, and VBASE handle complex scenarios with advanced filtering operations more effectively. While they offer strong flexibility, their overall search performance is relatively modest. Relatively speaking, PASE performs less well across various aspects.}
 	
 	\subsection{Challenges}
 	\subsubsection{\textbf{Attribute Filtering}}
