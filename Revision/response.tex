@@ -339,8 +339,8 @@ Range filtering:
 Thank you very much for your insightful comments. We fully agree with your views. We have revised the discussion section of the paper accordingly. In this section, we have added a recommendation table for the algorithms, which summarizes their performance under various conditions. Additionally, we have provided a more in-depth analysis of the internal mechanisms of each algorithm in the text, aiming to uncover the fundamental reasons behind their performance.
 \textbf{(Please refer to the "Recommendation" part of section 5.2.2, highlighted in blue in the revised manuscript.)}
 
-\textcolor{blue}{
-	Attribute filtering:"Overall, UNG, NHQ, and FilteredDisk-ANN demonstrate strong performance. However, UNG suffers from performance degradation when the attribute count differs between indexing and querying. NHQ, due to its distance fusion design, also experiences performance drops when there is a significant mismatch in attribute numbers between indexing and querying, and its performance is sensitive to attribute distribution. }
+Attribute filtering: \textcolor{blue}{
+	"Overall, UNG, NHQ, and FilteredDisk-ANN demonstrate strong performance. However, UNG suffers from performance degradation when the attribute count differs between indexing and querying. NHQ, due to its distance fusion design, also experiences performance drops when there is a significant mismatch in attribute numbers between indexing and querying, and its performance is sensitive to attribute distribution. }
 
 \textcolor{blue}{"The two variants of FilteredDiskANN (FilteredVamana and StitchedVamana) support only single-attribute queries and multi-attribute OR queries. FilteredVamana supports dynamic insertion and disk-based indexing, making it suitable for memory-constrained scenarios. However, its disk-based construction significantly increases indexing time, and its performance is highly sensitive to attribute distribution. In contrast, StitchedVamana offers better search performance but performs poorly on 100M-scale datasets and OOD datasets.}
 
@@ -350,7 +350,7 @@ Thank you very much for your insightful comments. We fully agree with your views
 
 
 
-Range filtering:\textcolor{blue}{
+Range filtering: \textcolor{blue}{
 	"WinFilter achieves the best search performance but requires high time and memory resources during index construction. For large-scale datasets (e.g., with 100 million points), parameter tuning—particularly of tree height—is needed to prevent excessive index growth. When QPS and recall are not strict requirements, its basic variant, Vamana-WST, offers a more efficient alternative with significantly lower indexing overhead.
 }
 
