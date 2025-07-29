@@ -27,6 +27,7 @@
 \usepackage{amsthm}
 \usepackage{enumitem}
 \usepackage{multirow}
+\usepackage{fontawesome}
 \usepackage{balance}
 \usepackage{flushend}
 \usepackage{mdframed}
@@ -379,7 +380,51 @@ General:	\textcolor{blue}{"All of the following methods support both attribute f
 }
 
 \noindent
-\textbf{Response:} Thank you very much for your valuable suggestions. Your advice is very insightful. In the recommendation section of our paper, we have added a clearer summary table of the algorithms to help readers choose the appropriate algorithm based on their application scenarios.\textbf{(Please refer to the "Recommendation" part of section 5.2.2, highlighted in blue in the revised manuscript.)}
+\textbf{Response:} Thank you very much for your valuable suggestions. Your advice is very insightful. In the recommendation section of our paper, we have added a clearer summary table of the algorithms to help readers choose the appropriate algorithm based on their application scenarios,as shown in Table~\ref{tab:algo_scenarios}. \textbf{(Please refer to the "Recommendation" part of section 5.2.2, highlighted in blue in the revised manuscript.)}
+
+
+\subsection{Recommendations.}
+%Based on the performance of different algorithms in experiments, we recommend algorithms suitable for different scenarios, as shown in the table \ref{tab:algo_scenarios}.
+
+\begin{table*}[htbp]
+	\caption{Algorithm Recommendation}
+	\label{tab:algo_scenarios}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{|l|*{16}{c|}}
+			\hline
+			\multirow{2}{*}{\textbf{Application Scenarios / Algorithms}} 
+			& \multicolumn{6}{c|}{\textbf{AF}} 
+			& \multicolumn{5}{c|}{\textbf{RF}} 
+			& \multicolumn{5}{c|}{\textbf{AF / RF}} \\
+			\cline{2-17}
+			& \textbf{NHQ} & \textbf{Filtered} & \textbf{Stitched} & \textbf{CAPS}  & \textbf{UNG} & \textbf{Puck} 
+			& \textbf{DSG} & \textbf{iRange} & \textbf{SeRF} & \textbf{UNIFY} & \textbf{Win} 
+			& \textbf{ACORN}& \textbf{Faiss} & \textbf{Milvus} & \textbf{VBASE} & \textbf{PASE} \\
+			\hline
+			\textbf{Query Performance} & S & M & S & M &\textbf{S} & S & M & M & W & M & S & M/M & M/M & M/M & W/W & W/W \\
+			\textbf{Index Time} &M  &M  &M  &M  &M  &S  &W  &M  &S  &W  &W  &W/W &\textbf{S}/\textbf{S} &S/S  &W/M  &W/W  \\
+			\textbf{Peak Memory} &W  &M  &M  &M  &M  &S  &W  &W  &M  &W  &W  &W/W  &\textbf{S}/\textbf{S}  &S/M  &S/M  &S/S \\
+			\textbf{Large-Scale Dataset} & S & S & W & W &\textbf{S} &S  &M  &S  &M  &S  &\textbf{S}  &M/W  &W/M  &W/W  &M/M  &-  \\
+			\textbf{Rare Attribute \& Low Range} &M  &M  &S  &S &\textbf{S}  &S  &S  &S  &W  &M  &\textbf{S} &M/M  &M/M  &W/W  &W/W  &W/W  \\
+			\textbf{Robust to MultiModal Dataset} &S  &S  &W  &S  &\textbf{S}  &M  &M  &S  &M  &S  &\textbf{S}  &M/M  &W/M  &W/W  &W/W  &W/W  \\
+			\textbf{Robust to Attribute Distribution} &W  &W  &S  &S  &S  &S  &-  &-  &-  &-  &-  &S/-  &W/-  &\textbf{S}/-  &W/-  &W/-  \\
+			\textbf{High LID Dataset} &S  &M  &S  &M  &\textbf{S}  &M  &M  &S  &M  &S  &\textbf{S}  &W/W  &M/S  &W/W  &W/M  &W/W  \\
+			\textbf{General-Purpose} &\faCheck  &\faCheck  &\faTimes  &\faTimes  &\faCheck  &\faTimes  &\faTimes  &\faTimes &\faTimes  & \faCheck &\faCheck&\faTimes  &\faCheck  &\faCheck  &\faCheck&\faTimes  \\
+			\hline
+		\end{tabular}
+	}
+	\vspace{1mm}
+	\begin{flushleft}
+		\textbf{Note:} S = Strong performance, \textbf{S} = Strongest performance, M = Medium performance, W = Weak performance, 
+		\faCheck = Recommended, \faTimes = Not Recommended.
+	\end{flushleft}
+	\centering
+	
+\end{table*}
+
+
+
+
 
 
 
