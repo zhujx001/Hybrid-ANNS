@@ -176,8 +176,11 @@
 %	We systematically classify 6 representative attribute filtering algorithms along multiple dimensions, including index organization, filtering strategies, Boolean logic support, and index construction methods. In addition, we survey 5 range filtering algorithms, and provide an overview of a vector retrieval library and three vector databases. These efforts offer a unified reference framework for future research.
 	\textcolor{orange}{We systematically categorize 6 representative attribute filtering algorithms and 5 range filtering algorithms from the perspectives of index organization, filtering strategies, disk support, and complex attribute handling. We also provide an overview of these algorithms, along with a representative vector retrieval library and 3 vector databases, to help readers intuitively understand their design principles. This work offers a unified reference framework and technical foundation for future research in this field.}
 	
-		(2) \textbf{Enhancing Datasets and Experimental Settings for Fair Evaluation.}
-		To address the lack of standardized benchmarks in attribute filtering research, we enrich commonly used datasets by generating attribute values tailored to real-world scenarios. Furthermore, we design comprehensive experimental settings that reflect diverse application requirements, including varying attribute distributions, selectivity, and query conditions. These enhancements provide a unified evaluation framework that supports fair, consistent, and reproducible comparisons across different algorithms, laying a solid foundation for future research in hybrid query.
+	\textcolor{blue}{	(2) \textbf{Enhancing Datasets and Experimental Settings for Fair Evaluation.}
+To address the lack of standardized evaluation benchmarks in attribute filtering research, we generate attribute values based on real-world scenarios to enhance commonly used datasets. We also collect real attribute information from existing datasets and conduct experiments on a real attribute dataset to validate the plausibility of the generated attributes and the effectiveness of the results. To comprehensively reflect diverse real-world application needs, we design experiments covering varying attribute distributions, selectivity levels, and query conditions, ensuring representative and practical evaluation. Furthermore, we test on a large-scale dataset containing 100 million records to analyze the scalability and performance of various algorithms. These enhancements establish a unified evaluation framework that supports fair, consistent, and reproducible comparisons across different algorithms, laying a solid foundation for future research in hybrid queries.}
+
+
+%		To address the lack of standardized benchmarks in attribute filtering research, we enrich commonly used datasets by generating attribute values tailored to real-world scenarios. Furthermore, we design comprehensive experimental settings that reflect diverse application requirements, including varying attribute distributions, selectivity, and query conditions. These enhancements provide a unified evaluation framework that supports fair, consistent, and reproducible comparisons across different algorithms, laying a solid foundation for future research in hybrid query.
 	
 	
 	(3)\textbf{ Evaluation of Attribute Filtering Algorithms.}
@@ -191,8 +194,10 @@
 		We conduct benchmark evaluations of range filtering algorithms on one synthetic and 2 real-world datasets, using various query range settings. Our experiments reveal and analyze the differences in time and query efficiency across these algorithms. Furthermore, we compare their performance on multimodal and large-scale datasets, and assess their adaptability across different server environments.
 	}
 	
-	(5)\textbf{ Recommendations and Challenges.}
-	Based on the experimental results, we provide algorithm selection recommendations for common application scenarios and highlight key challenges in the field of hybrid queries. These challenges include limited Boolean logic support, the lack of multi-attribute range filtering capabilities, and the sensitivity of algorithms to data distribution. Currently, few methods simultaneously support both attribute filtering and range filtering, pointing to potential directions for future research.
+	\textcolor{blue}{(5)\textbf{ Recommendations and Challenges.}
+	Based on the experimental results, we provide a recommendation table that shows the performance of each algorithm in different scenarios. Readers can select suitable algorithms according to their specific application needs. In addition, we identify key challenges in the field of hybrid queries. These challenges include the lack of consideration for the correlation between attributes and vectors, limited support for Boolean logic, insufficient capability for multi-attribute range filtering, and sensitivity of algorithms to data distribution. Currently, few methods support both attribute filtering and range filtering at the same time. This indicates potential directions for future research.
+}
+%	Based on the experimental results, we provide algorithm selection recommendations for common application scenarios and highlight key challenges in the field of hybrid queries. These challenges include limited Boolean logic support, the lack of multi-attribute range filtering capabilities, and the sensitivity of algorithms to data distribution. Currently, few methods simultaneously support both attribute filtering and range filtering, pointing to potential directions for future research.
 	
 	\section{PRELIMINARIES}
 	
@@ -1313,7 +1318,7 @@ In contrast, the construction time of IVF-based algorithms grows much more slowl
 	\subsubsection{Scalability Study}
 		
 	\textit{\textbf{\textcolor{blue}{Different Hardware Environments.}}}
-	\textcolor{cyan}{Consistent with Section 4.2.4, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure~\ref{fig:range-cross-platform}. Our findings remain consistent with those reported in Section 4.2.4. For brevity and due to space limitations, we omit further discussion of these redundant results.}
+	\textcolor{cyan}{Consistent with Section 4.2.4, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure~\ref{fig:range-cross-platform}. Although the third-ranked algorithm differs, we consider the ranking order essentially unchanged since the performance of the third and fourth algorithms is comparable. So our findings remain consistent with those reported in Section 4.2.4. For brevity and due to space limitations, we omit further discussion of these redundant results.}
 %	\textcolor{cyan}{Consistent with Section 4.2.4, we conducted additional range filtering experiments using the YT-Audio-Real dataset on the same server, with results shown in Figure \ref{fig:Different Computer range}. Compared with the original server's experimental results (Figure \ref{fig:exp_8_2}($e$)), the conclusions remain identical to those described in Section 4.2.4. Due to space constraints, these details are not reiterated here.}
 	
 	\textit{\textbf{\textcolor{red}{Large-scale Datasets.}}} \textcolor{red}{As shown in the figure~\ref{fig: range big dataset}, On the 100M dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption, as detailed in Figure~\ref{fig:rangeFilter_search_memory_mb}. Meanwhile, VBASE and Faiss demonstrate moderate performance but significantly lower memory consumption than the top three algorithms}.
@@ -1345,8 +1350,8 @@ In contrast, the construction time of IVF-based algorithms grows much more slowl
 	& \textbf{ACORN}& \textbf{Faiss} & \textbf{Milvus} & \textbf{VBASE} & \textbf{PASE} \\
 	\hline
 	\textbf{Query Performance} & S & M & S & M &\textbf{S} & S & M & M & W & M & S & M/M & M/M & M/M & W/W & W/W \\
-	\textbf{Index Time} &M  &M  &M  &M  &M  &S  &W  &M  &S  &W  &W  &W/W &\textbf{S}/ \textbf{S} &M/S  &M/M  &W/W  \\
-	\textbf{Peak Memory} &W  &M  &M  &M  &M  &S  &W  &W  &M  &W  &W  &W/W  &\textbf{S}/\textbf{S}  &M/M  &S/M  &S/S \\
+	\textbf{Index Time} &M  &M  &M  &M  &M  &S  &W  &M  &S  &W  &W  &W/W &\textbf{S}/\textbf{S} &S/S  &W/M  &W/W  \\
+	\textbf{Peak Memory} &W  &M  &M  &M  &M  &S  &W  &W  &M  &W  &W  &W/W  &\textbf{S}/\textbf{S}  &S/M  &S/M  &S/S \\
 	\textbf{Large-Scale Dataset} & S & S & W & W &\textbf{S} &S  &M  &S  &M  &S  &\textbf{S}  &M/W  &W/M  &W/W  &M/M  &-  \\
 	\textbf{Rare Attribute \& Low Range} &M  &M  &S  &S &\textbf{S}  &S  &S  &S  &W  &M  &\textbf{S} &M/M  &M/M  &W/W  &W/W  &W/W  \\
 	\textbf{Robust to MultiModal Dataset} &S  &S  &W  &S  &\textbf{S}  &W  &M  &S  &M  &S  &\textbf{S}  &M/M  &M/M  &W/W  &W/W  &-/-  \\
