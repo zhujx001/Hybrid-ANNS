@@ -72,6 +72,14 @@
 \renewcommand{\themetarevision}{\arabic{metarevision}}
 \newenvironment{metarevision}[1][]{\refstepcounter{metarevision}\par\medskip
 	\noindent\textbf{R\themetarevision.#1} }{\medskip}
+	
+	
+\newcounter{observation}[section]
+\setcounter{observation}{0}
+\renewcommand{\theobservation}{\arabic{observation}}
+\newenvironment{observation}[1][]{\refstepcounter{observation}\par\medskip
+	\noindent\textbf{O\theobservation.#1} }{\medskip}
+
 
 %\newcommand{\myfbox}[1]{%
 %	\vspace{0.2cm}
@@ -514,7 +522,7 @@ Thank you for your suggestion. We have addressed this issue in detail in our res
 
 %%%%%%%%%%%%%%%%%%%%%% W1 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
-	\begin{weakness}
+	\begin{observation}
 		\textit{In the experimental study, datasets did not originate from the real applications for hybrid queries.
 			Regarding the datasets for AF-NN search (Msong, Audio, SIFT1M, GIST1M, GloVe, Enron),
 			the attributes were generated synthetically but not real.
@@ -523,7 +531,7 @@ Thank you for your suggestion. We have addressed this issue in detail in our res
 			In order to match with the introduction, the authors are recommended to
 			include a real dataset from e-commerce platform with both vectors and attributes.
 		}
-	\end{weakness}
+	\end{observation}
 }
 
 
@@ -541,13 +549,13 @@ Furthermore, it should be noted that, in the "Single-Attribute Building and Sing
 
 %%%%%%%%%%%%%%%%%%%%%% W2 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
-	\begin{weakness}
+	\begin{observation}
 		\textit{All experiments were conducted on the same server mentioned in Section 4.1.3.
 			However, in practice, server providers may use other hardware settings (with other processors and RAM).
 			Would the server setting affect the relative ordering of methods in experiments?
 			For example, if Intel Xeon processor is used, would there be any change of the top 3 methods in Figures 4,5,7,8?
 			Would the CPU cache size affect the top 3 methods in those figures?}
-	\end{weakness}
+	\end{observation}
 }
 
 
@@ -558,11 +566,11 @@ Thank you for your suggestion. We have added relevant experiments conducted on d
 %%%%%%%%%%%%%%%%%%%%%% W3 %%%%%%%%%%%%%%%%%%%%%%
 
 \myfbox{
-	\begin{weakness}
+	\begin{observation}
 		\textit{In the experimental setup, it is unclear whether data storage (disk or SSD) is used.
 			In Table 1, please clarify which methods are disk-based, and which methods are memory-based.
 			For disk-based methods, it is also meaningful to report the cost breakdown (e.g., in terms of I/O time and CPU time).}
-	\end{weakness}
+	\end{observation}
 }
 
 \noindent
@@ -574,10 +582,10 @@ We have already provided a detailed response to this issue in our reply to Meta-
 
 %%%%%%%%%%%%%%%%%%%%%% W4 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
-	\begin{weakness}
+	\begin{observation}
 		\textit{The authors have reported the peak memory usage of index construction only.
 			They are also recommended to report the peak memory usage of query processing.}
-	\end{weakness}
+	\end{observation}
 }
 
 \noindent
