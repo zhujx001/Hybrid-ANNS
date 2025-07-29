@@ -72,6 +72,14 @@
 \renewcommand{\themetarevision}{\arabic{metarevision}}
 \newenvironment{metarevision}[1][]{\refstepcounter{metarevision}\par\medskip
 	\noindent\textbf{R\themetarevision.#1} }{\medskip}
+	
+	
+\newcounter{observation}[section]
+\setcounter{observation}{0}
+\renewcommand{\theobservation}{\arabic{observation}}
+\newenvironment{observation}[1][]{\refstepcounter{observation}\par\medskip
+	\noindent\textbf{O\theobservation.#1} }{\medskip}
+
 
 %\newcommand{\myfbox}[1]{%
 %	\vspace{0.2cm}
@@ -514,7 +522,7 @@ Thank you for your suggestion. We have addressed this issue in detail in our res
 
 %%%%%%%%%%%%%%%%%%%%%% W1 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
-	\begin{weakness}
+	\begin{observation}
 		\textit{In the experimental study, datasets did not originate from the real applications for hybrid queries.
 			Regarding the datasets for AF-NN search (Msong, Audio, SIFT1M, GIST1M, GloVe, Enron),
 			the attributes were generated synthetically but not real.
@@ -523,7 +531,7 @@ Thank you for your suggestion. We have addressed this issue in detail in our res
 			In order to match with the introduction, the authors are recommended to
 			include a real dataset from e-commerce platform with both vectors and attributes.
 		}
-	\end{weakness}
+	\end{observation}
 }
 
 
@@ -531,23 +539,26 @@ Thank you for your suggestion. We have addressed this issue in detail in our res
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We fully understand your concern regarding the use of synthetic or less meaningful attributes in our hybrid query experimental setup.
+Thank you for your suggestion. We fully understand your concern regarding our use of synthetic or less meaningful attributes in the hybrid query experimental setup.
 
-To address this crucial issue and enhance the real-world relevance of our evaluation, we have added two new real-world datasets with genuine attributes to our attribute filtering and range query experiments. For detailed information on these two new datasets and our improvements to range filtering, please see Meta R3.
+To address this critical issue and enhance the real-world relevance of our evaluation, we have incorporated two new real-world datasets with their actual attributes into our attribute filtering and range query experiments, and we have clarified the sources of these real-world attributes. For more details, please refer to our Response to Meta R3.
 
-We have revised the manuscript accordingly.
-%\textbf{ (Please see page 7, Section 4.2.1, and the "Single-Attribute Building and Single-Attribute Query" subsection of Section 4.2.2 on page 8, highlighted in blue in the revised manuscript.)} 
-Furthermore, it should be noted that, in the "Single-Attribute Building and Single-Attribute Query" subsection of Section 4.2.2 on page 8, due to space constraints, we have removed two previous datasets (Audio and GloVe), as Audio is relatively small-scale, and GloVe's scale is similar to SIFT1M while its LID is similar to GIST1M. \textbf{(Please see Section 4.2.1 and the "Single-Attribute Building and Single-Attribute Query" part of Section 4.2.2, highlighted in blue in the revised manuscript.)}
+For attribute filtering, by incorporating the YT-Audio-Real and WIT-Real datasets with their respective real-world attributes, we have revised the "Single-Attribute Building and Single-Attribute Query" experiments and amended the manuscript accordingly. It is also worth noting that in Section 4.2.2, under the "Single-Attribute Building and Single-Attribute Query" subsection, we have removed two previous datasets (Audio and GloVe) due to space constraints. The Audio dataset was removed because its smaller scale offered limited reference value. The GloVe dataset is similar in scale to SIFT1M, while LID is similar to GIST1M. \textbf{(Please see Section 4.2.1 on page 7, and the "Single-Attribute Building and Single-Attribute Query" subsection in Section 4.2.2 on page 8).}
+
+In fact, we have conducted experiments to verify that the choice between synthetic and real-world attributes has a minimal impact on the algorithm's performance. For more details, please refer to our Response to Review 1 W1.
+
+For range filtering, we have also included the YT-Audio-Real and WIT-Real datasets with their respective real-world attributes in our experiments. For more details, please refer to our response to Meta R3.
+
 
 %%%%%%%%%%%%%%%%%%%%%% W2 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
-	\begin{weakness}
+	\begin{observation}
 		\textit{All experiments were conducted on the same server mentioned in Section 4.1.3.
 			However, in practice, server providers may use other hardware settings (with other processors and RAM).
 			Would the server setting affect the relative ordering of methods in experiments?
 			For example, if Intel Xeon processor is used, would there be any change of the top 3 methods in Figures 4,5,7,8?
 			Would the CPU cache size affect the top 3 methods in those figures?}
-	\end{weakness}
+	\end{observation}
 }
 
 
@@ -559,11 +570,11 @@ Thank you for your suggestion. We have added relevant experiments conducted on d
 %%%%%%%%%%%%%%%%%%%%%% W3 %%%%%%%%%%%%%%%%%%%%%%
 
 \myfbox{
-	\begin{weakness}
+	\begin{observation}
 		\textit{In the experimental setup, it is unclear whether data storage (disk or SSD) is used.
 			In Table 1, please clarify which methods are disk-based, and which methods are memory-based.
 			For disk-based methods, it is also meaningful to report the cost breakdown (e.g., in terms of I/O time and CPU time).}
-	\end{weakness}
+	\end{observation}
 }
 
 \noindent
@@ -575,10 +586,10 @@ We have already provided a detailed response to this issue in our reply to Meta 
 
 %%%%%%%%%%%%%%%%%%%%%% W4 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
-	\begin{weakness}
+	\begin{observation}
 		\textit{The authors have reported the peak memory usage of index construction only.
 			They are also recommended to report the peak memory usage of query processing.}
-	\end{weakness}
+	\end{observation}
 }
 
 \noindent
