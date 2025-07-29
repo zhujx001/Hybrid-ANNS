@@ -801,15 +801,24 @@ Most algorithms load both the index and the dataset into memory during the build
 		\centering
 		
 		\includegraphics[width=0.95\textwidth]{figures/exp/exp_4_1_MultiLabel_1thread.pdf}
+<<<<<<< HEAD
+		\caption{Performance of Multi-Attribute Index Construction and Multi-Attribute Query}
+=======
 		\caption{Multi-attribute build and query performance (single thread)}
+>>>>>>> 82f633fca65685f785716fd8b0e0ee1bd9b8197d
 		\label{fig:exp_4_1_MultiLabel_1thread}
 	\end{figure*}
+	
 	
 	\begin{figure*}
 		\centering
 		
 		\includegraphics[width=0.95\textwidth]{figures/exp/exp_3_1.pdf}
+<<<<<<< HEAD
+		\caption{Effect of Attribute Distribution on Query Performance (Strong is robust to attribute distribution shifts, Weak is sensitive to attribute distribution shifts)}
+=======
 		\caption{Effect of attribute distribution on query performance (single thread)}
+>>>>>>> 82f633fca65685f785716fd8b0e0ee1bd9b8197d
 		\label{fig:exp_3_1}
 		
 		\footnotesize{
@@ -1074,7 +1083,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	\textcolor{red}{To investigate the impact of different server configurations on the performance of the algorithms, we conduct additional experiments on a server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz featuring 128GB of RAM and 84 MiB of L3 cache using the YT-Audio-Real dataset, and the results are shown in Figure~\ref{fig:attribute-cross-platform}. It is not difficult to see that the relative ranking of the algorithms under the two servers essentially remains unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency, reduced RAM capacity, and smaller L3 cache, all methods demonstrate slightly lower QPS values.}
 
 	\textit{\textbf{\textcolor{blue}{Large-scale Datasets.}}} 
-	\textcolor{violet}{As shown in the figure~\ref{fig:attribute big dataset}, on the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating good adaptability to large-scale datasets. However, this also comes with significant memory overhead. The clustering-based algorithm Faiss+HQI\_Batch shows moderate performance but has very low memory overhead, which also has certain practical significance. Furthermore, we did not present the results of StitchedVamana and CAPS, as their recall remained consistently low. StitchedVamana sets the search entry point to 0 by default, which makes it prone to getting stuck in local optima when the entry is far from the target region, hindering effective navigation. CAPS, on the other hand, is limited by its implementation and achieves a recall of only around 0.2.}
+	\textcolor{violet}{As shown in the figure~\ref{fig:attribute big dataset}, on the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating good adaptability to large-scale datasets. However, this also comes with significant memory overhead. The clustering-based algorithm Faiss+HQI\_Batch shows moderate performance but has very low memory overhead, which also has certain practical significance. Furthermore, we do not present the results of StitchedVamana and CAPS, as their recall remained consistently low. StitchedVamana sets the search entry point to 0 by default, which makes it prone to getting stuck in local optima when the entry is far from the target region, hindering effective navigation. CAPS, on the other hand, is limited by its implementation and achieves a recall of only around 0.2.}
 %		we do not present the experimental results for StitchedVamana because its recall consistently remains at a very low level. This is due to its search starting point being set to 0 by default, when the entry point is far from the target area, it easily gets stuck in a local optimum, making it difficult to navigate to the vicinity of the correct point.}
 	
 	
@@ -1178,7 +1187,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	%SeRF maintains a compact index for low-dimensional data. However, for high-dimensional dataset (WIT), SeRF stores more edges and dynamic range data, significantly increasing its size.
 	
 	\textit{\textbf{Build peak memory.}}  
-	\textcolor{orange}{As explained in the attribute filtering analysis, the peak memory usage during index construction generally depends on the combined size of the dataset and the index, as illustrated in Figure~\ref{fig:rangeFilter_build_memory_mb}. Range filtering adheres to this pattern, while PASE deviates due to reasons discussed earlier.}  
+	\textcolor{orange}{As explained in the attribute filtering analysis, the build peak memory usage typically depends on the combined size of the dataset and the index. In general, algorithms with larger index sizes (including the dataset) tend to exhibit higher build peak memory consumption. As shown in Figure~\ref{fig:rangeFilter_build_memory_mb}, range filtering also adheres to this pattern, while PASE deviates due to reasons discussed earlier.}  
 	
 	\textcolor{orange}{WinFilter also presents an exception:  its peak memory usage is also affected by the level of parallelism. Although the final index size remains relatively small, the peak memory usage increases significantly during both construction and search. During construction, this is caused by the parallel building of local indices for each tree node, which results in substantial temporary memory usage. Similarly, during search, WinFilter needs to load multiple local indices in parallel for different tree nodes, further contributing to high peak memory consumption.}
 	
