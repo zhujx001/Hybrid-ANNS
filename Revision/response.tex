@@ -196,7 +196,7 @@ Section 4.3.4:\textcolor{blue}{
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. Using ID as attribute for range filtering is a prevalent method in current range filtering algorithm evaluations, which indeed has considerable limitations. To address this issue, we have added two datasets that use real attributes.\textbf{(Please see Section 4.1.1, highlighted in blue in the revised manuscript.)}
+Thank you for your suggestion. Using ID as attribute for range filtering is a prevalent method in current range filtering algorithm evaluations, which indeed has considerable limitations. To address this issue, we have added two datasets that use real attributes. \textbf{(Please see Section 4.1.1, highlighted in blue in the revised manuscript.)}
 
 \textcolor{blue}{
 	"WIT-Real and YT-Audio-Real datasets use real attributes: For the WIT-Real dataset, we use the CLIP model to encode the page title into vectors, and extract the language type and the length of the context page description as real attributes. The YT-Audio-Real dataset uses YouTube8M data, employing the video category ID and view counts as real attributes for this dataset."
@@ -214,7 +214,7 @@ Thank you for your suggestion. Using ID as attribute for range filtering is a pr
 \textbf{Response:} 
 That is a great suggestion. In order to figure out if the server setting affects the relative ordering of methods, we conducted additional experiments on a server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz featuring 128GB of RAM and 84 MiB of L3 cache using the YT-Audio-Real dataset.
 The results show that the performance differences across algorithms remain small, and their relative rankings do not change significantly across servers.
-We did observe slightly lower QPS on this server compared to our original one, which is mainly due to the the lower CPU frequency, reduced RAM capacity, and smaller L3 cache of the Xeon 6330 processors.\textbf{(Please see Section 4.2.4 and Section 4.3.4, highlighted in blue in the revised manuscript.)} 
+We did observe slightly lower QPS on this server compared to our original one, which is mainly due to the the lower CPU frequency, reduced RAM capacity, and smaller L3 cache of the Xeon 6330 processors. \textbf{(Please see Section 4.2.4 and Section 4.3.4, highlighted in blue in the revised manuscript.)} 
 
 Section 4.2.4:
 %\textcolor{blue}{"To investigate the impact of different server configurations on the performance of the algorithms, we conduct additional experiments on a server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset, and the results are shown in Figure 12b. Compared with the experimental results on the original server, the relative ranking of the algorithms remains largely unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency and smaller RAM capacity, the QPS values are slightly lower across all methods."}
@@ -281,7 +281,7 @@ While StitchedVamana achieves extremely low latency (sub-5 ms) due to its stitch
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We are deeply aware of this shortcoming, so we provide the search peak memory usage of each algorithm in the time and space overhead section and carefully analyze the reasons.\textbf{(Please see Section 4.2.1 and Section 4.3.1, highlighted in blue in the revised manuscript.)}
+Thank you for your suggestion. We are deeply aware of this shortcoming, so we provide the search peak memory usage of each algorithm in the time and space overhead section and carefully analyze the reasons. \textbf{(Please see Section 4.2.1 and Section 4.3.1, highlighted in blue in the revised manuscript.)}
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=\linewidth]{fig/legend_only.pdf}
@@ -341,9 +341,9 @@ Section 4.3.4:
 %
 %To address this, we add a summary table that provides a clearer and more structured comparison of the strengths and weaknesses of each algorithm, offering deeper insights and more concrete guidelines for understanding their trade-offs.
 Thank you very much for your insightful comments. We fully agree with your views. We have revised the discussion section of the paper accordingly. In this section, we have added a recommendation table for the algorithms, which summarizes their performance under various conditions. Additionally, we have provided a more in-depth analysis of the internal mechanisms of each algorithm in the text, aiming to uncover the fundamental reasons behind their performance.
-\textbf{(Please refer to the "Recommendation" part of section 5.2.2, highlighted in blue in the revised manuscript.)}
+\textbf{(Please see Section 5.1.1 and Section 5.1.2, highlighted in blue in the revised manuscript.)}
 
-Attribute filtering: \textcolor{blue}{
+Section 5.1.1: \textcolor{blue}{
 	"Overall, UNG, NHQ, and FilteredDisk-ANN demonstrate strong performance. However, UNG suffers from performance degradation when the attribute count differs between indexing and querying. NHQ, due to its distance fusion design, also experiences performance drops when there is a significant mismatch in attribute numbers between indexing and querying, and its performance is sensitive to attribute distribution. }
 
 \textcolor{blue}{"The two variants of FilteredDiskANN (FilteredVamana and StitchedVamana) support only single-attribute queries and multi-attribute OR queries. FilteredVamana supports dynamic insertion and disk-based indexing, making it suitable for memory-constrained scenarios. However, its disk-based construction significantly increases indexing time, and its performance is highly sensitive to attribute distribution. In contrast, StitchedVamana offers better search performance but performs poorly on 100M-scale datasets and OOD datasets.}
@@ -354,7 +354,7 @@ Attribute filtering: \textcolor{blue}{
 
 
 
-Range filtering: \textcolor{blue}{
+Section 5.1.2: \textcolor{blue}{
 	"WinFilter achieves the best search performance but requires high time and memory resources during index construction. For large-scale datasets (e.g., with 100 million points), parameter tuning—particularly of tree height—is needed to prevent excessive index growth. When QPS and recall are not strict requirements, its basic variant, Vamana-WST, offers a more efficient alternative with significantly lower indexing overhead.
 }
 
@@ -383,7 +383,7 @@ General:	\textcolor{blue}{"All of the following methods support both attribute f
 }
 
 \noindent
-\textbf{Response:} Thank you very much for your valuable suggestions. Your advice is very insightful. In the recommendation section of our paper, we have added a clearer summary table of the algorithms to help readers choose the appropriate algorithm based on their application scenarios.\textbf{(Please refer to the "Recommendation" part of section 5.2.2, highlighted in blue in the revised manuscript.)}
+\textbf{Response:} Thank you very much for your valuable suggestions. Your advice is very insightful. In the recommendation section of our paper, we have added a clearer summary table of the algorithms to help readers choose the appropriate algorithm based on their application scenarios. \textbf{(Please see Section 5.1.1 and Section 5.1.2, highlighted in blue in the revised manuscript.)}
 
 
 
@@ -468,7 +468,9 @@ Thank you for your suggestion. We fully understand your concern regarding the us
 
 To address this crucial issue and enhance the real-world relevance of our evaluation, we have added two new real-world datasets with genuine attributes to our attribute filtering and range query experiments, as detailed in Meta-Review R3.
 
-We have revised the manuscript accordingly.\textbf{ (Please see page 7, Section 4.2.1, and the "Single-Attribute Building and Single-Attribute Query" subsection of Section 4.2.2 on page 8, highlighted in blue in the revised manuscript.)} Furthermore, it should be noted that, in the "Single-Attribute Building and Single-Attribute Query" subsection of Section 4.2.2 on page 8, due to space constraints, we have removed two previous datasets (Audio and GloVe), as Audio is relatively small-scale, and GloVe's scale is similar to SIFT1M while its LID is similar to GIST1M.
+We have revised the manuscript accordingly.
+%\textbf{ (Please see page 7, Section 4.2.1, and the "Single-Attribute Building and Single-Attribute Query" subsection of Section 4.2.2 on page 8, highlighted in blue in the revised manuscript.)} 
+Furthermore, it should be noted that, in the "Single-Attribute Building and Single-Attribute Query" subsection of Section 4.2.2 on page 8, due to space constraints, we have removed two previous datasets (Audio and GloVe), as Audio is relatively small-scale, and GloVe's scale is similar to SIFT1M while its LID is similar to GIST1M. \textbf{(Please see Section 4.2.1 and the "Single-Attribute Building and Single-Attribute Query" part of Section 4.2.2, highlighted in blue in the revised manuscript.)}
 
 %%%%%%%%%%%%%%%%%%%%%% W2 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -526,9 +528,9 @@ Thank you for your suggestion. We have made a detailed response to this issue in
 \noindent
 \textbf{Response:} 
 %Thank you for pointing this out. Both paper [49] and our paper are benchmarks. Paper [49] provides a comprehensive review and evaluation of graph-based approximate nearest neighbor search algorithms. Our paper is the first benchmark to evaluate hybrid queries. Since hybrid queries are developed based on ANN, we refer to the evaluation metrics proposed in the cited paper. We realize that we did not clearly explain the difference between our paper and the cited paper, so we have added a description in the introduction, please see section 1.1.
-Thank you for pointing this out. Reference [49] provides a comprehensive review and evaluation of graph-based approximate nearest neighbor (ANN) search algorithms, whereas our work is the first to establish a benchmark for hybrid queries. We originally cited [49] in the experimental setup section to adopt the evaluation metrics it proposed, as hybrid queries are inherently built upon ANN techniques. We acknowledge that the distinction between our work and the cited paper was not clearly explained in the earlier version. To address this, we have added a clarification in the Introduction and also referenced several experimental studies in the ANN literature. 
+Thank you for pointing this out. Reference [49] provides a comprehensive review and evaluation of graph-based approximate nearest neighbor (ANN) search algorithms, whereas our work is the first to establish a benchmark for hybrid queries. We originally cited [49] in the experimental setup section to adopt the evaluation metrics it proposed, as hybrid queries are inherently built upon ANN techniques. We acknowledge that the distinction between our work and the cited paper was not clearly explained in the earlier version. To address this, we have added a clarification in the Introduction and also referenced several experimental studies in the ANN literature. \textbf{(Please see Section 1.1, highlighted in blue in the revised manuscript.)}
 
-\textbf{(Please refer to Section 1.1 for details.)} \textcolor{blue}{"Although existing work, such as the survey [49] by reviews graph-based ANN methods, the literature still lacks an experimental study specifically targeting hybrid query algorithms. To address this gap, we conduct the first comprehensive experimental evaluation of hybrid query algorithms, systematically analyzing their index construction costs and query efficiency across diverse scenarios. Furthermore, we rigorously assess the robustness of each algorithm under varying conditions, thereby providing valuable insights for future research and practical applications."}
+ \textcolor{blue}{"Although existing work, such as the survey [49] by reviews graph-based ANN methods, the literature still lacks an experimental study specifically targeting hybrid query algorithms. To address this gap, we conduct the first comprehensive experimental evaluation of hybrid query algorithms, systematically analyzing their index construction costs and query efficiency across diverse scenarios. Furthermore, we rigorously assess the robustness of each algorithm under varying conditions, thereby providing valuable insights for future research and practical applications."}
 
 
 
@@ -544,9 +546,8 @@ Thank you for pointing this out. Reference [49] provides a comprehensive review 
 \noindent
 \textbf{Response:} 
 Thank you for your suggestion. We cited these two papers in the introduction to show that there are several papers that study attribute distribution and selectivity.
-In addition, attribute distribution and selectivity are indeed widely used in real-world scenarios. For attribute distribution, the label attributes of many recommendation application scenarios in reality conform to the power-law distribution. For attribute selectivity: For example, if you need to query data with a very small proportion of a certain attribute, choosing a better algorithm will greatly improve the search effect. There are also some databases with practical applications that mention attribute selectivity, such as Milvus and AnalyticDB-V. For the two parts you suggested, we have added more comprehensive references in the paper.
-
-Please see section 1.1. 
+In addition, attribute distribution and selectivity are indeed widely used in real-world scenarios. For attribute distribution, the label attributes of many recommendation application scenarios in reality conform to the power-law distribution. For attribute selectivity: For example, if you need to query data with a very small proportion of a certain attribute, choosing a better algorithm will greatly improve the search effect. There are also some databases with practical applications that mention attribute selectivity, such as Milvus and AnalyticDB-V. For the two parts you suggested, we have added more comprehensive references in the paper. \textbf{(Please see Section 1.1, highlighted in blue in the revised manuscript.)}
+ 
 
 \textcolor{blue}{"For attribute filtering algorithms, factors such as the number of attributes, attribute distribution[12], and attribute  selectivity [46,51] significantly impact algorithm performance."}
 
@@ -560,7 +561,7 @@ Please see section 1.1.
 
 \noindent
 \textbf{Response:} 
-Thank you for pointing it out. We sincerely apologize for the misuse of notation in Definition 2.3. This has been corrected in the revised version.\textbf{(Please see Definition 2.3 in Section 2.1, highlighted in blue in the revised manuscript.)}
+Thank you for pointing it out. We sincerely apologize for the misuse of notation in Definition 2.3. This has been corrected in the revised version. \textbf{(Please see the "Definition 2.3" part of Section 2.1, highlighted in blue in the revised manuscript.)}
 
 \textcolor{blue}{"Let \( D = \{(v_1, a_1), \ldots, (v_n, a_n)\} \) be a dataset of \( n \) \( d \)-dimensional vectors, each associated with an attribute value \( a_i \)."}
 
@@ -637,7 +638,7 @@ Thank you for your suggestion. We have already addressed this issue in detail in
 
 \noindent
 \textbf{Response:}
-Thank you for your suggestion. We acknowledge that the original manuscript did not clearly explain how attribute filtering (AF) and range filtering (RF) are embedded into standard graph-based and IVF-based index structures. We have revised Section 2.2 and added two paragraphs. These paragraphs summarize how the algorithms discussed in this paper implement hybrid query functionality based on these foundational indexing structures.
+Thank you for your suggestion. We acknowledge that the original manuscript did not clearly explain how attribute filtering (AF) and range filtering (RF) are embedded into standard graph-based and IVF-based index structures. We have revised Section 2.2 and added two paragraphs. These paragraphs summarize how the algorithms discussed in this paper implement hybrid query functionality based on these foundational indexing structures. \textbf{(Please see Section 2.2, highlighted in blue in the revised manuscript.)}
 
 \textcolor{blue}{"Graph indexes are widely used in Hybrid ANN due to their efficiency. To support hybrid queries, in attribute filtering, a common practice involves attaching attribute metadata to nodes or edges, thereby skipping parts that do not satisfy query conditions during traversal (e.g., NHQ, Filtered-DiskANN, ACORN). In range filtering, edges typically store valid attribute intervals, and traversal proceeds only along edges that satisfy range constraints, thus narrowing the search space (e.g., SeRF, DSG)."}
 	
@@ -673,7 +674,7 @@ For datasets with recommended parameters provided in the original papers, we dir
 
 According to our experimental results, for datasets using the recommended parameters, the algorithm rankings remained unchanged. During the search process, we adjusted the search parameters to obtain different Recall and QPS values. The search parameters typically span a wide range of values to ensure the completeness of the experimental results.
 
-Due to the large number of algorithms and datasets involved, we did not include all parameter settings in the paper because of space limitations. The detailed parameter configurations can be found in our public code repository. (\textbf{Please refer to Section 4.1.4, highlighted in blue in the revised manuscript.})
+Due to the large number of algorithms and datasets involved, we did not include all parameter settings in the paper because of space limitations. The detailed parameter configurations can be found in our public code repository. (\textbf{Please see Section 4.1.4, highlighted in blue in the revised manuscript.})
 
 	\textcolor{blue}{
 "In the experiments, for datasets with recommended parameters in the original paper, we use the recommended settings. For datasets without recommended parameters, we conduct experiments with different parameter settings and select the one that performs best for the final experiment.Due to the large number of datasets and algorithms involved, the parameters are not listed individually, but they are provided in the code repository."}
@@ -688,7 +689,7 @@ Of all the evaluated algorithms, Faiss, Puck, DiskANN, and Milvus support quanti
 
 \textbf{Regarding Figure 7 and the exclusion of Vamana:}
 
-We appreciate the observation of reviewer. Figure 7 presents experiments on multi-attribute construction and search, using Boolean AND logic. The Vamana-based methods (FilteredVamana and StitchedVamana) only support Boolean OR logic for multi-attribute search, which is why they were not included. Since other algorithms also do not support multi-attribute queries, we have explained this situation collectively in the corresponding section of the paper to save space. (\textbf{Please see the section 4.2.2 on Multi-Attribute Construction and Multi-Attribute Query.})
+We appreciate the observation of reviewer. Figure 7 presents experiments on multi-attribute construction and search, using Boolean AND logic. The Vamana-based methods (FilteredVamana and StitchedVamana) only support Boolean OR logic for multi-attribute search, which is why they were not included. Since other algorithms also do not support multi-attribute queries, we have explained this situation collectively in the corresponding section of the paper to save space. (\textbf{Please see the "Multi-Attribute Construction and Multi-Attribute Query" part of Section 4.2.2, highlighted in blue in the revised manuscript.})
 
 \textcolor{blue}{"In this experiment, we only evaluate the algorithms that support this query scenario."}
 
@@ -728,15 +729,15 @@ Thank you for the suggestion. We realized that the original wording is somewhat 
 \noindent
 \textbf{Response:} Thank you very much for your careful review and valuable suggestions. We greatly appreciate your feedback and sincerely apologize for any lack of clarity in our paper.
 
-Regarding the issue of range attributes, we indeed used only one range attribute for evaluation. At present, most existing range filtering algorithms only support filtering on a single attribute. This is a major limitation of current range filtering methods. We have clearly pointed this out in Section 5.2.2 of the "Discussion" part of the paper and listed it as an important challenge for future work. Thank you for highlighting this point, which further emphasizes the significance of our work. \textbf{(Please refer to the "Build peak memory" part of Section 5.2.2, highlighted in green in the revised manuscript.)}
+Regarding the issue of range attributes, we indeed used only one range attribute for evaluation. At present, most existing range filtering algorithms only support filtering on a single attribute. This is a major limitation of current range filtering methods. We have clearly pointed this out in Section 5.2.2 of the "Discussion" part of the paper and listed it as an important challenge for future work. Thank you for highlighting this point, which further emphasizes the significance of our work. \textbf{(Please see the "Build peak memory" part of Section 5.2.2, highlighted in green in the revised manuscript.)}
 
-To make the paper more readable, we have added a more detailed explanation of the range attribute in Section 4.3.2.\textbf{(Please see paragraph 1 of Section 4.3, which is highlighted in blue in the revised manuscript.)}
+To make the paper more readable, we have added a more detailed explanation of the range attribute in Section 4.3.2. \textbf{(Please see Section 4.3, highlighted in blue in the revised manuscript.)}
 
-In response to the large difference in index construction time shown in Figure 12a, we have revised the paper based on your suggestion. We added more detailed and in-depth analysis to provide a clearer explanation.\textbf{(Please refer to the "Index construction time" part of Section 4.3.1, highlighted in blue in the revised manuscript.)}
+In response to the large difference in index construction time shown in Figure 12a, we have revised the paper based on your suggestion. We added more detailed and in-depth analysis to provide a clearer explanation. \textbf{(Please see the "Index construction time" part of Section 4.3.1, highlighted in blue in the revised manuscript.)}
 
 Finally, your observation about the missing peak memory usage data for Milvus in Figure 12c is very insightful. Initially, we hesitated to include the peak memory usage of databases (such as Milvus) because they are full systems that run continuously and contain many components. This makes them quite different from other algorithms.
 
-However, we agree with your point. To provide a more comprehensive evaluation, we have added the peak memory usage data of the database systems  in the revised version of the paper. This offers a more complete comparative view. \textbf{(Please refer to the "Build peak memory" part of Section 4.2.1 and  4.3.1, highlighted in blue in the revised manuscript.)}
+However, we agree with your point. To provide a more comprehensive evaluation, we have added the peak memory usage data of the database systems  in the revised version of the paper. This offers a more complete comparative view. \textbf{(Please see the "Build peak memory" part of Section 4.2.1 and Section 4.3.1, highlighted in blue in the revised manuscript.)}
 
 Once again, thank you for your constructive comments. Your valuable feedback has helped us improve the paper further.
 
@@ -754,7 +755,7 @@ Once again, thank you for your constructive comments. Your valuable feedback has
 \noindent
 \textbf{Response:} Thank you for your feedback. We have revised Section 4.3.2 in our paper to provide a more specific and clearer explanation.
 
-Specifically, SeRF compresses the entire HNSW graph collection by adding range information to the edges. While this approach saves space, it leads to significant performance degradation when executing small-range queries. This is because SeRF’s multi-filtering mechanism needs to inspect a large number of edge entries that are irrelevant to the current small-range query, thereby introducing fixed computational and memory access overhead. Additionally, during graph traversal, many invalid neighbors may be visited, causing the search to fall into local optima, which further degrades query performance and recall.\textbf{(Please see  Section 4.3.2, which is highlighted in blue in the revised manuscript.)}
+Specifically, SeRF compresses the entire HNSW graph collection by adding range information to the edges. While this approach saves space, it leads to significant performance degradation when executing small-range queries. This is because SeRF’s multi-filtering mechanism needs to inspect a large number of edge entries that are irrelevant to the current small-range query, thereby introducing fixed computational and memory access overhead. Additionally, during graph traversal, many invalid neighbors may be visited, causing the search to fall into local optima, which further degrades query performance and recall. \textbf{(Please see  Section 4.3.2, highlighted in blue in the revised manuscript.)}
 
 
 \textcolor{blue}{"SeRF demonstrates relatively weak overall performance, with a pronounced drop in recall under small-range query scenarios. This is because SeRF compresses the entire HNSW graph by attaching range information to its edges. However, during small-range queries, its multi-filtering mechanism requires scanning a large number of edge entries that are irrelevant to the current query range, introducing fixed computational and memory access overhead. Additionally, graph traversal may lead to the exploration of numerous invalid neighbors, increasing the likelihood of the search becoming trapped in local optima and further degrading performance."}
