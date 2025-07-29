@@ -165,24 +165,25 @@ For performance under different attribute selectivity, to reflect the performanc
 }
 
 \noindent
-\textbf{Response:} We believe this is an excellent suggestion. In fact, in the initial version of our paper, we used the text-to-image dataset that has been widely adopted by existing multimodal ANN algorithms. In this dataset, the base vectors are images, while the query set consists of texts, resulting in a modality gap between the two. Achieving good performance on such a dataset often requires the algorithm to demonstrate stronger robustness. \textbf{(Please refer to the last paragraph of Section 4.2.3 and the green highlighted part in Section 4.3.3.)}
+\textbf{Response:} We believe this is an excellent suggestion. In fact, in the initial version of our paper, we used the text-to-image dataset that has been widely adopted by existing multimodal ANN algorithms. In this dataset, the base vectors are images, while the query set consists of texts, resulting in a modality gap between the two. Achieving good performance on such a dataset often requires the algorithm to demonstrate stronger robustness. \textbf{(Please see Section 4.2.3 and Section 4.3.3, highlighted in green in the revised manuscript.)}
 
 To further enrich the evaluation of complex multimodal queries, we have added new experiments in the Multi-modal Queries sections of Section 4.2.4 and Section 4.3.4. Specifically, we constructed a more challenging multimodal dataset by selecting 500,000 text vectors and 500,000 image vectors as the base set, and 5,000 text vectors and 5,000 image vectors as the query set. We then perform both attribute filtering and range queries over this dataset, combining text and image queries to further analyze the robustness of the algorithms. The corresponding experimental results are presented in Section 4.2.4 and Section 4.3.4 under Multi-modal Queries.
 
-As for complex query types that involve both attribute filtering and range queries simultaneously, to the best of our knowledge, existing algorithms—except for general-purpose systems such as Milvus and Faiss—do not support this functionality. For example, ACORN needs to build separate indexes for each scenario and cannot handle attribute filtering and range queries simultaneously. Therefore, we do not consider this type of complex query in our experiments but instead study the two query types separately. \textbf{(Please refer to the blue highlighted parts in  Section 4.1.1 paragraph 4 and  Section 4.2.4 and Section 4.3.4 under Multi-modal Queries.)
+As for complex query types that involve both attribute filtering and range queries simultaneously, to the best of our knowledge, existing algorithms—except for general-purpose systems such as Milvus and Faiss—do not support this functionality. For example, ACORN needs to build separate indexes for each scenario and cannot handle attribute filtering and range queries simultaneously. Therefore, we do not consider this type of complex query in our experiments but instead study the two query types separately. \textbf{(Please see Section 4.1.1, Section 4.2.4 and Secntion 4.3.4, highlighted in blue in the revised manuscript.)  
+	%Please refer to the blue highlighted parts in  Section 4.1.1 paragraph 4 and  Section 4.2.4 and Section 4.3.4 under Multi-modal Queries.)
 }
 
-\textcolor{blue}{
+Section 4.1.1:\textcolor{blue}{
 "Additionally, we use the Out-of-Distribution (OOD) dataset Text2Image and the large-scale dataset Deep100M to evaluate the generalization capability of the algorithms. The Text2Image dataset includes two versions: the original version contains 1 million image embeddings as the base dataset and uses 10 thousand text embeddings as the query set; the Text2Image-Mix version is composed of 0.5 million image embeddings and 0.5 million text embeddings as the base dataset, with a query set of 5 thousand image embeddings and 5 thousand text embeddings."
 }
 
-Attribute filtering: \textcolor{blue}{
+Section 4.2.4: \textcolor{blue}{
 	"We conducted experiments on the text2image-mix dataset. This dataset contains both image and text vectors. It is a more complex multimodal dataset. As shown in Figure 12, although the queries are more complex, UNG and NHQ still perform the best. CAPS is the next best.
 	Since the dataset mixes two modalities, the ground truth of the query set usually corresponds to the same modality. The nearest neighbors in the index are often from the same modality because they are closer in distance. Therefore, the search results on this dataset are similar to those in Figure 4. UNG and NHQ perform the best. CAPS clusters based on vector similarity. It actually clusters the vectors into the same modality. Then it uses attribute filtering to divide the data further. This allows CAPS to quickly find nearest neighbors that meet the filter conditions.
 	In contrast, the text2image dataset shown in Figure 11 is different. The queries and the dataset are from different modalities. The queries are far from the dataset. The ground truths are also scattered and not clustered together. To find the ground truths, the algorithm often needs to traverse more points. This is a greater challenge for the algorithms." 
 }
 
-Range filtering:\textcolor{blue}{
+Section 4.3.4:\textcolor{blue}{
 		"Similar to attribute filtering, the performance of multimodal queries with range filtering shown in Figure 16a is also consistent with the single-modality results in Figure 14. As shown in Figure 15, the algorithms still perform the worst on multimodal datasets like Text2Image. This is because these range query algorithms are almost graph-based. Graph algorithms need more iterations to find true neighbors in OOD datasets."
 }
 
