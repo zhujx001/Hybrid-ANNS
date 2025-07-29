@@ -721,8 +721,9 @@ In contrast, the construction time of IVF-based algorithms grows much more slowl
 
 \textit{\textbf{ \textcolor{orange}{Search peak memory.}}}
 %  \textcolor{orange}{As shown in Figure~\ref{fig:search_memory_mb_comparison}, we can find that the peak memory usage of each algorithm during search does not differ significantly. Among them, CAPS and NHQ have relatively higher peak memory usage, while the peak memory usage of database is comparatively lower.}
-\textcolor{orange}{For most algorithms, the query phase requires loading both the index and the dataset into memory, so its peak memory usage is usually comparable to that of the construction phase. However, as shown in the Figure~\ref{fig:search_memory_mb_comparison}, CAPS exhibits significantly higher peak memory during querying due to the need to dynamically maintain large candidate sets. In contrast, Milvus has lower peak memory usage because it does not fully load the index and incurs additional metadata overhead during construction.
-}
+%\textcolor{orange}{For most algorithms, the query phase requires loading both the index and the dataset into memory, so its peak memory usage is usually comparable to that of the construction phase. However, as shown in the Figure~\ref{fig:search_memory_mb_comparison}, CAPS exhibits significantly higher peak memory during querying due to the need to dynamically maintain large candidate sets. In contrast, Milvus has lower peak memory usage because it does not fully load the index and incurs additional metadata overhead during construction.
+\textcolor{orange}{
+Most algorithms load both the index and the dataset into memory during the build and query phases, and the construction process typically generates a large amount of temporary data. As a result, peak memory usage during querying is generally slightly lower than during construction. However, exceptions exist. As shown in Figure~\ref{fig:search_memory_mb_comparison}, CAPS incurs significantly higher peak memory usage during querying due to the need to dynamically maintain a large candidate set.}
 	
 	\subsubsection{Performance Evaluation}
 	
