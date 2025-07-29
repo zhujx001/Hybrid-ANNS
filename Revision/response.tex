@@ -443,10 +443,11 @@ General:	\textcolor{blue}{"All of the following methods support both attribute f
 		\end{tabular}
 	}
 	\vspace{1mm}
-	\begin{flushleft}
-		\textbf{Note:} S = Strong performance, \textbf{S} = Strongest performance, M = Medium performance, W = Weak performance, 
-		\faCheck = Recommended, \faTimes = Not Recommended.
-	\end{flushleft}
+\begin{flushleft}
+	\textbf{Performance Levels:} \quad \textbf{S} = Strongest, S = Strong, M = Medium, W = Weak, - = Not Supported \\
+	\textbf{Recommendation:} \quad \faCheck = Recommended, \faTimes = Not Recommended
+\end{flushleft}
+
 	\centering
 	
 \end{table*}
@@ -566,7 +567,9 @@ Thank you for your suggestion. We have added relevant experiments conducted on d
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We have already provided a detailed response to this issue in our reply to Meta-Review R5. Please refer to that response for more information.
+Thank you for your suggestion. We clarify in Table ~\ref{tab:compair_1} which methods support disk-based execution. Since only FilteredDiskANN supports disk-based execution, we conduct additional experiments to analyze its performance and report a detailed cost breakdown (I/O vs. CPU). Figure~\ref{fig:recall-latency} shows that I/O consistently dominates total latency (accounting for 80–85\%) and becomes the primary bottleneck at high recall levels. We also compare it with two in-memory baselines—FilteredVamana and StitchedVamana—to highlight their efficiency and trade-offs. Due to space constraints and the limited relevance to other methods, we exclude this analysis from the revised paper and provide it here for completeness.
+
+We have already provided a detailed response to this issue in our reply to Meta-Review R5. Please refer to that response for more information.
 
 
 %%%%%%%%%%%%%%%%%%%%%% W4 %%%%%%%%%%%%%%%%%%%%%%
@@ -579,7 +582,9 @@ Thank you for your suggestion. We have already provided a detailed response to t
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We have made a detailed response to this issue in our reply to Meta-Review R6. Please refer to that response for more information.
+Thank you for your suggestion. We are deeply aware of this shortcoming, so we provide the search peak memory usage of each algorithm in the time and space overhead section and carefully analyze the reasons. 
+
+We have made a detailed response to this issue in our reply to Meta-Review R6. Please refer to that response for more information.
 	
 %%%%%%%%%%%%%%%%%%%%%% D1 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
