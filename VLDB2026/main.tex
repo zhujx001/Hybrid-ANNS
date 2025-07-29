@@ -721,8 +721,9 @@ In contrast, the construction time of IVF-based algorithms grows much more slowl
 
 \textit{\textbf{ \textcolor{orange}{Search peak memory.}}}
 %  \textcolor{orange}{As shown in Figure~\ref{fig:search_memory_mb_comparison}, we can find that the peak memory usage of each algorithm during search does not differ significantly. Among them, CAPS and NHQ have relatively higher peak memory usage, while the peak memory usage of database is comparatively lower.}
-\textcolor{orange}{For most algorithms, the query phase requires loading both the index and the dataset into memory, so its peak memory usage is usually comparable to that of the construction phase. However, as shown in the Figure~\ref{fig:search_memory_mb_comparison}, CAPS exhibits significantly higher peak memory during querying due to the need to dynamically maintain large candidate sets. In contrast, Milvus has lower peak memory usage because it does not fully load the index and incurs additional metadata overhead during construction.
-}
+%\textcolor{orange}{For most algorithms, the query phase requires loading both the index and the dataset into memory, so its peak memory usage is usually comparable to that of the construction phase. However, as shown in the Figure~\ref{fig:search_memory_mb_comparison}, CAPS exhibits significantly higher peak memory during querying due to the need to dynamically maintain large candidate sets. In contrast, Milvus has lower peak memory usage because it does not fully load the index and incurs additional metadata overhead during construction.
+\textcolor{orange}{
+Most algorithms load both the index and the dataset into memory during the build and query phases, and the construction process typically generates a large amount of temporary data. As a result, peak memory usage during querying is generally slightly lower than during construction. However, exceptions exist. As shown in Figure~\ref{fig:search_memory_mb_comparison}, CAPS incurs significantly higher peak memory usage during querying due to the need to dynamically maintain a large candidate set.}
 	
 	\subsubsection{Performance Evaluation}
 	
@@ -1178,7 +1179,7 @@ In contrast, the construction time of IVF-based algorithms grows much more slowl
 	%SeRF maintains a compact index for low-dimensional data. However, for high-dimensional dataset (WIT), SeRF stores more edges and dynamic range data, significantly increasing its size.
 	
 	\textit{\textbf{Build peak memory.}}  
-	\textcolor{orange}{As explained in the attribute filtering analysis, the peak memory usage during index construction generally depends on the combined size of the dataset and the index, as illustrated in Figure~\ref{fig:rangeFilter_build_memory_mb}. Range filtering adheres to this pattern, while PASE deviates due to reasons discussed earlier.}  
+	\textcolor{orange}{As explained in the attribute filtering analysis, the build peak memory usage typically depends on the combined size of the dataset and the index. In general, algorithms with larger index sizes (including the dataset) tend to exhibit higher build peak memory consumption. As shown in Figure~\ref{fig:rangeFilter_build_memory_mb}, range filtering also adheres to this pattern, while PASE deviates due to reasons discussed earlier.}  
 	
 	\textcolor{orange}{WinFilter also presents an exception:  its peak memory usage is also affected by the level of parallelism. Although the final index size remains relatively small, the peak memory usage increases significantly during both construction and search. During construction, this is caused by the parallel building of local indices for each tree node, which results in substantial temporary memory usage. Similarly, during search, WinFilter needs to load multiple local indices in parallel for different tree nodes, further contributing to high peak memory consumption.}
 	
@@ -1304,7 +1305,7 @@ In contrast, the construction time of IVF-based algorithms grows much more slowl
 		\centering
 		% !!! 注意：这是一个占位符，请替换成您自己的第五张图 !!!
 		\includegraphics[width=0.96\linewidth]{figures/exp/range_deep100M.pdf} 
-		\caption{Dig Dataset}
+		\caption{Big Dataset}
 		\label{fig: range big dataset}
 	\end{subfigure}
 	
