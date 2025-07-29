@@ -166,7 +166,7 @@
 %	Moreover, beyond BigANN, systematic evaluations of hybrid query algorithms remain limited.
 %	To fill this gap, we conduct a comprehensive experimental evaluation of hybrid query algorithms, analyzing the index construction costs and query efficiency across different scenarios. Additionally, we further assess the robustness of each algorithm under varying conditions.
 	
-	Moreover, beyond BigANN, systematic evaluations of hybrid query algorithms remain limited. \textcolor{orange}{Although existing work, such as the survey by \cite{compare}, reviews graph-based ANN methods, the literature still lacks an experimental study specifically targeting hybrid query algorithms. To address this gap, we conduct the first comprehensive experimental evaluation of hybrid query algorithms, systematically analyzing their index construction costs and query efficiency across diverse scenarios. Furthermore, we rigorously assess the robustness of each algorithm under varying conditions, thereby providing valuable insights for future research and practical applications.}
+	Moreover, beyond BigANN, systematic evaluations of hybrid query algorithms remain limited. \textcolor{orange}{Although existing works, such as the surveys in \cite{compare,azizi2025graph}, conduct benchmark evaluations or experimental analyses of ANN methods, the literature still lacks an experimental study specifically targeting hybrid query algorithms. To address this gap, we conduct the first comprehensive experimental evaluation of hybrid query algorithms, systematically analyzing their index construction costs and query efficiency across diverse scenarios. Furthermore, we rigorously assess the robustness of each algorithm under varying conditions, thereby providing valuable insights for future research and practical applications.}
 	
 	\subsection{Our Contributions}
 	
@@ -806,6 +806,7 @@ Most algorithms load both the index and the dataset into memory during the build
 		\label{fig:exp_4_1_MultiLabel_1thread}
 	\end{figure*}
 	
+	
 	\begin{figure*}
 		\centering
 		
@@ -1075,7 +1076,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	\textcolor{red}{To investigate the impact of different server configurations on the performance of the algorithms, we conduct additional experiments on a server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz featuring 128GB of RAM and 84 MiB of L3 cache using the YT-Audio-Real dataset, and the results are shown in Figure~\ref{fig:attribute-cross-platform}. It is not difficult to see that the relative ranking of the algorithms under the two servers essentially remains unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency, reduced RAM capacity, and smaller L3 cache, all methods demonstrate slightly lower QPS values.}
 
 	\textit{\textbf{\textcolor{blue}{Large-scale Datasets.}}} 
-	\textcolor{violet}{As shown in the figure~\ref{fig:attribute big dataset}, on the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating good adaptability to large-scale datasets. However, this also comes with significant memory overhead. The clustering-based algorithm Faiss+HQI\_Batch shows moderate performance but has very low memory overhead, which also has certain practical significance. Furthermore, we did not present the results of StitchedVamana and CAPS, as their recall remained consistently low. StitchedVamana sets the search entry point to 0 by default, which makes it prone to getting stuck in local optima when the entry is far from the target region, hindering effective navigation. CAPS, on the other hand, is limited by its implementation and achieves a recall of only around 0.2.}
+	\textcolor{violet}{As shown in the figure~\ref{fig:attribute big dataset}, on the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating good adaptability to large-scale datasets. However, this also comes with significant memory overhead. The clustering-based algorithm Faiss+HQI\_Batch shows moderate performance but has very low memory overhead, which also has certain practical significance. Furthermore, we do not present the results of StitchedVamana and CAPS, as their recall remained consistently low. StitchedVamana sets the search entry point to 0 by default, which makes it prone to getting stuck in local optima when the entry is far from the target region, hindering effective navigation. CAPS, on the other hand, is limited by its implementation and achieves a recall of only around 0.2.}
 %		we do not present the experimental results for StitchedVamana because its recall consistently remains at a very low level. This is due to its search starting point being set to 0 by default, when the entry point is far from the target area, it easily gets stuck in a local optimum, making it difficult to navigate to the vicinity of the correct point.}
 	
 	

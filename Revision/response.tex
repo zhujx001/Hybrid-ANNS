@@ -32,6 +32,8 @@
 \usepackage{mdframed}
 \usepackage{tcolorbox}
 \usepackage{fancybox}
+\usepackage{graphicx}
+\usepackage{subcaption}
 
 \newtheorem{example}{Example}
 \newtheorem{definition}{Definition}
@@ -141,8 +143,9 @@ For performance under different attribute distributions, to illustrate how diffe
 
 \begin{figure}[htbp]
 	\centering
+	\includegraphics[width=\linewidth]{fig/exp_3_1_legend.pdf}
 	\includegraphics[width=\linewidth]{fig/exp_3_1.pdf}
-	\caption{}
+	\caption{Effect of attribute distribution on query performance}
 	\label{fig:attribute_distribution}
 \end{figure}
 
@@ -150,8 +153,9 @@ For performance under different attribute selectivity, to reflect the performanc
 
 \begin{figure}[htbp]
 	\centering
+	\includegraphics[width=0.8\linewidth]{fig/exp_5_2_1_legend.pdf}
 	\includegraphics[width=\linewidth]{fig/exp_5_2_1.pdf}
-	\caption{}
+	\caption{Different AS under the same algorithm}
 	\label{fig:attribute_selectivity}
 \end{figure}
 
@@ -196,7 +200,9 @@ Section 4.3.4:\textcolor{blue}{
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. Using ID as attribute for range filtering is a prevalent method in current range filtering algorithm evaluations, which indeed has considerable limitations. To address this issue, we have added two datasets that use real attributes. \textbf{(Please see Section 4.1.1, highlighted in blue in the revised manuscript.)}
+Thank you for your suggestion. Using the ID as an attribute for range filtering is a prevalent method in current range filtering algorithm evaluations, which indeed has considerable limitations. To address this issue, we have changed two datasets (YT-Audio-Real, WIT-Real) to use real attributes. We observe that the impact of using real attribute versus using ID on the algorithms is negligible; the key factor remains the size of the query range, as shown in Figure~\ref{fig:attribute_distribution}. \textbf{(Please see the third paragraph of Section 4.1.1, highlighted in blue in the revised manuscript.)}
+
+
 
 \textcolor{blue}{
 	"WIT-Real and YT-Audio-Real datasets use real attributes: For the WIT-Real dataset, we use the CLIP model to encode the page title into vectors, and extract the language type and the length of the context page description as real attributes. The YT-Audio-Real dataset uses YouTube8M data, employing the video category ID and view counts as real attributes for this dataset."
@@ -466,7 +472,7 @@ Thank you for your suggestion. We have addressed this issue in detail in our res
 \textbf{Response:} 
 Thank you for your suggestion. We fully understand your concern regarding the use of synthetic or less meaningful attributes in our hybrid query experimental setup.
 
-To address this crucial issue and enhance the real-world relevance of our evaluation, we have added two new real-world datasets with genuine attributes to our attribute filtering and range query experiments, as detailed in Meta-Review R3.
+To address this crucial issue and enhance the real-world relevance of our evaluation, we have added two new real-world datasets with genuine attributes to our attribute filtering and range query experiments. For detailed information on these two new datasets and our improvements to range filtering, please see Meta-Review R3.
 
 We have revised the manuscript accordingly.
 %\textbf{ (Please see page 7, Section 4.2.1, and the "Single-Attribute Building and Single-Attribute Query" subsection of Section 4.2.2 on page 8, highlighted in blue in the revised manuscript.)} 
@@ -528,7 +534,9 @@ Thank you for your suggestion. We have made a detailed response to this issue in
 \noindent
 \textbf{Response:} 
 %Thank you for pointing this out. Both paper [49] and our paper are benchmarks. Paper [49] provides a comprehensive review and evaluation of graph-based approximate nearest neighbor search algorithms. Our paper is the first benchmark to evaluate hybrid queries. Since hybrid queries are developed based on ANN, we refer to the evaluation metrics proposed in the cited paper. We realize that we did not clearly explain the difference between our paper and the cited paper, so we have added a description in the introduction, please see section 1.1.
-Thank you for pointing this out. Reference [49] provides a comprehensive review and evaluation of graph-based approximate nearest neighbor (ANN) search algorithms, whereas our work is the first to establish a benchmark for hybrid queries. We originally cited [49] in the experimental setup section to adopt the evaluation metrics it proposed, as hybrid queries are inherently built upon ANN techniques. We acknowledge that the distinction between our work and the cited paper was not clearly explained in the earlier version. To address this, we have added a clarification in the Introduction and also referenced several experimental studies in the ANN literature. \textbf{(Please see Section 1.1, highlighted in blue in the revised manuscript.)}
+Thank you for pointing this out. The original reference [49], now updated to reference [50], provides a comprehensive review and evaluation of graph-based approximate nearest neighbor (ANN) search algorithms, whereas our work is the first to establish a benchmark specifically for hybrid query algorithms. We initially cited this reference in the experimental setup section to adopt its proposed evaluation metrics, as hybrid queries are fundamentally built upon ANN techniques. We acknowledge that the distinction between our work and the cited paper was not clearly articulated in the early version. To address this, we have revised the introduction to clarify the difference and added citations to several experimental studies from the ANN literature.
+
+
 
  \textcolor{blue}{"Although existing work, such as the survey [49] by reviews graph-based ANN methods, the literature still lacks an experimental study specifically targeting hybrid query algorithms. To address this gap, we conduct the first comprehensive experimental evaluation of hybrid query algorithms, systematically analyzing their index construction costs and query efficiency across diverse scenarios. Furthermore, we rigorously assess the robustness of each algorithm under varying conditions, thereby providing valuable insights for future research and practical applications."}
 
