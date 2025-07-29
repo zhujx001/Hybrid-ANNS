@@ -960,12 +960,12 @@ Most algorithms load both the index and the dataset into memory during the build
 	
 	Milvus is mainly limited by system-level communication overhead, such as API latency. As a result, its query performance remains largely unaffected by AS variations. ACORN-\(\gamma\) maintains stable performance across different AS settings by using a higher index construction parameter $\gamma$. This ensures a relatively stable average node degree, even after attribute pruning, minimizing the impact of AS changes on query efficiency.
 	
-	\begin{figure*}
-		\centering
-		\includegraphics[width=0.95\textwidth]{figures/exp/exp_6_1.pdf}
-		\caption{Effect of Different Datasets on AF-ANN Search}
-		\label{fig:exp_6_1}
-	\end{figure*}
+%	\begin{figure*}
+%		\centering
+%		\includegraphics[width=0.95\textwidth]{figures/exp/exp_6_1.pdf}
+%		\caption{Effect of Different Datasets on AF-ANN Search}
+%		\label{fig:exp_6_1}
+%	\end{figure*}
 	
 	%4.2.7
 	
@@ -1001,17 +1001,17 @@ Most algorithms load both the index and the dataset into memory during the build
 			% 	}
 		% \end{table}
 	
-	\textit{\textbf{Different Datasets.}}  
-	\sout{To evaluate the performance of various methods across different datasets, we conduct experiments on 7 datasets, including one dataset Text2Image for OOD queries. Our analysis focuses on performance variations concerning dataset size, LID, and vector dimensionality.
+	%\textit{\textbf{Different Datasets.}}  
+	%\sout{To evaluate the performance of various methods across different datasets, we conduct experiments on 7 datasets, including one dataset Text2Image for OOD queries. Our analysis focuses on performance variations concerning dataset size, LID, and vector dimensionality.
 	
 %ykw: 这段话看着有问题
-	As shown in Figure~\ref{fig:exp_6_1}, all methods achieve their highest QPS and recall on Audio dataset. Because Audio has small scale, low dimensionality, and low LID. In contrast, all methods exhibit the lowest QPS and recall on the GIST1M and GloVe dataset besides the OOD dataset Text2Image. Because these two datasets have the largest scale and highest LID.
+	%As shown in Figure~\ref{fig:exp_6_1}, all methods achieve their highest QPS and recall on Audio dataset. Because Audio has small scale, low dimensionality, and low LID. In contrast, all methods exhibit the lowest QPS and recall on the GIST1M and GloVe dataset besides the OOD dataset Text2Image. Because these two datasets have the largest scale and highest LID.
 	
-	SIFT1M and Msong are similar datasets, with the key difference being that SIFT1M has lower dimensionality. The 4 algorithms (ACORN, Faiss, PASE, and NHQ) perform similarly on these two datasets, suggesting strong robustness to high dimensional datasets. In contrast, the remaining algorithms exhibit degraded performance on Msong, revealing a lack of adaptability to high dimensional datasets.
+	%SIFT1M and Msong are similar datasets, with the key difference being that SIFT1M has lower dimensionality. The 4 algorithms (ACORN, Faiss, PASE, and NHQ) perform similarly on these two datasets, suggesting strong robustness to high dimensional datasets. In contrast, the remaining algorithms exhibit degraded performance on Msong, revealing a lack of adaptability to high dimensional datasets.
 	
-	Most algorithms struggle to achieve high recall on GloVe, because it has the highest LID. Compare to other algorithms, the 4 algorithms (UNG, Faiss, CAPS, and Milvus) manage to maintain relatively high recall, demonstrating better adaptability to complex datasets. Notably, although vanilla Faiss performs worse on SIFT1M compared to Enron dataset, Faiss+HQI\_Batch outperforms on SIFT1M. Because batch optimization in HQI reduces query overhead and increases throughput.	}
+	%Most algorithms struggle to achieve high recall on GloVe, because it has the highest LID. Compare to other algorithms, the 4 algorithms (UNG, Faiss, CAPS, and Milvus) manage to maintain relatively high recall, demonstrating better adaptability to complex datasets. Notably, although vanilla Faiss performs worse on SIFT1M compared to Enron dataset, Faiss+HQI\_Batch outperforms on SIFT1M. Because batch optimization in HQI reduces query overhead and increases throughput.	}
 	
-	\textcolor{green}{Most algorithms exhibit the worst performance on the OOD dataset Text2Image. However, ACORN, UNG, and FilteredVamana show relatively stable performance on Text2Image. Their performance drops less compared to in-distribution (ID) datasets such as GIST1M and GloVe, indicating better adaptability to OOD queries.}
+	%\textcolor{green}{Most algorithms exhibit the worst performance on the OOD dataset Text2Image. However, ACORN, UNG, and FilteredVamana show relatively stable performance on Text2Image. Their performance drops less compared to in-distribution (ID) datasets such as GIST1M and GloVe, indicating better adaptability to OOD queries.}
 	
 \begin{figure*}[t]
 	\centering
@@ -1246,25 +1246,25 @@ Most algorithms load both the index and the dataset into memory during the build
 	
 	\sout{It is important to note that this range query experiment is conducted under a fully static setting. Under such conditions, UNIFY, iRange, SeRF, and WinFilter require the dataset to be sorted by attribute prior to index construction. In contrast, DSG  supports dynamic index construction with unordered attribute insertions, making it more suitable for streaming or incremental data scenarios. This flexibility highlights its superior extensibility in real-world applications.}
 	
-	\subsubsection{Robustness.}
+	%\subsubsection{Robustness.}
 	
 	
-	\begin{figure*}[htbp]
-		\centering
-		\includegraphics[width=0.80\textwidth]{figures/exp/exp_8_3.pdf}
-		\caption{Effect of Different Datasets on RF-ANN Search}
-		\label{fig:exp_8_3}
-	\end{figure*}
+	%\begin{figure*}[htbp]
+	%	\centering
+	%	\includegraphics[width=0.80\textwidth]{figures/exp/exp_8_3.pdf}
+	%	\caption{Effect of Different Datasets on RF-ANN Search}
+	%	\label{fig:exp_8_3}
+	%\end{figure*}
 	
-	\textcolor{green}{To evaluate the robustness of the RF-ANNS algorithms in different scenarios, we add an OOD dataset in the experiments. As shown in Figure~\ref{fig:exp_8_3}, most methods perform worst on the Text2Image dataset. This is because OOD queries make the $k$-nearest neighbor distribution more sparse. As a result, the search needs to visit more nodes, which leads to an exponential growth in the search space and a sharp drop in efficiency.}
+%	\textcolor{green}{To evaluate the robustness of the RF-ANNS algorithms in different scenarios, we add an OOD dataset in the experiments. As shown in Figure~\ref{fig:exp_8_3}, most methods perform worst on the Text2Image dataset. This is because OOD queries make the $k$-nearest neighbor distribution more sparse. As a result, the search needs to visit more nodes, which leads to an exponential growth in the search space and a sharp drop in efficiency.}
 	
-	\sout{WinFilter shows the worst performance on the WIT dataset. This suggests that its performance is sensitive to the data dimensionality. ACORN has large performance differences across datasets, indicating weak robustness.
+%	\sout{WinFilter shows the worst performance on the WIT dataset. This suggests that its performance is sensitive to the data dimensionality. ACORN has large performance differences across datasets, indicating weak robustness.
 	
-	Among vector databases, Milvus performs well. VBASE is sensitive to datasets and achieved recall below 0.8 on Text2Image. PASE is excluded from this round of tests because it does not support datasets with dimensions over 512 and performed poorly in earlier experiments.
+%	Among vector databases, Milvus performs well. VBASE is sensitive to datasets and achieved recall below 0.8 on Text2Image. PASE is excluded from this round of tests because it does not support datasets with dimensions over 512 and performed poorly in earlier experiments.
 	
-	It is worth noting that most methods achieve similar performance on the Deep and YT-Audio datasets, which have similar LID values. This shows that RF-ANNS performance is largely affected by both the LID and the dimensionality of the dataset. A high LID and high dimensionality make hybrid queries more difficult.
+%	It is worth noting that most methods achieve similar performance on the Deep and YT-Audio datasets, which have similar LID values. This shows that RF-ANNS performance is largely affected by both the LID and the dimensionality of the dataset. A high LID and high dimensionality make hybrid queries more difficult.
 	
-	However, even though Deep and YT-Audio have similar LID values, the DSG algorithm shows large performance differences between them. This means that DSG is more sensitive to changes in data distribution. }
+%	However, even though Deep and YT-Audio have similar LID values, the DSG algorithm shows large performance differences between them. This means that DSG is more sensitive to changes in data distribution. }
 	%	Its robustness is lower than that of other methods, possibly because it depends not only on LID but also on other complex data characteristics.
 	%	To examine the robustness of RF-ANNS algorithms, we analyze their performance across different datasets. As shown in Figure~\ref{fig:exp_8_3}, the performance differences. All methods perform worst on WIT, which has the highest LID. On Deep and YT-Audio, which have similar LID, most algorithms achieve comparable performance. 
 	%	This suggests that the effectiveness of RF-ANN search is mainly influenced by LID of the dataset. A higher LID inherently increases the difficulty of hybrid query.
