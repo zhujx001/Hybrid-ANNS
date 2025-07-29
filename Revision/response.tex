@@ -32,6 +32,8 @@
 \usepackage{mdframed}
 \usepackage{tcolorbox}
 \usepackage{fancybox}
+\usepackage{graphicx}
+\usepackage{subcaption}
 
 \newtheorem{example}{Example}
 \newtheorem{definition}{Definition}
@@ -141,8 +143,9 @@ For performance under different attribute distributions, to illustrate how diffe
 
 \begin{figure}[htbp]
 	\centering
+	\includegraphics[width=\linewidth]{fig/exp_3_1_legend.pdf}
 	\includegraphics[width=\linewidth]{fig/exp_3_1.pdf}
-	\caption{}
+	\caption{Effect of attribute distribution on query performance}
 	\label{fig:attribute_distribution}
 \end{figure}
 
@@ -150,8 +153,9 @@ For performance under different attribute selectivity, to reflect the performanc
 
 \begin{figure}[htbp]
 	\centering
+	\includegraphics[width=0.8\linewidth]{fig/exp_5_2_1_legend.pdf}
 	\includegraphics[width=\linewidth]{fig/exp_5_2_1.pdf}
-	\caption{}
+	\caption{Different AS under the same algorithm}
 	\label{fig:attribute_selectivity}
 \end{figure}
 
