@@ -1181,7 +1181,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	%SeRF maintains a compact index for low-dimensional data. However, for high-dimensional dataset (WIT), SeRF stores more edges and dynamic range data, significantly increasing its size.
 	
 	\textit{\textbf{Build peak memory.}}  
-	\textcolor{orange}{As explained in the attribute filtering analysis, the build peak memory usage typically depends on the combined size of the dataset and the index. In general, algorithms with larger index sizes (including the dataset) tend to exhibit higher build peak memory consumption. As shown in Figure~\ref{fig:rangeFilter_build_memory_mb}, range filtering also adheres to this pattern, while PASE deviates due to reasons discussed earlier.}  
+	\textcolor{orange}{As explained in the attribute filtering analysis, algorithms with larger index sizes (including the dataset) tend to exhibit higher build peak memory consumption. As shown in Figure~\ref{fig:rangeFilter_build_memory_mb}, range filtering also adheres to this pattern, while PASE deviates due to reasons discussed earlier.}  
 	
 	\textcolor{orange}{WinFilter also presents an exception:  its peak memory usage is also affected by the level of parallelism. Although the final index size remains relatively small, the peak memory usage increases significantly during both construction and search. During construction, this is caused by the parallel building of local indices for each tree node, which results in substantial temporary memory usage. Similarly, during search, WinFilter needs to load multiple local indices in parallel for different tree nodes, further contributing to high peak memory consumption.}
 	
