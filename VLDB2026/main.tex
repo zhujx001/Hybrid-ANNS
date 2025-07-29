@@ -147,7 +147,7 @@
 		\centering
 		
 		\includegraphics[width=0.92\textwidth]{figures/hybrid ANNS.pdf}
-		\caption{Hybrid query example}
+		\caption{Hybrid Query Example}
 		
 		\label{fig:hybrid ANNS}
 	\end{figure*}
@@ -278,7 +278,7 @@ To address the lack of standardized evaluation benchmarks in attribute filtering
 		\end{subfigure}
 		
 		
-		\caption{Graph index and IVF index}
+		\caption{Graph Index and IVF Index}
 		
 	\end{figure}
 	
@@ -291,7 +291,7 @@ To address the lack of standardized evaluation benchmarks in attribute filtering
 		\centering
 		%\setlength{\belowcaptionskip}{-0.3cm}
 		
-		\caption{\textcolor{orange}{Comparison of AF-ANN and RF-ANN search algorithms}}
+		\caption{\textcolor{orange}{Comparison of AF-ANN and RF-ANN Search Algorithms}}
 		\small
 %		\label{tab:compair_1}
 %		\begin{tabular}{|l|l|c|c|c|c|c|c|c|}
@@ -621,7 +621,7 @@ To address the lack of standardized evaluation benchmarks in attribute filtering
 			\centering
 			
 			\includegraphics[width=0.99\linewidth]{figures/indexData/exp_7_build_time_comparison_query1.pdf}
-			\caption{Construction time}
+			\caption{Construction Time}
 			\label{fig:build_time_comparison_query1}
 		\end{subfigure}
 		
@@ -631,7 +631,7 @@ To address the lack of standardized evaluation benchmarks in attribute filtering
 			\centering
 			
 			\includegraphics[width=0.99\linewidth]{figures/indexData/exp_7_index_size_mb_comparison_query1.pdf}
-			\caption{Index size (including original dataset)}
+			\caption{Index Size (Including Original Dataset)}
 			\label{fig:index_size_mb_comparison_query1}
 		\end{subfigure}
 		
@@ -641,7 +641,7 @@ To address the lack of standardized evaluation benchmarks in attribute filtering
 			\centering
 			
 			\includegraphics[width=0.99\linewidth]{figures/indexData/exp_7_memory_mb_comparison_query1.pdf}
-			\caption{Build peak memory }
+			\caption{Build Peak Memory }
 			\label{fig:build_memory_mb_comparison}
 		\end{subfigure}
 		
@@ -649,12 +649,12 @@ To address the lack of standardized evaluation benchmarks in attribute filtering
 			\centering
 			
 			\includegraphics[width=0.99\linewidth]{figures/searchMem/label_memory_comparison.pdf}
-			\caption{Search peak memory}
+			\caption{Search Peak Memory}
 			\label{fig:search_memory_mb_comparison}
 		\end{subfigure}
 		
 		%		\caption{Time and space overhead of attribute filtering index construction}
-		\caption{\textcolor{violet}{Time and space overhead}}
+		\caption{\textcolor{violet}{Time and Space Overhead}}
 		\label{fig:build_index_comparison}
 	\end{figure}
 	
@@ -667,7 +667,7 @@ To address the lack of standardized evaluation benchmarks in attribute filtering
 		\centering
 		
 		\includegraphics[width=0.95\textwidth]{figures/exp/exp_1_1_SingleLabel_1thread.pdf}
-		\caption{Single-Attribute Building and Query performance (single thread) }
+		\caption{Performance of Single-Attribute Index Construction and Single-Attribute Query (Single Thread) }
 		\label{fig:exp_1_1_SingleLabel_1thread}
 	\end{figure*}
 	
@@ -675,7 +675,8 @@ To address the lack of standardized evaluation benchmarks in attribute filtering
 		\centering
 		
 		\includegraphics[width=0.95\textwidth]{figures/exp/exp_1_2_SingleLabel_16thread.pdf}
-		\caption{Single-Attribute Building and Query performance (16 threads)}
+%		\caption{Single-Attribute Building and Query performance (16 threads)}
+		\caption{Performance of Single-Attribute Index Construction and Single-Attribute Query (16 Threads)}
 		\label{fig:exp_1_2_SingleLabel_16thread}
 	\end{figure*}
 	
@@ -733,7 +734,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	
 	We next evaluate the query performance of AF-ANN search methods, focusing on 3 main scenarios.
 	
-	\textit{\textbf{Single-Attribute Building and Single-Attribute Query.}}
+	\textit{\textbf{Single-Attribute Index Construction and Single-Attribute Query.}}
 	In this scenario, we construct the index using an attribute and apply filtering conditions on the same attribute.
 	
 	
@@ -765,7 +766,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	%	Puck performs well on large datasets but degrades on smaller ones due to overhead from optimizations like two-level inverted indexing and hierarchical quantization. CAPS maintains a relatively high throughput under multi-threads but exhibits limited adaptability to different datasets. The vector distribution of the dataset affects the construction of its partitioned index.
 	%	 ACORN performs poorly overall, primarily due to the sensitivity of its hyperparameter $\gamma$ to attribute selectivity. Without careful tuning based on dataset characteristics, it is challenging to construct an effective index.
 	
-	\textit{\textbf{Multi-Attribute Building and Single-Attribute Query.}}
+	\textit{\textbf{Multi-Attribute Index Construction and Single-Attribute Query.}}
 	In this scenario, the index is constructed using 8 attributes but applies filtering condition on only 1 attribute during the query.
 	
 	Faiss offers an ID filtering mechanism, it operates solely during query execution and does not influence index building. ACORN is   designed for single-attribute indexing. In database systems (VBASE, PASE, Milvus), 
@@ -783,7 +784,7 @@ Most algorithms load both the index and the dataset into memory during the build
 		
 		% 下面的子图，居中显示
 		\includegraphics[width=0.7\columnwidth]{figures/exp/exp_2_1.pdf}
-		\caption{Effect of Multi-Attribute Index Construction on Single Query Performance. ($S$ denotes single-attribute index construction and single-attribute query; $M$ denotes multi-attribute index construction and single-attribute query)}
+		\caption{Effect of Multi-Attribute Index Construction on Single-Attribute Query Performance ($S$ denotes single-attribute index construction and single-attribute query, $M$ denotes multi-attribute index construction and single-attribute query)}
 		\label{fig:exp_2_1}
 		
 	\end{figure}
@@ -801,11 +802,7 @@ Most algorithms load both the index and the dataset into memory during the build
 		\centering
 		
 		\includegraphics[width=0.95\textwidth]{figures/exp/exp_4_1_MultiLabel_1thread.pdf}
-<<<<<<< HEAD
 		\caption{Performance of Multi-Attribute Index Construction and Multi-Attribute Query}
-=======
-		\caption{Multi-attribute build and query performance (single thread)}
->>>>>>> 82f633fca65685f785716fd8b0e0ee1bd9b8197d
 		\label{fig:exp_4_1_MultiLabel_1thread}
 	\end{figure*}
 	
@@ -813,28 +810,24 @@ Most algorithms load both the index and the dataset into memory during the build
 		\centering
 		
 		\includegraphics[width=0.95\textwidth]{figures/exp/exp_3_1.pdf}
-<<<<<<< HEAD
 		\caption{Effect of Attribute Distribution on Query Performance (Strong is robust to attribute distribution shifts, Weak is sensitive to attribute distribution shifts)}
-=======
-		\caption{Effect of attribute distribution on query performance (single thread)}
->>>>>>> 82f633fca65685f785716fd8b0e0ee1bd9b8197d
 		\label{fig:exp_3_1}
 		
-		\footnotesize{
-		\begin{center}
-			\begin{minipage}{\linewidth}
-				\centering	
-				\textit{Strong} : robust to attribute distribution shifts,  \textit{Weak} : sensitive to attribute distribution shifts
-			\end{minipage}
-		\end{center}
-		}
+%		\footnotesize{
+%		\begin{center}
+%			\begin{minipage}{\linewidth}
+%				\centering	
+%				\textit{Strong} : robust to attribute distribution shifts,  \textit{Weak} : sensitive to attribute distribution shifts
+%			\end{minipage}
+%		\end{center}
+%		}
 	\end{figure*}
 	
 	
 	
 	
 	
-	\textit{\textbf{Multi-Attribute Building and Multi-Attribute Query.}}  
+	\textit{\textbf{Multi-Attribute Index Construction and Multi-Attribute Query.}}  
 	Compared to single-attribute filtering, multi-attribute joint filtering better reflects real-world scenarios. To evaluate algorithm performance under this setting, we construct the index using 3 uniformly distributed attributes and apply filtering on all 3 attributes simultaneously during queries. \textcolor{violet}{In this experiment, we only evaluate algorithms that support this multi-attribute query scenario.}
 	
 	As shown in Figure~\ref{fig:exp_4_1_MultiLabel_1thread}, UNG still maintains the best performance across all datasets. Since some strong competing algorithms do not support multi-attribute querying, CAPS becomes the second-best algorithm, but its performance on small datasets is relatively poor. This is because CAPS performs multi-level partitioning based on attributes on top of the IVF index, which introduces additional overhead. While this overhead negatively impacts performance on small datasets, on large datasets, the overhead is amortized, and the increasing dataset scale makes the advantages of attribute-aware partitioning evident.
@@ -912,7 +905,7 @@ Most algorithms load both the index and the dataset into memory during the build
 			\centering
 			
 			\includegraphics[width=0.95\textwidth]{figures/exp/exp_5_2_1.pdf}
-			\caption{Algorithms optimized for low AS.}
+			\caption{Algorithms Optimized for Low AS}
 			\label{fig:exp_5_2_1}
 		\end{subfigure}
 		
@@ -923,7 +916,7 @@ Most algorithms load both the index and the dataset into memory during the build
 			\centering
 			
 			\includegraphics[width=0.96\textwidth]{figures/exp/exp_5_2_2.pdf}
-			\caption{Algorithms optimized for high AS.}
+			\caption{Algorithms Optimized for High AS}
 			\label{fig:exp_5_2_2}
 		\end{subfigure}
 		\hspace{1mm} % 增加水平间距
@@ -931,12 +924,12 @@ Most algorithms load both the index and the dataset into memory during the build
 			\centering
 			
 			\includegraphics[width=0.96\textwidth]{figures/exp/exp_5_2_3.pdf}
-			\caption{Algorithms insensitive to AS.}
+			\caption{Algorithms Insensitive to AS}
 			\label{fig:exp_5_2_3}
 		\end{subfigure}
 		
 		
-		\caption{Different AS under the same algorithm}
+		\caption{Different AS under the Same Algorithm}
 		\label{fig:exp_5_2_combined}
 	\end{figure*}
 	
@@ -968,7 +961,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	\begin{figure*}
 		\centering
 		\includegraphics[width=0.95\textwidth]{figures/exp/exp_6_1.pdf}
-		\caption{Effect of dataset on Query}
+		\caption{Effect of Different Datasets on AF-ANN Search}
 		\label{fig:exp_6_1}
 	\end{figure*}
 	
@@ -1035,7 +1028,7 @@ Most algorithms load both the index and the dataset into memory during the build
 		\includegraphics[width=0.495\linewidth]{figures/exp/attribute_multimodel.pdf}
 		\hfill 
 		\includegraphics[width=0.47\linewidth]{figures/exp/attribute_multimodel_1.pdf}
-		\caption{Multi-modal}
+		\caption{Multi-Modal}
 		\label{fig:attribute-multimodal} 
 	\end{subfigure}
 	\hfill % 在第一部分和第二部分之间添加弹性间距
@@ -1059,12 +1052,12 @@ Most algorithms load both the index and the dataset into memory during the build
 	\end{subfigure}
 	
 	% 5. 全局总标题
-	\caption{\textcolor{violet}Scalability Study——Attribution}
+	\caption{\textcolor{violet}Scalability Study——Attribute}
 	\label{fig:TrinityExtension——Attribution_main}
 \end{figure*}
 	
 	\subsubsection{Scalability Study}
-	\textit{\textbf{\textcolor{blue}{Multi-modal Queries.}}} \textcolor{blue}{
+	\textit{\textbf{\textcolor{blue}{Multi-Modal Queries.}}} \textcolor{blue}{
 		We conduct experiments on the text2image-mix dataset. This dataset contains image and text vectors and is a hybrid multimodal dataset. As shown in Figure~\ref{fig:attribute-multimodal}, UNG and NHQ consistently perform best, followed by CAPS.
 		Although this dataset mixes two modalities, the vector space distributions of different modalities often differ significantly. In practice, this means that the experiments effectively treat the image and text subsets as separate datasets, since the ground truths for each query belong to the same modality. Therefore, the performance on this dataset is similar to the results shown in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}.
 		In contrast, the text2image dataset shown in Figure~\ref{fig:attribute-multimodal} is different. The query set and the base dataset belong to two completely different modalities. Queries are far from the dataset points, and the ground truths are more dispersed and not clustered together. To find the ground truths, algorithms typically need to examine more points, which leads to degraded performance.
@@ -1108,34 +1101,34 @@ Most algorithms load both the index and the dataset into memory during the build
 			\centering
 			\captionsetup{font=small}
 			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_build_time_comparison_query.pdf}
-			\caption{\footnotesize Construction time}
+			\caption{\footnotesize Construction Time}
 			\label{fig:rangeFilter_build_time}
 		\end{subfigure}
 		\hfill
 		\begin{subfigure}[t]{0.495\columnwidth}
 			\centering
 			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_index_size_mb_comparison_query.pdf}
-			\caption{\footnotesize Index size}
+			\caption{\footnotesize Index Size}
 			\label{fig:rangeFilter_index_size_mb}
 		\end{subfigure}
 		\hfill
 		\begin{subfigure}[t]{0.495\columnwidth}
 			\centering
 			\includegraphics[width=\linewidth]{figures/indexData/rangeFilter_memory_mb_comparison_query.pdf}
-			\caption{\footnotesize Build peak memory}
+			\caption{\footnotesize Build Peak Memory}
 			\label{fig:rangeFilter_build_memory_mb}
 		\end{subfigure}
 		\hfill
 		\begin{subfigure}[t]{0.495\columnwidth}
 			\centering
 			\includegraphics[width=\linewidth]{figures/searchMem/range_memory_comparison.pdf}
-			\caption{\footnotesize Search peak memory}
+			\caption{\footnotesize Search Peak Memory}
 			\label{fig:rangeFilter_search_memory_mb}
 		\end{subfigure}
 		
 		%		\caption{Time and space overhead of range filtering index construction}
 %		\caption{Time and space overhead of index construction}
-		\caption{\textcolor{violet}{Time and space overhead}}
+		\caption{\textcolor{violet}{Time and Space Overhead}}
 		\label{fig:rangeFilter_build_index_comparison}
 	\end{figure}
 	\subsection{Range Filtering}
@@ -1208,7 +1201,7 @@ Most algorithms load both the index and the dataset into memory during the build
 		\centering
 		
 		\includegraphics[width=0.92\textwidth]{figures/exp/exp_8_2.pdf}
-		\caption{RF-ANN search performance }
+		\caption{Performance of RF-ANN Search}
 		\label{fig:exp_8_2}
 	\end{figure*}
 	
@@ -1257,7 +1250,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	\begin{figure*}[htbp]
 		\centering
 		\includegraphics[width=0.80\textwidth]{figures/exp/exp_8_3.pdf}
-		\caption{Dataset Effect on RF-ANN Search}
+		\caption{Effect of Different Datasets on RF-ANN Search}
 		\label{fig:exp_8_3}
 	\end{figure*}
 	
@@ -1293,7 +1286,7 @@ Most algorithms load both the index and the dataset into memory during the build
 		\includegraphics[width=0.495\linewidth]{figures/exp/range_multimodel.pdf}
 		\hfill 
 		\includegraphics[width=0.47\linewidth]{figures/exp/range_multimodel_1.pdf}
-		\caption{Multi-modal}
+		\caption{Multi-Modal}
 		\label{fig:range-multimodal} 
 	\end{subfigure}
 	\hfill % 在第一部分和第二部分之间添加弹性间距
@@ -1323,7 +1316,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	
 	\subsubsection{Scalability Study}
 	
-	\textit{\textbf{\textcolor{blue}{Multi-modal Queries.}}}
+	\textit{\textbf{\textcolor{blue}{Multi-Modal Queries.}}}
 	\textcolor{blue}{
 		Similar to attribute filtering, the performance of multimodal queries with range filtering shown in Figure~\ref{fig:range-multimodal} is also consistent with the single-modality results in Figure~\ref{fig:exp_8_2}. As shown in Figure~\ref{fig:exp_8_3}, the algorithms still perform the worst on multimodal datasets like Text2Image. This is because these range query algorithms are almost graph-based. Graph algorithms need more iterations to find true neighbors in OOD datasets.}
 		
