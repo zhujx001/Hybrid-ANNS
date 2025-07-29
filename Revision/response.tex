@@ -192,6 +192,25 @@ Section 4.3.4:\textcolor{blue}{
 		"Similar to attribute filtering, the performance of multimodal queries with range filtering shown in Figure 16a is also consistent with the single-modality results in Figure 14. As shown in Figure 15, the algorithms still perform the worst on multimodal datasets like Text2Image. This is because these range query algorithms are almost graph-based. Graph algorithms need more iterations to find true neighbors in OOD datasets."
 }
 
+
+\begin{figure}[t]
+	\centering
+	
+	% 上面的图例，居中并可通过 hspace 调整左右位置
+	\hspace*{8pt} % 可调整的参数，负值左移，正值右移，例如 -20pt 或 20pt
+	\includegraphics[width=0.95\columnwidth]{fig/range_2_2_legend.pdf} % 图例图片路径
+	
+	% --- 不再使用 subfigure ---
+	% 直接放置第二张图片，可以加一点垂直间距
+	\vspace{5pt} 
+	\includegraphics[width=0.99\columnwidth]{fig/range_2_2.pdf}
+	
+	\caption{Comparison of Real and Synthetic Attributes}
+	\label{fig:range_2_2}
+	
+\end{figure}
+
+
 %%%%%%%%%%%%%%%%%%%%%% R4 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
 	\begin{metarevision}
@@ -201,7 +220,7 @@ Section 4.3.4:\textcolor{blue}{
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. Using the ID as an attribute for range filtering is a prevalent method in current range filtering algorithm evaluations, which indeed has considerable limitations. To address this issue, we have changed two datasets (YT-Audio-Real, WIT-Real) to use real attributes. We observe that the impact of using real attribute versus using ID on the algorithms is negligible; the key factor remains the size of the query range, as shown in Figure~\ref{fig:attribute_distribution}. \textbf{(Please see the third paragraph of Section 4.1.1, highlighted in blue in the revised manuscript.)}
+Thank you for your suggestion. Using the ID as an attribute for range filtering is a prevalent method in current range filtering algorithm evaluations, which indeed has considerable limitations. To address this issue, we have changed two datasets (YT-Audio-Real, WIT-Real) to use real attributes. We observe that the impact of using real attribute versus using ID on the algorithms is negligible; the key factor remains the size of the query range, as shown in Figure~\ref{fig:range_2_2}. \textbf{(Please see the third paragraph of Section 4.1.1, highlighted in blue in the revised manuscript.)}
 
 
 
@@ -390,7 +409,7 @@ General:	\textcolor{blue}{"All of the following methods support both attribute f
 }
 
 \noindent
-\textbf{Response:} Thank you very much for your valuable suggestions. Your advice is very insightful. In the recommendation section of our paper, we have added a clearer summary table of the algorithms to help readers choose the appropriate algorithm based on their application scenarios,as shown in Table~\ref{tab:algo_scenarios}. \textbf{(Please refer to the "Recommendation" part of section 5.2.2, highlighted in blue in the revised manuscript.)}
+\textbf{Response:} Thank you very much for your valuable suggestions. Your advice is very insightful. In the recommendation section of our paper, we have added a clearer summary table of the algorithms to help readers choose the appropriate algorithm based on their application scenarios,as shown in Table~\ref{tab:algo_scenarios}. \textbf{(Please see Section 5.1.1 and Section 5.1.2, highlighted in blue in the revised manuscript.)}
 
 
 %\subsection{Recommendations.}
@@ -624,12 +643,37 @@ Thank you for pointing it out. We sincerely apologize for the misuse of notation
 
 \noindent
 \textbf{Response:} 
-Thank you for the suggestion. Since there are multiple methods, listing all URLs in Section 4.1 would be overwhelming. Instead, in Section 3, we added superscript markers next to each algorithm name and provided the corresponding implementation URLs as footnotes on the same page. \textbf{(Please see the relevant footnotes in Section 3 in the revised manuscript.)}
+Thank you for the suggestion. Since there are multiple methods, listing all URLs in Section 4.1 would be overwhelming. Instead, in Section 3, we added superscript markers next to each algorithm name and provided the corresponding implementation URLs as footnotes on the same page. \textbf{(Please see Section 3, highlighted in blue in the revised manuscript.)}
 
+\textcolor{blue}{https://github.com/KGLab-HDU/TKDE-under-review-Native-Hybrid-Queries-via-ANNS}
 
+\textcolor{blue}{https://github.com/microsoft/DiskANN}
 
+\textcolor{blue}{https://github.com/gaurav16gupta/constrainedANN}
 
+\textcolor{blue}{https://github.com/stanford-futuredata/ACORN}
 
+\textcolor{blue}{https://github.com/YZ-Cai/Unified-Navigating-Graph}
+
+\textcolor{blue}{https://github.com/baidu/puck}
+
+\textcolor{blue}{https://github.com/rutgers-db/SeRF}
+
+\textcolor{blue}{https://github.com/JoshEngels/RangeFilteredANN}
+
+\textcolor{blue}{https://github.com/YuexuanXu7/iRangeGraph}
+
+\textcolor{blue}{https://github.com/rutgers-db/DynamicSegmentGraph}
+
+\textcolor{blue}{https://github.com/sjtu-dbgroup/UNIFY}
+
+\textcolor{blue}{https://github.com/facebookresearch/faiss}
+
+\textcolor{blue}{https://github.com/alipay/PASE}
+
+\textcolor{blue}{https://github.com/microsoft/MSVBASE}
+
+\textcolor{blue}{https://github.com/milvus-io/milvus}
 
 \section*{Response to Review 3}
 \setcounter{weakness}{0}
@@ -758,9 +802,92 @@ We appreciate the observation of reviewer. Figure 7 presents experiments on mult
 
 \noindent
 \textbf{Response:} 
-Thank you for the suggestion. We realized that the original wording is somewhat vague and led to confusion among readers. To address this, we merged the tables for attribute filtering (AF) and range filtering (RF), and clarified the support of each algorithm for AF and RF in the unified table.
+Thank you for the suggestion. We realized that the original wording is somewhat vague and led to confusion among readers. To address this, we merged the tables for attribute filtering (AF) and range filtering (RF), and clarified the support of each algorithm for AF and RF in the unified table,as shown in Table~\ref{tab:compair_1}.
 
-\textcolor{blue}{"The fused table is Table1: Comparison of AF-ANN and RF-ANN search algorithms."}
+	\renewcommand{\arraystretch}{0.9}
+\begin{table*}[t]
+	\centering
+	%\setlength{\belowcaptionskip}{-0.3cm}
+	
+	\caption{\textcolor{orange}{Comparison of AF-ANN and RF-ANN Search Algorithms}}
+	\small
+	%		\label{tab:compair_1}
+	%		\begin{tabular}{|l|l|c|c|c|c|c|c|c|}
+		%			\hline
+		%			\textbf{Algorithm} & \textbf{Base} & \textbf{Filter Type} & \textbf{AND} & \textbf{OR} & \textbf{Flexible Attributes} & \textbf{Complex Boolean} & \textbf{Dynamic Insert} & \textbf{Multi Thread} \\
+		%			\hline
+		%			NHQ & Graph & C & Y & N& N& N & N & N \\
+		%			FilteredVamana & Graph & C & N & Y & Y & N & Y & Y \\
+		%			StitchedVamana & Graph & C & N & Y & Y & N & N & Y  \\
+		%			CAPS & IVF & C & Y & N & Y & N & Y & Y \\
+		%			ACORN & Graph & B & Y & Y & Y & Y & Y & Y \\
+		%			UNG & Graph & B & Y & Y & Y & N & Y & Y \\ 
+		%			Puck & IVF & B & Y & Y & Y & N & Y & Y \\
+		%			% ParlayANN & Graph+IVF & B & N & N & Y & N & N & Y \\
+		%			
+		%			\hline
+		%			
+		%		\end{tabular}
+	\label{tab:compair_1}
+	\begin{tabular}{|l|l|*{12}{c|}}
+		\hline
+		
+		
+		\multicolumn{2}{|c|}{\textbf{Characteristics/Algorithms}} & \textbf{NHQ} & \textbf{Filtered} & \textbf{Stitched} & \textbf{CAPS} & \textbf{ACORN} & \textbf{UNG} & \textbf{Puck} & \textbf{DSG} & \textbf{iRange} & \textbf{SeRF} & \textbf{UNIFY} & \textbf{Win}
+		\\ \hline
+		\multirow{6}{*}{\textbf{AF}} 
+		%& Filter Type         & C   & C   & C   & C   & B   & B   & B   & \multicolumn{5}{c|}{} \\ \cline{2-9}
+		& AND                 & Y   & N   & N   & Y   & Y   & Y   & Y   & \multicolumn{5}{c|}{\multirow{4}{*}{\centering\shortstack{AF\\not support}}} \\ \cline{2-9}
+		& OR                  & N   & Y   & Y   & N   & Y   & Y   & Y   & \multicolumn{5}{c|}{} \\ \cline{2-9}
+		& Flexible Attributes & N   & Y   & Y   & Y   & Y   & Y   & Y   & \multicolumn{5}{c|}{} \\ \cline{2-9}
+		& Complex Boolean     & N   & N   & N   & N   & Y   & N   & N   & \multicolumn{5}{c|}{} \\ \hline
+		
+		\multicolumn{2}{|l|}{\textbf{RF}}             & N & N & N & N & Y & N & N & Y & Y & Y & Y & Y \\ \hline
+		\multicolumn{2}{|l|}{\textbf{Filter Type }}             & C & C & C & C & B & B & B & B & B & B & A/B/C & A \\ \hline
+		\multicolumn{2}{|l|}{\textbf{Dynamic Insert}} & N & Y & N & Y & Y & Y & Y & N & Y & Y & Y & Y \\ \hline
+		\multicolumn{2}{|l|}{\textbf{Multi Thread}}   & N & Y & Y & Y & Y & Y & Y & N & Y & Y & Y & Y \\ \hline
+		\multicolumn{2}{|l|}{\textbf{Disk Support}}           &N  & Y& N & N & N & N & N & N & N & N & N & N \\ \hline
+		\multicolumn{2}{|l|}{\textbf{Base}}           & Graph & Graph & Graph & IVF & Graph & Graph & IVF & Graph & Graph & Graph & Graph & Graph \\ \hline
+	\end{tabular}
+	
+	%		\begin{tabular}{|c|c|c|c|}
+		%			\hline
+		%			\textbf{Algorithm} & \textbf{Base} & \textbf{Dynamic Insert} & \textbf{Multi Thread} \\
+		%			\hline
+		%			DSG & Graph & Y & N \\
+		%			iRange & Graph & N & Y \\
+		%			SeRF & Graph & Y & Y \\
+		%			UNIFY & Graph & Y & Y \\
+		%			WinFilter & Graph & N & Y  \\
+		%			\hline
+		%		\end{tabular}
+	%		
+	
+	
+	\centering
+	%	 \setlength{\abovecaptionskip}{0cm}
+	%	\setlength{\belowcaptionskip}{0.1cm}
+	\footnotesize{
+		\begin{minipage}{\linewidth}
+			\vspace{0.1cm}
+			Win: WinFilter, Filtered: FilteredVamana, Stitched: StitchedVamana. 
+			\textsuperscript{A} Post-filtering, 
+			\textsuperscript{B} Pre-filtering, 
+			\textsuperscript{C} Simultaneous filtering, 
+			\textsuperscript{Y} Support, 
+			\textsuperscript{N} Unsupport. 
+			\textit{AND} and \textit{OR} indicate whether the algorithm supports the corresponding logical operations.
+			\textit{Flexible Attributes} indicates whether the number of query attributes can differ from the number of attributes used during index construction. 
+			\textit{Complex Boolean} indicates if the algorithm supports complex expressions, such as using the NOT operator or nested logic with parentheses.
+			\textit{Dynamic Insert} indicates whether the algorithm supports the operation of dynamically inserting data points.
+			\textit{Multi Thread} indicates whether the algorithm supports multi-threaded search.
+			\textit{Disk Support} indicates whether the algorithm supports disk storage.
+			\textit{Base} indicates the foundational ANN algorithm for the hybrid query method.
+	\end{minipage}}
+	
+\end{table*}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%% D4 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
