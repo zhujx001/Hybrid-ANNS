@@ -166,24 +166,25 @@ For performance under different attribute selectivity, to reflect the performanc
 }
 
 \noindent
-\textbf{Response:} We believe this is an excellent suggestion. In fact, in the initial version of our paper, we used the text-to-image dataset that has been widely adopted by existing multimodal ANN algorithms. In this dataset, the base vectors are images, while the query set consists of texts, resulting in a modality gap between the two. Achieving good performance on such a dataset often requires the algorithm to demonstrate stronger robustness. \textbf{(Please refer to the last paragraph of Section 4.2.3 and the green highlighted part in Section 4.3.3.)}
+\textbf{Response:} We believe this is an excellent suggestion. In fact, in the initial version of our paper, we used the text-to-image dataset that has been widely adopted by existing multimodal ANN algorithms. In this dataset, the base vectors are images, while the query set consists of texts, resulting in a modality gap between the two. Achieving good performance on such a dataset often requires the algorithm to demonstrate stronger robustness. \textbf{(Please see Section 4.2.3 and Section 4.3.3, highlighted in green in the revised manuscript.)}
 
 To further enrich the evaluation of complex multimodal queries, we have added new experiments in the Multi-modal Queries sections of Section 4.2.4 and Section 4.3.4. Specifically, we constructed a more challenging multimodal dataset by selecting 500,000 text vectors and 500,000 image vectors as the base set, and 5,000 text vectors and 5,000 image vectors as the query set. We then perform both attribute filtering and range queries over this dataset, combining text and image queries to further analyze the robustness of the algorithms. The corresponding experimental results are presented in Section 4.2.4 and Section 4.3.4 under Multi-modal Queries.
 
-As for complex query types that involve both attribute filtering and range queries simultaneously, to the best of our knowledge, existing algorithms—except for general-purpose systems such as Milvus and Faiss—do not support this functionality. For example, ACORN needs to build separate indexes for each scenario and cannot handle attribute filtering and range queries simultaneously. Therefore, we do not consider this type of complex query in our experiments but instead study the two query types separately. \textbf{(Please refer to the blue highlighted parts in  Section 4.1.1 paragraph 4 and  Section 4.2.4 and Section 4.3.4 under Multi-modal Queries.)
+As for complex query types that involve both attribute filtering and range queries simultaneously, to the best of our knowledge, existing algorithms—except for general-purpose systems such as Milvus and Faiss—do not support this functionality. For example, ACORN needs to build separate indexes for each scenario and cannot handle attribute filtering and range queries simultaneously. Therefore, we do not consider this type of complex query in our experiments but instead study the two query types separately. \textbf{(Please see Section 4.1.1, Section 4.2.4 and Secntion 4.3.4, highlighted in blue in the revised manuscript.)  
+	%Please refer to the blue highlighted parts in  Section 4.1.1 paragraph 4 and  Section 4.2.4 and Section 4.3.4 under Multi-modal Queries.)
 }
 
-\textcolor{blue}{
+Section 4.1.1:\textcolor{blue}{
 "Additionally, we use the Out-of-Distribution (OOD) dataset Text2Image and the large-scale dataset Deep100M to evaluate the generalization capability of the algorithms. The Text2Image dataset includes two versions: the original version contains 1 million image embeddings as the base dataset and uses 10 thousand text embeddings as the query set; the Text2Image-Mix version is composed of 0.5 million image embeddings and 0.5 million text embeddings as the base dataset, with a query set of 5 thousand image embeddings and 5 thousand text embeddings."
 }
 
-Attribute filtering: \textcolor{blue}{
+Section 4.2.4: \textcolor{blue}{
 	"We conducted experiments on the text2image-mix dataset. This dataset contains both image and text vectors. It is a more complex multimodal dataset. As shown in Figure 12, although the queries are more complex, UNG and NHQ still perform the best. CAPS is the next best.
 	Since the dataset mixes two modalities, the ground truth of the query set usually corresponds to the same modality. The nearest neighbors in the index are often from the same modality because they are closer in distance. Therefore, the search results on this dataset are similar to those in Figure 4. UNG and NHQ perform the best. CAPS clusters based on vector similarity. It actually clusters the vectors into the same modality. Then it uses attribute filtering to divide the data further. This allows CAPS to quickly find nearest neighbors that meet the filter conditions.
 	In contrast, the text2image dataset shown in Figure 11 is different. The queries and the dataset are from different modalities. The queries are far from the dataset. The ground truths are also scattered and not clustered together. To find the ground truths, the algorithm often needs to traverse more points. This is a greater challenge for the algorithms." 
 }
 
-Range filtering:\textcolor{blue}{
+Section 4.3.4:\textcolor{blue}{
 		"Similar to attribute filtering, the performance of multimodal queries with range filtering shown in Figure 16a is also consistent with the single-modality results in Figure 14. As shown in Figure 15, the algorithms still perform the worst on multimodal datasets like Text2Image. This is because these range query algorithms are almost graph-based. Graph algorithms need more iterations to find true neighbors in OOD datasets."
 }
 
@@ -196,7 +197,7 @@ Range filtering:\textcolor{blue}{
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. Using ID as attribute for range filtering is a prevalent method in current range filtering algorithm evaluations, which indeed has considerable limitations. To address this issue, we have added two datasets that use real attributes.
+Thank you for your suggestion. Using ID as attribute for range filtering is a prevalent method in current range filtering algorithm evaluations, which indeed has considerable limitations. To address this issue, we have added two datasets that use real attributes.\textbf{(Please see Section 4.1.1, highlighted in blue in the revised manuscript.)}
 
 \textcolor{blue}{
 	"WIT-Real and YT-Audio-Real datasets use real attributes: For the WIT-Real dataset, we use the CLIP model to encode the page title into vectors, and extract the language type and the length of the context page description as real attributes. The YT-Audio-Real dataset uses YouTube8M data, employing the video category ID and view counts as real attributes for this dataset."
@@ -214,13 +215,13 @@ Thank you for your suggestion. Using ID as attribute for range filtering is a pr
 \textbf{Response:} 
 That is a great suggestion. In order to figure out if the server setting affects the relative ordering of methods, we conducted additional experiments on a server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz featuring 128GB of RAM and 84 MiB of L3 cache using the YT-Audio-Real dataset.
 The results show that the performance differences across algorithms remain small, and their relative rankings do not change significantly across servers.
-We did observe slightly lower QPS on this server compared to our original one, which is mainly due to the the lower CPU frequency, reduced RAM capacity, and smaller L3 cache of the Xeon 6330 processors. \textbf{(Please refer to the blue highlighted parts in Section 4.2.4 and Section 4.3.4 under Different Hardware Environments.)}
+We did observe slightly lower QPS on this server compared to our original one, which is mainly due to the the lower CPU frequency, reduced RAM capacity, and smaller L3 cache of the Xeon 6330 processors.\textbf{(Please see Section 4.2.4 and Section 4.3.4, highlighted in blue in the revised manuscript.)} 
 
-Attribute filtering:
+Section 4.2.4:
 %\textcolor{blue}{"To investigate the impact of different server configurations on the performance of the algorithms, we conduct additional experiments on a server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset, and the results are shown in Figure 12b. Compared with the experimental results on the original server, the relative ranking of the algorithms remains largely unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency and smaller RAM capacity, the QPS values are slightly lower across all methods."}
 \textcolor{blue}{"To investigate the impact of different server configurations on the performance of the algorithms, we conduct additional experiments on a server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz featuring 128GB of RAM and 84 MiB of L3 cache using the YT-Audio-Real dataset, and the results are shown in Figure 12b. It is not difficult to see that the relative ranking of the algorithms under the two servers essentially remains unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency, reduced RAM capacity, and smaller L3 cache, all methods demonstrate slightly lower QPS values."}
 
-Range filtering:
+Section 4.3.4:
 %\textcolor{blue}{"Consistent with Section 4.2.4, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure 16b. When compared with the experimental results of the original server, our findings remain consistent with those reported in Section 4.2.4. For brevity and due to space limitations, we omit further discussion of these redundant results."}
 \textcolor{blue}{"Consistent with Section 4.2.4, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure 16b. Our findings remain consistent with those reported in Section 4.2.4. For brevity and due to space limitations, we omit further discussion of these redundant results."}
 
@@ -281,7 +282,7 @@ While StitchedVamana achieves extremely low latency (sub-5 ms) due to its stitch
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We are deeply aware of this shortcoming, so we provide the search peak memory usage of each algorithm in the time and space overhead section and carefully analyze the reasons.
+Thank you for your suggestion. We are deeply aware of this shortcoming, so we provide the search peak memory usage of each algorithm in the time and space overhead section and carefully analyze the reasons.\textbf{(Please see Section 4.2.1 and Section 4.3.1, highlighted in blue in the revised manuscript.)}
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=\linewidth]{fig/legend_only.pdf}
@@ -299,12 +300,14 @@ Thank you for your suggestion. We are deeply aware of this shortcoming, so we pr
 \end{figure}
 
 
-For attribute filtering, please see section 4.2.1.
-
+%For attribute filtering, please see section 4.2.1.
+% \textbf{(Please refer to the blue highlighted parts in Section 4.2.1 for attribute filtering.)}
+Section 4.2.1:
 \textcolor{blue}{"For most algorithms, the query phase requires loading both the index and the dataset into memory, so its peak memory usage is usually comparable to that of the construction phase. However, as shown in the Figure~\ref{fig:search_memory_mb_comparison}, CAPS exhibits significantly higher peak memory during querying due to the need to dynamically maintain large candidate sets. In contrast, Milvus has lower query-time memory usage because it does not fully load the index and incurs additional metadata overhead during construction."}
 
-For range filtering, please see section 4.3.1.
-
+%For range filtering, please see section 4.3.1.
+ %\textbf{(Please refer to the blue highlighted parts in Section 4.3.1 for range filtering.)}
+ Section 4.3.1:
 \textcolor{blue}{"As for the search peak memory usage, we can find from the Figure ~\ref{fig:rangeFilter_search_memory_mb} that it is basically consistent with the build peak memory usage trend. As we analyzed in the section on attribute filtering."}
 
 
@@ -317,12 +320,13 @@ For range filtering, please see section 4.3.1.
 
 \noindent
 \textbf{Response:} 
-Thank you for your valuable suggestion regarding our experiments. In Section 4.2.4 and Section 4.3.4, we have added experiments on the Deep100M dataset. The results show that most algorithms struggle to balance performance with time and space costs on this large-scale dataset. In particular, StitchedVamana performs poorly on Deep100M. \textbf{(Please refer to the blue highlighted parts in Section 4.2.4 and Section 4.3.4 under Large-scale Datasets.)}
+Thank you for your valuable suggestion regarding our experiments. In Section 4.2.4 and Section 4.3.4, we have added experiments on the Deep100M dataset. The results show that most algorithms struggle to balance performance with time and space costs on this large-scale dataset. In particular, StitchedVamana performs poorly on Deep100M. \textbf{(Please see the "Large-scale Datasets" part of Section 4.2.4 and Section 4.3.4, highlighted in blue in the revised manuscript.)}
+%\textbf{(Please refer to the blue highlighted parts in Section 4.2.4 and Section 4.3.4 under Large-scale Datasets.)}
 
 
-Attribute filtering:\textcolor{blue}{"As shown in the figure 12c, on the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating good adaptability to large-scale datasets. However, this also comes with significant memory overhead. The clustering-based algorithm Faiss+HQI\_Batch shows moderate performance but has very low memory overhead, which also has certain practical significance. Furthermore, we do not present the experimental results for StitchedVamana because its recall consistently remains at a very low level. This is due to its search starting point being set to 0 by default, when the entry point is far from the target area, it easily gets stuck in a local optimum, making it difficult to navigate to the vicinity of the correct point."}
+Section 4.2.4:\textcolor{blue}{"As shown in the figure 12c, on the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating good adaptability to large-scale datasets. However, this also comes with significant memory overhead. The clustering-based algorithm Faiss+HQI\_Batch shows moderate performance but has very low memory overhead, which also has certain practical significance. Furthermore, we do not present the experimental results for StitchedVamana because its recall consistently remains at a very low level. This is due to its search starting point being set to 0 by default, when the entry point is far from the target area, it easily gets stuck in a local optimum, making it difficult to navigate to the vicinity of the correct point."}
 
-Range filtering:
+Section 4.3.4:
 \textcolor{blue}{"As shown in the figure 16c, in the 100-million-scale dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption (300-400GB). At the same time, we can see that some algorithms (e.g., SeRF, ACORN-1) perform even worse than the VBASE database, which indicates that they do not adapt well to large-scale dataset scenarios. Although Milvus has a low QPS, it can achieve a recall of 1 with an excellent memory footprint of around 80GB"}
 
 %%%%%%%%%%%%%%%%%%%%%% R9 %%%%%%%%%%%%%%%%%%%%%%
@@ -566,9 +570,10 @@ Thank you for your suggestion. We have made a detailed response to this issue in
 
 \noindent
 \textbf{Response:} 
-Thank you for pointing this out. Both paper [49] and our paper are benchmarks. Paper [49] provides a comprehensive review and evaluation of graph-based approximate nearest neighbor search algorithms. Our paper is the first benchmark to evaluate hybrid queries. Since hybrid queries are developed based on ANN, we refer to the evaluation metrics proposed in the cited paper. We realize that we did not clearly explain the difference between our paper and the cited paper, so we have added a description in the introduction, please see section 1.1.
+%Thank you for pointing this out. Both paper [49] and our paper are benchmarks. Paper [49] provides a comprehensive review and evaluation of graph-based approximate nearest neighbor search algorithms. Our paper is the first benchmark to evaluate hybrid queries. Since hybrid queries are developed based on ANN, we refer to the evaluation metrics proposed in the cited paper. We realize that we did not clearly explain the difference between our paper and the cited paper, so we have added a description in the introduction, please see section 1.1.
+Thank you for pointing this out. Reference [49] provides a comprehensive review and evaluation of graph-based approximate nearest neighbor (ANN) search algorithms, whereas our work is the first to establish a benchmark for hybrid queries. We originally cited [49] in the experimental setup section to adopt the evaluation metrics it proposed, as hybrid queries are inherently built upon ANN techniques. We acknowledge that the distinction between our work and the cited paper was not clearly explained in the earlier version. To address this, we have added a clarification in the Introduction and also referenced several experimental studies in the ANN literature. 
 
-\textcolor{blue}{"Although existing work, such as the survey [49] by reviews graph-based ANN methods, the literature still lacks an experimental study specifically targeting hybrid query algorithms. To address this gap, we conduct the first comprehensive experimental evaluation of hybrid query algorithms, systematically analyzing their index construction costs and query efficiency across diverse scenarios. Furthermore, we rigorously assess the robustness of each algorithm under varying conditions, thereby providing valuable insights for future research and practical applications."}
+\textbf{(Please refer to Section 1.1 for details.)} \textcolor{blue}{"Although existing work, such as the survey [49] by reviews graph-based ANN methods, the literature still lacks an experimental study specifically targeting hybrid query algorithms. To address this gap, we conduct the first comprehensive experimental evaluation of hybrid query algorithms, systematically analyzing their index construction costs and query efficiency across diverse scenarios. Furthermore, we rigorously assess the robustness of each algorithm under varying conditions, thereby providing valuable insights for future research and practical applications."}
 
 
 
