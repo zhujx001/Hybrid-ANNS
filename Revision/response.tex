@@ -148,6 +148,8 @@ and concerns, and the changes are highlighted \textcolor{blue}{in blue} accordin
 \noindent
 \textbf{Response:} We sincerely appreciate your valuable suggestions, which provide meaningful improvements to our work. Ensuring the readability of the figures is indeed crucial. We have modified both the figure and the related description in the paper to improve readability and ensure academic rigor. \textbf{(Please see Section 4.2.3, highlighted in blue in the revised manuscript.)}
 
+\textcolor{blue}{"The proximity of the 4 curves in the figure reflects algorithm sensitivity to distributional variations. When the curves converge closely, the algorithm demonstrates strong resilience against attribute distribution shifts."}
+
 For performance under different attribute distributions, to illustrate how different algorithms are affected by varying attribute distributions, we added robustness indicators (Strong and Weak) in the figure. This provides more intuitive visualization of how robust each algorithm performs across different attribute distributions. As shown in Figure\ref{fig:attribute_distribution} below.
 
 \begin{figure}[htbp]
@@ -168,7 +170,6 @@ For performance under different attribute selectivity, to reflect the performanc
 	\label{fig:attribute_selectivity}
 \end{figure}
 
-\textcolor{blue}{"The proximity of the 4 curves in the figure reflects algorithm sensitivity to distributional variations. When the curves converge closely, the algorithm demonstrates strong resilience against attribute distribution shifts."}
 
 %%%%%%%%%%%%%%%%%%%%%% R2 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -273,7 +274,7 @@ Thank you for your suggestion. Currently, except for FilteredDiskANN, other hybr
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=\linewidth]{fig/recall_latency_all.pdf}
-	\caption{}
+	\caption{Performance Comparison of SSD-Based and In-Memory Execution of FilteredDiskANN}
 	\label{fig:recall-latency}
 \end{figure}
 
@@ -320,7 +321,7 @@ Thank you for your suggestion. We are deeply aware of this shortcoming, so we pr
 	\centering
 	\includegraphics[width=\linewidth]{fig/legend_only.pdf}
 	\includegraphics[width=\linewidth]{fig/searchMem/label_memory_comparison.pdf}
-	\caption{attribute filtering search peak memory}
+	\caption{Attribute filtering search peak memory}
 	\label{fig:search_memory_mb_comparison}
 \end{figure}
 
@@ -400,7 +401,7 @@ Section 5.1.2: \textcolor{blue}{
 \textcolor{blue}{
 	UNIFY adopts multiple filtering strategies tailored to different query range sizes, avoiding the limitations of a single strategy in specific scenarios. It requires only one index to support all queries, allows dynamic insertions, and features low time and space overhead during index construction, making it a more general-purpose solution.}
 	
-General:	\textcolor{blue}{"All of the following methods support both attribute filtering and range filtering.}
+Senction 5.1.3:	\textcolor{blue}{"All of the following methods support both attribute filtering and range filtering.}
 	
 	\textcolor{blue}{
 		ACORN demonstrates average overall performance. Among its variants, ACORN-1 shows significant advantages in indexing speed on billion-scale datasets, but suffers from high memory consumption and delivers only moderate performance.}
@@ -502,7 +503,7 @@ To demonstrate that the choice between synthetic and real attributes has little 
 
 \noindent
 \textbf{Response:} 
-Thank you for your feedback. We improve the readability of the two figures in Section 4.2.3, and please see Meta R1 for details. 
+Thank you for your feedback. We have improved the readability of the two figures in Section 4.2.3, and please see Meta R1 for details. 
 
 
 %%%%%%%%%%%%%%%%%%%%%% W3 %%%%%%%%%%%%%%%%%%%%%%
@@ -541,7 +542,7 @@ Thank you for your suggestion. We have addressed this issue in detail in our res
 \textbf{Response:} 
 Thank you for your suggestion. We fully understand your concern regarding our use of synthetic or less meaningful attributes in the hybrid query experimental setup.
 
-To address this critical issue and enhance the real-world relevance of our evaluation, we have incorporated two new real-world datasets with their actual attributes into our attribute filtering and range query experiments, and we have clarified the sources of these real-world attributes. For more details, please refer to our Response to Meta R3.
+To address this critical issue and enhance the real-world relevance of our evaluation, we have incorporated two new real-world datasets with their actual attributes into our attribute filtering and range filtering experiments, and we have clarified the sources of these real-world attributes. For more details, please refer to our Response to Meta R3.
 
 For attribute filtering, by incorporating the YT-Audio-Real and WIT-Real datasets with their respective real-world attributes, we have revised the "Single-Attribute Building and Single-Attribute Query" experiments and amended the manuscript accordingly. It is also worth noting that in Section 4.2.2, under the "Single-Attribute Building and Single-Attribute Query" subsection, we have removed two previous datasets (Audio and GloVe) due to space constraints. The Audio dataset was removed because its smaller scale offered limited reference value. The GloVe dataset is similar in scale to SIFT1M, while LID is similar to GIST1M. \textbf{(Please see Section 4.2.1 on page 7, and the "Single-Attribute Building and Single-Attribute Query" subsection in Section 4.2.2 on page 8).}
 
@@ -611,7 +612,7 @@ We have made a detailed response to this issue in our reply to Meta R6. Please r
 \noindent
 \textbf{Response:} 
 %Thank you for pointing this out. Both paper [49] and our paper are benchmarks. Paper [49] provides a comprehensive review and evaluation of graph-based approximate nearest neighbor search algorithms. Our paper is the first benchmark to evaluate hybrid queries. Since hybrid queries are developed based on ANN, we refer to the evaluation metrics proposed in the cited paper. We realize that we did not clearly explain the difference between our paper and the cited paper, so we have added a description in the introduction, please see section 1.1.
-Thank you for pointing this out. The original reference [49], now updated to reference [50], provides a comprehensive review and evaluation of graph-based approximate nearest neighbor (ANN) search algorithms, whereas our work is the first to establish a benchmark specifically for hybrid query algorithms. We initially cited this reference in the experimental setup section to adopt its proposed evaluation metrics, as hybrid queries are fundamentally built upon ANN techniques. We acknowledge that the distinction between our work and the cited paper was not clearly articulated in the early version. To address this, we have revised the introduction to clarify the difference and added citations to several experimental studies from the ANN literature.
+Thank you for pointing this out. The original reference [49], now updated to reference [50], provides a comprehensive review and evaluation of graph-based approximate nearest neighbor (ANN) search algorithms, whereas our work is the first to establish a benchmark specifically for hybrid query algorithms. We initially cited this reference in the experimental setup section to adopt its proposed evaluation metrics, as hybrid queries are fundamentally built upon ANN techniques. We acknowledge that the distinction between our work and the cited paper was not clearly articulated in the early version. To address this, we have revised the introduction to clarify the difference and added citations to several experimental studies from the ANN literature. \textbf{(Please see Section 1.1, highlighted in blue in the revised manuscript.)}
 
 
 
@@ -819,7 +820,7 @@ We appreciate the observation of reviewer. Figure 7 presents experiments on mult
 
 \noindent
 \textbf{Response:} 
-Thank you for the suggestion. We realized that the original wording is somewhat vague and led to confusion among readers. To address this, we merged the tables for attribute filtering (AF) and range filtering (RF), and clarified the support of each algorithm for AF and RF in the unified table,as shown in Table~\ref{tab:compair_1}.
+Thank you for the suggestion. We realized that the original wording is somewhat vague and led to confusion among readers. To address this, we merged the tables for attribute filtering (AF) and range filtering (RF), and clarified the support of each algorithm for AF and RF in the unified table, as shown in Table~\ref{tab:compair_1}.
 
 	\renewcommand{\arraystretch}{0.9}
 \begin{table*}[t]
