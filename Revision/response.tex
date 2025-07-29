@@ -547,7 +547,9 @@ Thank you for your suggestion. We have added relevant experiments conducted on d
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We have already provided a detailed response to this issue in our reply to Meta-Review R5. Please refer to that response for more information.
+Thank you for your suggestion. We clarify in Table 1 which methods support disk-based execution. Since only FilteredDiskANN supports disk-based execution, we conduct additional experiments to analyze its performance and report a detailed cost breakdown (I/O vs. CPU). Figure~\ref{fig:recall-latency} shows that I/O consistently dominates total latency (accounting for 80–85\%) and becomes the primary bottleneck at high recall levels. We also compare it with two in-memory baselines—FilteredVamana and StitchedVamana—to highlight their efficiency and trade-offs. Due to space constraints and the limited relevance to other methods, we exclude this analysis from the revised paper and provide it here for completeness.
+
+We have already provided a detailed response to this issue in our reply to Meta-Review R5. Please refer to that response for more information.
 
 
 %%%%%%%%%%%%%%%%%%%%%% W4 %%%%%%%%%%%%%%%%%%%%%%
