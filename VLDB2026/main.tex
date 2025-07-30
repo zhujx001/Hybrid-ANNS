@@ -695,7 +695,7 @@
 		\end{subfigure}
 		
 		%		\caption{Time and space overhead of attribute filtering index construction}
-		\caption{\textcolor{violet}{Time and Space Overhead}}
+		\caption{\textcolor{violet}{Time and Space Overhead (Attribute Filtering)}}
 		\label{fig:build_index_comparison}
 	\end{figure}
 	
@@ -708,7 +708,7 @@
 		\centering
 		
 		\includegraphics[width=0.95\textwidth]{figures/exp/exp_1_1_SingleLabel_1thread.pdf}
-		\caption{Performance of Single-Attribute Index Construction and Single-Attribute Query (Single Thread) }
+		\caption{Performance of Single-Attribute Index Construction and Single-Attribute Query }
 		\label{fig:exp_1_1_SingleLabel_1thread}
 	\end{figure*}
 	
@@ -725,7 +725,7 @@
 %\textcolor{orange}{Among the regular-scale datasets shown in the left part of Figure~\ref{fig:build_time_comparison_query1}, the methods with longest build times are mainly PASE, VBASE, and ACORN-$\gamma$. PASE and VBASE only support single-threaded builds. PASE is the slowest because its on-demand loading and caching strategies frequently trigger disk I/O and page scheduling, which seriously affects efficiency. VBASE uses full-memory builds and is relatively faster. ACORN-$\gamma$  has a high computational overhead because it needs to expand the neighbor list and evaluate a large number of candidates. Its build time on some datasets even exceeds that of single-threaded VBASE. }
 \textcolor{orange}{On the regular-scale datasets (Figure~\ref{fig:build_time_comparison_query1}, left), among the algorithms limited to single-threaded construction, PASE has the longest build time. This is because its on-demand loading and caching strategies frequently trigger disk I/O and page scheduling, which seriously affects efficiency. In contrast, VBASE uses full-memory builds and is therefore comparatively faster. Among the multi-threaded algorithms, ACORN-$\gamma$ is the slowest because it needs to expand the neighbor list and evaluate a large number of candidates. Its build time on some datasets even exceeds that of the single-threaded VBASE. }
 
-\textcolor{orange}{On the large-scale dataset Deep100M(Figure~\ref{fig:build_time_comparison_query1}, right), in addition to the three methods already mentioned, we also observe that algorithms based on Vamana (FilteredDiskANN, StitchedVamana and UNG) exhibit significantly increased construction time. This is because Vamana adopts a two-pass graph construction and optimization strategy (greedy search + robust pruning), resulting in extremely high computational overhead. In contrast, the construction time of IVF-based algorithms grows much more slowly with dataset size.This is because their shard-based design and high parallel efficiency, making them more scalable and advantageous in large-scale scenarios.}
+\textcolor{orange}{On the large-scale dataset Deep100M (Figure~\ref{fig:build_time_comparison_query1}, right), in addition to the three methods already mentioned, we also observe that algorithms based on Vamana (FilteredDiskANN, StitchedVamana and UNG) exhibit significantly increased construction time. This is because Vamana adopts a two-pass graph construction and optimization strategy (greedy search + robust pruning), resulting in extremely high computational overhead. In contrast, the construction time of IVF-based algorithms grows much more slowly with dataset size.This is because their shard-based design and high parallel efficiency, making them more scalable and advantageous in large-scale scenarios.}
 
 %ACORN-1 achieves the fastest index construction. This efficiency stems from its similarity to the original HNSW construction process and the use of a limited number of candidate neighbors.
 
@@ -784,7 +784,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	
 	%	Puck and CAPS perform relatively well. Partition-based methods have limitations regarding different vector data distributions, and how to configure different partitions for different datasets remains a challenge. However, this also demonstrates that IVF-based methods remain very promising for hybrid queries.
 	
-	\textcolor{violet}{Puck and CAPS perform relatively well, indicating that IVF-based methods remain very promising for hybrid queries.}
+	\textcolor{violet}{Additionally, Puck and CAPS also perform relatively well. They further reduce the search space on IVF indexes by using attribute partitioning, thereby achieving solid search performance.}
 	
 	Among all methods, vector database systems (PASE, VBASE, Milvus) show the worst performance. These systems target general-purpose scenarios but incur communication latency from network I/O and experience high query processing overhead due to complex query parsing. Additionally, we observe that Faiss+HQI\_Batch outperforms original Faiss, indicating that batch querying via HQI can effectively enhance query performance.
 	
@@ -849,7 +849,11 @@ Most algorithms load both the index and the dataset into memory during the build
 	\centering
 
 	\includegraphics[width=0.95\textwidth]{figures/exp/exp_3_1.pdf}
-	\caption{Effect of Attribute Distribution on Query Performance (Strong is robust to attribute distribution shifts, Weak is sensitive to attribute distribution shifts)}
+	\caption{
+		 \centering
+		Effect of Attribute Distribution on Query Performance \\
+		(Strong: robust to attribute distribution shifts; Weak: sensitive to attribute distribution shifts.)}
+		
 	\label{fig:exp_3_1}
 
 %	\footnotesize{
@@ -973,7 +977,7 @@ Most algorithms load both the index and the dataset into memory during the build
 		\end{subfigure}
 		
 		
-		\caption{Different AS under the Same Algorithm}
+		\caption{Different Attribute Selectivity (AS) under the Same Algorithm}
 		\label{fig:exp_5_2_combined}
 	\end{figure*}
 	
@@ -1098,7 +1102,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	\end{subfigure}
 	
 	% 5. 全局总标题
-	\caption{\textcolor{violet}Scalability Study——Attribute}
+	\caption{\textcolor{violet}Scalability Study (Attribute Filtering)}
 	\label{fig:TrinityExtension——Attribution_main}
 \end{figure*}
 
@@ -1174,7 +1178,7 @@ Most algorithms load both the index and the dataset into memory during the build
 		
 		%		\caption{Time and space overhead of range filtering index construction}
 %		\caption{Time and space overhead of index construction}
-		\caption{\textcolor{violet}{Time and Space Overhead}}
+		\caption{\textcolor{violet}{Time and Space Overhead (Range Filtering)}}
 		\label{fig:rangeFilter_build_index_comparison}
 	\end{figure}
 	\subsection{Range Filtering}
@@ -1356,7 +1360,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	\end{subfigure}
 	
 	% 5. 全局总标题
-	\caption{\textcolor{violet}Scalability Study——Range}
+	\caption{\textcolor{violet}Scalability Study (Range Filtering)}
 	\label{fig:TrinityExtension——Attribution_main}
 \end{figure*}
 	
@@ -1465,8 +1469,10 @@ Faiss, Milvus, and VBASE handle complex scenarios with advanced filtering operat
 %		}
 		\textcolor{orange}{
 For example, in multi-attribute scenarios, some algorithms only support Boolean OR logic (e.g., FilterDiskANN), while others only support Boolean AND logic (e.g., NHQ and CAPS). Although algorithms such as ACORN, UNG, and Puck support both AND and OR logic across multiple attributes, they still struggle to handle complex Boolean expressions that involve nested combinations of conjunctions (AND) and disjunctions (OR). In contrast, while databases and the vector search library Faiss support more expressive Boolean logic, their performance is often suboptimal in queries involving only basic attribute filtering.
-Therefore, designing algorithms that can support complex filtering expressions while maintaining high query efficiency remains a key challenge to be addressed.
-		}
+Therefore, designing algorithms that can support complex filtering expressions while maintaining high query efficiency remains a key challenge to be addressed. }
+
+\textcolor{violet}{Notably, we find that IVF-based methods are easily extendable to support joint query scenarios of attribute filtering and range filtering, and are compatible with arbitrary combinations of Boolean logic. Experiments in this paper also indicate that IVF-based methods (CAPS, Puck) achieve performance comparable to graph algorithms, while having the lowest time and space overhead, making them highly suitable for large-scale data processing. Therefore, IVF-based hybrid query methods represent a very promising research direction.}
+		
 		
 	\textcolor{blue}{
 	Besides, our research findings indicate that the distribution and selectivity of attributes significantly impact the performance of attribute filtering methods. Therefore, when designing algorithms, efforts should be made to minimize the coupling with specific attribute value distributions, in order to enhance the robustness and generalization ability of the algorithms under varying data conditions.}
