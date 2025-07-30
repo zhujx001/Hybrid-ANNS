@@ -518,22 +518,23 @@
 	
 	
 	\subsection{Vector Libraries and Databases}
+	Many existing vector libraries, such as Faiss, and databases, such as Milvus, VBASE, and PASE, are designed specifically for ANN search, but they also support attribute filtering and range queries. We also experimented with them. However, since these libraries and databases do not rely on a single algorithm, their internal implementations are complex, using multiple methods and have detailed third-party documentation, so we will not elaborate on them here.
 	
-	The vector libraries and databases discussed in the following are not explicitly designed for hybrid queries, but they support both attribute filtering and range filtering. Additionally, all the functionalities shown in Table 1 are also supported.
-	
-	\noindent\textbf{\underline{Faiss} \footnote{\textcolor{blue}{https://github.com/facebookresearch/faiss}} \cite{Faiss}}
-	Faiss is a library designed for efficient similarity search. It supports various indexing structures, including IVF, Product Quantization (PQ) \cite{PQ}, and HNSW. In hybrid query scenarios, Faiss supports vector search with an ID selector, which is a bitmap aligned with the dataset size. Users can generate this selector by first applying custom attribute filtering methods. During the query process, Faiss excludes vectors based on the selector, enabling efficient integration of attribute filtering with ANN search. In addition, we adopt the batch optimization strategy of HQI~\cite{HQI} for the IVF index in Faiss. This strategy groups queries with the same filter conditions, performs filtering once per group, and then uses efficient matrix operations to perform batch vector similarity calculations.
-	
-	
-	\noindent\textbf{\underline{PASE} \footnote{\textcolor{blue}{https://github.com/alipay/PASE}} \cite{pase}}
-	PASE is a vector indexing plugin for the PostgreSQL database \cite{postgresql13.4}, supporting two index types: IVF\_Flat \cite{johnson2019billion} and HNSW. By leveraging database capabilities, PASE enables both attribute filtering and range filtering. We focus on the post-filtering strategy based on HNSW, which facilitate comparison with other methods. When a query request is received, PASE first obtains a candidate set using the HNSW index. It then applies the filtering conditions from the WHERE clause to refine the results. However, since the candidate set has a fixed size, low-selectivity filters may result in fewer than $k$ results being returned.
-	
-	
-	\noindent\textbf{\underline{VBASE} \footnote{\textcolor{blue}{https://github.com/microsoft/MSVBASE}} \cite{vbase}}
-	Similar to PASE, VBASE is a PostgreSQL-based vector indexing plugin supporting HNSW, SPTAG~\cite{sptag}, and SPANN~\cite{spann}. We focus on HNSW-based search because SPTAG and SPANN have poorer performance and their source code does not fully implement index-building functionality. VBASE adopts a post-filtering strategy. However, it employs an iterative filtering mechanism: during index traversal, each node is checked against the WHERE clause, and non-matching nodes are discarded. This avoids the issue in PASE where the final result set may contain fewer than $k$ results.
-	
-	\noindent\textbf{\underline{Milvus} \footnote{\textcolor{blue}{https://github.com/milvus-io/milvus}} \cite{milvus}}
-	Unlike PASE and VBASE, which are database extensions, Milvus is an vector database purpose-built for large-scale similarity search. It supports multiple index types, including HNSW, IVF\_Flat, and IVF\_PQ, and provides extensive optimization for real-world deployment. Among its indexes, IVF\_Flat is commonly used due to its balance between performance and simplicity. In hybrid queries, Milvus first pre-filters the dataset using user-specified conditions, then traverses only the corresponding clusters for ANN search—similar to the ID selector mechanism of Faiss.
+%	The vector libraries and databases discussed in the following are not explicitly designed for hybrid queries, but they support both attribute filtering and range filtering. Additionally, all the functionalities shown in Table 1 are also supported.
+%	
+%	\noindent\textbf{\underline{Faiss} \footnote{\textcolor{blue}{https://github.com/facebookresearch/faiss}} \cite{Faiss}}
+%	Faiss is a library designed for efficient similarity search. It supports various indexing structures, including IVF, Product Quantization (PQ) \cite{PQ}, and HNSW. In hybrid query scenarios, Faiss supports vector search with an ID selector, which is a bitmap aligned with the dataset size. Users can generate this selector by first applying custom attribute filtering methods. During the query process, Faiss excludes vectors based on the selector, enabling efficient integration of attribute filtering with ANN search. In addition, we adopt the batch optimization strategy of HQI~\cite{HQI} for the IVF index in Faiss. This strategy groups queries with the same filter conditions, performs filtering once per group, and then uses efficient matrix operations to perform batch vector similarity calculations.
+%	
+%	
+%	\noindent\textbf{\underline{PASE} \footnote{\textcolor{blue}{https://github.com/alipay/PASE}} \cite{pase}}
+%	PASE is a vector indexing plugin for the PostgreSQL database \cite{postgresql13.4}, supporting two index types: IVF\_Flat \cite{johnson2019billion} and HNSW. By leveraging database capabilities, PASE enables both attribute filtering and range filtering. We focus on the post-filtering strategy based on HNSW, which facilitate comparison with other methods. When a query request is received, PASE first obtains a candidate set using the HNSW index. It then applies the filtering conditions from the WHERE clause to refine the results. However, since the candidate set has a fixed size, low-selectivity filters may result in fewer than $k$ results being returned.
+%	
+%	
+%	\noindent\textbf{\underline{VBASE} \footnote{\textcolor{blue}{https://github.com/microsoft/MSVBASE}} \cite{vbase}}
+%	Similar to PASE, VBASE is a PostgreSQL-based vector indexing plugin supporting HNSW, SPTAG~\cite{sptag}, and SPANN~\cite{spann}. We focus on HNSW-based search because SPTAG and SPANN have poorer performance and their source code does not fully implement index-building functionality. VBASE adopts a post-filtering strategy. However, it employs an iterative filtering mechanism: during index traversal, each node is checked against the WHERE clause, and non-matching nodes are discarded. This avoids the issue in PASE where the final result set may contain fewer than $k$ results.
+%	
+%	\noindent\textbf{\underline{Milvus} \footnote{\textcolor{blue}{https://github.com/milvus-io/milvus}} \cite{milvus}}
+%	Unlike PASE and VBASE, which are database extensions, Milvus is an vector database purpose-built for large-scale similarity search. It supports multiple index types, including HNSW, IVF\_Flat, and IVF\_PQ, and provides extensive optimization for real-world deployment. Among its indexes, IVF\_Flat is commonly used due to its balance between performance and simplicity. In hybrid queries, Milvus first pre-filters the dataset using user-specified conditions, then traverses only the corresponding clusters for ANN search—similar to the ID selector mechanism of Faiss.
 	
 	\section{Experiments}
 	\subsection{Experimental Setup}
