@@ -695,7 +695,7 @@
 		\end{subfigure}
 		
 		%		\caption{Time and space overhead of attribute filtering index construction}
-		\caption{\textcolor{violet}{Time and Space Overhead}}
+		\caption{\textcolor{violet}{Time and Space Overhead (Attribute Filtering)}}
 		\label{fig:build_index_comparison}
 	\end{figure}
 	
@@ -708,7 +708,7 @@
 		\centering
 		
 		\includegraphics[width=0.95\textwidth]{figures/exp/exp_1_1_SingleLabel_1thread.pdf}
-		\caption{Performance of Single-Attribute Index Construction and Single-Attribute Query (Single Thread) }
+		\caption{Performance of Single-Attribute Index Construction and Single-Attribute Query }
 		\label{fig:exp_1_1_SingleLabel_1thread}
 	\end{figure*}
 	
@@ -848,7 +848,11 @@ Most algorithms load both the index and the dataset into memory during the build
 	\centering
 
 	\includegraphics[width=0.95\textwidth]{figures/exp/exp_3_1.pdf}
-	\caption{Effect of Attribute Distribution on Query Performance (Strong is robust to attribute distribution shifts, Weak is sensitive to attribute distribution shifts)}
+	\caption{
+		 \centering
+		Effect of Attribute Distribution on Query Performance \\
+		(Strong: robust to attribute distribution shifts; Weak: sensitive to attribute distribution shifts.)}
+		
 	\label{fig:exp_3_1}
 
 %	\footnotesize{
@@ -972,7 +976,7 @@ Most algorithms load both the index and the dataset into memory during the build
 		\end{subfigure}
 		
 		
-		\caption{Different AS under the Same Algorithm}
+		\caption{Different Attribute Selectivity (AS) under the Same Algorithm}
 		\label{fig:exp_5_2_combined}
 	\end{figure*}
 	
@@ -1097,7 +1101,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	\end{subfigure}
 	
 	% 5. 全局总标题
-	\caption{\textcolor{violet}Scalability Study——Attribute}
+	\caption{\textcolor{violet}Scalability Study (Attribute Filtering)}
 	\label{fig:TrinityExtension——Attribution_main}
 \end{figure*}
 
@@ -1173,7 +1177,7 @@ Most algorithms load both the index and the dataset into memory during the build
 		
 		%		\caption{Time and space overhead of range filtering index construction}
 %		\caption{Time and space overhead of index construction}
-		\caption{\textcolor{violet}{Time and Space Overhead}}
+		\caption{\textcolor{violet}{Time and Space Overhead (Range Filtering)}}
 		\label{fig:rangeFilter_build_index_comparison}
 	\end{figure}
 	\subsection{Range Filtering}
@@ -1355,7 +1359,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	\end{subfigure}
 	
 	% 5. 全局总标题
-	\caption{\textcolor{violet}Scalability Study——Range}
+	\caption{\textcolor{violet}Scalability Study (Range Filtering)}
 	\label{fig:TrinityExtension——Attribution_main}
 \end{figure*}
 	
