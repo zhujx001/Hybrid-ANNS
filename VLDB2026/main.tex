@@ -361,19 +361,27 @@
 		\footnotesize{
 			\begin{minipage}{\linewidth}
 				\vspace{0.1cm}
-				Win: WinFilter, Filtered: FilteredVamana, Stitched: StitchedVamana. 
-				\textsuperscript{A} Post-filtering, 
-				\textsuperscript{B} Pre-filtering, 
-				\textsuperscript{C} Simultaneous filtering, 
-				\textsuperscript{Y} Support, 
-				\textsuperscript{N} Unsupport. 
-				\textit{AND} and \textit{OR} indicate whether the algorithm supports the corresponding logical operations.
-				\textit{Flexible Attributes} indicates whether the number of query attributes can differ from the number of attributes used during index construction. 
-				\textit{Complex Boolean} indicates if the algorithm supports complex expressions, such as using the NOT operator or nested logic with parentheses.
-				\textit{Dynamic Insert} indicates whether the algorithm supports the operation of dynamically inserting data points.
-				\textit{Multi Thread} indicates whether the algorithm supports multi-threaded search.
-				\textit{Disk Support} indicates whether the algorithm supports disk storage.
-				\textit{Base} indicates the foundational ANN algorithm for the hybrid query method.
+%				\textit{AND} and \textit{OR} indicate whether the algorithm supports the corresponding logical operations.
+%				\textit{Flexible Attributes} indicates whether the number of query attributes can differ from the number of attributes used during index construction. 
+%				\textit{Complex Boolean} indicates if the algorithm supports complex expressions, such as using the NOT operator or nested logic with parentheses.
+%				\textit{Dynamic Insert} indicates whether the algorithm supports the operation of dynamically inserting data points.
+%				\textit{Multi Thread} indicates whether the algorithm supports multi-threaded search.
+%				\textit{Disk Support} indicates whether the algorithm supports disk storage.
+%				\textit{Base} indicates the foundational ANN algorithm for the hybrid query method.
+		\textcolor{orange}{
+		\textit{Win}: WinFilter, \textit{Filtered}: FilteredVamana, \textit{Stitched}: StitchedVamana. 
+		\textit{AND} / \textit{OR}: Whether the algorithm supports the corresponding logical operations.
+		\textit{Flexible Attributes}: Allows the number of query attributes to differ from that in index construction.
+		\textit{Complex Boolean}: Supports NOT or nested Boolean expressions.
+		\textit{Dynamic Insert}: Supports dynamic data insertion.
+		\textit{Multi Thread}: Supports multi-threaded search.
+		\textit{Disk Support}: Supports disk-based storage.
+		\textit{Base}: Underlying ANN index structure used.}
+		\textsuperscript{A} Post-filtering, 
+		\textsuperscript{B} Pre-filtering, 
+		\textsuperscript{C} Simultaneous filtering, 
+		\textsuperscript{Y} Support, 
+		\textsuperscript{N} Unsupport. 
 		\end{minipage}}
 		
 	\end{table*}
