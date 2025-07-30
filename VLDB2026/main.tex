@@ -413,7 +413,8 @@
 	
 	\noindent\textbf{\underline{Filtered-DiskANN} \footnote{\textcolor{blue}{https://github.com/microsoft/DiskANN}} \cite{Filtered-diskann}}
 	%\sout{The effectiveness of NHQ may degrade when the number of attributes changes, as it affects the fusion distance computation. Filtered-DiskANN addresses this limitation.}
-	Filtered-DiskANN also supports simultaneous filtering. Built upon the Vamana \cite{diskann} graph-based ANN index, it incorporates attribute information directly into the graph during index construction. This integration ensures that the index reflects both vector similarity and attribute constraints. Moreover, Filtered-DiskANN supports SSD-based storage, improving scalability.
+	Filtered-DiskANN also supports simultaneous filtering. Built upon the Vamana \cite{diskann} graph-based ANN index, it incorporates attribute information directly into the graph during index construction. This integration ensures that the index reflects both vector similarity and attribute constraints. 
+%	Moreover, Filtered-DiskANN supports SSD-based storage, improving scalability.
 	Filtered-DiskANN proposes 2 indexes:  
 	1) \textbf{FilteredVamana}, which incrementally builds the graph index by inserting data points and dynamically adding edges, allowing adaptive expansion.  
 	2) \textbf{StitchedVamana}, which adopts a batch construction strategy—constructing separate Vamana subgraphs for each attribute, followed by merging and edge pruning.
@@ -422,8 +423,8 @@
 	
 	\noindent\textbf{\underline{CAPS} \footnote{\textcolor{blue}{https://github.com/gaurav16gupta/constrainedANN}} \cite{CAPS}}
 	%\sout{Different from the above graph-based simultaneous filtering algorithms,}
-	CAPS is the first simultaneous filtering algorithm based on spatial partitioning.
-	It introduces a hierarchical sub-partitioning algorithm inspired by Huffman trees, termed the Attribute Frequency Tree (AFT), to overcome the coarse granularity of traditional IVF-based methods. CAPS adopts a two-level partitioning strategy:  
+%	CAPS is the first simultaneous filtering algorithm based on spatial partitioning.
+	CAPS introduces a hierarchical sub-partitioning algorithm inspired by Huffman trees, termed the Attribute Frequency Tree (AFT), to overcome the coarse granularity of traditional IVF-based methods. It adopts a two-level partitioning strategy:  
 	1) The first level clusters vectors based on similarity using K-Means or learning-based methods such as BLISS. 2) Within each cluster, AFT partitions data further based on attribute frequencies, enabling finer-grained indexing and improving query efficiency.
 	
 	\noindent\textbf{\underline{ACORN} \footnote{\textcolor{blue}{https://github.com/stanford-futuredata/ACORN}} \cite{ACORN}}
@@ -435,21 +436,24 @@
 	%	ACORN includes 2 indexes: 1) \textbf{ACORN-$\gamma$}, which expands neighbor lists during construction, increasing memory usage for higher performance.  
 	%	2) \textbf{ACORN-1}, which extends neighbor lists by considering second-hop neighbors during search, reducing index size with minor performance loss.
 	%Above simultaneous filtering algorithms struggle with large-scale, unbounded, or unknown predicate sets. ACORN addresses this by introducing a predicate-agnostic indexing framework.
-	Pre-filtering methods apply attribute constraints prior to ANN search. As a pre-filtering approach, ACORN adopts a predicate-agnostic indexing framework to overcome the limitations of the aforementioned simultaneous filtering methods in handling large-scale or unknown predicate settings.
-	Based on Hierarchical Navigable Small World (HNSW) \cite{hnsw}, ACORN constructs a denser hierarchical graph with neighborhood expansion and edge pruning. During search, it filters out nodes violating constraints, maintaining a valid nearest neighbor graph.
+%	ACORN adopts a predicate-agnostic indexing framework to overcome the limitations of prior methods in large-scale or unknown predicate scenarios.
+	\textcolor{orange}{ACORN adopts a predicate-agnostic indexing framework. It is based on Hierarchical Navigable Small World (HNSW) \cite{hnsw} and builds a denser hierarchical graph through neighborhood expansion and edge pruning.}
+%	Based on Hierarchical Navigable Small World (HNSW) \cite{hnsw}, ACORN constructs a denser hierarchical graph with neighborhood expansion and edge pruning. 
+	During search, it filters out nodes violating constraints, maintaining a valid nearest neighbor graph.
 	ACORN includes two indexes: 1) \textbf{ACORN-$\gamma$}, which expands neighbor lists during construction, trading memory for higher performance; 
 	2) \textbf{ACORN-1}, which extends neighbor lists via second-hop neighbors during search, reducing index size with minor performance loss.
 	
 	\noindent\textbf{\underline{UNG} \footnote{\textcolor{blue}{https://github.com/YZ-Cai/Unified-Navigating-Graph}} \cite{UNG}} 
 	%\sout{The above simultaneous filtering algorithms may not guarantee the completeness of the results and perform poorly when the attribute selectivity is low. UNG is proposed to overcome these limitations.It is a unified framework that integrates diverse graph-based ANN indexes for hybrid query.}
-	Similar to ACORN, UNG adopts a pre-filtering strategy and serves as a unified framework that integrates various graph-based ANN indexes to support hybrid queries. It first groups the dataset by attribute sets, ensuring that vectors in each group share identical attributes. Then, it constructs a Label Navigating Graph (LNG) to encode inclusion relationships among attribute sets. Within each group, UNG builds graph-based ANN indexes (e.g., Vamana, HNSW) and connects them via cross-group edges to enable efficient cross-group search.
+	UNG serves as a unified framework that integrates various graph-based ANN indexes to support hybrid queries. It first groups the dataset by attribute sets, ensuring that vectors in each group share identical attributes. Then, it constructs a Label Navigating Graph (LNG) to encode inclusion relationships among attribute sets. Within each group, UNG builds graph-based ANN indexes (e.g., Vamana, HNSW) and connects them via cross-group edges to enable efficient cross-group search.
 	%UNG supports Boolean filtering with 2 modes:  1) The query attribute set is a subset of the data attribute set.  2) The query attribute set exactly matches the data attribute set.
 	
 	
 	
 	\noindent\textbf{\underline{Puck} \footnote{\textcolor{blue}{https://github.com/baidu/puck}} \cite{puck}} 
 	%While simultaneous filtering algorithms perform well in most scenarios, it may underperform when only a small portion of data satisfies attribute constraints. In such cases, a pre-filtering strategy—applying attribute constraints prior to ANN search—can be more effective.
-	Puck also adopts a pre-filtering strategy. Developed by Baidu, Puck utilizes two-level quantization for indexing. It maintains an attribute set for each cluster to track vector attributes. During the query process, it employs pre-filtering to exclude clusters without required attributes, thereby reducing the search space.
+%	Puck also adopts a pre-filtering strategy. Developed by Baidu, 
+	Puck utilizes two-level quantization for indexing. It maintains an attribute set for each cluster to track vector attributes. During the query process, it employs pre-filtering to exclude clusters without required attributes, thereby reducing the search space.
 	%Developed by Baidu, Puck adopts a pre-filtering approach and employs a multi-level filtering mechanism for hybrid query. Its index structure comprises four layers: the first two use vector quantization for training, while the latter two leverage product quantization.
 	
 	
@@ -700,7 +704,7 @@ Milvus is a vector database built for large-scale similarity search. It filters 
 		\end{subfigure}
 		
 		%		\caption{Time and space overhead of attribute filtering index construction}
-		\caption{\textcolor{violet}{Time and Space Overhead}}
+		\caption{\textcolor{violet}{Time and Space Overhead (Attribute Filtering)}}
 		\label{fig:build_index_comparison}
 	\end{figure}
 	
@@ -713,7 +717,7 @@ Milvus is a vector database built for large-scale similarity search. It filters 
 		\centering
 		
 		\includegraphics[width=0.95\textwidth]{figures/exp/exp_1_1_SingleLabel_1thread.pdf}
-		\caption{Performance of Single-Attribute Index Construction and Single-Attribute Query (Single Thread) }
+		\caption{Performance of Single-Attribute Index Construction and Single-Attribute Query }
 		\label{fig:exp_1_1_SingleLabel_1thread}
 	\end{figure*}
 	
@@ -730,7 +734,7 @@ Milvus is a vector database built for large-scale similarity search. It filters 
 %\textcolor{orange}{Among the regular-scale datasets shown in the left part of Figure~\ref{fig:build_time_comparison_query1}, the methods with longest build times are mainly PASE, VBASE, and ACORN-$\gamma$. PASE and VBASE only support single-threaded builds. PASE is the slowest because its on-demand loading and caching strategies frequently trigger disk I/O and page scheduling, which seriously affects efficiency. VBASE uses full-memory builds and is relatively faster. ACORN-$\gamma$  has a high computational overhead because it needs to expand the neighbor list and evaluate a large number of candidates. Its build time on some datasets even exceeds that of single-threaded VBASE. }
 \textcolor{orange}{On the regular-scale datasets (Figure~\ref{fig:build_time_comparison_query1}, left), among the algorithms limited to single-threaded construction, PASE has the longest build time. This is because its on-demand loading and caching strategies frequently trigger disk I/O and page scheduling, which seriously affects efficiency. In contrast, VBASE uses full-memory builds and is therefore comparatively faster. Among the multi-threaded algorithms, ACORN-$\gamma$ is the slowest because it needs to expand the neighbor list and evaluate a large number of candidates. Its build time on some datasets even exceeds that of the single-threaded VBASE. }
 
-\textcolor{orange}{On the large-scale dataset Deep100M(Figure~\ref{fig:build_time_comparison_query1}, right), in addition to the three methods already mentioned, we also observe that algorithms based on Vamana (FilteredDiskANN, StitchedVamana and UNG) exhibit significantly increased construction time. This is because Vamana adopts a two-pass graph construction and optimization strategy (greedy search + robust pruning), resulting in extremely high computational overhead. In contrast, the construction time of IVF-based algorithms grows much more slowly with dataset size.This is because their shard-based design and high parallel efficiency, making them more scalable and advantageous in large-scale scenarios.}
+\textcolor{orange}{On the large-scale dataset Deep100M (Figure~\ref{fig:build_time_comparison_query1}, right), in addition to the three methods already mentioned, we also observe that algorithms based on Vamana (FilteredDiskANN, StitchedVamana and UNG) exhibit significantly increased construction time. This is because Vamana adopts a two-pass graph construction and optimization strategy (greedy search + robust pruning), resulting in extremely high computational overhead. In contrast, the construction time of IVF-based algorithms grows much more slowly with dataset size.This is because their shard-based design and high parallel efficiency, making them more scalable and advantageous in large-scale scenarios.}
 
 %ACORN-1 achieves the fastest index construction. This efficiency stems from its similarity to the original HNSW construction process and the use of a limited number of candidate neighbors.
 
@@ -789,7 +793,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	
 	%	Puck and CAPS perform relatively well. Partition-based methods have limitations regarding different vector data distributions, and how to configure different partitions for different datasets remains a challenge. However, this also demonstrates that IVF-based methods remain very promising for hybrid queries.
 	
-	\textcolor{violet}{Puck and CAPS perform relatively well, indicating that IVF-based methods remain very promising for hybrid queries.}
+	\textcolor{violet}{Additionally, Puck and CAPS also perform relatively well. They further reduce the search space on IVF indexes by using attribute partitioning, thereby achieving solid search performance.}
 	
 	Among all methods, vector database systems (PASE, VBASE, Milvus) show the worst performance. These systems target general-purpose scenarios but incur communication latency from network I/O and experience high query processing overhead due to complex query parsing. Additionally, we observe that Faiss+HQI\_Batch outperforms original Faiss, indicating that batch querying via HQI can effectively enhance query performance.
 	
@@ -832,12 +836,13 @@ Most algorithms load both the index and the dataset into memory during the build
 	\end{figure}
 	
 	\textit{Effect of Multi-Attribute Building on Algorithm Performance (M vs. S).}
-	As shown in Figure \ref{fig:exp_2_1}, \textcolor{red}{Puck demonstrates nearly no performance degradation, because it accurately identifies the nearest clusters during a search, keeping the number of candidates constant, no matter how many attributes were used to build the index}. CAPS shows a slight performance decline due to the increased query overhead caused by excessive attribute-based grouping. In contrast, the performance of StitchedVamana, FilteredVamana, NHQ, and UNG drops significantly, with the following reasons: 1) FilteredVamana increases the complexity introduced by retaining attribute during index construction. 2) The complexity of StitchedVamana increases because data points may duplicate across multiple subgraphs. 3) The fusion distance of NHQ exhibits sensitivity to the number of attributes, which degrades its effectiveness. 4) UNG has poor performance because large number of entry points that need to be traversed. It is difficult for a graph with multiple entries to have good connectivity, degenerating into a situation closer to inverted retrieval, and the effect may be greatly impaired.
+	As shown in Figure \ref{fig:exp_2_1}, Puck demonstrates nearly no performance degradation. CAPS shows a slight performance decline due to the increased query overhead caused by excessive attribute-based grouping. In contrast, the performance of StitchedVamana, FilteredVamana, NHQ, and UNG drops significantly, with the following reasons: 1) FilteredVamana increases the complexity introduced by retaining attribute during index construction. 2) The complexity of StitchedVamana increases because data points may duplicate across multiple subgraphs. 3) The fusion distance of NHQ exhibits sensitivity to the number of attributes, which degrades its effectiveness. 4) UNG has poor performance because large number of entry points that need to be traversed. It is difficult for a graph with multiple entries to have good connectivity, degenerating into a situation closer to inverted retrieval, and the effect may be greatly impaired.
 	
 	
 	
 	\textit{Performance of Algorithms under Multi-Attribute Building (M vs. M).}  
-	As shown in Figure \ref{fig:exp_2_1}, IVF-based methods (Puck and CAPS) significantly outperform graph-based methods. The reason for the superior performance of Puck is that it filters out irrelevant results during the retrieval process rather than searching for more candidates. CAPS performs as well as Puck. In contrast, FilteredVamana performs the worst because its multi-attribute indexing forces neighbor selection to cover multiple attributes, reducing the efficiency of single-attribute queries. This results in excessive traversal of irrelevant nodes, making it slower than other methods.
+	As shown in Figure \ref{fig:exp_2_1}, IVF-based methods (Puck and CAPS) significantly outperform graph-based methods. The reason for the superior performance of Puck is that it filters out irrelevant results during the retrieval process rather than searching for more candidates. CAPS performs as well as Puck. In contrast, multi-attribute construction significantly degrades the performance of graph-based methods, for which we identify two primary reasons. First, graph fragmentation necessitates searching multiple entry points, undermining the inherent advantage of efficient graph traversal. Second, multi-attribute processing increases the algorithms' intrinsic computational overhead and reduces the effectiveness of their core metric mechanisms, such as distance calculation.
+	%FilteredVamana performs the worst because its multi-attribute indexing forces neighbor selection to cover multiple attributes, reducing the efficiency of single-attribute queries. This results in excessive traversal of irrelevant nodes, making it slower than other methods.
 	
 	
 	\begin{figure*}
@@ -853,7 +858,11 @@ Most algorithms load both the index and the dataset into memory during the build
 	\centering
 
 	\includegraphics[width=0.95\textwidth]{figures/exp/exp_3_1.pdf}
-	\caption{Effect of Attribute Distribution on Query Performance (Strong is robust to attribute distribution shifts, Weak is sensitive to attribute distribution shifts)}
+	\caption{
+		 \centering
+		Effect of Attribute Distribution on Query Performance \\
+		(Strong: robust to attribute distribution shifts; Weak: sensitive to attribute distribution shifts.)}
+		
 	\label{fig:exp_3_1}
 
 %	\footnotesize{
@@ -904,9 +913,11 @@ Most algorithms load both the index and the dataset into memory during the build
 	
 	\subsubsection{Robustness}In the following, we evaluate the robustness of these algorithms.
 	
-	\textit{\textbf{Attribute Distribution.}} To evaluate performance across different attribute distributions, we generate base and query attribute sets with 4 representative distributions—long-tailed, normal, power-law, and uniform—across the 6 datasets described in Section~4.1.1. We evaluate all algorithms under these distributions on each dataset. The performance differences observed for the same algorithm across different datasets are relatively minor. Thus, due to space constraints, we present only the results on SIFT1M.
-
-	As illustrated in Figure~\ref{fig:exp_3_1}, the evaluated algorithms exhibit varying degrees of sensitivity to attribute distribution shifts. \textcolor{cyan}{The proximity of the 4 curves in the figure reflects algorithm sensitivity to distributional variations. When the curves converge closely, the algorithm demonstrates strong resilience against attribute distribution shifts.} Specifically, ACORN, Milvus, Puck, CAPS, StitchedVamana, and UNG demonstrate strong robustness to such shifts. In contrast, Faiss, FilteredVamana, NHQ, VBASE, and PASE show notable sensitivity.
+	\textit{\textbf{Attribute Distribution.}} To evaluate the impact of attribute distribution, we generate base and query attributes \textcolor{orange}{on the SIFT dataset using four representative distributions: long-tail, normal, power-law, and uniform.}
+%	with four representative distributions—long-tail, normal, power-law, and uniform—across six datasets. 
+%	Since performance differences across datasets are small, we report results on SIFT1M due to space limits.
+	As illustrated in Figure~\ref{fig:exp_3_1}, the evaluated algorithms exhibit varying degrees of sensitivity to attribute distribution shifts. \textcolor{cyan}{The proximity of the 4 curves in the figure reflects algorithm sensitivity to distributional variations. When the curves converge closely, the algorithm demonstrates strong resilience against attribute distribution shifts.} 
+%	Specifically, ACORN, Milvus, Puck, CAPS, StitchedVamana, and UNG demonstrate strong robustness to such shifts. In contrast, Faiss, FilteredVamana, NHQ, VBASE, and PASE show notable sensitivity.
 
 	{\color{blue}{
 	Algorithms that are highly sensitive to attribute distribution tend to rely passively on the statistical characteristics of the attributes in their design. For instance, graph-based indexing methods like FilteredVamana and NHQ are prone to degraded connectivity or distorted structures under power-law distributions, where label frequencies are highly imbalanced. Similarly, VBASE, which employs a post-filtering strategy, shows efficiency that directly correlates with attribute selectivity—the more selective the filter, the more computational resources are wasted on retrieving irrelevant vectors. Faiss, which searches within the nearest clusters, may need to traverse more clusters to find sufficient results when relevant data points are unevenly distributed across clusters due to attribute skew, which impacts performance.
@@ -930,11 +941,12 @@ Most algorithms load both the index and the dataset into memory during the build
 %	
 	
 	\textit{\textbf{Single-Attribute Selectivity.}}
-%	In hybrid queries, varying attribute selectivity (AS) can significantly impact computational cost and query efficiency, as the algorithm must efficiently identify data points matching specific attributes within large datasets. AS is defined as the proportion of data points sharing a given attribute value. For example, AS of 1\% indicates that only 1\% of the dataset meets the given attribute. 
-%	
-%	To investigate this effect, we evaluate 4 AS settings (1\%, 25\%, 50\%, and 75\%) on the SIFT1M dataset using single-thread execution. 
+	In hybrid queries, varying attribute selectivity (AS) can significantly impact computational cost and query efficiency.
+%	, as the algorithm must efficiently identify data points matching specific attributes within large datasets. 
+	AS is defined as the proportion of data points sharing a given attribute value. For example, AS of 1\% indicates that only 1\% of the dataset meets the given attribute. 
+	To investigate this effect, we evaluate 4 AS settings (1\%, 25\%, 50\%, and 75\%) on the SIFT1M dataset using single-thread execution. 
 %	We compare the query performance of attribute filtering algorithms across these settings, as shown in Figure~\ref{fig:exp_5_1_1_SingleLabel_1thread}.
-%	Based on the query performance trends of different algorithms under varying AS, we categorize the algorithms into 3 groups:
+	Based on the query performance trends of different algorithms under varying AS, we categorize the algorithms into 3 groups:
 %	
 %	Experimental results show that UNG achieves the best performance across all AS settings, especially at extremely low AS (1\%). 
 %	This advantage stems from its pre-filtering strategy. Pre-filtering strategy significantly reduces the ANN search space by narrowing down candidates prior to vector computation. In contrast, VBASE performs the worst at 1\% AS due to its post-filtering strategy. Post-filtering strategy first retrieves a large number of candidates and then applies filtering, incurring substantial computational overhead.
@@ -974,7 +986,7 @@ Most algorithms load both the index and the dataset into memory during the build
 		\end{subfigure}
 		
 		
-		\caption{Different AS under the Same Algorithm}
+		\caption{Different Attribute Selectivity (AS) under the Same Algorithm}
 		\label{fig:exp_5_2_combined}
 	\end{figure*}
 	
@@ -1099,13 +1111,13 @@ Most algorithms load both the index and the dataset into memory during the build
 	\end{subfigure}
 	
 	% 5. 全局总标题
-	\caption{\textcolor{violet}Scalability Study——Attribute}
+	\caption{\textcolor{violet}Scalability Study (Attribute Filtering)}
 	\label{fig:TrinityExtension——Attribution_main}
 \end{figure*}
 
 %	\subsubsection{Scalability Study}
 	\textit{\textbf{\textcolor{blue}{Multi-Modal Queries.}}} \textcolor{blue}{
-		We conduct experiments on the Text2image-Mix dataset. This dataset contains image and text vectors and is a hybrid multimodal dataset. As shown in Figure~\ref{fig:attribute-multimodal}, UNG and NHQ consistently perform best, followed by CAPS.
+		We conduct experiments on the Text2image-Mix dataset. This dataset contains image and text vectors and is a hybrid multi-modal dataset. As shown in Figure~\ref{fig:attribute-multimodal}, UNG and NHQ consistently perform best, followed by CAPS.
 		Although this dataset mixes two modalities, the vector space distributions of different modalities often differ significantly. In practice, this means that the experiments effectively treat the image and text subsets as separate datasets, since the ground truths for each query belong to the same modality. Therefore, the performance on this dataset is similar to the results shown in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}.
 		In contrast, the Text2image dataset shown in Figure~\ref{fig:attribute-multimodal} is different. The query set and the base dataset belong to two completely different modalities. Queries are far from the dataset points, and the ground truths are more dispersed. To find the ground truths, algorithms typically need to examine more points, which leads to degraded performance.
 		%	We conduct experiments on the text2image-mix dataset. This dataset contains both image and text vectors. It is a more complex multimodal dataset. As shown in Figure~\ref{fig:attribute-multimodal}, although the queries are more complex, UNG and NHQ still perform the best. CAPS is the next best.
@@ -1175,7 +1187,7 @@ Most algorithms load both the index and the dataset into memory during the build
 		
 		%		\caption{Time and space overhead of range filtering index construction}
 %		\caption{Time and space overhead of index construction}
-		\caption{\textcolor{violet}{Time and Space Overhead}}
+		\caption{\textcolor{violet}{Time and Space Overhead (Range Filtering)}}
 		\label{fig:rangeFilter_build_index_comparison}
 	\end{figure}
 	\subsection{Range Filtering}
@@ -1357,7 +1369,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	\end{subfigure}
 	
 	% 5. 全局总标题
-	\caption{\textcolor{violet}Scalability Study——Range}
+	\caption{\textcolor{violet}Scalability Study (Range Filtering)}
 	\label{fig:TrinityExtension——Attribution_main}
 \end{figure*}
 	
@@ -1365,7 +1377,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	
 	\textit{\textbf{\textcolor{blue}{Multi-Modal Queries.}}}
 	\textcolor{blue}{
-		Similar to attribute filtering, the performance of multimodal range filtering queries shown in Figure~\ref{fig:range-multimodal} also aligns with the single-modality results in Figure~\ref{fig:exp_8_2}. These algorithms on the Text2Image dataset exhibit a significant performance degradation. This is because these range query algorithms are almost entirely graph-based, and graph algorithms require more iterations to find true neighbors in OOD datasets.
+		Similar to attribute filtering, the performance of multi-modal range filtering queries shown in Figure~\ref{fig:range-multimodal} also aligns with the single-modality results in Figure~\ref{fig:exp_8_2}. These algorithms on the Text2Image dataset exhibit a significant performance degradation. This is because these range query algorithms are almost entirely graph-based, and graph algorithms require more iterations to find true neighbors in OOD datasets.
 %		Similar to attribute filtering, the performance of multimodal queries with range filtering shown in Figure~\ref{fig:range-multimodal} is also consistent with the single-modality results in Figure~\ref{fig:exp_8_2}. As shown in Figure~\ref{fig:exp_8_3}, the algorithms still perform the worst on multimodal datasets like Text2Image. This is because these range query algorithms are almost graph-based. Graph algorithms need more iterations to find true neighbors in OOD datasets.
 		}
 		
@@ -1403,7 +1415,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	\textbf{Peak Memory} &W  &M  &M  &M  &M  &S  &W  &W  &M  &W  &W  &W/W  &\textbf{S}/\textbf{S}  &S/M  &S/M  &S/S \\
 	\textbf{Large-Scale Dataset} & S & S & W & W &\textbf{S} &S  &M  &S  &M  &S  &\textbf{S}  &M/W  &W/M  &W/W  &M/M  &-  \\
 	\textbf{Rare Attribute \& Low Range} &M  &M  &S  &S &\textbf{S}  &S  &S  &S  &W  &M  &\textbf{S} &M/M  &M/M  &W/W  &W/W  &W/W  \\
-	\textbf{Robust to MultiModal Dataset} &S  &S  &W  &S  &\textbf{S}  &M  &M  &S  &M  &S  &\textbf{S}  &M/M  &W/M  &W/W  &W/W  &W/W  \\
+	\textbf{Robust to Multi-Modal Dataset} &S  &S  &W  &S  &\textbf{S}  &M  &M  &S  &M  &S  &\textbf{S}  &M/M  &W/M  &W/W  &W/W  &W/W  \\
 %	\textbf{Robust to Attribute Distribution} &W  &W  &S  &S  &S  &S  &-  &-  &-  &-  &-  &S/-  &W/-  &\textbf{S}/-  &W/-  &W/-  \\
 	\textbf{High LID Dataset} &S  &M  &S  &M  &\textbf{S}  &M  &M  &S  &M  &S  &\textbf{S}  &W/W  &M/S  &W/W  &W/M  &W/W  \\
 	\textbf{General-Purpose} &\faCheck  &\faCheck  &\faTimes  &\faTimes  &\faCheck  &\faTimes  &\faTimes  &\faTimes &\faTimes  & \faCheck &\faCheck&\faTimes  &\faCheck  &\faCheck  &\faCheck&\faTimes  \\
@@ -1466,8 +1478,10 @@ Faiss, Milvus, and VBASE handle complex scenarios with advanced filtering operat
 %		}
 		\textcolor{orange}{
 For example, in multi-attribute scenarios, some algorithms only support Boolean OR logic (e.g., FilterDiskANN), while others only support Boolean AND logic (e.g., NHQ and CAPS). Although algorithms such as ACORN, UNG, and Puck support both AND and OR logic across multiple attributes, they still struggle to handle complex Boolean expressions that involve nested combinations of conjunctions (AND) and disjunctions (OR). In contrast, while databases and the vector search library Faiss support more expressive Boolean logic, their performance is often suboptimal in queries involving only basic attribute filtering.
-Therefore, designing algorithms that can support complex filtering expressions while maintaining high query efficiency remains a key challenge to be addressed.
-		}
+Therefore, designing algorithms that can support complex filtering expressions while maintaining high query efficiency remains a key challenge to be addressed. }
+
+\textcolor{violet}{Notably, we find that IVF-based methods are easily extendable to support joint query scenarios of attribute filtering and range filtering, and are compatible with arbitrary combinations of Boolean logic. Experiments in this paper also indicate that IVF-based methods (CAPS, Puck) achieve performance comparable to graph algorithms, while having the lowest time and space overhead, making them highly suitable for large-scale data processing. Therefore, IVF-based hybrid query methods represent a very promising research direction.}
+		
 		
 	\textcolor{blue}{
 	Besides, our research findings indicate that the distribution and selectivity of attributes significantly impact the performance of attribute filtering methods. Therefore, when designing algorithms, efforts should be made to minimize the coupling with specific attribute value distributions, in order to enhance the robustness and generalization ability of the algorithms under varying data conditions.}
