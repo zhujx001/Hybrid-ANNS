@@ -234,7 +234,7 @@ Based on these reasons, we decided to remove the attribute distribution experime
 
 First, we have incorporated a standard text-to-image dataset, which is widely adopted by existing multi-modal ANN algorithms. In this dataset, the base vectors are images while the query set consists of texts, creating a modality gap that demands stronger algorithm robustness to achieve good performance. Second, to further test performance on complex queries, we have constructed a more challenging dataset with a base set of 500,000 text vectors and 500,000 image vectors, and a query set containing 5,000 text and 5,000 image vectors. On this latter dataset, we perform both attribute filtering and range queries using combined text and image inputs to analyze the algorithm's robustness under more complex, mixed-modality conditions. The experimental results are shown in Figure~\ref{fig:attribute_multimodel} and Figure~\ref{fig:range_multimodel}.
 
-As for complex query types that involve both attribute filtering and range queries simultaneously, to the best of our knowledge, existing algorithms—except for general-purpose systems such as Milvus and Faiss—do not support this functionality. For example, ACORN needs to build separate indexes for each scenario and cannot handle attribute filtering and range queries simultaneously. Therefore, we do not consider this type of complex query in our experiments but instead study the two query types separately. \textbf{(Please see Section 4.1.1, Section 4.2.4 and Secntion 4.3.4, highlighted in blue in the revised manuscript.)  
+As for complex query types that involve both attribute filtering and range queries simultaneously, to the best of our knowledge, existing algorithms—except for general-purpose systems such as Milvus and Faiss—do not support this functionality. For example, ACORN needs to build separate indexes for each scenario and cannot handle attribute filtering and range queries simultaneously. Therefore, we do not consider this type of complex query in our experiments but instead study the two query types separately. \textbf{(Please see Section 4.1.1, Section 4.2.3 and Secntion 4.3.3, highlighted in blue in the revised manuscript.)  
 	%Please refer to the blue highlighted parts in  Section 4.1.1 paragraph 4 and  Section 4.2.4 and Section 4.3.4 under Multi-modal Queries.)
 }
 
@@ -243,13 +243,13 @@ Section 4.1.1:\textcolor{blue}{
 }
 
 Section 4.2.4: \textcolor{blue}{
-	"We conducted experiments on the text2image-mix dataset. This dataset contains both image and text vectors. It is a more complex multimodal dataset. As shown in Figure 12, although the queries are more complex, UNG and NHQ still perform the best. CAPS is the next best.
+	"We conducted experiments on the text2image-mix dataset. This dataset contains both image and text vectors. It is a more complex multimodal dataset. As shown in Figure 9a, although the queries are more complex, UNG and NHQ still perform the best. CAPS is the next best.
 	Since the dataset mixes two modalities, the ground truth of the query set usually corresponds to the same modality. The nearest neighbors in the index are often from the same modality because they are closer in distance. Therefore, the search results on this dataset are similar to those in Figure 4. UNG and NHQ perform the best. CAPS clusters based on vector similarity. It actually clusters the vectors into the same modality. Then it uses attribute filtering to divide the data further. This allows CAPS to quickly find nearest neighbors that meet the filter conditions.
-	In contrast, the text2image dataset shown in Figure 11 is different. The queries and the dataset are from different modalities. The queries are far from the dataset. The ground truths are also scattered and not clustered together. To find the ground truths, the algorithm often needs to traverse more points. This is a greater challenge for the algorithms." 
+	In contrast, the text2image dataset shown in Figure 9a is different. The queries and the dataset are from different modalities. The queries are far from the dataset. The ground truths are also scattered and not clustered together. To find the ground truths, the algorithm often needs to traverse more points. This is a greater challenge for the algorithms." 
 }
 
 Section 4.3.4:\textcolor{blue}{
-		"Similar to attribute filtering, the performance of multimodal queries with range filtering shown in Figure 16a is also consistent with the single-modality results in Figure 14. As shown in Figure 15, the algorithms still perform the worst on multimodal datasets like Text2Image. This is because these range query algorithms are almost graph-based. Graph algorithms need more iterations to find true neighbors in OOD datasets."
+		"Similar to attribute filtering, the performance of multimodal queries with range filtering shown in Figure 12a is also consistent with the single-modality results in Figure 14. As shown in Figure 11, the algorithms still perform the worst on multimodal datasets like Text2Image. This is because these range query algorithms are almost graph-based. Graph algorithms need more iterations to find true neighbors in OOD datasets."
 }
 
 \begin{figure}[htbp]
@@ -319,11 +319,11 @@ We did observe slightly lower QPS on this server compared to our original one, w
 
 Section 4.2.3:
 %\textcolor{blue}{"To investigate the impact of different server configurations on the performance of the algorithms, we conduct additional experiments on a server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset, and the results are shown in Figure 12b. Compared with the experimental results on the original server, the relative ranking of the algorithms remains largely unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency and smaller RAM capacity, the QPS values are slightly lower across all methods."}
-\textcolor{blue}{"To investigate the impact of different server configurations on the performance of the algorithms, we conduct additional experiments on an Ubuntu 20.04 server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz featuring 128GB of RAM and 84 MiB of L3 cache using the YT-Audio-Real dataset, and the results are shown in Figure 12b. It is not difficult to see that the relative ranking of the algorithms under the two servers essentially remains unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency, reduced RAM capacity, and smaller L3 cache, all methods demonstrate slightly lower QPS values."}
+\textcolor{blue}{"To investigate the impact of different server configurations on the performance of the algorithms, we conduct additional experiments on an Ubuntu 20.04 server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz featuring 128GB of RAM and 84 MiB of L3 cache using the YT-Audio-Real dataset, and the results are shown in Figure 9b. It is not difficult to see that the relative ranking of the algorithms under the two servers essentially remains unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency, reduced RAM capacity, and smaller L3 cache, all methods demonstrate slightly lower QPS values."}
 
 Section 4.3.3:
 %\textcolor{blue}{"Consistent with Section 4.2.4, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure 16b. When compared with the experimental results of the original server, our findings remain consistent with those reported in Section 4.2.4. For brevity and due to space limitations, we omit further discussion of these redundant results."}
-\textcolor{blue}{"Consistent with Section 4.2.3, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure 16b. Our findings remain consistent with those reported in Section 4.2.3. For brevity and due to space limitations, we omit further discussion of these redundant results."}
+\textcolor{blue}{"Consistent with Section 4.2.3, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure 12b. Our findings remain consistent with those reported in Section 4.2.3. For brevity and due to space limitations, we omit further discussion of these redundant results."}
 
 
 %%%%%%%%%%%%%%%%%%%%%% R6 %%%%%%%%%%%%%%%%%%%%%%
@@ -387,7 +387,7 @@ Thank you for your suggestion. We are deeply aware of this shortcoming, so we pr
 	\centering
 	\includegraphics[width=\linewidth]{fig/legend_only.pdf}
 	\includegraphics[width=\linewidth]{fig/searchMem/label_memory_comparison.pdf}
-	\caption{Attribute filtering search peak memory}
+	\caption{Attribute Filtering Search Peak Memory}
 	\label{fig:search_memory_mb_comparison}
 \end{figure}
 
@@ -395,7 +395,7 @@ Thank you for your suggestion. We are deeply aware of this shortcoming, so we pr
 	\centering
 	\includegraphics[width=\linewidth]{fig/rangeFilter_legend_only.pdf}
 	\includegraphics[height=2.5cm]{fig/searchMem/range_memory_comparison.pdf}
-	\caption{Range filtering search peak memory}
+	\caption{Range Filtering Search Peak Memory}
 	\label{fig:rangeFilter_search_memory_mb}
 \end{figure}
 
@@ -420,7 +420,7 @@ Section 4.2.1:
 
 \noindent
 \textbf{Response:} 
-Thank you for your valuable suggestion regarding our experiments. In Section 4.2.3 and Section 4.3.3, we have added experiments on the Deep100M dataset. The results show that most algorithms struggle to balance performance with time and space costs on this large-scale dataset. In particular, StitchedVamana performs poorly on Deep100M. \textbf{(Please see the "Large-scale Datasets" part of Section 4.2.3 and Section 4.3.4, highlighted in blue in the revised manuscript.)}
+Thank you for your valuable suggestion regarding our experiments. In Section 4.2.3 and Section 4.3.3, we have added experiments on the Deep100M dataset. The results show that most algorithms struggle to balance performance with time and space costs on this large-scale dataset. In particular, StitchedVamana performs poorly on Deep100M. \textbf{(Please see the "Large-scale Datasets" part of Section 4.2.3 and Section 4.3.3, highlighted in blue in the revised manuscript.)}
 %\textbf{(Please refer to the blue highlighted parts in Section 4.2.4 and Section 4.3.4 under Large-scale Datasets.)}
 
 
@@ -539,7 +539,7 @@ Senction 5.1.3:	\textcolor{blue}{"All of the following methods support both attr
 }
 
 \noindent
-\textbf{Response:} I really appreciate your suggestion. Current hybrid search algorithms do not explicitly model or leverage complex semantic relationships, such as those between vectors and their attributes, or among different attributes. However, our evaluation covered a range of realistic scenarios, including multi-attribute setting, diverse distributions and selectivity, to assess the algorithms' generalization capabilities (though we used synthetic attributes).
+\textbf{Response:} I really appreciate your suggestion. Current hybrid query algorithms do not explicitly model or leverage complex semantic relationships, such as those between vectors and their attributes, or among different attributes. However, our evaluation covered a range of realistic scenarios, including multi-attribute setting, diverse distributions and selectivity, to assess the algorithms' generalization capabilities (though we used synthetic attributes).
 
 To demonstrate that the choice between synthetic and real attributes has little impact on algorithm performance, we have conducted an additional set of experiments. We used the YouTube-Audio dataset for vectors and compared results with both synthetic and real attributes (video classification). As shown in Figure~\ref{fig:compare}, the experimental outcomes have validated our hypothesis.
 
@@ -569,7 +569,7 @@ To demonstrate that the choice between synthetic and real attributes has little 
 
 \noindent
 \textbf{Response:} 
-Thank you for your feedback. We have improved the readability of the two figures in Section 4.2.3, and please see Meta R1 for details. 
+Thank you for your feedback. We have resolved this issue;For more  details,please see Meta R1 .
 
 
 %%%%%%%%%%%%%%%%%%%%%% W3 %%%%%%%%%%%%%%%%%%%%%%
@@ -863,10 +863,11 @@ For datasets with recommended parameters provided in the original papers, we dir
 
 According to our experimental results, for datasets using the recommended parameters, the algorithm rankings remained unchanged. During the search process, we adjusted the search parameters to obtain different Recall and QPS values. The search parameters typically span a wide range of values to ensure the completeness of the experimental results.
 
-Due to the large number of algorithms and datasets involved, we did not include all parameter settings in the paper because of space limitations. The detailed parameter configurations can be found in our public code repository. (\textbf{Please see Section 4.1.4, highlighted in blue in the revised manuscript.})
+Due to the large number of algorithms and datasets involved, we did not include all parameter settings in the paper because of space limitations. The detailed parameter configurations can be found in our public code repository. (\textbf{Please see Section 4.1.3, highlighted in blue in the revised manuscript.})
 
 	\textcolor{blue}{
-"In the experiments, for datasets with recommended parameters in the original paper, we use the recommended settings. For datasets without recommended parameters, we conduct experiments with different parameter settings and select the one that performs best for the final experiment.Due to the large number of datasets and algorithms involved, the parameters are not listed individually, but they are provided in the code repository."}
+%"In the experiments, for datasets with recommended parameters in the original paper, we use the recommended settings. For datasets without recommended parameters, we conduct experiments with different parameter settings and select the one that performs best for the final experiment.Due to the large number of datasets and algorithms involved, the parameters are not listed individually, but they are provided in the code repository."}
+Regarding experimental parameter selection, we adopted the recommended settings from original papers when available. For datasets without suggested parameters, we experimented with different configurations and selected the optimal one for final evaluation. Due to the extensive number of datasets and algorithms involved, specific parameters are not listed individually but are provided in our code repository.}
  
 \textbf{Regarding index partitioning and merging:}
 
@@ -1009,7 +1010,7 @@ To make the paper more readable, we have added a more detailed explanation of th
 
 
 
-In response to the large difference in index construction time shown in Figure 12a(now 13a), we have revised the paper based on your suggestion. We added more detailed and in-depth analysis to provide a clearer explanation. \textbf{(Please see the "Index construction time" part of Section 4.3.1, highlighted in blue in the revised manuscript.)}
+In response to the large difference in index construction time shown in Figure 12a(now 10a), we have revised the paper based on your suggestion. We added more detailed and in-depth analysis to provide a clearer explanation. \textbf{(Please see the "Index construction time" part of Section 4.3.1, highlighted in blue in the revised manuscript.)}
 
 	\textcolor{blue}{
 	"ACORN-1 also achieves highly efficient index construction, especially on large-scale datasets. This efficiency stems from its construction process, which closely resembles that of the original HNSW, and from reducing the number of candidate neighbors in the upper layers, thereby lowering computational cost. SeRF, another HNSW-based method, also exhibits very short construction time. During construction, it attaches timestamp information to edges, keeping the total time comparable to building a single HNSW graph, which enables efficient construction even on large datasets.}
@@ -1025,7 +1026,7 @@ In response to the large difference in index construction time shown in Figure 1
 \textcolor{blue}{
 	DSG is an optimization over SeRF, incorporating a rectangular tree structure for index management. This makes the construction process more complex and costly. In addition, on Deep100M, DSG uses single-threaded construction, resulting in the longest build time."}
 
-Finally, your observation about the missing peak memory usage data for Milvus in Figure 12c(now 13c) is very insightful. Initially, we hesitated to include the peak memory usage of databases (such as Milvus) because they are full systems that run continuously and contain many components. This makes them quite different from other algorithms.
+Finally, your observation about the missing peak memory usage data for Milvus in Figure 12c(now 10c) is very insightful. Initially, we hesitated to include the peak memory usage of databases (such as Milvus) because they are full systems that run continuously and contain many components. This makes them quite different from other algorithms.
 
 However, we agree with your point. To provide a more comprehensive evaluation, we have added the peak memory usage data of the database systems  in the revised version of the paper. This offers a more complete comparative view. \textbf{(Please see the "Build peak memory" part of Section 4.2.1 and Section 4.3.1, highlighted in blue in the revised manuscript.)}
 
