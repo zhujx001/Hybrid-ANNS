@@ -145,7 +145,7 @@
 	
 	\begin{figure*}
 		\centering
-		
+		\setlength{\belowcaptionskip}{-0.cm}
 		\includegraphics[width=0.92\textwidth]{figures/hybrid ANNS.pdf}
 		\caption{Hybrid Query Example}
 		
@@ -297,7 +297,8 @@
 			\label{fig:ivf}
 		\end{subfigure}
 		
-		
+		\setlength{\abovecaptionskip}{0.1cm}
+		\setlength{\belowcaptionskip}{-0.2cm}		
 		\caption{Graph Index and IVF Index}
 		
 	\end{figure}
@@ -521,22 +522,23 @@
 	
 	
 	\subsection{Vector Libraries and Databases}
+	Many existing vector libraries, such as Faiss, and databases, such as Milvus, VBASE, and PASE, are designed specifically for ANN search, but they also support attribute filtering and range queries. We also experimented with them. However, since these libraries and databases do not rely on a single algorithm, their internal implementations are complex, using multiple methods and have detailed third-party documentation, so we will not elaborate on them here.
 	
-	The vector libraries and databases discussed in the following are not explicitly designed for hybrid queries, but they support both attribute filtering and range filtering. Additionally, all the functionalities shown in Table 1 are also supported.
-	
-	\noindent\textbf{\underline{Faiss} \footnote{\textcolor{blue}{https://github.com/facebookresearch/faiss}} \cite{Faiss}}
-	Faiss is a library designed for efficient similarity search. It supports various indexing structures, including IVF, Product Quantization (PQ) \cite{PQ}, and HNSW. In hybrid query scenarios, Faiss supports vector search with an ID selector, which is a bitmap aligned with the dataset size. Users can generate this selector by first applying custom attribute filtering methods. During the query process, Faiss excludes vectors based on the selector, enabling efficient integration of attribute filtering with ANN search. In addition, we adopt the batch optimization strategy of HQI~\cite{HQI} for the IVF index in Faiss. This strategy groups queries with the same filter conditions, performs filtering once per group, and then uses efficient matrix operations to perform batch vector similarity calculations.
-	
-	
-	\noindent\textbf{\underline{PASE} \footnote{\textcolor{blue}{https://github.com/alipay/PASE}} \cite{pase}}
-	PASE is a vector indexing plugin for the PostgreSQL database \cite{postgresql13.4}, supporting two index types: IVF\_Flat \cite{johnson2019billion} and HNSW. By leveraging database capabilities, PASE enables both attribute filtering and range filtering. We focus on the post-filtering strategy based on HNSW, which facilitate comparison with other methods. When a query request is received, PASE first obtains a candidate set using the HNSW index. It then applies the filtering conditions from the WHERE clause to refine the results. However, since the candidate set has a fixed size, low-selectivity filters may result in fewer than $k$ results being returned.
-	
-	
-	\noindent\textbf{\underline{VBASE} \footnote{\textcolor{blue}{https://github.com/microsoft/MSVBASE}} \cite{vbase}}
-	Similar to PASE, VBASE is a PostgreSQL-based vector indexing plugin supporting HNSW, SPTAG~\cite{sptag}, and SPANN~\cite{spann}. We focus on HNSW-based search because SPTAG and SPANN have poorer performance and their source code does not fully implement index-building functionality. VBASE adopts a post-filtering strategy. However, it employs an iterative filtering mechanism: during index traversal, each node is checked against the WHERE clause, and non-matching nodes are discarded. This avoids the issue in PASE where the final result set may contain fewer than $k$ results.
-	
-	\noindent\textbf{\underline{Milvus} \footnote{\textcolor{blue}{https://github.com/milvus-io/milvus}} \cite{milvus}}
-	Unlike PASE and VBASE, which are database extensions, Milvus is an vector database purpose-built for large-scale similarity search. It supports multiple index types, including HNSW, IVF\_Flat, and IVF\_PQ, and provides extensive optimization for real-world deployment. Among its indexes, IVF\_Flat is commonly used due to its balance between performance and simplicity. In hybrid queries, Milvus first pre-filters the dataset using user-specified conditions, then traverses only the corresponding clusters for ANN search—similar to the ID selector mechanism of Faiss.
+%	The vector libraries and databases discussed in the following are not explicitly designed for hybrid queries, but they support both attribute filtering and range filtering. Additionally, all the functionalities shown in Table 1 are also supported.
+%	
+%	\noindent\textbf{\underline{Faiss} \footnote{\textcolor{blue}{https://github.com/facebookresearch/faiss}} \cite{Faiss}}
+%	Faiss is a library designed for efficient similarity search. It supports various indexing structures, including IVF, Product Quantization (PQ) \cite{PQ}, and HNSW. In hybrid query scenarios, Faiss supports vector search with an ID selector, which is a bitmap aligned with the dataset size. Users can generate this selector by first applying custom attribute filtering methods. During the query process, Faiss excludes vectors based on the selector, enabling efficient integration of attribute filtering with ANN search. In addition, we adopt the batch optimization strategy of HQI~\cite{HQI} for the IVF index in Faiss. This strategy groups queries with the same filter conditions, performs filtering once per group, and then uses efficient matrix operations to perform batch vector similarity calculations.
+%	
+%	
+%	\noindent\textbf{\underline{PASE} \footnote{\textcolor{blue}{https://github.com/alipay/PASE}} \cite{pase}}
+%	PASE is a vector indexing plugin for the PostgreSQL database \cite{postgresql13.4}, supporting two index types: IVF\_Flat \cite{johnson2019billion} and HNSW. By leveraging database capabilities, PASE enables both attribute filtering and range filtering. We focus on the post-filtering strategy based on HNSW, which facilitate comparison with other methods. When a query request is received, PASE first obtains a candidate set using the HNSW index. It then applies the filtering conditions from the WHERE clause to refine the results. However, since the candidate set has a fixed size, low-selectivity filters may result in fewer than $k$ results being returned.
+%	
+%	
+%	\noindent\textbf{\underline{VBASE} \footnote{\textcolor{blue}{https://github.com/microsoft/MSVBASE}} \cite{vbase}}
+%	Similar to PASE, VBASE is a PostgreSQL-based vector indexing plugin supporting HNSW, SPTAG~\cite{sptag}, and SPANN~\cite{spann}. We focus on HNSW-based search because SPTAG and SPANN have poorer performance and their source code does not fully implement index-building functionality. VBASE adopts a post-filtering strategy. However, it employs an iterative filtering mechanism: during index traversal, each node is checked against the WHERE clause, and non-matching nodes are discarded. This avoids the issue in PASE where the final result set may contain fewer than $k$ results.
+%	
+%	\noindent\textbf{\underline{Milvus} \footnote{\textcolor{blue}{https://github.com/milvus-io/milvus}} \cite{milvus}}
+%	Unlike PASE and VBASE, which are database extensions, Milvus is an vector database purpose-built for large-scale similarity search. It supports multiple index types, including HNSW, IVF\_Flat, and IVF\_PQ, and provides extensive optimization for real-world deployment. Among its indexes, IVF\_Flat is commonly used due to its balance between performance and simplicity. In hybrid queries, Milvus first pre-filters the dataset using user-specified conditions, then traverses only the corresponding clusters for ANN search—similar to the ID selector mechanism of Faiss.
 	
 	\section{Experiments}
 	\subsection{Experimental Setup}
@@ -699,7 +701,7 @@
 	
 	
 	
-	\textcolor{violet}{To investigate the time and space overhead of different algorithms,} we evaluate \textcolor{orange}{4} key metrics in the single-attribute scenario: index construction time, index size, \textcolor{orange}{build peak memory and search peak memory}. Notably, PASE on GIST1M and Enron is omitted, as it supports only data with dimensionality less than 512. \textcolor{orange}{Except for algorithms that only support single-threaded construction, all other algorithms are built using 32 threads on the six datasets shown on the left of Figure~\ref{fig:build_index_comparison}, and 64 threads on the large-scale Deep100M dataset, shown on the right.}
+	\textcolor{violet}{To investigate the time and space overhead of different algorithms,} we evaluate \textcolor{orange}{4} key metrics in the single-attribute scenario: index construction time, index size, \textcolor{orange}{build peak memory and search peak memory}. Notably, PASE on GIST1M and Enron is omitted, as it supports only data with dimensionality less than 512. \textcolor{orange}{We use 64 threads to build the index for the large-scale Deep100M dataset, and 32 threads for the other six datasets. Notably, the VBASE and PASE algorithms only support single-threaded construction.}
 	
 	
 	\begin{figure*}
@@ -720,9 +722,10 @@
 %	\end{figure*}
 	
 \textit{\textbf{Index construction time.}}
-\textcolor{orange}{Among the regular-scale datasets shown in the left part of Figure~\ref{fig:build_time_comparison_query1}, the methods with longest build times are mainly PASE, VBASE, and ACORN-$\gamma$. PASE and VBASE only support single-threaded builds. PASE is the slowest because its on-demand loading and caching strategies frequently trigger disk I/O and page scheduling, which seriously affects efficiency. VBASE uses full-memory builds and is relatively faster. ACORN-$\gamma$  has a high computational overhead because it needs to expand the neighbor list and evaluate a large number of candidates. Its build time on some datasets even exceeds that of single-threaded VBASE. }
+%\textcolor{orange}{Among the regular-scale datasets shown in the left part of Figure~\ref{fig:build_time_comparison_query1}, the methods with longest build times are mainly PASE, VBASE, and ACORN-$\gamma$. PASE and VBASE only support single-threaded builds. PASE is the slowest because its on-demand loading and caching strategies frequently trigger disk I/O and page scheduling, which seriously affects efficiency. VBASE uses full-memory builds and is relatively faster. ACORN-$\gamma$  has a high computational overhead because it needs to expand the neighbor list and evaluate a large number of candidates. Its build time on some datasets even exceeds that of single-threaded VBASE. }
+\textcolor{orange}{On the regular-scale datasets (Figure~\ref{fig:build_time_comparison_query1}, left), among the algorithms limited to single-threaded construction, PASE has the longest build time. This is because its on-demand loading and caching strategies frequently trigger disk I/O and page scheduling, which seriously affects efficiency. In contrast, VBASE uses full-memory builds and is therefore comparatively faster. Among the multi-threaded algorithms, ACORN-$\gamma$ is the slowest because it needs to expand the neighbor list and evaluate a large number of candidates. Its build time on some datasets even exceeds that of the single-threaded VBASE. }
 
-\textcolor{orange}{On the large-scale dataset Deep100M, besides the three methods already mentioned, we also observe that algorithms based on Vamana (such as FilteredDiskANN and UNG) exhibit significantly increased construction time. Vamana adopts a two-pass graph construction and optimization strategy (greedy search + robust pruning), resulting in extremely high computational overhead. In contrast, the construction time of IVF-based algorithms grows much more slowly with dataset size, thanks to their shard-based design and high parallel efficiency, making them more scalable and advantageous in large-scale scenarios.}
+\textcolor{orange}{On the large-scale dataset Deep100M(Figure~\ref{fig:build_time_comparison_query1}, right), in addition to the three methods already mentioned, we also observe that algorithms based on Vamana (FilteredDiskANN, StitchedVamana and UNG) exhibit significantly increased construction time. This is because Vamana adopts a two-pass graph construction and optimization strategy (greedy search + robust pruning), resulting in extremely high computational overhead. In contrast, the construction time of IVF-based algorithms grows much more slowly with dataset size.This is because their shard-based design and high parallel efficiency, making them more scalable and advantageous in large-scale scenarios.}
 
 %ACORN-1 achieves the fastest index construction. This efficiency stems from its similarity to the original HNSW construction process and the use of a limited number of candidate neighbors.
 
@@ -775,17 +778,15 @@ Most algorithms load both the index and the dataset into memory during the build
 	
 	
 	\textit{Single-Thread Search.}  
-	\textcolor{violet}{As shown in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}, under near-perfect recall (recall approaching 1) conditions, search often requires traversing larger candidate sets or deeper graph paths. This leads to increased computational cost and a sharp QPS drop for most methods. Despite this, UNG consistently maintains high QPS due to its LNG structure, which eliminates unnecessary online filtering of irrelevant attributes and searches only within the subgraph formed by points satisfying the filtering conditions, thereby improving query efficiency.}
+	As shown in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}, as recall approaches 1, search often requires traversing larger candidate sets or deeper graph paths. This leads to increased computational cost and a sharp QPS drop for most methods. Despite this, UNG consistently maintains high QPS due to its LNG structure, which eliminates unnecessary online filtering of irrelevant attributes and searches only within the subgraph formed by points satisfying the filtering conditions, thereby improving query efficiency.
 	
-	\textcolor{violet}{NHQ and StitchedVamana also perform well and show similar and stable performance across all datasets. This indicates that joint filtering and search strategies can achieve consistent effectiveness under high-recall requirements.}
-	
-	\textcolor{violet}{StitchedVamana outperforms FilteredVamana in query efficiency. This difference stems from their pruning strategies: StitchedVamana applies pruning after merging graphs, allowing nodes to accumulate a richer candidate set; while FilteredVamana applies early pruning, potentially eliminating useful candidates prematurely.}
+	\textcolor{violet}{NHQ and StitchedVamana also perform well and show similar and stable performance across all datasets. This indicates that joint filtering and search strategies can achieve consistent effectiveness under high-recall requirements.} StitchedVamana outperforms FilteredVamana in query efficiency. This difference stems from their pruning strategies: StitchedVamana applies pruning after merging graphs, allowing nodes to accumulate a richer candidate set; while FilteredVamana applies early pruning, potentially eliminating useful candidates prematurely.
 	
 	%	Puck and CAPS perform relatively well. Partition-based methods have limitations regarding different vector data distributions, and how to configure different partitions for different datasets remains a challenge. However, this also demonstrates that IVF-based methods remain very promising for hybrid queries.
 	
 	\textcolor{violet}{Puck and CAPS perform relatively well, indicating that IVF-based methods remain very promising for hybrid queries.}
 	
-	\textcolor{violet}{Among all methods, vector database systems (PASE, VBASE, Milvus) show the worst performance. These systems target general-purpose scenarios but incur communication latency from network I/O and experience high query processing overhead due to complex query parsing. Additionally, we observe that Faiss+HQI\_Batch outperforms original Faiss, indicating that batch querying via HQI can effectively enhance query performance.}
+	Among all methods, vector database systems (PASE, VBASE, Milvus) show the worst performance. These systems target general-purpose scenarios but incur communication latency from network I/O and experience high query processing overhead due to complex query parsing. Additionally, we observe that Faiss+HQI\_Batch outperforms original Faiss, indicating that batch querying via HQI can effectively enhance query performance.
 	
 %	\textcolor{violet}{\textit{Multi-Thread Search.} As shown in Figure~\ref{fig:exp_1_2_SingleLabel_16thread}, under multi-threading, all algorithms except Puck show similar improvements, with UNG continuing to maintain the best performance. Puck achieves significant performance improvements in multi-threaded scenarios, delivering near-linear speedup by processing each query independently with a thread-local search context. This design eliminates synchronization overhead, enabling efficient parallel execution.}
 	
