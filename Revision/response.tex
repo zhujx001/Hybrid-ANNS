@@ -180,7 +180,7 @@ For performance under different attribute selectivity, to reflect the performanc
 }
 
 \noindent
-\textbf{Response:} We believe this is an excellent suggestion. To provide a more comprehensive evaluation of our algorithm's robustness, we introduce new experiments on two challenging multimodal datasets. 
+\textbf{Response:} We believe this is an excellent suggestion. To provide a more comprehensive evaluation of the robustness of each algorithm, we introduce new experiments on two challenging multi-modal datasets. 
 
 First, we have incorporated a standard text-to-image dataset, which is widely adopted by existing multimodal ANN algorithms. In this dataset, the base vectors are images while the query set consists of texts, creating a modality gap that demands stronger algorithm robustness to achieve good performance. Second, to further test performance on complex queries, we have constructed a more challenging dataset with a base set of 500,000 text vectors and 500,000 image vectors, and a query set containing 5,000 text and 5,000 image vectors. On this latter dataset, we perform both attribute filtering and range queries using combined text and image inputs to analyze the algorithm's robustness under more complex, mixed-modality conditions. The experimental results are shown in Figure~\ref{fig:attribute_multimodel} and Figure~\ref{fig:range_multimodel}.
 
