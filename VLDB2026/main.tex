@@ -1108,7 +1108,7 @@ Most algorithms load both the index and the dataset into memory during the build
 
 %	\subsubsection{Scalability Study}
 	\textit{\textbf{\textcolor{blue}{Multi-Modal Queries.}}} \textcolor{blue}{
-		We conduct experiments on the Text2image-Mix dataset. This dataset contains image and text vectors and is a hybrid multimodal dataset. As shown in Figure~\ref{fig:attribute-multimodal}, UNG and NHQ consistently perform best, followed by CAPS.
+		We conduct experiments on the Text2image-Mix dataset. This dataset contains image and text vectors and is a hybrid multi-modal dataset. As shown in Figure~\ref{fig:attribute-multimodal}, UNG and NHQ consistently perform best, followed by CAPS.
 		Although this dataset mixes two modalities, the vector space distributions of different modalities often differ significantly. In practice, this means that the experiments effectively treat the image and text subsets as separate datasets, since the ground truths for each query belong to the same modality. Therefore, the performance on this dataset is similar to the results shown in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}.
 		In contrast, the Text2image dataset shown in Figure~\ref{fig:attribute-multimodal} is different. The query set and the base dataset belong to two completely different modalities. Queries are far from the dataset points, and the ground truths are more dispersed. To find the ground truths, algorithms typically need to examine more points, which leads to degraded performance.
 		%	We conduct experiments on the text2image-mix dataset. This dataset contains both image and text vectors. It is a more complex multimodal dataset. As shown in Figure~\ref{fig:attribute-multimodal}, although the queries are more complex, UNG and NHQ still perform the best. CAPS is the next best.
@@ -1368,7 +1368,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	
 	\textit{\textbf{\textcolor{blue}{Multi-Modal Queries.}}}
 	\textcolor{blue}{
-		Similar to attribute filtering, the performance of multimodal range filtering queries shown in Figure~\ref{fig:range-multimodal} also aligns with the single-modality results in Figure~\ref{fig:exp_8_2}. These algorithms on the Text2Image dataset exhibit a significant performance degradation. This is because these range query algorithms are almost entirely graph-based, and graph algorithms require more iterations to find true neighbors in OOD datasets.
+		Similar to attribute filtering, the performance of multi-modal range filtering queries shown in Figure~\ref{fig:range-multimodal} also aligns with the single-modality results in Figure~\ref{fig:exp_8_2}. These algorithms on the Text2Image dataset exhibit a significant performance degradation. This is because these range query algorithms are almost entirely graph-based, and graph algorithms require more iterations to find true neighbors in OOD datasets.
 %		Similar to attribute filtering, the performance of multimodal queries with range filtering shown in Figure~\ref{fig:range-multimodal} is also consistent with the single-modality results in Figure~\ref{fig:exp_8_2}. As shown in Figure~\ref{fig:exp_8_3}, the algorithms still perform the worst on multimodal datasets like Text2Image. This is because these range query algorithms are almost graph-based. Graph algorithms need more iterations to find true neighbors in OOD datasets.
 		}
 		
@@ -1406,7 +1406,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	\textbf{Peak Memory} &W  &M  &M  &M  &M  &S  &W  &W  &M  &W  &W  &W/W  &\textbf{S}/\textbf{S}  &S/M  &S/M  &S/S \\
 	\textbf{Large-Scale Dataset} & S & S & W & W &\textbf{S} &S  &M  &S  &M  &S  &\textbf{S}  &M/W  &W/M  &W/W  &M/M  &-  \\
 	\textbf{Rare Attribute \& Low Range} &M  &M  &S  &S &\textbf{S}  &S  &S  &S  &W  &M  &\textbf{S} &M/M  &M/M  &W/W  &W/W  &W/W  \\
-	\textbf{Robust to MultiModal Dataset} &S  &S  &W  &S  &\textbf{S}  &M  &M  &S  &M  &S  &\textbf{S}  &M/M  &W/M  &W/W  &W/W  &W/W  \\
+	\textbf{Robust to Multi-Modal Dataset} &S  &S  &W  &S  &\textbf{S}  &M  &M  &S  &M  &S  &\textbf{S}  &M/M  &W/M  &W/W  &W/W  &W/W  \\
 %	\textbf{Robust to Attribute Distribution} &W  &W  &S  &S  &S  &S  &-  &-  &-  &-  &-  &S/-  &W/-  &\textbf{S}/-  &W/-  &W/-  \\
 	\textbf{High LID Dataset} &S  &M  &S  &M  &\textbf{S}  &M  &M  &S  &M  &S  &\textbf{S}  &W/W  &M/S  &W/W  &W/M  &W/W  \\
 	\textbf{General-Purpose} &\faCheck  &\faCheck  &\faTimes  &\faTimes  &\faCheck  &\faTimes  &\faTimes  &\faTimes &\faTimes  & \faCheck &\faCheck&\faTimes  &\faCheck  &\faCheck  &\faCheck&\faTimes  \\
