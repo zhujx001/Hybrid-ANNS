@@ -606,7 +606,7 @@ To address the lack of standardized evaluation benchmarks in attribute filtering
 	
 	
 	%4.2.1
-	\subsubsection{Time and Space overhead of index construction}
+	\subsubsection{\textcolor{violet}{Time and Space overhead}}
 	% \subsubsection{\textbf{Attribute Filtering}}
 	\begin{figure}[t]
 		\centering
@@ -660,7 +660,7 @@ To address the lack of standardized evaluation benchmarks in attribute filtering
 	
 	
 	
-	To investigate the performance of different attribute filtering algorithms during index construction, we evaluate \textcolor{orange}{4} key metrics in the single-attribute scenario: index construction time, index size, \textcolor{orange}{build peak memory and search peak memory}. Notably, PASE on GIST1M and Enron is omitted, as it supports only data with dimensionality less than 512. \textcolor{orange}{Except for algorithms that only support single-threaded construction, all other algorithms are built using 32 threads on the 6 datasets shown in the left figure, and 64 threads on the large-scale Deep100M dataset.}
+	\textcolor{violet}{To investigate the time and space overhead of different algorithms,} we evaluate \textcolor{orange}{4} key metrics in the single-attribute scenario: index construction time, index size, \textcolor{orange}{build peak memory and search peak memory}. Notably, PASE on GIST1M and Enron is omitted, as it supports only data with dimensionality less than 512. \textcolor{orange}{Except for algorithms that only support single-threaded construction, all other algorithms are built using 32 threads on the 6 datasets shown in the left figure, and 64 threads on the large-scale Deep100M dataset.}
 	
 	
 	\begin{figure*}
@@ -740,7 +740,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	
 	
 	\textit{Single-Thread Search.}  
-	\textcolor{violet}{As shown in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}, under near-perfect recall (recall approaching 1) conditions, search often requires traversing larger candidate sets or deeper graph paths. This leads to increased computational cost and a sharp QPS (queries per second) drop for most methods. Despite this, UNG consistently maintains high QPS due to its LNG structure, which eliminates unnecessary online filtering of irrelevant attributes and searches only within the subgraph formed by points satisfying the filtering conditions, thereby improving query efficiency.}
+	\textcolor{violet}{As shown in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}, under near-perfect recall (recall approaching 1) conditions, search often requires traversing larger candidate sets or deeper graph paths. This leads to increased computational cost and a sharp QPS drop for most methods. Despite this, UNG consistently maintains high QPS due to its LNG structure, which eliminates unnecessary online filtering of irrelevant attributes and searches only within the subgraph formed by points satisfying the filtering conditions, thereby improving query efficiency.}
 	
 	\textcolor{violet}{NHQ and StitchedVamana also perform well and show similar and stable performance across all datasets. This indicates that joint filtering and search strategies can achieve consistent effectiveness under high-recall requirements.}
 	
@@ -752,7 +752,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	
 	\textcolor{violet}{Among all methods, vector database systems (PASE, VBASE, Milvus) show the worst performance. These systems target general-purpose scenarios but incur communication latency from network I/O and experience high query processing overhead due to complex query parsing. Additionally, we observe that Faiss+HQI\_Batch outperforms original Faiss, indicating that batch querying via HQI can effectively enhance query performance.}
 	
-	\textcolor{violet}{\textit{Multi-Thread Search.} As shown in Figure~\ref{fig:exp_1_2_SingleLabel_16thread}, under multi-threading, all algorithms except Puck show similar improvements, with UNG continuing to maintain the best performance. Puck achieves significant performance improvement in multi-threading scenarios.}
+	\textcolor{violet}{\textit{Multi-Thread Search.} As shown in Figure~\ref{fig:exp_1_2_SingleLabel_16thread}, under multi-threading, all algorithms except Puck show similar improvements, with UNG continuing to maintain the best performance. Puck achieves significant performance improvements in multi-threaded scenarios, delivering near-linear speedup by processing each query independently with a thread-local search context. This design eliminates synchronization overhead, enabling efficient parallel execution.}
 	
 	%	\textit{Single-Thread Search.}  
 	%	As shown in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}, under full-recall conditions (recall = 1), search often requires traversing larger candidate sets or deeper graph paths, leading to increased computational cost and a sharp QPS drop for most methods. Despite this, UNG maintains high QPS due to its LNG structure, which eliminates unnecessary online filtering of irrelevant attributes, thereby improving query efficiency. But, UNG slightly underperforms on high-LID datasets such as GloVe. In contrast, CAPS performs better on high-LID datasets but is more sensitive to dataset characteristics. CAPS leverages multi-level spatial partitioning and attribute filtering to efficiently explore sparse spaces, whereas UNG relies on structured attribute organization, which limits its adaptability to sparse high-dimensional distributions.
@@ -1135,7 +1135,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	\end{figure}
 	\subsection{Range Filtering}
 	\textcolor{blue}{Due to the limitations of existing range filtering algorithms, our experiment uses only a single attribute, with the dataset sorted in ascending order by value. The WIT-Real and YT-Audio-Real datasets use real attribute values, while the rest use randomly generated ones. }
-	\subsubsection{Time and Space overhead of index construction.}
+	\subsubsection{\textcolor{violet}{Time and Space overhead.}}
 	
 	%Similar to the evaluation of \textit{Attribute Filtering} algorithms, 
 	Similarly, we also evaluate \textcolor{orange}{4} key metrics mentioned above in \textit{Range Filtering} algorithms. \textcolor{orange}{Note: For regular-scale datasets, all algorithms build indexes using a single thread. For the large-scale dataset Deep100M, all algorithms use 64 threads for index construction to improve efficiency, except DSG, which only supports single-threaded construction.}
