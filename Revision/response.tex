@@ -136,7 +136,7 @@ and concerns, and the changes are highlighted \textcolor{blue}{in blue} accordin
 }
 
 \noindent
-\textbf{Response:} 
+
 
 %%%%%%%%%%%%%%%%%%%%%% R1 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -146,32 +146,82 @@ and concerns, and the changes are highlighted \textcolor{blue}{in blue} accordin
 }
 
 \noindent
-\textbf{Response:} We sincerely appreciate your valuable suggestions, which provide meaningful improvements to our work. Ensuring the readability of the figures is indeed crucial. We have modified both the figure and the related description in the paper to improve readability and ensure academic rigor. \textbf{(Please see Section 4.2.3, highlighted in blue in the revised manuscript.)}
+%\textbf{Response:} We sincerely appreciate your valuable suggestions, which provide meaningful improvements to our work. Ensuring the readability of the figures is indeed crucial. We have modified both the figure and the related description in the paper to improve readability and ensure academic rigor. \textbf{(Please see Section 4.2.3, highlighted in blue in the revised manuscript.)}
+%
+%\textcolor{blue}{"The proximity of the 4 curves in the figure reflects algorithm sensitivity to distributional variations. When the curves converge closely, the algorithm demonstrates strong resilience against attribute distribution shifts."}
+%
+%For performance under different attribute distributions, to illustrate how different algorithms are affected by varying attribute distributions, we added robustness indicators (Strong and Weak) in the figure. This provides more intuitive visualization of how robust each algorithm performs across different attribute distributions. As shown in Figure\ref{fig:attribute_distribution} below.
+\textbf{Response:} Thank you for your valuable suggestions. We agree that the original figure had readability issues. We have first improved the readability of the attribute selectivity Figure~\ref{fig:attribute_selectivity} by adding comparative legends for each algorithm and standardizing the y-axis scales across different subplots.
 
-\textcolor{blue}{"The proximity of the 4 curves in the figure reflects algorithm sensitivity to distributional variations. When the curves converge closely, the algorithm demonstrates strong resilience against attribute distribution shifts."}
 
-For performance under different attribute distributions, to illustrate how different algorithms are affected by varying attribute distributions, we added robustness indicators (Strong and Weak) in the figure. This provides more intuitive visualization of how robust each algorithm performs across different attribute distributions. As shown in Figure\ref{fig:attribute_distribution} below.
+Furthermore, based on your feedback, we have carefully revised and reanalyzed the experimental sections related to “attribute distribution” and “attribute selectivity” in the paper. 
 
-\begin{figure}[htbp]
+In real-world applications, attribute distributions are often diverse, such as long-tail, uniform, or normal distributions. In our initial design, we included multiple attribute distributions to evaluate the robustness of algorithms under different data characteristics. However, we later realized that attribute distribution is essentially a mixture of different attribute selectivities. Its impact on algorithm performance is ultimately determined by attribute selectivity in each query.
+For example, in a long-tail distribution, querying a common “head” attribute is equivalent to a high attribute selectivity (High AS) case, while querying a rare “tail” attribute is equivalent to a low attribute selectivity (Low AS) case.
+Therefore, by evaluating performance under a range of attribute selectivities (e.g., AS = 1\% to AS = 75\%), we have already covered the effects of different attribute distributions. In this sense, the attribute selectivity experiments provide a unified and quantitative way to reflect the influence of attribute distributions.
+
+We present the results of attribute distribution and attribute selectivity in Figure~\ref{fig:attribute_distribution} and Figure~\ref{fig:attribute_selectivity} , respectively. The conclusions are highly consistent. For example, Faiss performs poorly under high attribute selectivity and also under long-tail distributions. This is because most queries in a long-tail distribution correspond to high-selectivity attributes, while only a few are low-selectivity, which limits the overall performance.
+
+Moreover, previous studies (e.g., FilteredDiskANN, Milvus) also commonly use attribute selectivity as a key metric for evaluating filtering performance.
+
+Based on these reasons, we decided to remove the attribute distribution experiments and retain only the attribute selectivity analysis. We also removed the original Figure~\ref{fig:attribute_selectivity_2}, which displayed too many algorithms in one plot and was difficult to interpret. We believe these changes improve the clarity and readability of the paper, without reducing the completeness of the evaluation.
+
+
+\begin{figure*}[t]  % 或者 [b] 放到底部
 	\centering
-	\includegraphics[width=\linewidth]{fig/exp_3_1_legend.pdf}
+%	\includegraphics[width=\linewidth]{fig/exp_3_1_legend.pdf}
 	\includegraphics[width=\linewidth]{fig/exp_3_1.pdf}
-	\caption{Effect of Attribute Distribution on Query Performance (Strong is robust to attribute distribution shifts, Weak is sensitive to attribute distribution shifts)}
+	\caption{Effect of Attribute Distribution on Query Performance (Strong indicates robustness to attribute distribution shifts, Weak indicates sensitivity)}
 	\label{fig:attribute_distribution}
-\end{figure}
+\end{figure*}
 
-For performance under different attribute selectivity, to reflect the performance differences of each algorithm under varying attribute selectivities, we added performance rankings for each algorithm across different selectivity levels in the figure. This provides a clearer illustration of how each algorithm is affected by attribute selectivity rates. As shown in Figure~\ref{fig:attribute_selectivity} below.
+%For performance under different attribute selectivity, to reflect the performance differences of each algorithm under varying attribute selectivities, we added performance rankings for each algorithm across different selectivity levels in the figure. This provides a clearer illustration of how each algorithm is affected by attribute selectivity rates. As shown in Figure~\ref{fig:attribute_selectivity} below.
 
+
+
+
+	\begin{figure*}
+	\centering
+	
+	% 第一行：单独一张大图
+	\begin{subfigure}{\textwidth}
+		\centering
+		
+		\includegraphics[width=0.95\textwidth]{fig/exp_5_2_1.pdf}
+		\caption{Algorithms Optimized for Low AS}
+		\label{fig:exp_5_2_1}
+	\end{subfigure}
+	
+	\vfill % 增加垂直间距
+	
+	% 第二行：两张子图，左侧宽度是右侧的两倍
+	\begin{subfigure}{0.627\textwidth} % 2/3 宽度
+		\centering
+		
+		\includegraphics[width=0.96\textwidth]{fig/exp_5_2_2.pdf}
+		\caption{Algorithms Optimized for High AS}
+		\label{fig:exp_5_2_2}
+	\end{subfigure}
+	\hspace{1mm} % 增加水平间距
+	\begin{subfigure}{0.33\textwidth} % 1/3 宽度
+		\centering
+		
+		\includegraphics[width=0.96\textwidth]{fig/exp_5_2_3.pdf}
+		\caption{Algorithms Insensitive to AS}
+		\label{fig:exp_5_2_3}
+	\end{subfigure}
+	
+	
+	\caption{Different Attribute Selectivity (AS) under the Same Algorithm}
+	\label{fig:attribute_selectivity}
+\end{figure*}
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.8\linewidth]{fig/exp_5_2_1_legend.pdf}
-	\includegraphics[width=\linewidth]{fig/exp_5_2_1.pdf}
+	%	\includegraphics[width=0.8\linewidth]{fig/exp_5_2_1_legend.pdf}
+	\includegraphics[width=\linewidth]{fig/exp_5_1_1_SingleLabel_1thread.pdf}
 	\caption{Different AS under the Same Algorithm}
-	\label{fig:attribute_selectivity}
+	\label{fig:attribute_selectivity_2}
 \end{figure}
-
-
-
 %%%%%%%%%%%%%%%%%%%%%% R2 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
 	\begin{metarevision}
@@ -204,7 +254,7 @@ Section 4.3.4:\textcolor{blue}{
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.8\linewidth]{fig/attribute_legend.pdf}
+	\includegraphics[width=0.98\linewidth]{fig/attribute_legend.pdf}
 	\includegraphics[width=\linewidth]{fig/attribute_multimodel_2.pdf}
 	\caption{Attribute Filtering Multi-modal}
 	\label{fig:attribute_multimodel}
@@ -212,7 +262,7 @@ Section 4.3.4:\textcolor{blue}{
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.8\linewidth]{fig/range_legend.pdf}
+	\includegraphics[width=0.95\linewidth]{fig/range_legend.pdf}
 	\includegraphics[width=\linewidth]{fig/range_multimodel_2.pdf}
 	\caption{Range Filtering Multi-modal}
 	\label{fig:range_multimodel}
@@ -228,7 +278,7 @@ Section 4.3.4:\textcolor{blue}{
 	% --- 不再使用 subfigure ---
 	% 直接放置第二张图片，可以加一点垂直间距
 	\vspace{5pt} 
-	\includegraphics[width=0.99\columnwidth]{fig/range_2_2.pdf}
+	\includegraphics[width=0.95\columnwidth]{fig/range_2_2.pdf}
 	
 	\caption{Comparison of Real and Synthetic Attributes}
 	\label{fig:range_2_2}
@@ -265,15 +315,15 @@ Thank you for your suggestion. Using the ID as an attribute for range filtering 
 \textbf{Response:} 
 That is a great suggestion. In order to figure out if the server setting affects the relative ordering of methods, we conducted additional experiments on an Ubuntu 20.04 server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz featuring 128GB of RAM and 84 MiB of L3 cache using the YT-Audio-Real dataset.
 The results show that the performance differences across algorithms remain small, and their relative rankings do not change significantly across servers.
-We did observe slightly lower QPS on this server compared to our original one, which is mainly due to the the lower CPU frequency, reduced RAM capacity, and smaller L3 cache of the Xeon 6330 processors. \textbf{(Please see Section 4.2.4 and Section 4.3.4, highlighted in blue in the revised manuscript.)} 
+We did observe slightly lower QPS on this server compared to our original one, which is mainly due to the the lower CPU frequency, reduced RAM capacity, and smaller L3 cache of the Xeon 6330 processors. \textbf{(Please see Section 4.2.3 and Section 4.3.3, highlighted in blue in the revised manuscript.)} 
 
-Section 4.2.4:
+Section 4.2.3:
 %\textcolor{blue}{"To investigate the impact of different server configurations on the performance of the algorithms, we conduct additional experiments on a server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset, and the results are shown in Figure 12b. Compared with the experimental results on the original server, the relative ranking of the algorithms remains largely unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency and smaller RAM capacity, the QPS values are slightly lower across all methods."}
 \textcolor{blue}{"To investigate the impact of different server configurations on the performance of the algorithms, we conduct additional experiments on an Ubuntu 20.04 server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz featuring 128GB of RAM and 84 MiB of L3 cache using the YT-Audio-Real dataset, and the results are shown in Figure 12b. It is not difficult to see that the relative ranking of the algorithms under the two servers essentially remains unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency, reduced RAM capacity, and smaller L3 cache, all methods demonstrate slightly lower QPS values."}
 
-Section 4.3.4:
+Section 4.3.3:
 %\textcolor{blue}{"Consistent with Section 4.2.4, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure 16b. When compared with the experimental results of the original server, our findings remain consistent with those reported in Section 4.2.4. For brevity and due to space limitations, we omit further discussion of these redundant results."}
-\textcolor{blue}{"Consistent with Section 4.2.4, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure 16b. Our findings remain consistent with those reported in Section 4.2.4. For brevity and due to space limitations, we omit further discussion of these redundant results."}
+\textcolor{blue}{"Consistent with Section 4.2.3, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure 16b. Our findings remain consistent with those reported in Section 4.2.3. For brevity and due to space limitations, we omit further discussion of these redundant results."}
 
 
 %%%%%%%%%%%%%%%%%%%%%% R6 %%%%%%%%%%%%%%%%%%%%%%
@@ -370,13 +420,13 @@ Section 4.2.1:
 
 \noindent
 \textbf{Response:} 
-Thank you for your valuable suggestion regarding our experiments. In Section 4.2.4 and Section 4.3.4, we have added experiments on the Deep100M dataset. The results show that most algorithms struggle to balance performance with time and space costs on this large-scale dataset. In particular, StitchedVamana performs poorly on Deep100M. \textbf{(Please see the "Large-scale Datasets" part of Section 4.2.4 and Section 4.3.4, highlighted in blue in the revised manuscript.)}
+Thank you for your valuable suggestion regarding our experiments. In Section 4.2.3 and Section 4.3.3, we have added experiments on the Deep100M dataset. The results show that most algorithms struggle to balance performance with time and space costs on this large-scale dataset. In particular, StitchedVamana performs poorly on Deep100M. \textbf{(Please see the "Large-scale Datasets" part of Section 4.2.3 and Section 4.3.4, highlighted in blue in the revised manuscript.)}
 %\textbf{(Please refer to the blue highlighted parts in Section 4.2.4 and Section 4.3.4 under Large-scale Datasets.)}
 
 
-Section 4.2.4:\textcolor{blue}{"As shown in the figure 12c, on the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating good adaptability to large-scale datasets. However, this also comes with significant memory overhead. The clustering-based algorithm Faiss+HQI\_Batch shows moderate performance but has very low memory overhead, which also has certain practical significance. Furthermore, we do not present the experimental results for StitchedVamana because its recall consistently remains at a very low level. This is due to its search starting point being set to 0 by default, when the entry point is far from the target area, it easily gets stuck in a local optimum, making it difficult to navigate to the vicinity of the correct point."}
+Section 4.2.3:\textcolor{blue}{"As shown in the figure 12c, on the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating good adaptability to large-scale datasets. However, this also comes with significant memory overhead. The clustering-based algorithm Faiss+HQI\_Batch shows moderate performance but has very low memory overhead, which also has certain practical significance. Furthermore, we do not present the experimental results for StitchedVamana because its recall consistently remains at a very low level. This is due to its search starting point being set to 0 by default, when the entry point is far from the target area, it easily gets stuck in a local optimum, making it difficult to navigate to the vicinity of the correct point."}
 
-Section 4.3.4:
+Section 4.3.3:
 \textcolor{blue}{"As shown in the figure 16c, in the 100-million-scale dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption (300-400GB). At the same time, we can see that some algorithms (e.g., SeRF, ACORN-1) perform even worse than the VBASE database, which indicates that they do not adapt well to large-scale dataset scenarios. Although Milvus has a low QPS, it can achieve a recall of 1 with an excellent memory footprint of around 80GB"}
 
 %%%%%%%%%%%%%%%%%%%%%% R9 %%%%%%%%%%%%%%%%%%%%%%
@@ -434,7 +484,7 @@ Senction 5.1.3:	\textcolor{blue}{"All of the following methods support both attr
 }
 
 \noindent
-\textbf{Response:} Thank you very much for your valuable suggestions. Your advice is very insightful. In the recommendation section of our paper, we have added a clearer summary table of the algorithms to help readers choose the appropriate algorithm based on their application scenarios,as shown in Table~\ref{tab:algo_scenarios}. \textbf{(Please see Section 5.1.1 and Section 5.1.2, highlighted in blue in the revised manuscript.)}
+\textbf{Response:} Thank you very much for your valuable suggestions. Your advice is very insightful. In the recommendation section of our paper, we have added a clearer summary table of the algorithms to help readers choose the appropriate algorithm based on their application scenarios, as shown in Table~\ref{tab:algo_scenarios}. \textbf{(Please see Section 5.1.1 and Section 5.1.2, highlighted in blue in the revised manuscript.)}
 
 
 %\subsection{Recommendations.}
@@ -560,7 +610,7 @@ Thank you for your suggestion. We fully understand your concern regarding our us
 
 To address this critical issue and enhance the real-world relevance of our evaluation, we have incorporated two new real-world datasets with their actual attributes into our attribute filtering and range filtering experiments, and we have clarified the sources of these real-world attributes. For more details, please refer to our response to Meta R3.
 
-For attribute filtering, by incorporating the YT-Audio-Real and WIT-Real datasets with their respective real-world attributes, we have revised the "Single-Attribute Index Construction and Single-Attribute Query" experiments and amended the manuscript accordingly. It is also worth noting that in Section 4.2.2, under the "Single-Attribute Index Construction and Single-Attribute Query" subsection, we have removed two previous datasets (Audio and GloVe) due to space constraints. The Audio dataset was removed because its smaller scale offered limited reference value. The GloVe dataset is similar in scale to SIFT1M, while LID is similar to GIST1M. \textbf{(Please see Section 4.2.1, and the "Single-Attribute Building and Single-Attribute Query" subsection in Section 4.2.2,  highlighted in blue in the revised manuscript.).}
+For attribute filtering, by incorporating the YT-Audio-Real and WIT-Real datasets with their respective real-world attributes, we have revised the "Single-Attribute Index Construction and Single-Attribute Query" experiments and amended the manuscript accordingly. It is also worth noting that in Section 4.2.2, under the "Single-Attribute Index Construction and Single-Attribute Query" subsection, we have removed two previous datasets (Audio and GloVe) due to space constraints. The Audio dataset was removed because its smaller scale offered limited reference value. The GloVe dataset is similar in scale to SIFT1M, while LID is similar to GIST1M. \textbf{(Please see Section 4.2.1, and the "Single-Attribute Index Construction and Single-Attribute Query" subsection in Section 4.2.2,  highlighted in blue in the revised manuscript.).}
 
 In fact, we have conducted experiments to verify that the choice between synthetic and real-world attributes has a minimal impact on the performance of algorithms. For more details, please refer to our response to Review 1 W1.
 
@@ -582,7 +632,7 @@ For range filtering, we have also included the YT-Audio-Real and WIT-Real datase
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We have added relevant experiments conducted on different servers in Section 4.2.4 and 4.3.4. The results show that differences in server configurations have little impact on the ranking of the methods. For more details, please refer to our response Meta R4.
+Thank you for your suggestion. We have added relevant experiments conducted on different servers in Section 4.2.3 and 4.3.3. The results show that differences in server configurations have little impact on the ranking of the methods. For more details, please refer to our response Meta R4.
 %%%%%%%%%%%%%%%%%%%%%% W3 %%%%%%%%%%%%%%%%%%%%%%
 
 \myfbox{
@@ -610,9 +660,9 @@ We have already provided a detailed response to this issue in our reply to Meta 
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We are deeply aware of this shortcoming, so we provide the search peak memory usage of each algorithm in the time and space overhead section and carefully analyze the reasons. 
+Thank you for your suggestion. We are deeply aware of this shortcoming, so we provide the search peak memory usage of each algorithm in the time and space overhead section and carefully analyze the reasons. For more details, please refer to our response Meta R6.
 
-We have made a detailed response to this issue in our reply to Meta R6. Please refer to that response for more information.
+%We have made a detailed response to this issue in our reply to Meta R6. Please refer to that response for more information.
 	
 %%%%%%%%%%%%%%%%%%%%%% D1 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -631,7 +681,10 @@ Thank you for pointing this out. The original reference [49], now updated to ref
 
 
 
- \textcolor{blue}{"Although existing work, such as the survey [49] by reviews graph-based ANN methods, the literature still lacks an experimental study specifically targeting hybrid query algorithms. To address this gap, we conduct the first comprehensive experimental evaluation of hybrid query algorithms, systematically analyzing their index construction costs and query efficiency across diverse scenarios. Furthermore, we rigorously assess the robustness of each algorithm under varying conditions, thereby providing valuable insights for future research and practical applications."}
+ \textcolor{blue}{"
+% 	Although existing work, such as the survey [49] by reviews graph-based ANN methods, the literature still lacks an experimental study specifically targeting hybrid query algorithms. To address this gap, we conduct the first comprehensive experimental evaluation of hybrid query algorithms, systematically analyzing their index construction costs and query efficiency across diverse scenarios. Furthermore, we rigorously assess the robustness of each algorithm under varying conditions, thereby providing valuable insights for future research and practical applications.
+ 	Although existing works [9,50] conduct benchmark evaluations of ANN methods, a dedicated experimental study on hybrid query algorithms is still lacking.
+ 	To address this gap, we carry out the first comprehensive experimental evaluation of hybrid query algorithms, systematically analyzing their index construction costs and query efficiency across diverse scenarios. Furthermore, we rigorously assess the robustness of each algorithm under different experimental settings, thereby providing valuable insights for future research and practical applications."}
 
 
 
@@ -646,15 +699,18 @@ Thank you for pointing this out. The original reference [49], now updated to ref
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We cited these two papers in the introduction to show that there are several papers that study attribute distribution and selectivity.
-In addition, attribute distribution and selectivity are indeed widely used in real-world scenarios. For attribute distribution, the label attributes of many recommendation application scenarios in reality conform to the power-law distribution. For attribute selectivity: for example, if you need to query data with a very small proportion of a certain attribute, choosing a better algorithm will greatly improve the search effect. There are also some databases with practical applications that mention attribute selectivity, such as Milvus and AnalyticDB-V. For the two parts you suggested, we have replaced them in the paper with more comprehensive and accurate references. \textbf{(Please see Section 1.1, highlighted in blue in the revised manuscript.)}
+Thank you for your suggestion. We cited these two papers in the introduction to show that there are several papers that study attribute selectivity. In practice, attribute selectivity are indeed widely used in real-world scenarios. For example, if you need to query data with a very small proportion of a certain attribute, choosing a better algorithm will greatly improve the search effect. There are also some databases with practical applications that mention attribute selectivity, such as Milvus and AnalyticDB-V. We have replaced the two references ([12] and [36]) with more comprehensive and accurate references ([47] and [52]). \textbf{(Please see Section 1.1, highlighted in blue in the revised manuscript.)}
  
 
-\textcolor{blue}{"For attribute filtering algorithms, factors such as the number of attributes, attribute distribution[13], and attribute  selectivity [47,52] significantly impact algorithm performance."}
+\textcolor{blue}{"For attribute filtering algorithms, factors such as the number of attributes, attribute  selectivity [47,52] significantly impact algorithm performance."}
 
-[47]Jianguo Wang, Xiaomeng Yi, Rentong Guo, and et al. 2021. Milvus: A PurposeBuilt Vector Data Management System. In SIGMOD Conference. ACM, 2614-2627.
+\textcolor{blue}{"
+[47]Jianguo Wang, Xiaomeng Yi, Rentong Guo, and et al. 2021. Milvus: A PurposeBuilt Vector Data Management System. In SIGMOD Conference. ACM, 2614-2627."
+}
 
-[52]Chuangxian Wei, Bin Wu, Sheng Wang, Renjie Lou, Chaoqun Zhan, Feifei Liand Yuanzhe Cai. 2020.AnalyticDB-V: A Hybrid Analytical Engine TowardsOuery Fusion for Structured and Unstructured Data. Proc. VLDB Endow. 13, 12(2020),3152-3165.
+\textcolor{blue}{"
+[52]Chuangxian Wei, Bin Wu, Sheng Wang, Renjie Lou, Chaoqun Zhan, Feifei Liand Yuanzhe Cai. 2020.AnalyticDB-V: A Hybrid Analytical Engine TowardsOuery Fusion for Structured and Unstructured Data. Proc. VLDB Endow. 13, 12(2020),3152-3165."
+}
 
 %%%%%%%%%%%%%%%%%%%%%% D3 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -725,7 +781,7 @@ Thank you for the suggestion. Since there are multiple methods, listing all URLs
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We have added experiments on the Deep100M dataset in Section 4.2.4 and Section 4.3.4, and we observed some pitfalls. For more details, please refer to our response to Meta R7.
+Thank you for your suggestion. We have added experiments on the Deep100M dataset in Section 4.2.3 and Section 4.3.3, and we observed some pitfalls. For more details, please refer to our response to Meta R7.
 
 %%%%%%%%%%%%%%%%%%%%%% W2 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -751,7 +807,10 @@ Thank you for pointing this out. We agree that the initial explanations accompan
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We have already addressed this issue in detail in our responses to Meta R8 and R9. Specifically, we analyzed the strengths and weaknesses of each algorithm and recommended those with strong performance. Additionally, we provided a summary table illustrating how each algorithm performs across different application scenarios. For more details, please refer to our responses to Meta R8 and R9.
+Thank you for your suggestion. %We have already addressed this issue in detail in our responses to Meta R8 and R9. 
+We have addressed this issue in the revised manuscript by
+%Specifically, we 
+analyzing the strengths and weaknesses of each algorithm and recommended those with strong performance. Additionally, we provided a summary table illustrating how each algorithm performs across different application scenarios. For more details, please refer to our responses to Meta R8 and R9.
 
 
 
