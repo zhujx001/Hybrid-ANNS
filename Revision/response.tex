@@ -20,7 +20,7 @@
 % whether page numbers should be shown or not, use 'plain' for review versions, 'empty' for camera ready
 \newcommand\vldbpagestyle{plain}
 
-\usepackage{subfigure}
+%\usepackage{subfigure}
 \usepackage[vlined,ruled,linesnumbered]{algorithm2e}
 \def\cmtb{\textcolor{blue}}
 \def\cmtr{\textcolor{red}}
@@ -353,7 +353,7 @@ Thank you for your suggestion. We are deeply aware of this shortcoming, so we pr
 %For attribute filtering, please see section 4.2.1.
 % \textbf{(Please refer to the blue highlighted parts in Section 4.2.1 for attribute filtering.)}
 Section 4.2.1:
-\textcolor{blue}{"For most algorithms, the query phase requires loading both the index and the dataset into memory, so its peak memory usage is usually comparable to that of the construction phase. However, as shown in the Figure~\ref{fig:search_memory_mb_comparison}, CAPS exhibits significantly higher peak memory during querying due to the need to dynamically maintain large candidate sets. In contrast, Milvus has lower query-time memory usage because it does not fully load the index and incurs additional metadata overhead during construction."}
+\textcolor{blue}{"Most algorithms load both the index and the dataset into memory during the build and query phases, and the construction process typically generates a large amount of temporary data. As a result, peak memory usage during querying is generally slightly lower than during construction. However, exceptions exist. As shown in Figure~\ref{fig:search_memory_mb_comparison}, CAPS incurs significantly higher peak memory usage during querying due to the need to dynamically maintain a large candidate set."}
 
 %For range filtering, please see section 4.3.1.
  %\textbf{(Please refer to the blue highlighted parts in Section 4.3.1 for range filtering.)}
@@ -875,7 +875,7 @@ Thank you for the suggestion. We realized that the original wording is somewhat 
 		\\ \hline
 		\multirow{6}{*}{\textbf{AF}} 
 		%& Filter Type         & C   & C   & C   & C   & B   & B   & B   & \multicolumn{5}{c|}{} \\ \cline{2-9}
-		& AND                 & Y   & N   & N   & Y   & Y   & Y   & Y   & \multicolumn{5}{c|}{\multirow{4}{*}{\centering\shortstack{AF\\not support}}} \\ \cline{2-9}
+		& AND                 & Y   & N   & N   & Y   & Y   & Y   & Y   & \multicolumn{5}{c|}{\multirow{4}{*}{\centering\shortstack{AF\\Not Support}}} \\ \cline{2-9}
 		& OR                  & N   & Y   & Y   & N   & Y   & Y   & Y   & \multicolumn{5}{c|}{} \\ \cline{2-9}
 		& Flexible Attributes & N   & Y   & Y   & Y   & Y   & Y   & Y   & \multicolumn{5}{c|}{} \\ \cline{2-9}
 		& Complex Boolean     & N   & N   & N   & N   & Y   & N   & N   & \multicolumn{5}{c|}{} \\ \hline
