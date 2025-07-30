@@ -166,7 +166,10 @@
 %	Moreover, beyond BigANN, systematic evaluations of hybrid query algorithms remain limited.
 %	To fill this gap, we conduct a comprehensive experimental evaluation of hybrid query algorithms, analyzing the index construction costs and query efficiency across different scenarios. Additionally, we further assess the robustness of each algorithm under varying conditions.
 	
-	Moreover, beyond BigANN, systematic evaluations of hybrid query algorithms remain limited. \textcolor{orange}{Although existing works \cite{compare,azizi2025graph} conduct benchmark evaluations or experimental analyses of ANN methods, existing work still lacks an experimental study specifically targeting hybrid query algorithms. To address this gap, we conduct the first comprehensive experimental evaluation of hybrid query algorithms, systematically analyzing their index construction costs and query efficiency across diverse scenarios. Furthermore, we rigorously assess the robustness of each algorithm under different experimental settings, thereby providing valuable insights for future research and practical applications.}
+	Moreover, beyond BigANN, systematic evaluations of hybrid query algorithms remain limited. 
+	\textcolor{orange}{%Although existing works \cite{compare,azizi2025graph} conduct benchmark evaluations or experimental analyses of ANN methods, existing work still lacks an experimental study specifically targeting hybrid query algorithms. 
+	Although existing works\cite{compare,azizi2025graph} conduct benchmark evaluations of ANN methods, a dedicated experimental study on hybrid query algorithms is still lacking.
+	To address this gap, we present the first comprehensive experimental evaluation of hybrid query algorithms, systematically analyzing their index construction costs and query efficiency across diverse scenarios. Furthermore, we rigorously assess the robustness of each algorithm under different experimental settings, thereby providing valuable insights for future research and practical applications.}
 	
 	\subsection{Our Contributions}
 	
@@ -951,7 +954,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	(1) \textit{Algorithms optimized for low AS.}  
 %	This group includes ACORN-1, CAPS, Faiss, Faiss+HQI\_Batch, Puck, StitchedVamana and UNG, as illustrated in Figure~\ref{fig:exp_5_2_1}.
 	\textcolor{orange}{Figure~\ref{fig:exp_5_2_1} shows the algorithms suitable for low AS.}
-	\textcolor{orange}{ACORN-1}, Faiss, Puck and UNG all use pre-filtering strategies to shrink the search space in low AS, leading to better performance. CAPS efficiently skips irrelevant subpartitions, reducing computational overhead. However, as AS increases, it must process more subpartitions and handle a larger dataset. StitchedVamana optimizes local adjacency using independent subgraphs, enabling fast localization at low AS. However, at higher AS, it requires broader global exploration. 
+	\textcolor{orange}{ACORN-1}, Faiss, Puck and UNG all use pre-filtering strategies to shrink the search space in low AS, leading to better performance. \textcolor{orange}{Pre-filtering strategies significantly reduce the number of candidate points under low AS, thereby lowering the cost of  computations. As a result, such strategies tend to perform better in low AS scenarios.}CAPS efficiently skips irrelevant subpartitions, reducing computational overhead. However, as AS increases, it must process more subpartitions and handle a larger dataset. StitchedVamana optimizes local adjacency using independent subgraphs, enabling fast localization at low AS. However, at higher AS, it requires broader global exploration. 
 	
 %	ACORN-1 performs well in low AS because fewer nodes share the same attribute. This increases the average degree of retained nodes and improves graph connectivity. UNG, Faiss, and Puck all use pre-filtering strategies to shrink the search space in low AS, leading to better performance.
 	
@@ -1369,7 +1372,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	\textbf{Large-Scale Dataset} & S & S & W & W &\textbf{S} &S  &M  &S  &M  &S  &\textbf{S}  &M/W  &W/M  &W/W  &M/M  &-  \\
 	\textbf{Rare Attribute \& Low Range} &M  &M  &S  &S &\textbf{S}  &S  &S  &S  &W  &M  &\textbf{S} &M/M  &M/M  &W/W  &W/W  &W/W  \\
 	\textbf{Robust to MultiModal Dataset} &S  &S  &W  &S  &\textbf{S}  &M  &M  &S  &M  &S  &\textbf{S}  &M/M  &W/M  &W/W  &W/W  &W/W  \\
-	\textbf{Robust to Attribute Distribution} &W  &W  &S  &S  &S  &S  &-  &-  &-  &-  &-  &S/-  &W/-  &\textbf{S}/-  &W/-  &W/-  \\
+%	\textbf{Robust to Attribute Distribution} &W  &W  &S  &S  &S  &S  &-  &-  &-  &-  &-  &S/-  &W/-  &\textbf{S}/-  &W/-  &W/-  \\
 	\textbf{High LID Dataset} &S  &M  &S  &M  &\textbf{S}  &M  &M  &S  &M  &S  &\textbf{S}  &W/W  &M/S  &W/W  &W/M  &W/W  \\
 	\textbf{General-Purpose} &\faCheck  &\faCheck  &\faTimes  &\faTimes  &\faCheck  &\faTimes  &\faTimes  &\faTimes &\faTimes  & \faCheck &\faCheck&\faTimes  &\faCheck  &\faCheck  &\faCheck&\faTimes  \\
 	\hline
