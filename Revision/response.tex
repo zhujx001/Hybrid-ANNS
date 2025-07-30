@@ -182,7 +182,7 @@ For performance under different attribute selectivity, to reflect the performanc
 \noindent
 \textbf{Response:} We believe this is an excellent suggestion. To provide a more comprehensive evaluation of the robustness of each algorithm, we introduce new experiments on two challenging multi-modal datasets. 
 
-First, we have incorporated a standard text-to-image dataset, which is widely adopted by existing multimodal ANN algorithms. In this dataset, the base vectors are images while the query set consists of texts, creating a modality gap that demands stronger algorithm robustness to achieve good performance. Second, to further test performance on complex queries, we have constructed a more challenging dataset with a base set of 500,000 text vectors and 500,000 image vectors, and a query set containing 5,000 text and 5,000 image vectors. On this latter dataset, we perform both attribute filtering and range queries using combined text and image inputs to analyze the algorithm's robustness under more complex, mixed-modality conditions. The experimental results are shown in Figure~\ref{fig:attribute_multimodel} and Figure~\ref{fig:range_multimodel}.
+First, we have incorporated a standard text-to-image dataset, which is widely adopted by existing multi-modal ANN algorithms. In this dataset, the base vectors are images while the query set consists of texts, creating a modality gap that demands stronger algorithm robustness to achieve good performance. Second, to further test performance on complex queries, we have constructed a more challenging dataset with a base set of 500,000 text vectors and 500,000 image vectors, and a query set containing 5,000 text and 5,000 image vectors. On this latter dataset, we perform both attribute filtering and range queries using combined text and image inputs to analyze the algorithm's robustness under more complex, mixed-modality conditions. The experimental results are shown in Figure~\ref{fig:attribute_multimodel} and Figure~\ref{fig:range_multimodel}.
 
 As for complex query types that involve both attribute filtering and range queries simultaneously, to the best of our knowledge, existing algorithms—except for general-purpose systems such as Milvus and Faiss—do not support this functionality. For example, ACORN needs to build separate indexes for each scenario and cannot handle attribute filtering and range queries simultaneously. Therefore, we do not consider this type of complex query in our experiments but instead study the two query types separately. \textbf{(Please see Section 4.1.1, Section 4.2.4 and Secntion 4.3.4, highlighted in blue in the revised manuscript.)  
 	%Please refer to the blue highlighted parts in  Section 4.1.1 paragraph 4 and  Section 4.2.4 and Section 4.3.4 under Multi-modal Queries.)
@@ -558,11 +558,11 @@ Thank you for your suggestion. We have addressed this issue in detail in our res
 \textbf{Response:} 
 Thank you for your suggestion. We fully understand your concern regarding our use of synthetic or less meaningful attributes in the hybrid query experimental setup.
 
-To address this critical issue and enhance the real-world relevance of our evaluation, we have incorporated two new real-world datasets with their actual attributes into our attribute filtering and range filtering experiments, and we have clarified the sources of these real-world attributes. For more details, please refer to our Response to Meta R3.
+To address this critical issue and enhance the real-world relevance of our evaluation, we have incorporated two new real-world datasets with their actual attributes into our attribute filtering and range filtering experiments, and we have clarified the sources of these real-world attributes. For more details, please refer to our response to Meta R3.
 
-For attribute filtering, by incorporating the YT-Audio-Real and WIT-Real datasets with their respective real-world attributes, we have revised the "Single-Attribute Building and Single-Attribute Query" experiments and amended the manuscript accordingly. It is also worth noting that in Section 4.2.2, under the "Single-Attribute Building and Single-Attribute Query" subsection, we have removed two previous datasets (Audio and GloVe) due to space constraints. The Audio dataset was removed because its smaller scale offered limited reference value. The GloVe dataset is similar in scale to SIFT1M, while LID is similar to GIST1M. \textbf{(Please see Section 4.2.1, and the "Single-Attribute Building and Single-Attribute Query" subsection in Section 4.2.2,  highlighted in blue in the revised manuscript.).}
+For attribute filtering, by incorporating the YT-Audio-Real and WIT-Real datasets with their respective real-world attributes, we have revised the "Single-Attribute Index Construction and Single-Attribute Query" experiments and amended the manuscript accordingly. It is also worth noting that in Section 4.2.2, under the "Single-Attribute Index Construction and Single-Attribute Query" subsection, we have removed two previous datasets (Audio and GloVe) due to space constraints. The Audio dataset was removed because its smaller scale offered limited reference value. The GloVe dataset is similar in scale to SIFT1M, while LID is similar to GIST1M. \textbf{(Please see Section 4.2.1, and the "Single-Attribute Building and Single-Attribute Query" subsection in Section 4.2.2,  highlighted in blue in the revised manuscript.).}
 
-In fact, we have conducted experiments to verify that the choice between synthetic and real-world attributes has a minimal impact on the algorithm's performance. For more details, please refer to our Response to Review 1 W1.
+In fact, we have conducted experiments to verify that the choice between synthetic and real-world attributes has a minimal impact on the performance of algorithms. For more details, please refer to our response to Review 1 W1.
 
 For range filtering, we have also included the YT-Audio-Real and WIT-Real datasets with their respective real-world attributes in our experiments. For more details, please refer to our response to Meta R3.
 
@@ -582,8 +582,7 @@ For range filtering, we have also included the YT-Audio-Real and WIT-Real datase
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We have added relevant experiments conducted on different servers in Section 4.2.4 and 4.3.4. The results show that differences in server configurations have little impact on the ranking of the methods.
- Please refer to the response Meta R4 for more details.
+Thank you for your suggestion. We have added relevant experiments conducted on different servers in Section 4.2.4 and 4.3.4. The results show that differences in server configurations have little impact on the ranking of the methods. For more details, please refer to our response Meta R4.
 %%%%%%%%%%%%%%%%%%%%%% W3 %%%%%%%%%%%%%%%%%%%%%%
 
 \myfbox{
@@ -611,9 +610,9 @@ We have already provided a detailed response to this issue in our reply to Meta 
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We are deeply aware of this shortcoming, so we provide the search peak memory usage of each algorithm in the time and space overhead section and carefully analyze the reasons. 
+Thank you for your suggestion. We are deeply aware of this shortcoming, so we provide the search peak memory usage of each algorithm in the time and space overhead section and carefully analyze the reasons. For more details, please refer to our response Meta R6.
 
-We have made a detailed response to this issue in our reply to Meta R6. Please refer to that response for more information.
+%We have made a detailed response to this issue in our reply to Meta R6. Please refer to that response for more information.
 	
 %%%%%%%%%%%%%%%%%%%%%% D1 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -632,7 +631,10 @@ Thank you for pointing this out. The original reference [49], now updated to ref
 
 
 
- \textcolor{blue}{"Although existing work, such as the survey [49] by reviews graph-based ANN methods, the literature still lacks an experimental study specifically targeting hybrid query algorithms. To address this gap, we conduct the first comprehensive experimental evaluation of hybrid query algorithms, systematically analyzing their index construction costs and query efficiency across diverse scenarios. Furthermore, we rigorously assess the robustness of each algorithm under varying conditions, thereby providing valuable insights for future research and practical applications."}
+ \textcolor{blue}{"
+% 	Although existing work, such as the survey [49] by reviews graph-based ANN methods, the literature still lacks an experimental study specifically targeting hybrid query algorithms. To address this gap, we conduct the first comprehensive experimental evaluation of hybrid query algorithms, systematically analyzing their index construction costs and query efficiency across diverse scenarios. Furthermore, we rigorously assess the robustness of each algorithm under varying conditions, thereby providing valuable insights for future research and practical applications.
+ 	Although existing works [9,50] conduct benchmark evaluations of ANN methods, a dedicated experimental study on hybrid query algorithms is still lacking.
+ 	To address this gap, we carry out the first comprehensive experimental evaluation of hybrid query algorithms, systematically analyzing their index construction costs and query efficiency across diverse scenarios. Furthermore, we rigorously assess the robustness of each algorithm under different experimental settings, thereby providing valuable insights for future research and practical applications."}
 
 
 
