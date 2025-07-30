@@ -180,7 +180,7 @@
 %	\textcolor{orange}{%We systematically describe the distinct characteristics of 6 representative attribute filtering algorithms and 5 range filtering algorithms from various perspectives. We also provide an overview of these algorithms, along with a representative vector retrieval library and 3 vector databases, to help readers intuitively understand their design principles. This work offers a unified reference framework and technical foundation for future research in this field.}
 %	We provide an overview of 6 representative attribute filtering algorithms and 5 range filtering algorithms from various perspectives, alongside a representative retrieval library and 3 vector databases. This work offers a unified reference framework and technical foundation for future research in this field.}
 	
-	(2) \textbf{Enhancing Datasets and Experimental Settings for Fair Evaluation.}
+	(2) \textbf{Strengthening Datasets and Experimental Settings for Fair Evaluation.}
 %		To ensure fair and reproducible evaluation, we generate attribute values based on real-world scenarios to enhance commonly used datasets. In addition to commonly used datasets, we also conduct experiments on a real-attribute dataset and a large-scale dataset (up to 100M records). Our benchmark design covers diverse selectivity levels and query conditions, establishing a unified and practical evaluation framework for hybrid query algorithms.}
 %	To address the lack of standardized benchmarks in attribute filtering research, we generate attribute values based on real-world scenarios to enhance commonly used datasets. We also collect real attribute information from existing datasets and conduct experiments on a real attribute dataset to validate the plausibility of the generated attributes and the effectiveness of the results. To comprehensively reflect diverse real-world application needs, we design experiments covering varying attribute distributions, selectivity levels, and query conditions, ensuring representative and practical evaluation. \textcolor{cyan}{Furthermore, we test on a large-scale dataset containing 100 million records and a multi-modal dataset to analyze the scalability and performance of various algorithms.} These enhancements establish a unified evaluation framework that supports fair, consistent, and reproducible comparisons across different algorithms, laying a solid foundation for future research in hybrid query.
 	To address the lack of standardized benchmarks in attribute filtering research, we enrich commonly used datasets by generating attribute values tailored to real-world scenarios. We design comprehensive experimental settings that reflect diverse application requirements, including varying attribute distributions, selectivity, and query conditions. \textcolor{cyan}{Furthermore, to investigate the scalability and adaptability of the algorithms, we conduct extended experiments on a large 100M dataset and a multi-modal dataset.} These enhancements provide a unified evaluation framework that supports fair, consistent, and reproducible comparisons across different algorithms, laying a solid foundation for future research in hybrid query.
@@ -725,9 +725,6 @@ In contrast, the construction time of IVF-based algorithms grows much more slowl
 
 
 %\underline{Faiss generates slightly smaller indexes due to its efficient index design}.
-
-
-
 \textit{\textbf{Build peak memory.}}
 % As shown in Figure~\ref{fig:build_memory_mb_comparison}, 
 % %on small-scale datasets, all methods except NHQ exhibit low memory usage. 
