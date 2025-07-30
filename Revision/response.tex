@@ -160,7 +160,7 @@ For performance under different attribute distributions, to illustrate how diffe
 	\label{fig:attribute_distribution}
 \end{figure}
 
-For performance under different attribute selectivity, to reflect the performance differences of each algorithm under varying attribute selectivities, we added performance rankings for each algorithm across different selectivity levels in the figure. This provides a clearer illustration of how each algorithm is affected by attribute selectivity rates. As shown in Figure\ref{fig:attribute_selectivity} below.
+For performance under different attribute selectivity, to reflect the performance differences of each algorithm under varying attribute selectivities, we added performance rankings for each algorithm across different selectivity levels in the figure. This provides a clearer illustration of how each algorithm is affected by attribute selectivity rates. As shown in Figure~\ref{fig:attribute_selectivity} below.
 
 \begin{figure}[htbp]
 	\centering
@@ -171,6 +171,7 @@ For performance under different attribute selectivity, to reflect the performanc
 \end{figure}
 
 
+
 %%%%%%%%%%%%%%%%%%%%%% R2 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
 	\begin{metarevision}
@@ -179,9 +180,9 @@ For performance under different attribute selectivity, to reflect the performanc
 }
 
 \noindent
-\textbf{Response:} We believe this is an excellent suggestion. In fact, in the initial version of our paper, we used the text-to-image dataset that has been widely adopted by existing multimodal ANN algorithms. In this dataset, the base vectors are images, while the query set consists of texts, resulting in a modality gap between the two. Achieving good performance on such a dataset often requires the algorithm to demonstrate stronger robustness. \textbf{(Please see Section 4.2.3 and Section 4.3.3, highlighted in green in the revised manuscript.)}
+\textbf{Response:} We believe this is an excellent suggestion. To provide a more comprehensive evaluation of our algorithm's robustness, we introduce new experiments on two challenging multimodal datasets. 
 
-To further enrich the evaluation of complex multimodal queries, we have added new experiments in the Multi-modal Queries sections of Section 4.2.4 and Section 4.3.4. Specifically, we constructed a more challenging multimodal dataset by selecting 500,000 text vectors and 500,000 image vectors as the base set, and 5,000 text vectors and 5,000 image vectors as the query set. We then perform both attribute filtering and range queries over this dataset, combining text and image queries to further analyze the robustness of the algorithms. The corresponding experimental results are presented in Section 4.2.4 and Section 4.3.4 under Multi-modal Queries.
+First, we have incorporated a standard text-to-image dataset, which is widely adopted by existing multimodal ANN algorithms. In this dataset, the base vectors are images while the query set consists of texts, creating a modality gap that demands stronger algorithm robustness to achieve good performance. Second, to further test performance on complex queries, we have constructed a more challenging dataset with a base set of 500,000 text vectors and 500,000 image vectors, and a query set containing 5,000 text and 5,000 image vectors. On this latter dataset, we perform both attribute filtering and range queries using combined text and image inputs to analyze the algorithm's robustness under more complex, mixed-modality conditions. The experimental results are shown in Figure~\ref{fig:attribute_multimodel} and Figure~\ref{fig:range_multimodel}.
 
 As for complex query types that involve both attribute filtering and range queries simultaneously, to the best of our knowledge, existing algorithms—except for general-purpose systems such as Milvus and Faiss—do not support this functionality. For example, ACORN needs to build separate indexes for each scenario and cannot handle attribute filtering and range queries simultaneously. Therefore, we do not consider this type of complex query in our experiments but instead study the two query types separately. \textbf{(Please see Section 4.1.1, Section 4.2.4 and Secntion 4.3.4, highlighted in blue in the revised manuscript.)  
 	%Please refer to the blue highlighted parts in  Section 4.1.1 paragraph 4 and  Section 4.2.4 and Section 4.3.4 under Multi-modal Queries.)
@@ -201,6 +202,21 @@ Section 4.3.4:\textcolor{blue}{
 		"Similar to attribute filtering, the performance of multimodal queries with range filtering shown in Figure 16a is also consistent with the single-modality results in Figure 14. As shown in Figure 15, the algorithms still perform the worst on multimodal datasets like Text2Image. This is because these range query algorithms are almost graph-based. Graph algorithms need more iterations to find true neighbors in OOD datasets."
 }
 
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.8\linewidth]{fig/attribute_legend.pdf}
+	\includegraphics[width=\linewidth]{fig/attribute_multimodel_2.pdf}
+	\caption{Attribute Filtering Multi-modal}
+	\label{fig:attribute_multimodel}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.8\linewidth]{fig/range_legend.pdf}
+	\includegraphics[width=\linewidth]{fig/range_multimodel_2.pdf}
+	\caption{Range Filtering Multi-modal}
+	\label{fig:range_multimodel}
+\end{figure}
 
 \begin{figure}[t]
 	\centering
@@ -247,13 +263,13 @@ Thank you for your suggestion. Using the ID as an attribute for range filtering 
 
 \noindent
 \textbf{Response:} 
-That is a great suggestion. In order to figure out if the server setting affects the relative ordering of methods, we conducted additional experiments on a server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz featuring 128GB of RAM and 84 MiB of L3 cache using the YT-Audio-Real dataset.
+That is a great suggestion. In order to figure out if the server setting affects the relative ordering of methods, we conducted additional experiments on an Ubuntu 20.04 server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz featuring 128GB of RAM and 84 MiB of L3 cache using the YT-Audio-Real dataset.
 The results show that the performance differences across algorithms remain small, and their relative rankings do not change significantly across servers.
 We did observe slightly lower QPS on this server compared to our original one, which is mainly due to the the lower CPU frequency, reduced RAM capacity, and smaller L3 cache of the Xeon 6330 processors. \textbf{(Please see Section 4.2.4 and Section 4.3.4, highlighted in blue in the revised manuscript.)} 
 
 Section 4.2.4:
 %\textcolor{blue}{"To investigate the impact of different server configurations on the performance of the algorithms, we conduct additional experiments on a server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset, and the results are shown in Figure 12b. Compared with the experimental results on the original server, the relative ranking of the algorithms remains largely unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency and smaller RAM capacity, the QPS values are slightly lower across all methods."}
-\textcolor{blue}{"To investigate the impact of different server configurations on the performance of the algorithms, we conduct additional experiments on a server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz featuring 128GB of RAM and 84 MiB of L3 cache using the YT-Audio-Real dataset, and the results are shown in Figure 12b. It is not difficult to see that the relative ranking of the algorithms under the two servers essentially remains unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency, reduced RAM capacity, and smaller L3 cache, all methods demonstrate slightly lower QPS values."}
+\textcolor{blue}{"To investigate the impact of different server configurations on the performance of the algorithms, we conduct additional experiments on an Ubuntu 20.04 server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz featuring 128GB of RAM and 84 MiB of L3 cache using the YT-Audio-Real dataset, and the results are shown in Figure 12b. It is not difficult to see that the relative ranking of the algorithms under the two servers essentially remains unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency, reduced RAM capacity, and smaller L3 cache, all methods demonstrate slightly lower QPS values."}
 
 Section 4.3.4:
 %\textcolor{blue}{"Consistent with Section 4.2.4, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure 16b. When compared with the experimental results of the original server, our findings remain consistent with those reported in Section 4.2.4. For brevity and due to space limitations, we omit further discussion of these redundant results."}
@@ -632,10 +648,14 @@ Thank you for pointing this out. The original reference [49], now updated to ref
 \noindent
 \textbf{Response:} 
 Thank you for your suggestion. We cited these two papers in the introduction to show that there are several papers that study attribute distribution and selectivity.
-In addition, attribute distribution and selectivity are indeed widely used in real-world scenarios. For attribute distribution, the label attributes of many recommendation application scenarios in reality conform to the power-law distribution. For attribute selectivity: For example, if you need to query data with a very small proportion of a certain attribute, choosing a better algorithm will greatly improve the search effect. There are also some databases with practical applications that mention attribute selectivity, such as Milvus and AnalyticDB-V. For the two parts you suggested, we have added more comprehensive references in the paper. \textbf{(Please see Section 1.1, highlighted in blue in the revised manuscript.)}
+In addition, attribute distribution and selectivity are indeed widely used in real-world scenarios. For attribute distribution, the label attributes of many recommendation application scenarios in reality conform to the power-law distribution. For attribute selectivity: for example, if you need to query data with a very small proportion of a certain attribute, choosing a better algorithm will greatly improve the search effect. There are also some databases with practical applications that mention attribute selectivity, such as Milvus and AnalyticDB-V. For the two parts you suggested, we have replaced them in the paper with more comprehensive and accurate references. \textbf{(Please see Section 1.1, highlighted in blue in the revised manuscript.)}
  
 
-\textcolor{blue}{"For attribute filtering algorithms, factors such as the number of attributes, attribute distribution[12], and attribute  selectivity [46,51] significantly impact algorithm performance."}
+\textcolor{blue}{"For attribute filtering algorithms, factors such as the number of attributes, attribute distribution[13], and attribute  selectivity [47,52] significantly impact algorithm performance."}
+
+[47]Jianguo Wang, Xiaomeng Yi, Rentong Guo, and et al. 2021. Milvus: A PurposeBuilt Vector Data Management System. In SIGMOD Conference. ACM, 2614-2627.
+
+[52]Chuangxian Wei, Bin Wu, Sheng Wang, Renjie Lou, Chaoqun Zhan, Feifei Liand Yuanzhe Cai. 2020.AnalyticDB-V: A Hybrid Analytical Engine TowardsOuery Fusion for Structured and Unstructured Data. Proc. VLDB Endow. 13, 12(2020),3152-3165.
 
 %%%%%%%%%%%%%%%%%%%%%% D3 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
