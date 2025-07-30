@@ -524,13 +524,13 @@
 	\subsection{Vector Libraries and Databases}
 The vector library and databases discussed in the following are not explicitly designed for hybrid query, but they support both attribute filtering and range filtering. 
 
-Faiss is an efficient similarity search library. It uses an ID selector to filter data before performing approximate nearest neighbor search. This supports hybrid search.In Faiss, we use the HQI batch optimization strategy in the IVF index. It groups queries with the same filter conditions. Each group only runs the filter once. It uses efficient matrix operations to compute vector similarity in batches.
+Faiss\footnote{\textcolor{blue}{https://github.com/facebookresearch/faiss}} \cite{Faiss} is an efficient similarity search library. It uses an ID selector to filter data before performing approximate nearest neighbor search. This supports hybrid search.In Faiss, we use the HQI batch optimization strategy in the IVF index. It groups queries with the same filter conditions. Each group only runs the filter once. It uses efficient matrix operations to compute vector similarity in batches.
 
-PASE is a vector index plugin for PostgreSQL. It uses a "search first, then filter" strategy. But because the candidate set size is fixed, it may not return enough top-k results.
+PASE\footnote{\textcolor{blue}{https://github.com/alipay/PASE}} \cite{pase} is a vector index plugin for PostgreSQL. It uses a "search first, then filter" strategy. But because the candidate set size is fixed, it may not return enough top-k results.
 
-VBASE is also a vector plugin for PostgreSQL. It applies filters during the HNSW index traversal. This ensures enough results.
+VBASE\footnote{\textcolor{blue}{https://github.com/microsoft/MSVBASE}} \cite{vbase} is also a vector plugin for PostgreSQL. It applies filters during the HNSW index traversal. This ensures enough results.
 
-Milvus is a vector database built for large-scale similarity search. It filters data first, then performs approximate nearest neighbor search. This supports hybrid search.
+Milvus\footnote{\textcolor{blue}{https://github.com/milvus-io/milvus}} \cite{milvus} is a vector database built for large-scale similarity search. It filters data first, then performs approximate nearest neighbor search. This supports hybrid search.
 
 	
 %	The vector libraries and databases discussed in the following are not explicitly designed for hybrid queries, but they support both attribute filtering and range filtering. Additionally, all the functionalities shown in Table 1 are also supported.
@@ -859,7 +859,8 @@ Most algorithms load both the index and the dataset into memory during the build
 
 	\includegraphics[width=0.95\textwidth]{figures/exp/exp_3_1.pdf}
 	\caption{
-		Effect of Attribute Distribution on Query Performance(Strong is robust to attribute distribution shifts, Weak is sensitive to attribute distribution shifts.)}
+		Effect of Attribute Distribution on Query Performance}
+%		(Strong is robust to attribute distribution shifts, Weak is sensitive to attribute distribution shifts.)}
 		
 	\label{fig:exp_3_1}
 
@@ -914,7 +915,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	\textit{\textbf{Attribute Distribution.}} To evaluate the impact of attribute distribution, we generate base and query attributes \textcolor{orange}{on the SIFT dataset using four representative distributions: long-tail, normal, power-law, and uniform.}
 %	with four representative distributions—long-tail, normal, power-law, and uniform—across six datasets. 
 %	Since performance differences across datasets are small, we report results on SIFT1M due to space limits.
-	As illustrated in Figure~\ref{fig:exp_3_1}, the evaluated algorithms exhibit varying degrees of sensitivity to attribute distribution shifts. \textcolor{cyan}{The proximity of the 4 curves in the figure reflects algorithm sensitivity to distributional variations. When the curves converge closely, the algorithm demonstrates strong resilience against attribute distribution shifts.} 
+	As illustrated in Figure~\ref{fig:exp_3_1}, the evaluated algorithms exhibit varying degrees of sensitivity to attribute distribution shifts. \textcolor{cyan}{The proximity of the curves in the figure reflects algorithm sensitivity to distributional variations. When the curves converge closely, the algorithm demonstrates strong resilience against attribute distribution shifts.} 
 %	Specifically, ACORN, Milvus, Puck, CAPS, StitchedVamana, and UNG demonstrate strong robustness to such shifts. In contrast, Faiss, FilteredVamana, NHQ, VBASE, and PASE show notable sensitivity.
 
 	{\color{blue}{
