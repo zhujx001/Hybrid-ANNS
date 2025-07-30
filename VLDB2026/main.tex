@@ -624,10 +624,11 @@
 	
 	We conduct most experiments on a server running Ubuntu 20.04, equipped with an AMD EPYC 7K62 processor (2.6GHz) featuring 256GB of RAM and 192 MiB of L3 cache.  
 %	\textcolor{cyan}{Additionally, to investigate the impact of different server configurations on algorithm performance, we also conducted partial experiments on a server equipped with dual Intel(R) Xeon(R) Gold 6330 CPU @ 2.00GHz and 128GB of RAM. For clarity and conciseness, we hereafter refer to the former as Server A and the latter as Server B. Unless otherwise specified, all experiments were conducted on Server A.} 
-	Unless otherwise stated, we execute index construction with 32 threads to accelerate the process~\cite{benchmarkindex}. By default, queries run on a single thread. We also report results for 16-thread parallelism in specific scenarios. We summarize the multi-threading capabilities of each algorithm in Table~\ref{tab:compair_1}. For vector database systems, we adopt a multi-process evaluation scheme (rather than multi-threaded execution), following the methodology proposed in VectorDBBench~\cite{VectorDBBench}, to better reflect their real-world performance.
+	Unless otherwise stated, we execute index construction with 32 threads to accelerate the process~\cite{benchmarkindex}. The queries are all executed on a single thread. 
+%	In addition, We summarize the multi-threading capabilities of each algorithm in Table~\ref{tab:compair_1}. 	For vector database systems, we adopt a multi-process evaluation scheme (rather than multi-threaded execution), following the methodology proposed in VectorDBBench~\cite{VectorDBBench}, to better reflect their real-world performance.
 	
 	\textcolor{cyan}{
-	Regarding experimental parameter selection, we adopted the recommended settings from original papers when available. For datasets without suggested parameters, we experimented with different configurations and selected the optimal one for final evaluation. Due to the extensive number of datasets and algorithms involved, specific parameters are not listed individually but are provided in our code repository.
+	Regarding experimental parameter selection, we adopt the recommended settings from original papers when available. For datasets without suggested parameters, we test different configurations and select relatively optimal ones for final evaluation. Due to the large number of datasets and algorithms involved, specific parameters are not individually listed in the paper but are fully provided in our code repository.
 }
 %	\textcolor{blue}{
 %	\subsubsection{Parameters}
