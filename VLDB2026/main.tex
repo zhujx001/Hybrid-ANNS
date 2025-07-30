@@ -679,7 +679,7 @@
 	
 	
 	
-	\textcolor{violet}{To investigate the time and space overhead of different algorithms,} we evaluate \textcolor{orange}{4} key metrics in the single-attribute scenario: index construction time, index size, \textcolor{orange}{build peak memory and search peak memory}. Notably, PASE on GIST1M and Enron is omitted, as it supports only data with dimensionality less than 512. \textcolor{orange}{Except for algorithms that only support single-threaded construction, all other algorithms are built using 32 threads on the 6 datasets shown in the left figure, and 64 threads on the large-scale Deep100M dataset.}
+	\textcolor{violet}{To investigate the time and space overhead of different algorithms,} we evaluate \textcolor{orange}{4} key metrics in the single-attribute scenario: index construction time, index size, \textcolor{orange}{build peak memory and search peak memory}. Notably, PASE on GIST1M and Enron is omitted, as it supports only data with dimensionality less than 512. \textcolor{orange}{Except for algorithms that only support single-threaded construction, all other algorithms are built using 32 threads on the six datasets shown on the left of Figure~\ref{fig:build_index_comparison}, and 64 threads on the large-scale Deep100M dataset, shown on the right.}
 	
 	
 	\begin{figure*}
@@ -700,7 +700,7 @@
 	\end{figure*}
 	
 \textit{\textbf{Index construction time.}}
-\textcolor{orange}{Among the regular-scale datasets shown in the left part of Figure~\ref{fig:build_time_comparison_query1}, the methods with longer build times are mainly PASE, VBASE, and ACORN-$\gamma$. PASE and VBASE only support single-threaded builds, and PASE is the slowest because its on-demand loading and caching strategies frequently trigger disk I/O and page scheduling, which seriously affects efficiency; VBASE uses full-memory builds and is relatively faster. ACORN-$\gamma$  has a large computational overhead because it needs to expand the neighbor list and evaluate a large number of candidates. The build time on some datasets even exceeds that of single-threaded VBASE. }
+\textcolor{orange}{Among the regular-scale datasets shown in the left part of Figure~\ref{fig:build_time_comparison_query1}, the methods with longer build times are mainly PASE, VBASE, and ACORN-$\gamma$. PASE and VBASE only support single-threaded builds. PASE is the slowest because its on-demand loading and caching strategies frequently trigger disk I/O and page scheduling, which seriously affects efficiency. VBASE uses full-memory builds and is relatively faster. ACORN-$\gamma$  has a large computational overhead because it needs to expand the neighbor list and evaluate a large number of candidates. The build time on some datasets even exceeds that of single-threaded VBASE. }
 
 \textcolor{orange}{On large-scale dataset Deep100M, besides the three methods already mentioned, we also observe that algorithms based on Vamana (such as FilteredDiskANN and UNG) exhibit significantly increased construction time. Vamana adopts a two-pass graph construction and optimization strategy (greedy search + robust pruning), resulting in extremely high computational overhead. 
 In contrast, the construction time of IVF-based algorithms grows much more slowly with dataset size, thanks to their shard-based design and high parallel efficiency, making them more scalable and advantageous in large-scale scenarios.}
@@ -1044,7 +1044,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	% 2. 第一部分：两张图，共用标题
 	% [b]表示按底部对齐，在一行内通常比顶部对齐[t]效果好
 	% 宽度从\textwidth缩小到0.32\textwidth
-	\begin{subfigure}[b]{0.39\textwidth}
+	\begin{subfigure}[b]{0.38\textwidth}
 		\centering
 		% 内部图片宽度使用\linewidth，它会自适应为容器宽度(0.32\textwidth)
 		\includegraphics[width=0.495\linewidth]{figures/exp/attribute_multimodel.pdf}
@@ -1077,12 +1077,12 @@ Most algorithms load both the index and the dataset into memory during the build
 	\caption{\textcolor{violet}Scalability Study——Attribute}
 	\label{fig:TrinityExtension——Attribution_main}
 \end{figure*}
-	
+
 %	\subsubsection{Scalability Study}
 	\textit{\textbf{\textcolor{blue}{Multi-Modal Queries.}}} \textcolor{blue}{
-		We conduct experiments on the text2image-mix dataset. This dataset contains image and text vectors and is a hybrid multimodal dataset. As shown in Figure~\ref{fig:attribute-multimodal}, UNG and NHQ consistently perform best, followed by CAPS.
+		We conduct experiments on the Text2image-Mix dataset. This dataset contains image and text vectors and is a hybrid multimodal dataset. As shown in Figure~\ref{fig:attribute-multimodal}, UNG and NHQ consistently perform best, followed by CAPS.
 		Although this dataset mixes two modalities, the vector space distributions of different modalities often differ significantly. In practice, this means that the experiments effectively treat the image and text subsets as separate datasets, since the ground truths for each query belong to the same modality. Therefore, the performance on this dataset is similar to the results shown in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}.
-		In contrast, the text2image dataset shown in Figure~\ref{fig:attribute-multimodal} is different. The query set and the base dataset belong to two completely different modalities. Queries are far from the dataset points, and the ground truths are more dispersed and not clustered together. To find the ground truths, algorithms typically need to examine more points, which leads to degraded performance.
+		In contrast, the Text2image dataset shown in Figure~\ref{fig:attribute-multimodal} is different. The query set and the base dataset belong to two completely different modalities. Queries are far from the dataset points, and the ground truths are more dispersed. To find the ground truths, algorithms typically need to examine more points, which leads to degraded performance.
 		%	We conduct experiments on the text2image-mix dataset. This dataset contains both image and text vectors. It is a more complex multimodal dataset. As shown in Figure~\ref{fig:attribute-multimodal}, although the queries are more complex, UNG and NHQ still perform the best. CAPS is the next best.
 		%	Since the dataset mixes two modalities, the ground truth of the query set usually corresponds to the same modality. The nearest neighbors in the index are often from the same modality because they are closer in distance. Therefore, the search results on this dataset are similar to those in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}. UNG and NHQ perform the best. CAPS clusters based on vector similarity. It actually clusters the vectors into the same modality. Then it uses attribute filtering to divide the data further. This allows CAPS to quickly find nearest neighbors that meet the filter conditions.
 		%	In contrast, the text2image dataset shown in Figure~\ref{fig:exp_6_1} is different. The queries and the dataset are from different modalities. The queries are far from the dataset. The ground truths are also scattered and not clustered together. To find the ground truths, the algorithm often needs to traverse more points. This is a greater challenge for the algorithms.
@@ -1340,7 +1340,9 @@ Most algorithms load both the index and the dataset into memory during the build
 	
 	\textit{\textbf{\textcolor{blue}{Multi-Modal Queries.}}}
 	\textcolor{blue}{
-		Similar to attribute filtering, the performance of multimodal queries with range filtering shown in Figure~\ref{fig:range-multimodal} is also consistent with the single-modality results in Figure~\ref{fig:exp_8_2}. As shown in Figure~\ref{fig:exp_8_3}, the algorithms still perform the worst on multimodal datasets like Text2Image. This is because these range query algorithms are almost graph-based. Graph algorithms need more iterations to find true neighbors in OOD datasets.}
+		Similar to attribute filtering, the performance of multimodal range filtering queries shown in Figure~\ref{fig:range-multimodal} also aligns with the single-modality results in Figure~\ref{fig:exp_8_2}. These algorithms on the Text2Image dataset exhibit a significant performance degradation. This is because these range query algorithms are almost entirely graph-based, and graph algorithms require more iterations to find true neighbors in OOD datasets.
+%		Similar to attribute filtering, the performance of multimodal queries with range filtering shown in Figure~\ref{fig:range-multimodal} is also consistent with the single-modality results in Figure~\ref{fig:exp_8_2}. As shown in Figure~\ref{fig:exp_8_3}, the algorithms still perform the worst on multimodal datasets like Text2Image. This is because these range query algorithms are almost graph-based. Graph algorithms need more iterations to find true neighbors in OOD datasets.
+		}
 		
 	\textit{\textbf{\textcolor{blue}{Different Hardware Environments.}}} 
 	\textcolor{cyan}{Consistent with Section 4.2.4, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure~\ref{fig:range-cross-platform}. Although the third-ranked algorithm differs, we consider the ranking order essentially unchanged since the performance of the third and fourth algorithms is comparable. So our findings remain consistent with those reported in Section 4.2.4. For brevity and due to space limitations, we omit further discussion of these redundant results.}
@@ -1458,13 +1460,13 @@ Therefore, designing algorithms that can support complex filtering expressions w
 \textcolor{blue}{
 Experimental results show that different algorithms exhibit varying strengths under different query ranges. Therefore, designing a general range query algorithm that can adapt to diverse query conditions holds significant research value. For example, UNIFY demonstrates strong generality by dynamically selecting execution strategies based on the query range. Building on this idea, further exploration of more adaptive and high-performance range query algorithms is a promising direction for future research.}
 	
-		In our experiments, many range filtering algorithms perform worse than Faiss at high recall (0.95), showing that current algorithm designs still need improvement. We suggest future future range filtering algorithms include Faiss as a baseline.
+In our experiments, many range filtering algorithms perform worse than Faiss at high recall (0.95), showing that current algorithm designs still need improvement. We suggest future future range filtering algorithms include Faiss as a baseline.
 	
 	
 	It is also worth noting that range filtering and attribute filtering are both forms of hybrid query. However, aside from vector databases and ACORN, few existing algorithms support both modalities simultaneously. Designing unified frameworks that simultaneously support both is an important research frontier. 
 	
 	\textcolor{blue}{
-	Lastly, existing algorithms suffer from significant performance degradation on out-of-distribution (OOD) datasets. Exploring how to improve these algorithms to better adapt to more complex query conditions is a worthwhile direction for further research.}
+	Lastly, existing algorithms suffer from significant performance degradation on OOD datasets. Exploring how to improve these algorithms to better adapt to more complex query conditions is a worthwhile direction for further research.}
 	
 %	our findings show that the distribution and the number of attributes, as well as dataset properties (e.g., dimensionality and LID), significantly impact the performance of attribute filtering methods. Enhancing the robustness of these algorithms under diverse data conditions is another key challenge that warrants further investigation.
 %	
