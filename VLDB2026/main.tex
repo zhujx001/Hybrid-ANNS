@@ -701,14 +701,14 @@
 		\label{fig:exp_1_1_SingleLabel_1thread}
 	\end{figure*}
 	
-	\begin{figure*}
-		\centering
-		
-		\includegraphics[width=0.95\textwidth]{figures/exp/exp_1_2_SingleLabel_16thread.pdf}
-%		\caption{Single-Attribute Building and Query performance (16 threads)}
-		\caption{Performance of Single-Attribute Index Construction and Single-Attribute Query (16 Threads)}
-		\label{fig:exp_1_2_SingleLabel_16thread}
-	\end{figure*}
+%	\begin{figure*}
+%		\centering
+%		
+%		\includegraphics[width=0.95\textwidth]{figures/exp/exp_1_2_SingleLabel_16thread.pdf}
+%%		\caption{Single-Attribute Building and Query performance (16 threads)}
+%		\caption{Performance of Single-Attribute Index Construction and Single-Attribute Query (16 Threads)}
+%		\label{fig:exp_1_2_SingleLabel_16thread}
+%	\end{figure*}
 	
 \textit{\textbf{Index construction time.}}
 \textcolor{orange}{Among the regular-scale datasets shown in the left part of Figure~\ref{fig:build_time_comparison_query1}, the methods with longest build times are mainly PASE, VBASE, and ACORN-$\gamma$. PASE and VBASE only support single-threaded builds. PASE is the slowest because its on-demand loading and caching strategies frequently trigger disk I/O and page scheduling, which seriously affects efficiency. VBASE uses full-memory builds and is relatively faster. ACORN-$\gamma$  has a high computational overhead because it needs to expand the neighbor list and evaluate a large number of candidates. Its build time on some datasets even exceeds that of single-threaded VBASE. }
@@ -778,7 +778,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	
 	\textcolor{violet}{Among all methods, vector database systems (PASE, VBASE, Milvus) show the worst performance. These systems target general-purpose scenarios but incur communication latency from network I/O and experience high query processing overhead due to complex query parsing. Additionally, we observe that Faiss+HQI\_Batch outperforms original Faiss, indicating that batch querying via HQI can effectively enhance query performance.}
 	
-	\textcolor{violet}{\textit{Multi-Thread Search.} As shown in Figure~\ref{fig:exp_1_2_SingleLabel_16thread}, under multi-threading, all algorithms except Puck show similar improvements, with UNG continuing to maintain the best performance. Puck achieves significant performance improvements in multi-threaded scenarios, delivering near-linear speedup by processing each query independently with a thread-local search context. This design eliminates synchronization overhead, enabling efficient parallel execution.}
+%	\textcolor{violet}{\textit{Multi-Thread Search.} As shown in Figure~\ref{fig:exp_1_2_SingleLabel_16thread}, under multi-threading, all algorithms except Puck show similar improvements, with UNG continuing to maintain the best performance. Puck achieves significant performance improvements in multi-threaded scenarios, delivering near-linear speedup by processing each query independently with a thread-local search context. This design eliminates synchronization overhead, enabling efficient parallel execution.}
 	
 	%	\textit{Single-Thread Search.}  
 	%	As shown in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}, under full-recall conditions (recall = 1), search often requires traversing larger candidate sets or deeper graph paths, leading to increased computational cost and a sharp QPS drop for most methods. Despite this, UNG maintains high QPS due to its LNG structure, which eliminates unnecessary online filtering of irrelevant attributes, thereby improving query efficiency. But, UNG slightly underperforms on high-LID datasets such as GloVe. In contrast, CAPS performs better on high-LID datasets but is more sensitive to dataset characteristics. CAPS leverages multi-level spatial partitioning and attribute filtering to efficiently explore sparse spaces, whereas UNG relies on structured attribute organization, which limits its adaptability to sparse high-dimensional distributions.
@@ -834,22 +834,22 @@ Most algorithms load both the index and the dataset into memory during the build
 	\end{figure*}
 	
 	
-%	\begin{figure*}
-%		\centering
-%		
-%		\includegraphics[width=0.95\textwidth]{figures/exp/exp_3_1.pdf}
-%		\caption{Effect of Attribute Distribution on Query Performance (Strong is robust to attribute distribution shifts, Weak is sensitive to attribute distribution shifts)}
-%		\label{fig:exp_3_1}
-%		
-%%		\footnotesize{
-%%		\begin{center}
-%%			\begin{minipage}{\linewidth}
-%%				\centering	
-%%				\textit{Strong} : robust to attribute distribution shifts,  \textit{Weak} : sensitive to attribute distribution shifts
-%%			\end{minipage}
-%%		\end{center}
-%%		}
-%	\end{figure*}
+	\begin{figure*}
+	\centering
+
+	\includegraphics[width=0.95\textwidth]{figures/exp/exp_3_1.pdf}
+	\caption{Effect of Attribute Distribution on Query Performance (Strong is robust to attribute distribution shifts, Weak is sensitive to attribute distribution shifts)}
+	\label{fig:exp_3_1}
+
+%	\footnotesize{
+%	\begin{center}
+%			\begin{minipage}{\linewidth}
+%				\centering	
+%				\textit{Strong} : robust to attribute distribution shifts,  \textit{Weak} : sensitive to attribute distribution shifts
+%			\end{minipage}
+%	\end{center}
+%	}
+	\end{figure*}
 	
 	
 	
@@ -889,38 +889,38 @@ Most algorithms load both the index and the dataset into memory during the build
 	
 	\subsubsection{Robustness}In the following, we evaluate the robustness of these algorithms.
 	
-%	\textit{\textbf{Attribute Distribution.}} To evaluate performance across different attribute distributions, we generate base and query attribute sets with 4 representative distributions—long-tailed, normal, power-law, and uniform—across the 6 datasets described in Section~4.1.1. We evaluate all algorithms under these distributions on each dataset. The performance differences observed for the same algorithm across different datasets are relatively minor. Thus, due to space constraints, we present only the results on SIFT1M.
-%	
-%	As illustrated in Figure~\ref{fig:exp_3_1}, the evaluated algorithms exhibit varying degrees of sensitivity to attribute distribution shifts. \textcolor{cyan}{The proximity of the 4 curves in the figure reflects algorithm sensitivity to distributional variations. When the curves converge closely, the algorithm demonstrates strong resilience against attribute distribution shifts.} Specifically, ACORN, Milvus, Puck, CAPS, StitchedVamana, and UNG demonstrate strong robustness to such shifts. In contrast, Faiss, FilteredVamana, NHQ, VBASE, and PASE show notable sensitivity.
-%	
-%	{\color{blue}{
-%		Algorithms that are highly sensitive to attribute distribution tend to rely passively on the statistical characteristics of the attributes in their design. For instance, graph-based indexing methods like FilteredVamana and NHQ are prone to degraded connectivity or distorted structures under power-law distributions, where label frequencies are highly imbalanced. Similarly, VBASE, which employs a post-filtering strategy, shows efficiency that directly correlates with attribute selectivity—the more selective the filter, the more computational resources are wasted on retrieving irrelevant vectors. Faiss, which searches within the nearest clusters, may need to traverse more clusters to find sufficient results when relevant data points are unevenly distributed across clusters due to attribute skew, which impacts performance.
-%		
-%		In contrast, algorithms with low sensitivity to attribute distribution incorporate smarter indexing designs or adaptive query strategies to mitigate these challenges. Milvus, for example, leverages a built-in query optimizer that dynamically determines whether to filter by attributes or search vectors first, based on the selectivity of the query, thus ensuring more robust performance. Other approaches enhance robustness by separating attribute and vector indexing into distinct stages: UNG uses a logical graph to navigate attribute relationships, while CAPS employs an attribute frequency tree to adapt to power-law patterns. In ACORN--\(\gamma\), during index construction, attributes are primarily used for pruning in the lowest-layer graph, while the upper-layer hierarchical navigation graphs remain largely unaffected. Consequently, changes in attribute distribution have minimal impact on overall performance.}}
+	\textit{\textbf{Attribute Distribution.}} To evaluate performance across different attribute distributions, we generate base and query attribute sets with 4 representative distributions—long-tailed, normal, power-law, and uniform—across the 6 datasets described in Section~4.1.1. We evaluate all algorithms under these distributions on each dataset. The performance differences observed for the same algorithm across different datasets are relatively minor. Thus, due to space constraints, we present only the results on SIFT1M.
+
+	As illustrated in Figure~\ref{fig:exp_3_1}, the evaluated algorithms exhibit varying degrees of sensitivity to attribute distribution shifts. \textcolor{cyan}{The proximity of the 4 curves in the figure reflects algorithm sensitivity to distributional variations. When the curves converge closely, the algorithm demonstrates strong resilience against attribute distribution shifts.} Specifically, ACORN, Milvus, Puck, CAPS, StitchedVamana, and UNG demonstrate strong robustness to such shifts. In contrast, Faiss, FilteredVamana, NHQ, VBASE, and PASE show notable sensitivity.
+
+	{\color{blue}{
+	Algorithms that are highly sensitive to attribute distribution tend to rely passively on the statistical characteristics of the attributes in their design. For instance, graph-based indexing methods like FilteredVamana and NHQ are prone to degraded connectivity or distorted structures under power-law distributions, where label frequencies are highly imbalanced. Similarly, VBASE, which employs a post-filtering strategy, shows efficiency that directly correlates with attribute selectivity—the more selective the filter, the more computational resources are wasted on retrieving irrelevant vectors. Faiss, which searches within the nearest clusters, may need to traverse more clusters to find sufficient results when relevant data points are unevenly distributed across clusters due to attribute skew, which impacts performance.
+
+	In contrast, algorithms with low sensitivity to attribute distribution incorporate smarter indexing designs or adaptive query strategies to mitigate these challenges. Milvus, for example, leverages a built-in query optimizer that dynamically determines whether to filter by attributes or search vectors first, based on the selectivity of the query, thus ensuring more robust performance. Other approaches enhance robustness by separating attribute and vector indexing into distinct stages: UNG uses a logical graph to navigate attribute relationships, while CAPS employs an attribute frequency tree to adapt to power-law patterns. In ACORN--\(\gamma\), during index construction, attributes are primarily used for pruning in the lowest-layer graph, while the upper-layer hierarchical navigation graphs remain largely unaffected. Consequently, changes in attribute distribution have minimal impact on overall performance.}}
 		
 %	Among all algorithms, ACORN-\(\gamma\) shows the highest robustness. During index construction, attribute is mainly used for pruning in the lowest layer graph, while the upper-layer hierarchical navigation graphs remain largely unaffected. As a result, changes in attribute distribution have a limited impact on overall performance.
-%	
+%
 %	\textcolor{cyan}{In contrast, FilteredVamana achieves optimal performance under long-tail and uniform distributions, as these enable construction of balanced label subgraphs with minimal inter-label interference, thus improving search accuracy and efficiency. However, its performance declines under power-law and normal distributions: power-law distributions cause excessive concentration of popular labels and fragmentation of niche labels, disrupting search path connectivity, while normal distributions produce ambiguous graph structures due to label frequency similarities, leading to search divergence. 
 %	Under the power-law distribution, when the NHQ algorithm constructs an index based on fusion distance, points corresponding to high-frequency attribute values make the graph connections extremely dense, while points corresponding to low-frequency attribute values tend to become isolated due to sparse connections. This extreme imbalance in connectivity severely distorts the structure of the graph, ultimately significantly impairing the overall performance of the algorithm.
 %	The search performance of VBASE exhibits a direct dependence on attribute selectivity. As selectivity decreases, search speed declines. Notably, only uniform distribution maintains sufficient selectivity among the tested cases; the other three distributions consistently show low selectivity levels that significantly degrade the operational efficiency of VBASE.}
 	
 %	\begin{figure}
-%		\centering
-%		\setlength{\abovecaptionskip}{0.1cm}
-%		\setlength{\belowcaptionskip}{-0.1cm}
-%		\includegraphics[width=0.95\columnwidth]{figures/exp/exp_5_1_1_SingleLabel_1thread.pdf}
-%		\caption{Effect of Single-Attribute Selectivity on Query}
+%	\centering
+%	\setlength{\abovecaptionskip}{0.1cm}
+%	\setlength{\belowcaptionskip}{-0.1cm}
+%	\includegraphics[width=0.95\columnwidth]{figures/exp/exp_5_1_1_SingleLabel_1thread.pdf}
+%	\caption{Effect of Single-Attribute Selectivity on Query}
 %		\label{fig:exp_5_1_1_SingleLabel_1thread}
 %	\end{figure}
-	
+%	
 	
 	\textit{\textbf{Single-Attribute Selectivity.}}
-	In hybrid queries, varying attribute selectivity (AS) can significantly impact computational cost and query efficiency, as the algorithm must efficiently identify data points matching specific attributes within large datasets. AS is defined as the proportion of data points sharing a given attribute value. For example, AS of 1\% indicates that only 1\% of the dataset meets the given attribute. 
-	
-	To investigate this effect, we evaluate 4 AS settings (1\%, 25\%, 50\%, and 75\%) on the SIFT1M dataset using single-thread execution. 
+%	In hybrid queries, varying attribute selectivity (AS) can significantly impact computational cost and query efficiency, as the algorithm must efficiently identify data points matching specific attributes within large datasets. AS is defined as the proportion of data points sharing a given attribute value. For example, AS of 1\% indicates that only 1\% of the dataset meets the given attribute. 
+%	
+%	To investigate this effect, we evaluate 4 AS settings (1\%, 25\%, 50\%, and 75\%) on the SIFT1M dataset using single-thread execution. 
 %	We compare the query performance of attribute filtering algorithms across these settings, as shown in Figure~\ref{fig:exp_5_1_1_SingleLabel_1thread}.
-	Based on the query performance trends of different algorithms under varying AS, we categorize the algorithms into 3 groups:
-	
+%	Based on the query performance trends of different algorithms under varying AS, we categorize the algorithms into 3 groups:
+%	
 %	Experimental results show that UNG achieves the best performance across all AS settings, especially at extremely low AS (1\%). 
 %	This advantage stems from its pre-filtering strategy. Pre-filtering strategy significantly reduces the ANN search space by narrowing down candidates prior to vector computation. In contrast, VBASE performs the worst at 1\% AS due to its post-filtering strategy. Post-filtering strategy first retrieves a large number of candidates and then applies filtering, incurring substantial computational overhead.
 	
