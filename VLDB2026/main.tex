@@ -518,7 +518,16 @@
 	
 	
 	\subsection{Vector Libraries and Databases}
-	Many existing vector libraries, such as Faiss, and databases, such as Milvus, VBASE, and PASE, are designed specifically for ANN search, but they also support attribute filtering and range queries. We also experimented with them. However, since these libraries and databases do not rely on a single algorithm, their internal implementations are complex, using multiple methods and have detailed third-party documentation, so we will not elaborate on them here.
+The vector library and databases discussed in the following are not explicitly designed for hybrid query, but they support both attribute filtering and range filtering. 
+
+Faiss is an efficient similarity search library. It uses an ID selector to filter data before performing approximate nearest neighbor search. This supports hybrid search.In Faiss, we use the HQI batch optimization strategy in the IVF index. It groups queries with the same filter conditions. Each group only runs the filter once. It uses efficient matrix operations to compute vector similarity in batches.
+
+PASE is a vector index plugin for PostgreSQL. It uses a "search first, then filter" strategy. But because the candidate set size is fixed, it may not return enough top-k results.
+
+VBASE is also a vector plugin for PostgreSQL. It applies filters during the HNSW index traversal. This ensures enough results.
+
+Milvus is a vector database built for large-scale similarity search. It filters data first, then performs approximate nearest neighbor search. This supports hybrid search.
+
 	
 %	The vector libraries and databases discussed in the following are not explicitly designed for hybrid queries, but they support both attribute filtering and range filtering. Additionally, all the functionalities shown in Table 1 are also supported.
 %	
