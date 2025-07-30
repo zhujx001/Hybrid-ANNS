@@ -151,7 +151,10 @@ and concerns, and the changes are highlighted \textcolor{blue}{in blue} accordin
 %\textcolor{blue}{"The proximity of the 4 curves in the figure reflects algorithm sensitivity to distributional variations. When the curves converge closely, the algorithm demonstrates strong resilience against attribute distribution shifts."}
 %
 %For performance under different attribute distributions, to illustrate how different algorithms are affected by varying attribute distributions, we added robustness indicators (Strong and Weak) in the figure. This provides more intuitive visualization of how robust each algorithm performs across different attribute distributions. As shown in Figure\ref{fig:attribute_distribution} below.
-\textbf{Response:} Thank you for your valuable suggestions. We agree that the original figure had readability issues. Based on your feedback, we have carefully revised and reanalyzed the experimental sections related to “attribute distribution” and “attribute selectivity” in the paper.
+\textbf{Response:} Thank you for your valuable suggestions. We agree that the original figure had readability issues. We have first improved the readability of the attribute selectivity Figure~\ref{fig:attribute_selectivity} by adding comparative legends for each algorithm and standardizing the y-axis scales across different subplots.
+
+
+Furthermore, based on your feedback, we have carefully revised and reanalyzed the experimental sections related to “attribute distribution” and “attribute selectivity” in the paper. 
 
 In real-world applications, attribute distributions are often diverse, such as long-tail, uniform, or normal distributions. In our initial design, we included multiple attribute distributions to evaluate the robustness of algorithms under different data characteristics. However, we later realized that attribute distribution is essentially a mixture of different attribute selectivities. Its impact on algorithm performance is ultimately determined by attribute selectivity in each query.
 For example, in a long-tail distribution, querying a common “head” attribute is equivalent to a high attribute selectivity (High AS) case, while querying a rare “tail” attribute is equivalent to a low attribute selectivity (Low AS) case.
@@ -172,25 +175,53 @@ Based on these reasons, we decided to remove the attribute distribution experime
 	\label{fig:attribute_distribution}
 \end{figure*}
 
-For performance under different attribute selectivity, to reflect the performance differences of each algorithm under varying attribute selectivities, we added performance rankings for each algorithm across different selectivity levels in the figure. This provides a clearer illustration of how each algorithm is affected by attribute selectivity rates. As shown in Figure~\ref{fig:attribute_selectivity} below.
+%For performance under different attribute selectivity, to reflect the performance differences of each algorithm under varying attribute selectivities, we added performance rankings for each algorithm across different selectivity levels in the figure. This provides a clearer illustration of how each algorithm is affected by attribute selectivity rates. As shown in Figure~\ref{fig:attribute_selectivity} below.
 
-\begin{figure*}[t]  % 可改为 [b] 放在页面底部
+
+
+
+	\begin{figure*}
 	\centering
-%	\includegraphics[width=0.8\linewidth]{fig/exp_5_2_1_legend.pdf}
-	\includegraphics[width=\linewidth]{fig/exp_5_2_1.pdf}
+	
+	% 第一行：单独一张大图
+	\begin{subfigure}{\textwidth}
+		\centering
+		
+		\includegraphics[width=0.95\textwidth]{fig/exp_5_2_1.pdf}
+		\caption{Algorithms Optimized for Low AS}
+		\label{fig:exp_5_2_1}
+	\end{subfigure}
+	
+	\vfill % 增加垂直间距
+	
+	% 第二行：两张子图，左侧宽度是右侧的两倍
+	\begin{subfigure}{0.627\textwidth} % 2/3 宽度
+		\centering
+		
+		\includegraphics[width=0.96\textwidth]{fig/exp_5_2_2.pdf}
+		\caption{Algorithms Optimized for High AS}
+		\label{fig:exp_5_2_2}
+	\end{subfigure}
+	\hspace{1mm} % 增加水平间距
+	\begin{subfigure}{0.33\textwidth} % 1/3 宽度
+		\centering
+		
+		\includegraphics[width=0.96\textwidth]{fig/exp_5_2_3.pdf}
+		\caption{Algorithms Insensitive to AS}
+		\label{fig:exp_5_2_3}
+	\end{subfigure}
+	
+	
 	\caption{Different Attribute Selectivity (AS) under the Same Algorithm}
 	\label{fig:attribute_selectivity}
 \end{figure*}
-
 \begin{figure}[htbp]
 	\centering
-%	\includegraphics[width=0.8\linewidth]{fig/exp_5_2_1_legend.pdf}
+	%	\includegraphics[width=0.8\linewidth]{fig/exp_5_2_1_legend.pdf}
 	\includegraphics[width=\linewidth]{fig/exp_5_1_1_SingleLabel_1thread.pdf}
 	\caption{Different AS under the Same Algorithm}
 	\label{fig:attribute_selectivity_2}
 \end{figure}
-
-
 %%%%%%%%%%%%%%%%%%%%%% R2 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
 	\begin{metarevision}
@@ -776,7 +807,10 @@ Thank you for pointing this out. We agree that the initial explanations accompan
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We have already addressed this issue in detail in our responses to Meta R8 and R9. Specifically, we analyzed the strengths and weaknesses of each algorithm and recommended those with strong performance. Additionally, we provided a summary table illustrating how each algorithm performs across different application scenarios. For more details, please refer to our responses to Meta R8 and R9.
+Thank you for your suggestion. %We have already addressed this issue in detail in our responses to Meta R8 and R9. 
+We have addressed this issue in the revised manuscript by
+%Specifically, we 
+analyzing the strengths and weaknesses of each algorithm and recommended those with strong performance. Additionally, we provided a summary table illustrating how each algorithm performs across different application scenarios. For more details, please refer to our responses to Meta R8 and R9.
 
 
 
