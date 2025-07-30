@@ -302,7 +302,7 @@
 		\centering
 		%\setlength{\belowcaptionskip}{-0.3cm}
 		
-		\caption{\textcolor{orange}{Comparison of AF-ANN and RF-ANN Search Algorithms}}
+		\caption{\textcolor{orange}{Overview of AF-ANN and RF-ANN Search Algorithms}}
 		\small
 %		\label{tab:compair_1}
 %		\begin{tabular}{|l|l|c|c|c|c|c|c|c|}
@@ -328,7 +328,8 @@
 	
 		\multicolumn{2}{|c|}{\textbf{Characteristics/Algorithms}} & \textbf{NHQ} & \textbf{Filtered} & \textbf{Stitched} & \textbf{CAPS} & \textbf{ACORN} & \textbf{UNG} & \textbf{Puck} & \textbf{DSG} & \textbf{iRange} & \textbf{SeRF} & \textbf{UNIFY} & \textbf{Win}
 		 \\ \hline
-		\multirow{6}{*}{\textbf{AF}} 
+%		\multirow{6}{*}{\centering\textbf{AF}} 
+		\multirow{6}{*}{\raisebox{4ex}{\textbf{AF}}}
 		%& Filter Type         & C   & C   & C   & C   & B   & B   & B   & \multicolumn{5}{c|}{} \\ \cline{2-9}
 		& AND                 & Y   & N   & N   & Y   & Y   & Y   & Y   & \multicolumn{5}{c|}{\multirow{4}{*}{\centering\shortstack{AF\\Not Support}}} \\ \cline{2-9}
 		& OR                  & N   & Y   & Y   & N   & Y   & Y   & Y   & \multicolumn{5}{c|}{} \\ \cline{2-9}
@@ -371,7 +372,7 @@
 %				\textit{Disk Support} indicates whether the algorithm supports disk storage.
 %				\textit{Base} indicates the foundational ANN algorithm for the hybrid query method.
 		\textcolor{orange}{
-		\textit{Win}: WinFilter, \textit{Filtered}: FilteredVamana, \textit{Stitched}: StitchedVamana. 
+		\textit{Filtered}: FilteredVamana, \textit{Stitched}: StitchedVamana, \textit{Win}: WinFilter.
 		\textit{AND} / \textit{OR}: Whether the algorithm supports the corresponding logical operations.
 		\textit{Flexible Attributes}: Allows the number of query attributes to differ from that in index construction.
 		\textit{Complex Boolean}: Supports NOT or nested Boolean expressions.
@@ -379,11 +380,11 @@
 		\textit{Multi Thread}: Supports multi-threaded search.
 		\textit{Disk Support}: Supports disk-based storage.
 		\textit{Base}: Underlying ANN index structure used.}
-		\textsuperscript{A} Post-filtering, 
-		\textsuperscript{B} Pre-filtering, 
-		\textsuperscript{C} Simultaneous filtering, 
-		\textsuperscript{Y} Support, 
-		\textsuperscript{N} Unsupport. 
+		\textit{A}: Post-filtering, 
+		\textit{B}: Pre-filtering, 
+		\textit{C}: Simultaneous filtering, 
+		\textit{Y}: Support, 
+		\textit{N}: Unsupport. 
 		\end{minipage}}
 		
 	\end{table*}
