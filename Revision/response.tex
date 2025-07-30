@@ -223,7 +223,7 @@ Section 4.3.4:\textcolor{blue}{
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.8\linewidth]{fig/attribute_legend.pdf}
+	\includegraphics[width=0.98\linewidth]{fig/attribute_legend.pdf}
 	\includegraphics[width=\linewidth]{fig/attribute_multimodel_2.pdf}
 	\caption{Attribute Filtering Multi-modal}
 	\label{fig:attribute_multimodel}
@@ -231,7 +231,7 @@ Section 4.3.4:\textcolor{blue}{
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.8\linewidth]{fig/range_legend.pdf}
+	\includegraphics[width=0.95\linewidth]{fig/range_legend.pdf}
 	\includegraphics[width=\linewidth]{fig/range_multimodel_2.pdf}
 	\caption{Range Filtering Multi-modal}
 	\label{fig:range_multimodel}
@@ -247,7 +247,7 @@ Section 4.3.4:\textcolor{blue}{
 	% --- 不再使用 subfigure ---
 	% 直接放置第二张图片，可以加一点垂直间距
 	\vspace{5pt} 
-	\includegraphics[width=0.99\columnwidth]{fig/range_2_2.pdf}
+	\includegraphics[width=0.95\columnwidth]{fig/range_2_2.pdf}
 	
 	\caption{Comparison of Real and Synthetic Attributes}
 	\label{fig:range_2_2}
@@ -284,15 +284,15 @@ Thank you for your suggestion. Using the ID as an attribute for range filtering 
 \textbf{Response:} 
 That is a great suggestion. In order to figure out if the server setting affects the relative ordering of methods, we conducted additional experiments on an Ubuntu 20.04 server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz featuring 128GB of RAM and 84 MiB of L3 cache using the YT-Audio-Real dataset.
 The results show that the performance differences across algorithms remain small, and their relative rankings do not change significantly across servers.
-We did observe slightly lower QPS on this server compared to our original one, which is mainly due to the the lower CPU frequency, reduced RAM capacity, and smaller L3 cache of the Xeon 6330 processors. \textbf{(Please see Section 4.2.4 and Section 4.3.4, highlighted in blue in the revised manuscript.)} 
+We did observe slightly lower QPS on this server compared to our original one, which is mainly due to the the lower CPU frequency, reduced RAM capacity, and smaller L3 cache of the Xeon 6330 processors. \textbf{(Please see Section 4.2.3 and Section 4.3.3, highlighted in blue in the revised manuscript.)} 
 
-Section 4.2.4:
+Section 4.2.3:
 %\textcolor{blue}{"To investigate the impact of different server configurations on the performance of the algorithms, we conduct additional experiments on a server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset, and the results are shown in Figure 12b. Compared with the experimental results on the original server, the relative ranking of the algorithms remains largely unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency and smaller RAM capacity, the QPS values are slightly lower across all methods."}
 \textcolor{blue}{"To investigate the impact of different server configurations on the performance of the algorithms, we conduct additional experiments on an Ubuntu 20.04 server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz featuring 128GB of RAM and 84 MiB of L3 cache using the YT-Audio-Real dataset, and the results are shown in Figure 12b. It is not difficult to see that the relative ranking of the algorithms under the two servers essentially remains unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency, reduced RAM capacity, and smaller L3 cache, all methods demonstrate slightly lower QPS values."}
 
-Section 4.3.4:
+Section 4.3.3:
 %\textcolor{blue}{"Consistent with Section 4.2.4, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure 16b. When compared with the experimental results of the original server, our findings remain consistent with those reported in Section 4.2.4. For brevity and due to space limitations, we omit further discussion of these redundant results."}
-\textcolor{blue}{"Consistent with Section 4.2.4, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure 16b. Our findings remain consistent with those reported in Section 4.2.4. For brevity and due to space limitations, we omit further discussion of these redundant results."}
+\textcolor{blue}{"Consistent with Section 4.2.3, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure 16b. Our findings remain consistent with those reported in Section 4.2.3. For brevity and due to space limitations, we omit further discussion of these redundant results."}
 
 
 %%%%%%%%%%%%%%%%%%%%%% R6 %%%%%%%%%%%%%%%%%%%%%%
@@ -389,13 +389,13 @@ Section 4.2.1:
 
 \noindent
 \textbf{Response:} 
-Thank you for your valuable suggestion regarding our experiments. In Section 4.2.4 and Section 4.3.4, we have added experiments on the Deep100M dataset. The results show that most algorithms struggle to balance performance with time and space costs on this large-scale dataset. In particular, StitchedVamana performs poorly on Deep100M. \textbf{(Please see the "Large-scale Datasets" part of Section 4.2.4 and Section 4.3.4, highlighted in blue in the revised manuscript.)}
+Thank you for your valuable suggestion regarding our experiments. In Section 4.2.3 and Section 4.3.3, we have added experiments on the Deep100M dataset. The results show that most algorithms struggle to balance performance with time and space costs on this large-scale dataset. In particular, StitchedVamana performs poorly on Deep100M. \textbf{(Please see the "Large-scale Datasets" part of Section 4.2.3 and Section 4.3.4, highlighted in blue in the revised manuscript.)}
 %\textbf{(Please refer to the blue highlighted parts in Section 4.2.4 and Section 4.3.4 under Large-scale Datasets.)}
 
 
-Section 4.2.4:\textcolor{blue}{"As shown in the figure 12c, on the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating good adaptability to large-scale datasets. However, this also comes with significant memory overhead. The clustering-based algorithm Faiss+HQI\_Batch shows moderate performance but has very low memory overhead, which also has certain practical significance. Furthermore, we do not present the experimental results for StitchedVamana because its recall consistently remains at a very low level. This is due to its search starting point being set to 0 by default, when the entry point is far from the target area, it easily gets stuck in a local optimum, making it difficult to navigate to the vicinity of the correct point."}
+Section 4.2.3:\textcolor{blue}{"As shown in the figure 12c, on the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating good adaptability to large-scale datasets. However, this also comes with significant memory overhead. The clustering-based algorithm Faiss+HQI\_Batch shows moderate performance but has very low memory overhead, which also has certain practical significance. Furthermore, we do not present the experimental results for StitchedVamana because its recall consistently remains at a very low level. This is due to its search starting point being set to 0 by default, when the entry point is far from the target area, it easily gets stuck in a local optimum, making it difficult to navigate to the vicinity of the correct point."}
 
-Section 4.3.4:
+Section 4.3.3:
 \textcolor{blue}{"As shown in the figure 16c, in the 100-million-scale dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption (300-400GB). At the same time, we can see that some algorithms (e.g., SeRF, ACORN-1) perform even worse than the VBASE database, which indicates that they do not adapt well to large-scale dataset scenarios. Although Milvus has a low QPS, it can achieve a recall of 1 with an excellent memory footprint of around 80GB"}
 
 %%%%%%%%%%%%%%%%%%%%%% R9 %%%%%%%%%%%%%%%%%%%%%%
@@ -601,7 +601,7 @@ For range filtering, we have also included the YT-Audio-Real and WIT-Real datase
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We have added relevant experiments conducted on different servers in Section 4.2.4 and 4.3.4. The results show that differences in server configurations have little impact on the ranking of the methods. For more details, please refer to our response Meta R4.
+Thank you for your suggestion. We have added relevant experiments conducted on different servers in Section 4.2.3 and 4.3.3. The results show that differences in server configurations have little impact on the ranking of the methods. For more details, please refer to our response Meta R4.
 %%%%%%%%%%%%%%%%%%%%%% W3 %%%%%%%%%%%%%%%%%%%%%%
 
 \myfbox{
@@ -668,15 +668,18 @@ Thank you for pointing this out. The original reference [49], now updated to ref
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We cited these two papers in the introduction to show that there are several papers that study attribute distribution and selectivity.
-In addition, attribute distribution and selectivity are indeed widely used in real-world scenarios. For attribute distribution, the label attributes of many recommendation application scenarios in reality conform to the power-law distribution. For attribute selectivity: for example, if you need to query data with a very small proportion of a certain attribute, choosing a better algorithm will greatly improve the search effect. There are also some databases with practical applications that mention attribute selectivity, such as Milvus and AnalyticDB-V. For the two parts you suggested, we have replaced them in the paper with more comprehensive and accurate references. \textbf{(Please see Section 1.1, highlighted in blue in the revised manuscript.)}
+Thank you for your suggestion. We cited these two papers in the introduction to show that there are several papers that study attribute selectivity. In practice, attribute selectivity are indeed widely used in real-world scenarios. For example, if you need to query data with a very small proportion of a certain attribute, choosing a better algorithm will greatly improve the search effect. There are also some databases with practical applications that mention attribute selectivity, such as Milvus and AnalyticDB-V. We have replaced the two references ([12] and [36]) with more comprehensive and accurate references ([47] and [52]). \textbf{(Please see Section 1.1, highlighted in blue in the revised manuscript.)}
  
 
-\textcolor{blue}{"For attribute filtering algorithms, factors such as the number of attributes, attribute distribution[13], and attribute  selectivity [47,52] significantly impact algorithm performance."}
+\textcolor{blue}{"For attribute filtering algorithms, factors such as the number of attributes, attribute  selectivity [47,52] significantly impact algorithm performance."}
 
-[47]Jianguo Wang, Xiaomeng Yi, Rentong Guo, and et al. 2021. Milvus: A PurposeBuilt Vector Data Management System. In SIGMOD Conference. ACM, 2614-2627.
+\textcolor{blue}{"
+[47]Jianguo Wang, Xiaomeng Yi, Rentong Guo, and et al. 2021. Milvus: A PurposeBuilt Vector Data Management System. In SIGMOD Conference. ACM, 2614-2627."
+}
 
-[52]Chuangxian Wei, Bin Wu, Sheng Wang, Renjie Lou, Chaoqun Zhan, Feifei Liand Yuanzhe Cai. 2020.AnalyticDB-V: A Hybrid Analytical Engine TowardsOuery Fusion for Structured and Unstructured Data. Proc. VLDB Endow. 13, 12(2020),3152-3165.
+\textcolor{blue}{"
+[52]Chuangxian Wei, Bin Wu, Sheng Wang, Renjie Lou, Chaoqun Zhan, Feifei Liand Yuanzhe Cai. 2020.AnalyticDB-V: A Hybrid Analytical Engine TowardsOuery Fusion for Structured and Unstructured Data. Proc. VLDB Endow. 13, 12(2020),3152-3165."
+}
 
 %%%%%%%%%%%%%%%%%%%%%% D3 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -747,7 +750,7 @@ Thank you for the suggestion. Since there are multiple methods, listing all URLs
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We have added experiments on the Deep100M dataset in Section 4.2.4 and Section 4.3.4, and we observed some pitfalls. For more details, please refer to our response to Meta R7.
+Thank you for your suggestion. We have added experiments on the Deep100M dataset in Section 4.2.3 and Section 4.3.3, and we observed some pitfalls. For more details, please refer to our response to Meta R7.
 
 %%%%%%%%%%%%%%%%%%%%%% W2 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
