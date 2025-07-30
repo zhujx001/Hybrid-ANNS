@@ -141,7 +141,7 @@
 	% 需要添加引用，下面这段
 	However, with the exponential growth of data volume and the increasing dimensionality of vectors \cite{weber1998quantitative}, traditional NN search methods struggle to meet the demands of real-time search. To address this issue, studies turn to more efficient approaches - Approximate NN (ANN) search ~\cite{arya1998optimal,beis1997shape,gionis1999similarity,malkov2018efficient}, which significantly improve search efficiency by constructing effective indexing structures, albeit at the cost of reduced accuracy.
 	
-	Nevertheless, as application scenarios grow increasingly complex, simple ANN search can no longer satisfy all practical needs. For instance, Figure~\ref{fig:hybrid ANNS} illustrates a case where users on e-commerce platforms search for clothing items by retrieving visually similar products based on an image. Additionally, users may impose further requirements such as price, color, or brand preferences. Such scenarios necessitate a retrieval system capable of simultaneously addressing vector similarity (e.g., product image) and attribute constraints (e.g., brand name) \cite{tian2023approximate}. When the constraint involves a specific attribute value, this problem refers to Attribute Filtering Approximate Nearest Neighbor (AF-ANN) search ~\cite{NHQ,Filtered-diskann} . For example, a user may seek a green piece of clothing. If the constraint involves a range condition, the problem is known as Range Filtering Approximate Nearest Neighbor (RF-ANN) search ~\cite{serf,iRangeGraph}. For instance, filtering clothes priced between 100 and 200. To meet these application demands, hybrid querying \cite{JD-e-commerce, analyticdb} techniques emerge. Hybrid queries integrate vector retrieval with conditional filtering, optimizing their interaction to significantly enhance efficiency and flexibility in complex query scenarios.
+	Nevertheless, as application scenarios grow increasingly complex, simple ANN search can no longer satisfy all practical needs. For instance, Figure~\ref{fig:hybrid ANNS} illustrates a case where users on e-commerce platforms search for clothing items by retrieving visually similar products based on an image. Additionally, users may impose further requirements such as price, color, or brand preferences. Such scenarios necessitate a retrieval system capable of simultaneously addressing vector similarity (e.g., product image) and attribute constraints (e.g., brand name) \cite{tian2023approximate}. When the constraint involves a specific attribute value, this problem refers to Attribute Filtering Approximate Nearest Neighbor (AF-ANN) search ~\cite{NHQ,Filtered-diskann} . For example, a user may seek a green piece of clothing. If the constraint involves a range condition, the problem is known as Range Filtering Approximate Nearest Neighbor (RF-ANN) search ~\cite{serf,iRangeGraph}. For instance, filtering clothes priced between 100 and 200. To meet these application demands, hybrid querying techniques \cite{JD-e-commerce, analyticdb} emerge. Hybrid queries integrate vector retrieval with conditional filtering, optimizing their interaction to significantly enhance efficiency and flexibility in complex query scenarios.
 	
 	\begin{figure*}
 		\centering
@@ -152,25 +152,33 @@
 		\label{fig:hybrid ANNS}
 	\end{figure*}
 	\subsection{Motivation}
+	In recent years, hybrid query algorithms develop rapidly, giving rise to numerous attribute filtering algorithms~\cite{NHQ,diskann} and range filtering algorithms~\cite{serf,iRangeGraph}. In practical applications, the performance of hybrid query algorithms is influenced not only by unstructured data but also closely relates to structured data. For attribute filtering algorithms, \textcolor{violet}{factors such as the number of attributes and attribute selectivity~\cite{analyticdb,milvus} significantly impact algorithm performance.} As for range filtering algorithms, the size of the query range and the characteristics of different datasets play an important role in determining algorithm performance.
 	
-	In recent years, hybrid query algorithms develop rapidly, giving rise to numerous attribute filtering ~\cite{NHQ,diskann} and range filtering algorithms \cite{serf,iRangeGraph}. In practical applications, the performance of hybrid query algorithms is influenced not only by unstructured data but also closely related to structured data. For attribute filtering algorithms, factors such as the number of attributes, attribute distribution \cite{UNG}, and attribute  selectivity \textcolor{orange}{\cite{analyticdb,milvus}} significantly impact algorithm performance. As for range filtering algorithms, the size of the query range and the characteristics of different datasets  play an important role in determining algorithm performance.
+	\textcolor{violet}{Although existing works~\cite{compare,azizi2025graph} conduct benchmark evaluations of ANN methods, a systematic experimental study specifically targeting hybrid query algorithms is still lacking. Despite BigANN 2023~\cite{bigann2023} evaluates the performance of some hybrid query algorithms, it still presents the following notable limitations:
+	1) The evaluation covers a limited number of algorithms and fails to comprehensively include mainstream methods.
+	2) It only uses a single dataset and focuses solely on single-attribute and dual-attribute query scenarios, while not considering the impact of attribute selectivity on query performance.
+	3) It only simply compares the query speed and recall of different algorithms, but does not consider key metrics such as the time and space overhead of each algorithm, and also does not deeply analyze the specific reasons for algorithm performance.}
 	
-	Despite BigANN 2023 \cite{bigann2023} evaluates the performance of some ANN algorithms, it presents several notable limitations:
-	1) The evaluation covers a limited number of algorithms and fails to comprehensively include mainstream methods. 
-	%	\sout{For instance, attribute filtering algorithms such as NHQ and UNG are not included in the evaluation. }
-	2) It focuses only on single-attribute and dual-attribute query scenarios. 
-	%	\sout{neglecting the more complex demands of multi-attribute queries. In real-world applications, an object typically involves multiple attributes.}\textcolor{blue}{ \sout{For example, in e-commerce scenarios, users often specify multiple attributes (e.g., color, brand, price range) simultaneously when searching.}}
-	3) It does not evaluate algorithm performance under different attribute distributions. 
-	%	\sout{However, variations in attribute distribution may directly affect the filtering strategies and index construction efficiency of hybrid query algorithms.}
+	\textcolor{violet}{To fill this gap, we conduct the first comprehensive experimental evaluation of hybrid query algorithms, systematically analyzing their index construction costs and query efficiency across diverse scenarios. Furthermore, we rigorously assess the robustness of each algorithm under different experimental settings, thereby providing valuable insights for future research and practical applications.}
 	
+%	In recent years, hybrid query algorithms develop rapidly, giving rise to numerous attribute filtering ~\cite{NHQ,diskann} and range filtering algorithms \cite{serf,iRangeGraph}. In practical applications, the performance of hybrid query algorithms is influenced not only by unstructured data but also closely related to structured data. For attribute filtering algorithms, factors such as the number of attributes, attribute distribution \cite{UNG}, and attribute  selectivity \textcolor{orange}{\cite{analyticdb,milvus}} significantly impact algorithm performance. As for range filtering algorithms, the size of the query range and the characteristics of different datasets  play an important role in determining algorithm performance.
+%	
+%	Despite BigANN 2023 \cite{bigann2023} evaluates the performance of some ANN algorithms, it presents several notable limitations:
+%	1) The evaluation covers a limited number of algorithms and fails to comprehensively include mainstream methods. 
+%	%	\sout{For instance, attribute filtering algorithms such as NHQ and UNG are not included in the evaluation. }
+%	2) It focuses only on single-attribute and dual-attribute query scenarios. 
+%	%	\sout{neglecting the more complex demands of multi-attribute queries. In real-world applications, an object typically involves multiple attributes.}\textcolor{blue}{ \sout{For example, in e-commerce scenarios, users often specify multiple attributes (e.g., color, brand, price range) simultaneously when searching.}}
+%	3) It does not evaluate algorithm performance under different attribute distributions. 
+%	%	\sout{However, variations in attribute distribution may directly affect the filtering strategies and index construction efficiency of hybrid query algorithms.}
+%	
 %	Moreover, beyond BigANN, systematic evaluations of hybrid query algorithms remain limited.
-%	To fill this gap, we conduct a comprehensive experimental evaluation of hybrid query algorithms, analyzing the index construction costs and query efficiency across different scenarios. Additionally, we further assess the robustness of each algorithm under varying conditions.
-	
-	Moreover, beyond BigANN, systematic evaluations of hybrid query algorithms remain limited. 
-	\textcolor{orange}{%Although existing works \cite{compare,azizi2025graph} conduct benchmark evaluations or experimental analyses of ANN methods, existing work still lacks an experimental study specifically targeting hybrid query algorithms. 
-	Although existing works\cite{compare,azizi2025graph} conduct benchmark evaluations of ANN methods, a dedicated experimental study on hybrid query algorithms is still lacking.
-	To address this gap, we carry out the first comprehensive experimental evaluation of hybrid query algorithms, systematically analyzing their index construction costs and query efficiency across diverse scenarios. Furthermore, we rigorously assess the robustness of each algorithm under different experimental settings, thereby providing valuable insights for future research and practical applications.}
-	
+%%	To fill this gap, we conduct a comprehensive experimental evaluation of hybrid query algorithms, analyzing the index construction costs and query efficiency across different scenarios. Additionally, we further assess the robustness of each algorithm under varying conditions.
+%	
+%	Moreover, beyond BigANN, systematic evaluations of hybrid query algorithms remain limited. 
+%	\textcolor{orange}{%Although existing works \cite{compare,azizi2025graph} conduct benchmark evaluations or experimental analyses of ANN methods, existing work still lacks an experimental study specifically targeting hybrid query algorithms. 
+%	Although existing works\cite{compare,azizi2025graph} conduct benchmark evaluations of ANN methods, a dedicated experimental study on hybrid query algorithms is still lacking.
+%	To address this gap, we carry out the first comprehensive experimental evaluation of hybrid query algorithms, systematically analyzing their index construction costs and query efficiency across diverse scenarios. Furthermore, we rigorously assess the robustness of each algorithm under different experimental settings, thereby providing valuable insights for future research and practical applications.}
+%	
 	\subsection{Our Contributions}
 	
 	Our study focuses on the problem of ANN search in hybrid query scenarios and provides a comprehensive review and evaluation of existing algorithms and systems. The main contributions are summarized in the following 5 aspects.
@@ -183,7 +191,7 @@
 	(2) \textbf{Strengthening Datasets and Experimental Settings for Fair Evaluation.}
 %		To ensure fair and reproducible evaluation, we generate attribute values based on real-world scenarios to enhance commonly used datasets. In addition to commonly used datasets, we also conduct experiments on a real-attribute dataset and a large-scale dataset (up to 100M records). Our benchmark design covers diverse selectivity levels and query conditions, establishing a unified and practical evaluation framework for hybrid query algorithms.}
 %	To address the lack of standardized benchmarks in attribute filtering research, we generate attribute values based on real-world scenarios to enhance commonly used datasets. We also collect real attribute information from existing datasets and conduct experiments on a real attribute dataset to validate the plausibility of the generated attributes and the effectiveness of the results. To comprehensively reflect diverse real-world application needs, we design experiments covering varying attribute distributions, selectivity levels, and query conditions, ensuring representative and practical evaluation. \textcolor{cyan}{Furthermore, we test on a large-scale dataset containing 100 million records and a multi-modal dataset to analyze the scalability and performance of various algorithms.} These enhancements establish a unified evaluation framework that supports fair, consistent, and reproducible comparisons across different algorithms, laying a solid foundation for future research in hybrid query.
-	To address the lack of standardized benchmarks in attribute filtering research, we enrich commonly used datasets by generating attribute values tailored to real-world scenarios. We design comprehensive experimental settings that reflect diverse application requirements, including varying attribute distributions, selectivity, and query conditions. \textcolor{cyan}{Furthermore, to investigate the scalability and adaptability of the algorithms, we conduct extended experiments on a large 100M dataset and 2 multi-modal datasets.} These enhancements provide a unified evaluation framework that supports fair, consistent, and reproducible comparisons across different algorithms, laying a solid foundation for future research in hybrid queries.
+	To address the lack of standardized benchmarks in attribute filtering research, we enrich commonly used datasets by generating attribute values tailored to real-world scenarios. We design comprehensive experimental settings that reflect diverse application requirements, \textcolor{violet}{including varying selectivity, number of attributes participating in index construction, and number of query attributes.} \textcolor{cyan}{Furthermore, to investigate the scalability and adaptability of the algorithms, we conduct extended experiments on a large-scale dataset and 2 multi-modal datasets.} These enhancements provide a unified evaluation framework that supports fair, consistent, and reproducible comparisons across different algorithms, laying a solid foundation for future research in hybrid query.
 
 
 %		To address the lack of standardized benchmarks in attribute filtering research, we enrich commonly used datasets by generating attribute values tailored to real-world scenarios. Furthermore, we design comprehensive experimental settings that reflect diverse application requirements, including varying attribute distributions, selectivity, and query conditions. These enhancements provide a unified evaluation framework that supports fair, consistent, and reproducible comparisons across different algorithms, laying a solid foundation for future research in hybrid query.
@@ -262,7 +270,7 @@
 	
 	
 	\noindent\textbf{\underline{IVF.}} 
-	\textcolor{violet}{IVF divides data into multiple clusters through clustering (e.g., K-Means), with each cluster represented by a center (Figure~\ref{fig:ivf}). During querying, algorithms search only within the few clusters closest to the query point, which reduces computational load.}
+	\textcolor{violet}{IVF divides data into multiple clusters through through a clustering algorithm (e.g., K-Means), with each cluster represented by a center (Figure~\ref{fig:ivf}). During querying, algorithms search only within the few clusters closest to the query point, which reduces computational load.}
 	
 	\textcolor{violet}{IVF-based indexes also offer unique advantages in hybrid ANN search scenarios, including natural support for pre-filtering, low memory footprint, and small index size. Efficient filtering is achieved by excluding vectors that do not satisfy attribute constraints before distance computation (e.g., Faiss, Milvus). Furthermore, hierarchical partitioning by attributes can form finer-grained sub-clusters to enhance filtering efficiency (e.g., CAPS, PUCK).}
 %	IVF-based ANN search algorithms improve computational efficiency by partitioning the dataset into clusters and restricting the search to clusters nearest to the query point. Specifically, as shown in Figure~\ref{fig:ivf}, IVF first selects a subset of data points and applies a clustering algorithm (e.g., K-Means) to obtain a set of centroids $(C_0, C_1, ..., C_6)$, each representing a distinct cluster. Every data point (gray dots) is then assigned to the cluster corresponding to its nearest centroid based on the distance metric, thereby forming the index structure.
@@ -302,7 +310,7 @@
 		\centering
 		%\setlength{\belowcaptionskip}{-0.3cm}
 		
-		\caption{\textcolor{orange}{Comparison of AF-ANN and RF-ANN Search Algorithms}}
+		\caption{\textcolor{orange}{Overview of AF-ANN and RF-ANN Search Algorithms}}
 		\small
 %		\label{tab:compair_1}
 %		\begin{tabular}{|l|l|c|c|c|c|c|c|c|}
@@ -328,7 +336,8 @@
 	
 		\multicolumn{2}{|c|}{\textbf{Characteristics/Algorithms}} & \textbf{NHQ} & \textbf{Filtered} & \textbf{Stitched} & \textbf{CAPS} & \textbf{ACORN} & \textbf{UNG} & \textbf{Puck} & \textbf{DSG} & \textbf{iRange} & \textbf{SeRF} & \textbf{UNIFY} & \textbf{Win}
 		 \\ \hline
-		\multirow{6}{*}{\textbf{AF}} 
+%		\multirow{6}{*}{\centering\textbf{AF}} 
+		\multirow{6}{*}{\raisebox{4ex}{\textbf{AF}}}
 		%& Filter Type         & C   & C   & C   & C   & B   & B   & B   & \multicolumn{5}{c|}{} \\ \cline{2-9}
 		& AND                 & Y   & N   & N   & Y   & Y   & Y   & Y   & \multicolumn{5}{c|}{\multirow{4}{*}{\centering\shortstack{AF\\Not Support}}} \\ \cline{2-9}
 		& OR                  & N   & Y   & Y   & N   & Y   & Y   & Y   & \multicolumn{5}{c|}{} \\ \cline{2-9}
@@ -371,7 +380,7 @@
 %				\textit{Disk Support} indicates whether the algorithm supports disk storage.
 %				\textit{Base} indicates the foundational ANN algorithm for the hybrid query method.
 		\textcolor{orange}{
-		\textit{Win}: WinFilter, \textit{Filtered}: FilteredVamana, \textit{Stitched}: StitchedVamana. 
+		\textit{Filtered}: FilteredVamana, \textit{Stitched}: StitchedVamana, \textit{Win}: WinFilter.
 		\textit{AND} / \textit{OR}: Whether the algorithm supports the corresponding logical operations.
 		\textit{Flexible Attributes}: Allows the number of query attributes to differ from that in index construction.
 		\textit{Complex Boolean}: Supports NOT or nested Boolean expressions.
@@ -379,11 +388,11 @@
 		\textit{Multi Thread}: Supports multi-threaded search.
 		\textit{Disk Support}: Supports disk-based storage.
 		\textit{Base}: Underlying ANN index structure used.}
-		\textsuperscript{A} Post-filtering, 
-		\textsuperscript{B} Pre-filtering, 
-		\textsuperscript{C} Simultaneous filtering, 
-		\textsuperscript{Y} Support, 
-		\textsuperscript{N} Unsupport. 
+		\textit{A}: Post-filtering, 
+		\textit{B}: Pre-filtering, 
+		\textit{C}: Simultaneous filtering, 
+		\textit{Y}: Support, 
+		\textit{N}: Unsupport. 
 		\end{minipage}}
 		
 	\end{table*}
