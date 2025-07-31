@@ -148,7 +148,7 @@ and concerns, and the changes are highlighted \textcolor{blue}{in blue} accordin
 \noindent
 \textbf{Response:} We sincerely appreciate your valuable suggestions, which provide meaningful improvements to our work. Ensuring the readability of the figures is indeed crucial. We have modified both the figure and the related description in the paper to improve readability and ensure academic rigor. \textbf{(Please see Section 4.2.3, highlighted in blue in the revised manuscript.)}
 
-\textcolor{blue}{"The proximity of the curves in the figure reflects algorithm sensitivity to distributional variations. When the curves converge closely, the algorithm demonstrates strong resilience against attribute distribution shifts."}
+\textcolor{blue}{"The proximity of the curves in the figure reflects algorithm sensitivity to attribute distributional variations. When the curves converge closely, it demonstrates that the algorithm maintains stable performance when attribute distributions change."}
 
 For performance under different attribute distributions, to illustrate how different algorithms are affected by varying attribute distributions, we added robustness indicators (Stable and Unstable) in the figure. This provides more intuitive visualization of how robust each algorithm performs across different attribute distributions. As shown in Figure\ref{fig:attribute_distribution} below.
 %\textbf{Response:} Thank you for your valuable suggestions. We agree that the original figure had readability issues. We have first improved the readability of the attribute selectivity Figure~\ref{fig:attribute_selectivity} by adding comparative legends for each algorithm and standardizing the y-axis scales across different subplots.
@@ -171,13 +171,13 @@ For performance under different attribute distributions, to illustrate how diffe
 	\centering
 %	\includegraphics[width=\linewidth]{fig/exp_3_1_legend.pdf}
 	\includegraphics[width=\linewidth]{fig/exp_3_1.pdf}
-	\caption{Effect of Attribute Distribution on Query Performance (Strong is robust to attribute distribution shifts, Weak is sensitive to attribute distribution shifts)}
+	\caption{Effect of Attribute Distribution on Query Performance}
 	\label{fig:attribute_distribution}
 \end{figure*}
 
 For performance under different attribute selectivity, to reflect the performance differences of each algorithm under different attribute selectivity, we added performance rankings for each algorithm across different selectivity levels in the figure. This provides a clearer illustration of how each algorithm is affected by attribute selectivity rates. As shown in Figure~\ref{fig:attribute_selectivity} below.
 
-We also removed the original Figure~\ref{fig:attribute_selectivity_2}, which displayed too many algorithms in one plot and was difficult to interpret and somewhat redundant with Figure~\ref{fig:attribute_selectivity}. We believe these changes improve the clarity and readability of the paper, without reducing the completeness of the evaluation.
+We also removed the  Figure~\ref{fig:attribute_selectivity_2}, which displayed too many algorithms in one plot and was difficult to interpret and somewhat redundant with Figure~\ref{fig:attribute_selectivity}. We believe these changes improve the clarity and readability of the paper, without reducing the completeness of the evaluation.
 
 
 
@@ -246,11 +246,11 @@ Section 4.1.1:\textcolor{blue}{
 }
 
 Section 4.2.3: \textcolor{blue}{
-	"We conduct experiments on the Text2image-Mix dataset. This dataset contains image and text vectors and is a hybrid multi-modal dataset. As shown in Figure 9, UNG and NHQ consistently perform best, followed by CAPS. Although this dataset mixes two modalities, the vector space distributions of different modalities often differ significantly. In practice, this means that the experiments effectively treat the image and text subsets as separate datasets, since the ground truths for each query belong to the same modality. Therefore, the performance on this dataset is similar to the results shown in Figure 4. In contrast, the Text2image dataset shown in Figure 9 is different. The query set and the base dataset belong to two completely different modalities. Queries are far from the dataset points, and the ground truths are more dispersed. To find the ground truths, algorithms typically need to examine more points, which leads to degraded performance." 
+	"We conduct experiments on two multimodal datasets Text2image-Mix and Text2image. On Text2imageMix dataset, as shown in Figure 9, UNG and NHQ consistently perform best, followed by CAPS. Although the dataset contains two modalities, due to the significant differences between the modalities, they are actually two separate regions in the vector space. The performance is similar to that of the single-modal dataset in Figure 4. This is because mixed multi-modal queries are actually the same as conducting experiments on two datasets of the same modality. This is not actually a difficult query. In contrast, the Text2image dataset shown in Figure 9 is different. The query set and the base dataset belong to two completely different modalities. Queries are far from the dataset points, and the ground truths are more dispersed. To find the groundtruths, algorithms typically need to examine more points, which leads to degraded performance." 
 }
 
 Section 4.3.3:\textcolor{blue}{
-		"Similar to attribute filtering, the performance of multi-modal range filtering queries shown in Figure 14 also aligns with the single-modality results in Figure 13. These algorithms on the Text2Image dataset exhibit a significant performance degradation. This is because these range query algorithms are almost entirely graph-based, and graph algorithms require more iterations to find true neighbors in OOD datasets."
+		"Similar to attribute filtering, on Text2Image-Mix dataset, the performance of multi-modal range filtering queries shown in Figure 14 also aligns with the single-modality results in Figure 13. These algorithms on the Text2Image dataset exhibit a significant performance degradation. This is because most of these range query algorithms are graph-based, and such algorithms require more iterations to find true neighbors in OOD datasets."
 }
 
 \begin{figure}[htbp]
@@ -320,11 +320,11 @@ We did observe slightly lower QPS on this server compared to our original one, w
 
 Section 4.2.3:
 %\textcolor{blue}{"To investigate the impact of different server configurations on the performance of the algorithms, we conduct additional experiments on a server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset, and the results are shown in Figure 12b. Compared with the experimental results on the original server, the relative ranking of the algorithms remains largely unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency and smaller RAM capacity, the QPS values are slightly lower across all methods."}
-\textcolor{blue}{"To investigate the impact of different server configurations on the performance of the algorithms, we conduct additional experiments on an Ubuntu 20.04 server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz featuring 128GB of RAM and 84 MiB of L3 cache using the YT-Audio-Real dataset, and the results are shown in Figure 9b. It is not difficult to see that the relative ranking of the algorithms under the two servers essentially remains unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency, reduced RAM capacity, and smaller L3 cache, all methods demonstrate slightly lower QPS values."}
+\textcolor{blue}{"To investigate the impact of different server configurations on the performance of the algorithms, we conduct additional experiments on an Ubuntu 20.04 server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz featuring 128GB of RAM and 84 MiB of L3 cache using the YT-Audio-Real dataset, and the results are shown in Figure 10. It is not difficult to see that the relative ranking of the algorithms under the two servers essentially remains unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency, reduced RAM capacity, and smaller L3 cache, all methods demonstrate slightly lower QPS values."}
 
 Section 4.3.3:
 %\textcolor{blue}{"Consistent with Section 4.2.4, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure 16b. When compared with the experimental results of the original server, our findings remain consistent with those reported in Section 4.2.4. For brevity and due to space limitations, we omit further discussion of these redundant results."}
-\textcolor{blue}{"Consistent with Section 4.2.3, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure 12b. Our findings remain consistent with those reported in Section 4.2.3. For brevity and due to space limitations, we omit further discussion of these redundant results."}
+\textcolor{blue}{"Consistent with Section 4.2.3, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure 15. Our findings remain consistent with those reported in Section 4.2.3. For brevity and due to space limitations, we omit further discussion of these redundant results."}
 
 
 %%%%%%%%%%%%%%%%%%%%%% R6 %%%%%%%%%%%%%%%%%%%%%%
@@ -337,7 +337,7 @@ Section 4.3.3:
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. Currently, except for FilteredDiskANN, other hybrid query methods are memory-based, so we added the feature of whether to support disk for each algorithm in Table 1. At the same time, we also compared the search performance difference of FilteredDiskANN on memory and SSD using real data sets. The results are shown in Figure~\ref{fig:recall-latency}:
+Thank you for your suggestion. Currently, except for FilteredDiskANN, other hybrid query methods are memory-based, so we added the characteristic of whether to support disk for each algorithm in Table \ref{tab:compair_1}, which corresponds to Table 1 in the original paper.. At the same time, we also compared the search performance difference of FilteredDiskANN on memory and SSD using real data sets. The results are shown in Figure~\ref{fig:recall-latency}:
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=\linewidth]{fig/recall_latency_all.pdf}
@@ -678,14 +678,13 @@ Thank you for your suggestion. We are deeply aware of this shortcoming, so we pr
 \noindent
 \textbf{Response:} 
 %Thank you for pointing this out. Both paper [49] and our paper are benchmarks. Paper [49] provides a comprehensive review and evaluation of graph-based approximate nearest neighbor search algorithms. Our paper is the first benchmark to evaluate hybrid queries. Since hybrid queries are developed based on ANN, we refer to the evaluation metrics proposed in the cited paper. We realize that we did not clearly explain the difference between our paper and the cited paper, so we have added a description in the introduction, please see section 1.1.
-Thank you for pointing this out. The original reference [49], now updated to reference [50], provides a comprehensive review and evaluation of graph-based approximate nearest neighbor (ANN) search algorithms, whereas our work is the first to establish a benchmark specifically for hybrid query algorithms. We initially cited this reference in the experimental setup section to adopt its proposed evaluation metrics, as hybrid queries are fundamentally built upon ANN techniques. We acknowledge that the distinction between our work and the cited paper was not clearly articulated in the early version. To address this, we have revised the introduction to clarify the difference and added citations to several experimental studies from the ANN literature. \textbf{(Please see Section 1.1, highlighted in blue in the revised manuscript.)}
+Thank you for pointing this out. The original reference [49], now updated to reference [45], provides a comprehensive review and evaluation of graph-based approximate nearest neighbor (ANN) search algorithms, whereas our work is the first to establish a benchmark specifically for hybrid query algorithms. We initially cited this reference in the experimental setup section to adopt its proposed evaluation metrics, as hybrid queries are fundamentally built upon ANN techniques. We acknowledge that the distinction between our work and the cited paper was not clearly articulated in the early version. To address this, we have revised the introduction to clarify the difference and added citations to several experimental studies from the ANN literature. \textbf{(Please see Section 1.1, highlighted in blue in the revised manuscript.)}
 
 
 
  \textcolor{blue}{"
 % 	Although existing work, such as the survey [49] by reviews graph-based ANN methods, the literature still lacks an experimental study specifically targeting hybrid query algorithms. To address this gap, we conduct the first comprehensive experimental evaluation of hybrid query algorithms, systematically analyzing their index construction costs and query efficiency across diverse scenarios. Furthermore, we rigorously assess the robustness of each algorithm under varying conditions, thereby providing valuable insights for future research and practical applications.
- 	Although existing works [9,50] conduct benchmark evaluations of ANN methods, a dedicated experimental study on hybrid query algorithms is still lacking.
- 	To address this gap, we carry out the first comprehensive experimental evaluation of hybrid query algorithms, systematically analyzing their index construction costs and query efficiency across diverse scenarios. Furthermore, we rigorously assess the robustness of each algorithm under different experimental settings, thereby providing valuable insights for future research and practical applications."}
+ 	Although existing works [9,45] conduct benchmark evaluations of ANN methods, a systematic experimental study specifically targeting hybrid query algorithms is still lacking. "}
 
 
 
@@ -699,18 +698,17 @@ Thank you for pointing this out. The original reference [49], now updated to ref
 
 
 \noindent
-\textbf{Response:} 
-Thank you for your suggestion. We cited these two papers in the introduction to show that there are several papers that study attribute selectivity. In practice, attribute selectivity are indeed widely used in real-world scenarios. For example, if you need to query data with a very small proportion of a certain attribute, choosing a better algorithm will greatly improve the search effect. There are also some databases with practical applications that mention attribute selectivity, such as Milvus and AnalyticDB-V. We have replaced the two references ([12] and [36]) with more comprehensive and accurate references ([47] and [52]). \textbf{(Please see Section 1.1, highlighted in blue in the revised manuscript.)}
- 
-
-\textcolor{blue}{"For attribute filtering algorithms, factors such as the number of attributes, attribute  selectivity [47,52] significantly impact algorithm performance."}
+ \textbf{Response:} 
+ Thank you for your suggestion. We cited these two papers in the introduction to show that there are several papers that study attribute distribution and selectivity.
+ In addition, attribute distribution and selectivity are indeed widely used in real-world scenarios. For attribute distribution, the label attributes of many recommendation application scenarios in reality conform to the power-law distribution. For attribute selectivity: for example, if you need to query data with a very small proportion of a certain attribute, choosing a better algorithm will greatly improve the search effect. There are also some databases with practical applications that mention attribute selectivity, such as Milvus and AnalyticDB-V. For the two parts you suggested, we have replaced them in the paper with more comprehensive and accurate references. \textbf{(Please see Section 1.1, highlighted in blue in the revised manuscript.)}
+\textcolor{blue}{"For attribute filtering algorithms, factors such as the number of attributes, attribute distribution [13], and attribute selectivity [42,47] significantly impact algorithm performance."}
 
 \textcolor{blue}{"
-[47]Jianguo Wang, Xiaomeng Yi, Rentong Guo, and et al. 2021. Milvus: A PurposeBuilt Vector Data Management System. In SIGMOD Conference. ACM, 2614-2627."
+[42]Jianguo Wang, Xiaomeng Yi, Rentong Guo, and et al. 2021. Milvus: A PurposeBuilt Vector Data Management System. In SIGMOD Conference. ACM, 2614-2627."
 }
 
 \textcolor{blue}{"
-[52]Chuangxian Wei, Bin Wu, Sheng Wang, Renjie Lou, Chaoqun Zhan, Feifei Liand Yuanzhe Cai. 2020.AnalyticDB-V: A Hybrid Analytical Engine TowardsOuery Fusion for Structured and Unstructured Data. Proc. VLDB Endow. 13, 12(2020),3152-3165."
+[47]Chuangxian Wei, Bin Wu, Sheng Wang, Renjie Lou, Chaoqun Zhan, Feifei Liand Yuanzhe Cai. 2020.AnalyticDB-V: A Hybrid Analytical Engine TowardsOuery Fusion for Structured and Unstructured Data. Proc. VLDB Endow. 13, 12(2020),3152-3165."
 }
 
 %%%%%%%%%%%%%%%%%%%%%% D3 %%%%%%%%%%%%%%%%%%%%%%
@@ -876,11 +874,11 @@ For partitioning and merging, only Filtered-DiskANN, which supports disk storage
 
 \textbf{Regarding quantization time in index build:}
 
-Of all the evaluated algorithms, Faiss, Puck, DiskANN, and Milvus support quantization. However, in our experiments, we did not enable quantization in any of our experiments. Therefore, no quantization time was included in the reported index build times.
+Of all the evaluated algorithms, Faiss, Puck, Filtered-DiskANN, and Milvus support quantization. However, in our experiments, we did not enable quantization in any of our experiments. Therefore, no quantization time was included in the reported index build times.
 
-\textbf{Regarding Figure 7 and the exclusion of Vamana:}
+\textbf{Regarding the exclusion of Vamana in Figure 7 (now Figure 6):}
 
-We appreciate the observation of reviewer. Figure 7 presents experiments on multi-attribute construction and search, using Boolean AND logic. The Vamana-based methods (FilteredVamana and StitchedVamana) only support Boolean OR logic for multi-attribute search, which is why they were not included. Since other algorithms also do not support multi-attribute queries, we have explained this situation collectively in the corresponding section of the paper to save space. (\textbf{Please see the "Multi-Attribute Construction and Multi-Attribute Query" part of Section 4.2.2, highlighted in blue in the revised manuscript.})
+We appreciate the observation of reviewer. Figure 6 presents experiments on multi-attribute construction and search, using Boolean AND logic. The Vamana-based methods (FilteredVamana and StitchedVamana) only support Boolean OR logic for multi-attribute search, which is why they were not included. Since other algorithms also do not support multi-attribute queries, we have explained this situation collectively in the corresponding section of the paper to save space. (\textbf{Please see the "Multi-Attribute Construction and Multi-Attribute Query" part of Section 4.2.2, highlighted in blue in the revised manuscript.})
 
 \textcolor{blue}{"In this experiment, we only evaluate the algorithms that support this query scenario."}
 
@@ -1011,23 +1009,25 @@ To make the paper more readable, we have added a more detailed explanation of th
 
 
 
-In response to the large difference in index construction time shown in Figure 12a(now 10a), we have revised the paper based on your suggestion. We added more detailed and in-depth analysis to provide a clearer explanation. \textbf{(Please see the "Index construction time" part of Section 4.3.1, highlighted in blue in the revised manuscript.)}
+In response to the large difference in index construction time shown in Figure 12a, we have revised the paper based on your suggestion. We added more detailed and in-depth analysis to provide a clearer explanation. \textbf{(Please see the "Index construction time" part of Section 4.3.1, highlighted in blue in the revised manuscript.)}
 
-	\textcolor{blue}{
+
+
+\textcolor{blue}{
 	"ACORN-1 also achieves highly efficient index construction, especially on large-scale datasets. This efficiency stems from its construction process, which closely resembles that of the original HNSW, and from reducing the number of candidate neighbors in the upper layers, thereby lowering computational cost. SeRF, another HNSW-based method, also exhibits very short construction time. During construction, it attaches timestamp information to edges, keeping the total time comparable to building a single HNSW graph, which enables efficient construction even on large datasets.}
 
 \textcolor{blue}{
-	In contrast, WinFilter relies on a tree-based structure, where a separate nearest neighbor graph must be built for each node. This design introduces redundant computation and high construction cost. However, on large-scale datasets, the preprocessing phase of WinFilter was replaced with a base algorithm in the experiments, thus avoiding significant time overhead.}
+	In contrast, WinFilter relies on a tree-based structure, where a separate nearest neighbor graph must be built for each node. This design introduces redundant computation and high construction cost. However, on large-scale datasets, the preprocessing phase of WinFilter is replaced in the experiments by the base algorithm Vamana-WST, thus avoiding significant time overhead.}
 
 \textcolor{blue}{
 	ACORN-\(\gamma\)  extends the neighbor list of each node to provide more candidate paths, which increases both computational and memory overhead. Although it prunes distant neighbors to save storage, the additional construction logic still incurs substantial time cost.}
 
-%	The reason for the high construction time of ACORN-$\gamma$ has been explained in the attribute filtering section and is therefore omitted here.
-
-\textcolor{blue}{
+	\textcolor{blue}{
 	DSG is an optimization over SeRF, incorporating a rectangular tree structure for index management. This makes the construction process more complex and costly. In addition, on Deep100M, DSG uses single-threaded construction, resulting in the longest build time."}
 
-Finally, your observation about the missing peak memory usage data for Milvus in Figure 12c(now 10c) is very insightful. Initially, we hesitated to include the peak memory usage of databases (such as Milvus) because they are full systems that run continuously and contain many components. This makes them quite different from other algorithms.
+
+
+Finally, your observation about the missing peak memory usage data for Milvus in Figure 12c is very insightful. Initially, we hesitated to include the peak memory usage of databases (such as Milvus) because they are full systems that run continuously and contain many components. This makes them quite different from other algorithms.
 
 However, we agree with your point. To provide a more comprehensive evaluation, we have added the peak memory usage data of the database systems  in the revised version of the paper. This offers a more complete comparative view. \textbf{(Please see the "Build peak memory" part of Section 4.2.1 and Section 4.3.1, highlighted in blue in the revised manuscript.)}
 
