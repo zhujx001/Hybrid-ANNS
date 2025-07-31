@@ -1458,13 +1458,15 @@ Most algorithms load both the index and the dataset into memory during the build
 %	We summarize the applicability of different algorithms across various attribute filtering scenarios in Table~\ref{tab:algo_scenarios}. Puck and UNG excel on large-scale datasets (S1). ACORN-1 and UNG achieve fast index construction (S2). UNG performs well on different datasets (S3, S4). In addition, CAPS performs well on hard datasets with high LID (S3), while NHQ and StitchedVamana perform better on easy datasets with low LID (S4).
 %	Faiss and CAPS can generate relatively compact indexes with low memory usage, which is suitable for resource-constrained situations (S6). Milvus and Faiss serve as general-purpose solutions (S5). UNG stands out for its higher recall, precision, and QPS, and performs well in the OOD scenario (S7, S8).
 \textcolor{orange}{
-Overall, UNG, NHQ, and FilteredDisk\\-ANN demonstrate strong performance. However, UNG suffers from performance degradation when the attribute count differs between indexing and querying. NHQ, due to its distance fusion design, also experiences performance drops when there is a significant mismatch in attribute numbers between indexing and querying, and its performance is sensitive to attribute distribution. }
+Overall, UNG, NHQ and FilteredDisk\\-ANN demonstrate strong performance. However, UNG suffers from performance degradation when the attribute count differs between indexing and querying. NHQ, due to its distance fusion design, also experiences performance drops when there is a significant mismatch in attribute numbers between indexing and querying, and its performance is sensitive to attribute distribution. }
 
 \textcolor{orange}{The two variants of Filtered-DiskANN (FilteredVamana and StitchedVamana) support only single-attribute queries and multi-attribute OR queries. FilteredVamana supports dynamic insertion and disk-based indexing, making it suitable for memory-constrained scenarios. However, its disk-based construction significantly increases indexing time, and its performance is highly sensitive to attribute distribution. In contrast, StitchedVamana offers better search performance but performs poorly on 100M-scale datasets and OOD datasets.}
 
 \textcolor{orange}{
 CAPS, based on clustering, features low index space overhead. It offers flexible support for varying numbers of attributes and is optimized for low-selectivity attribute scenarios, but its overall performance is relatively moderate.
-Puck is well-suited for large-scale datasets such as those with 100 million points. It offers fast index construction and low memory consumption in such scenarios. Moreover, it delivers high search performance in multi-threaded environments, making it an excellent choice for deployment on extremely large datasets.}
+Puck is well-suited for large-scale datasets such as those with 100 million points. It offers fast index construction and low memory consumption in such scenarios. 
+%Moreover, it delivers high search performance in multi-threaded environments, making it an excellent choice for deployment on extremely large datasets.
+}
 
 
 	\subsubsection{Range Filtering}
@@ -1473,7 +1475,7 @@ Puck is well-suited for large-scale datasets such as those with 100 million poin
 		}
 	
 	\textcolor{orange}{
-	iRange has relatively low time and space costs for index construction; however, its search performance declines significantly with increasing query range. Despite offering threading parameters for indexing, it does not effectively utilize multi-core parallelism in practical scenarios.
+	iRange has relatively low time and space costs for index construction. However, its search performance declines significantly with increasing query range. Despite offering threading parameters for indexing, it does not effectively utilize multi-core parallelism in practical scenarios.
 	SeRF incurs low time and space overhead but achieves only moderate overall query performance, with notably weaker results in small-range query scenarios.
 	DSG supports unordered dynamic insertions and range queries, but its index construction is limited to single-threaded execution, resulting in long build times and poor practical applicability.}
 	
@@ -1485,10 +1487,10 @@ Puck is well-suited for large-scale datasets such as those with 100 million poin
 \textcolor{orange}{All of the following methods support both attribute filtering and range filtering.}
 
 \textcolor{orange}{
-ACORN demonstrates average overall performance. Among its variants, ACORN-1 shows significant advantages in indexing speed on billion-scale datasets, but suffers from high memory consumption and delivers only moderate performance.}
+ACORN demonstrates average overall performance. Among its variants, ACORN-1 shows significant advantages in indexing speed on 100M-scale datasets, but suffers from high memory consumption and delivers only moderate performance.}
 
 \textcolor{orange}{
-Faiss, Milvus, and VBASE handle complex scenarios with advanced filtering operations more effectively. While they offer strong flexibility, their overall search performance is relatively modest. Relatively speaking, PASE performs less well across various aspects.}
+Faiss, Milvus and VBASE effectively handle complex filtering by employing versatile "pre-filtering" or "post-filtering" strategies, granting them significant flexibility and broad applicability. This flexibility, however, is often counterbalanced by their relatively modest overall search performance. Relatively speaking, PASE performs less well across various aspects.}
 	
 	\subsection{Challenges}
 	\subsubsection{Attribute Filtering}
