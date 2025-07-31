@@ -354,11 +354,11 @@ Section 4.3.3:
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. Currently, except for Filtered-DiskANN, other hybrid query methods are memory-based, so we added the characteristic of whether to support disk for each algorithm in Table \ref{tab:compair_1}, which corresponds to Table 1 in the original paper.
+Thank you for your suggestion. Currently, except for Filtered-DiskANN, other hybrid query methods are memory-based, so we added the characteristic of whether to support disk for each algorithm in Table \ref{tab:compair_1}.
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=\linewidth]{fig/recall_latency_all.pdf}
-	\caption{Performance Comparison of SSD-Based and In-Memory Execution of FilteredDiskANN}
+	\caption{Performance Comparison of SSD-Based and In-Memory Execution of Filtered-DiskANN}
 	\label{fig:recall-latency}
 \end{figure}
 
@@ -375,18 +375,18 @@ We have run all experiments with 32 search threads for fair comparison. Figure~\
 %	\item StitchedVamana (memory-based method)
 %\end{itemize}
 
-Latency-Recall Tradeoff:
+\textbf{Latency-Recall Tradeoff.}
 As expected, SSD-based Filtered-DiskANN exhibits significantly higher latency than in-memory methods, especially at higher recall levels. When Recall@10 reaches 0.96, its latency increases super-linearly to over 100 ms.
 
-Cost Breakdown of Filtered-DiskANN:The I/O proportion consistently dominates, maintaining 80\%–85\% of the total latency even at different recall levels.
+\textbf{Cost Breakdown of Filtered-DiskANN.} The I/O proportion consistently dominates, maintaining 80\%–85\% of the total latency even at different recall levels.
 The CPU proportion remains low (10–15\%), indicating that I/O is the major bottleneck in disk-based search pipelines.
 This clearly shows that improving disk read efficiency or reducing I/O volume is critical for performance optimization.
 
-In-memory Methods:
+\textbf{In-memory Methods.}
 FilteredVamana achieves a good balance, staying under 30 ms while achieving Recall@10 > 0.97.
 While StitchedVamana achieves extremely low latency (sub-5 ms) due to its stitched multi-label index structure, its fixed edge connectivity may limit effectiveness under highly uncorrelated label distributions. Nevertheless, it consistently supports 90\%+ Recall@10 across diverse datasets, as shown in our evaluations.
 
-\textbf{Note: }Due to space limitations and the fact that only one method supports disk-based execution, we did not include the above experiments and analysis in the revised paper.
+Due to space limitations and the fact that only one method supports disk-based execution, we did not include the above experiments and analysis in the revised paper.
 
 %%%%%%%%%%%%%%%%%%%%%% R7 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -397,7 +397,7 @@ While StitchedVamana achieves extremely low latency (sub-5 ms) due to its stitch
 
 \noindent
 \textbf{Response:} 
-We believe your suggestion is very reasonable, and the experiment on search peak memory is indeed an important component. We are deeply aware of this shortcoming, so we provide the search peak memory usage of each algorithm in the time and space overhead section and carefully analyze the reasons. We present the search peak memory usage for the newly added attribute filtering and range filtering in Figure \ref{fig:search_memory_mb_comparison} and Figure \ref{fig:rangeFilter_search_memory_mb}, respectively.
+We believe your suggestion is very reasonable, and the experiment on search peak memory is indeed an important component. We provide the search peak memory usage of each algorithm in the time and space overhead section and carefully analyze the reasons. We present the search peak memory usage for the newly added attribute filtering and range filtering in Figure \ref{fig:search_memory_mb_comparison} and Figure \ref{fig:rangeFilter_search_memory_mb}, respectively.
 \textbf{(Please see Section 4.2.1 and Section 4.3.1, highlighted in blue in the revised manuscript.)}
 \begin{figure}[htbp]
 	\centering
@@ -526,9 +526,9 @@ Senction 5.1.3:	\textcolor{blue}{"All of the following methods support both attr
 }
 
 \noindent
-\textbf{Response:} Thank you very much for your valuable suggestions. Your advice is very insightful. In the recommendation section of our paper, we have added a clearer summary table of the algorithms to help readers choose the appropriate algorithm based on their application scenarios, as shown in Table~\ref{tab:algorithm_recommendation}. \textbf{(Please see Section 5.1, highlighted in blue in the revised manuscript.)}
+\textbf{Response:} Thank you very much for your valuable suggestions. Your advice is very insightful. In the recommendation section of our paper, we have added a clearer recommendation table of the algorithms to help readers choose the appropriate algorithm based on their application scenarios, as shown in Table~\ref{tab:algorithm_recommendation}. \textbf{(Please see Section 5.1, highlighted in blue in the revised manuscript.)}
 
-\textcolor{blue}{"Based on the performance of algorithms across various experimental settings, we evaluate their strengths and weaknesses in different application scenarios, as shown in Table 1. "}
+\textcolor{blue}{"Based on the performance of algorithms across various experimental settings, we evaluate their strengths and weaknesses in different application scenarios, as shown in Table 3. "}
 
 %\subsection{Recommendations.}
 %Based on the performance of different algorithms in experiments, we recommend algorithms suitable for different scenarios, as shown in the table \ref{tab:algo_scenarios}.
@@ -669,21 +669,21 @@ Thank you for your suggestion. We have added complex multi-modal query experimen
 
 
 
+
 \noindent
 \textbf{Response:} 
 Thank you for your suggestion. We fully understand your concern regarding our use of synthetic or less meaningful attributes in the hybrid query experimental setup.
 
-To address this critical issue and enhance the real-world relevance of our evaluation, we have incorporated two new real-world datasets with their actual attributes into our attribute filtering and range filtering experiments, and we have clarified the sources of these real-world attributes. For more details, please refer to our response to Meta R3.
+Regarding your review comment, we did indeed try to find suitable e-commerce datasets to better align with the application scenarios mentioned in the introduction. We investigated some publicly available e-commerce datasets, such as ecommerce\_product\_images\_18K and MEP-3M datasets. However, we found that neither of these datasets fully met our requirements for conducting hybrid querying experiments.
+Specifically, the ecommerce\_product\_images\_18K dataset was too small to effectively evaluate the performance and scalability of hybrid querying algorithms under large-scale datasets. On the other hand, while the MEP-3M dataset was larger, it did not directly provide image data that could be encoded into vectors, and we were unable to find suitable fields for vectorization.
+As we were unable to locate an ideal e-commerce dataset that simultaneously contained sufficient scale of both vectors and structured attributes, we ultimately decided to continue using the WIT (Also called WIT-Real) and YouTube-Audio (Also YT-Audio-Real) datasets, which are widely employed in existing hybrid querying algorithm research. These datasets feature real attribute information and have been broadly accepted by the community as standard benchmarks for evaluating hybrid query performance.  For more details, please refer to our response to Meta R3.
 
-For attribute filtering, by incorporating the YT-Audio-Real and WIT-Real datasets with their respective real-world attributes, we have revised the "Single-Attribute Index Construction and Single-Attribute Query" experiments and amended the manuscript accordingly. It is also worth noting that in Section 4.2.2, under the "Single-Attribute Index Construction and Single-Attribute Query" subsection, we have removed two previous datasets (Audio and GloVe) due to space constraints. The Audio dataset was removed because its smaller scale offered limited reference value. The GloVe dataset is similar in scale to SIFT1M, while LID is similar to GIST1M. \textbf{(Please see Section 4.2.1, and the "Single-Attribute Index Construction and Single-Attribute Query" subsection in Section 4.2.2,  highlighted in blue in the revised manuscript.).}
+For attribute filtering, by incorporating the YT-Audio-Real and WIT-Real datasets with their respective real-world attributes, we have revised the "Single-Attribute Index Construction and Single-Attribute Query" experiments and amended the manuscript accordingly. \textbf{(Please see Section 4.2.1, and the "Single-Attribute Index Construction and Single-Attribute Query" subsection in Section 4.2.2,  highlighted in blue in the revised manuscript.).}
 
 In fact, we have conducted experiments to verify that the choice between synthetic and real-world attributes has a minimal impact on the performance of algorithms. For more details, please refer to our response to Review 1 W1.
 
 For range filtering, we have also included the YT-Audio-Real and WIT-Real datasets with their respective real-world attributes in our experiments. For more details, please refer to our response to Meta R3.
 
-Regarding your review comment, we did indeed try to find suitable e-commerce datasets to better align with the application scenarios mentioned in the introduction. We investigated some publicly available e-commerce datasets, such as ecommerce\_product\_images\_18K and MEP-3M datasets. However, we found that neither of these datasets fully met our requirements for conducting hybrid querying experiments.
-Specifically, the ecommerce\_product\_images\_18K dataset was too small to effectively evaluate the performance and scalability of hybrid querying algorithms under large-scale datasets. On the other hand, while the MEP-3M dataset was larger, it did not directly provide image data that could be encoded into vectors, and we were unable to find suitable fields for vectorization.
-As we were unable to locate an ideal e-commerce dataset that simultaneously contained sufficient scale of both vectors and structured attributes, we ultimately decided to continue using the WIT and YouTube-Audio datasets, which are widely employed in existing hybrid querying algorithm research. These datasets feature real attribute information and have been broadly accepted by the community as standard benchmarks for evaluating hybrid query performance. We believe that despite not being directly from e-commerce platforms, their data characteristics and complexity are sufficient to support our comprehensive evaluation and in-depth analysis of hybrid querying algorithms.
 
 
 
@@ -716,7 +716,7 @@ Thank you for your suggestion. We have added relevant experiments conducted on d
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We clarify in Table ~\ref{tab:compair_1} which methods support disk-based execution. Since only FilteredDiskANN supports disk-based execution, we conduct additional experiments to analyze its performance and report a detailed cost breakdown (I/O vs. CPU). Figure~\ref{fig:recall-latency} shows that I/O consistently dominates total latency (accounting for 80–85\%) and becomes the primary bottleneck at high recall levels. We also compare it with two in-memory baselines—FilteredVamana and StitchedVamana—to highlight their efficiency and trade-offs. Due to space constraints and the limited relevance to other methods, we exclude this analysis from the revised paper and provide it here for completeness.
+Thank you for your suggestion. We clarify in Table ~\ref{tab:compair_1} which methods support disk-based execution. Since only Filtered-DiskANN supports disk-based execution, we conduct additional experiments to analyze its performance and report a detailed cost breakdown (I/O vs. CPU). Figure~\ref{fig:recall-latency} shows that I/O consistently dominates total latency (accounting for 80–85\%) and becomes the primary bottleneck at high recall levels. We also compare it with two in-memory baselines—FilteredVamana and StitchedVamana—to highlight their efficiency and trade-offs. Due to space constraints and the limited relevance to other methods, we exclude this analysis from the revised paper and provide it here for completeness.
 
 We have already provided a detailed response to this issue in our reply to Meta R5. Please refer to that response for more information.
 
@@ -731,7 +731,7 @@ We have already provided a detailed response to this issue in our reply to Meta 
 
 \noindent
 \textbf{Response:} 
-We believe your suggestion is very reasonable, and the experiment on search peak memory is indeed an important component. We are deeply aware of this shortcoming, so we provide the search peak memory usage of each algorithm in the time and space overhead section and carefully analyze the reasons. For more details, please refer to our response Meta R6.
+We believe your suggestion is very reasonable, and the experiment on search peak memory is indeed an important component. We provide the search peak memory usage of each algorithm in the time and space overhead section and carefully analyze the reasons. For more details, please refer to our response Meta R6.
 
 %We have made a detailed response to this issue in our reply to Meta R6. Please refer to that response for more information.
 	
@@ -748,7 +748,7 @@ We believe your suggestion is very reasonable, and the experiment on search peak
 \noindent
 \textbf{Response:} 
 %Thank you for pointing this out. Both paper [49] and our paper are benchmarks. Paper [49] provides a comprehensive review and evaluation of graph-based approximate nearest neighbor search algorithms. Our paper is the first benchmark to evaluate hybrid queries. Since hybrid queries are developed based on ANN, we refer to the evaluation metrics proposed in the cited paper. We realize that we did not clearly explain the difference between our paper and the cited paper, so we have added a description in the introduction, please see section 1.1.
-Thank you for pointing this out. The original reference [49](now [50] in our latest version), provides a comprehensive review and evaluation of graph-based approximate nearest neighbor (ANN) search algorithms, whereas our work is the first to establish a benchmark specifically for hybrid query algorithms. We initially cited this reference in the experimental setup section to adopt its proposed evaluation metrics, as hybrid queries are fundamentally built upon ANN techniques. We acknowledge that the distinction between our work and the cited paper was not clearly articulated in the early version. To address this, we have revised the introduction to clarify the difference and added citations to several experimental studies from the ANN literature. \textbf{(Please see Section 1.1, highlighted in blue in the revised manuscript.)}
+Thank you for pointing this out. The original reference [49] ([45] in the revised manuscript), provides a comprehensive review and evaluation of graph-based approximate nearest neighbor (ANN) search algorithms, whereas our work is the first to establish a benchmark specifically for hybrid query algorithms. We initially cited this reference in the experimental setup section to adopt its proposed evaluation metrics, as hybrid queries are fundamentally built upon ANN techniques. We acknowledge that the distinction between our work and the cited paper was not clearly articulated in the early version. To address this, we have revised the introduction to clarify the difference and added citations to several experimental studies from the ANN literature. \textbf{(Please see Section 1.1, highlighted in blue in the revised manuscript.)}
 
 
 
@@ -772,6 +772,7 @@ Thank you for pointing this out. The original reference [49](now [50] in our lat
  Thank you for your suggestion. We cited these two papers in the introduction to show that there are several papers that study attribute distribution and selectivity.
 % In addition, attribute distribution and selectivity are indeed widely used in real-world scenarios. For attribute distribution, the label attributes of many recommendation application scenarios in reality conform to the power-law distribution. For attribute selectivity: for example, if you need to query data with a very small proportion of a certain attribute, choosing a better algorithm will greatly improve the search effect. 
 There are also some databases with practical applications that mention attribute selectivity, such as Milvus and AnalyticDB-V. Therefore, we have replaced them in the paper with more comprehensive and accurate references. \textbf{(Please see Section 1.1, highlighted in blue in the revised manuscript.)}
+
 \textcolor{blue}{"For attribute filtering algorithms, factors such as the number of attributes, attribute distribution [13], and attribute selectivity [42,47] significantly impact algorithm performance."}
 
 \textcolor{blue}{"
