@@ -674,15 +674,19 @@ Thank you for your suggestion. We have added complex multi-modal query experimen
 \textbf{Response:} 
 Thank you for your suggestion. We fully understand your concern regarding our use of synthetic or less meaningful attributes in the hybrid query experimental setup.
 
-Regarding your review comment, we did indeed try to find suitable e-commerce datasets to better align with the application scenarios mentioned in the introduction. We investigated some publicly available e-commerce datasets, such as ecommerce\_product\_images\_18K and MEP-3M datasets. However, we found that neither of these datasets fully met our requirements for conducting hybrid querying experiments.
+We  try to find suitable e-commerce datasets to better align with the application scenarios mentioned in the introduction. We investigated some publicly available e-commerce datasets, such as ecommerce\_product\_images\_18K and MEP-3M datasets. However, we found that neither of these datasets fully met our requirements for conducting hybrid querying experiments.
 Specifically, the ecommerce\_product\_images\_18K dataset was too small to effectively evaluate the performance and scalability of hybrid querying algorithms under large-scale datasets. On the other hand, while the MEP-3M dataset was larger, it did not directly provide image data that could be encoded into vectors, and we were unable to find suitable fields for vectorization.
 As we were unable to locate an ideal e-commerce dataset that simultaneously contained sufficient scale of both vectors and structured attributes, we ultimately decided to continue using the WIT (Also called WIT-Real) and YouTube-Audio (Also YT-Audio-Real) datasets, which are widely employed in existing hybrid querying algorithm research. These datasets feature real attribute information and have been broadly accepted by the community as standard benchmarks for evaluating hybrid query performance.  For more details, please refer to our response to Meta R3.
 
-For attribute filtering, by incorporating the YT-Audio-Real and WIT-Real datasets with their respective real-world attributes, we have revised the "Single-Attribute Index Construction and Single-Attribute Query" experiments and amended the manuscript accordingly. \textbf{(Please see Section 4.2.1, and the "Single-Attribute Index Construction and Single-Attribute Query" subsection in Section 4.2.2,  highlighted in blue in the revised manuscript.).}
 
 In fact, we have conducted experiments to verify that the choice between synthetic and real-world attributes has a minimal impact on the performance of algorithms. For more details, please refer to our response to Review 1 W1.
 
-For range filtering, we have also included the YT-Audio-Real and WIT-Real datasets with their respective real-world attributes in our experiments. For more details, please refer to our response to Meta R3.
+We conduct experiments on these two datasets with real attributes and analyze the experimental results. \textbf{(Please see Section 4.2 and  Section 4.3,  highlighted in blue in the revised manuscript.).}
+
+%
+%For attribute filtering, by incorporating the YT-Audio-Real and WIT-Real datasets with their respective real-world attributes, we have revised the "Single-Attribute Index Construction and Single-Attribute Query" experiments and amended the manuscript accordingly. \textbf{(Please see Section 4.2.1, and the "Single-Attribute Index Construction and Single-Attribute Query" subsection in Section 4.2.2,  highlighted in blue in the revised manuscript.).}
+%
+%For range filtering, we have also included the YT-Audio-Real and WIT-Real datasets with their respective real-world attributes in our experiments. For more details, please refer to our response to Meta R3.
 
 
 
