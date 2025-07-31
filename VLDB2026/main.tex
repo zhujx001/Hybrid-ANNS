@@ -701,7 +701,7 @@
 	
 	
 	
-	\textcolor{violet}{To investigate the time and space overhead of different algorithms,} we evaluate \textcolor{orange}{4} key metrics in the single-attribute scenario: index construction time, index size, \textcolor{orange}{build peak memory and search peak memory}. Notably, PASE on GIST1M and Enron is omitted, as it supports only data with dimensionality less than 512. \textcolor{orange}{We use 64 threads to build the index for the large-scale Deep100M dataset, and 32 threads for the other six datasets. Notably, the VBASE and PASE algorithms only support single-threaded construction.}
+	\textcolor{violet}{To investigate the time and space overhead of different algorithms,} we evaluate \textcolor{orange}{4} key metrics in the single-attribute scenario: index construction time, index size, \textcolor{orange}{build peak memory and search peak memory}. Notably, PASE on GIST1M and Enron is omitted, as it supports only data with dimensionality less than 512. \textcolor{red}{We use 64 threads to build the index for the large-scale Deep100M dataset, and 32 threads for the other six datasets. Notably, the VBASE and PASE algorithms only support single-threaded construction.}
 	
 	
 	\begin{figure*}
@@ -723,9 +723,9 @@
 	
 \textit{\textbf{Index construction time.}}
 %\textcolor{orange}{Among the regular-scale datasets shown in the left part of Figure~\ref{fig:build_time_comparison_query1}, the methods with longest build times are mainly PASE, VBASE, and ACORN-$\gamma$. PASE and VBASE only support single-threaded builds. PASE is the slowest because its on-demand loading and caching strategies frequently trigger disk I/O and page scheduling, which seriously affects efficiency. VBASE uses full-memory builds and is relatively faster. ACORN-$\gamma$  has a high computational overhead because it needs to expand the neighbor list and evaluate a large number of candidates. Its build time on some datasets even exceeds that of single-threaded VBASE. }
-\textcolor{orange}{On the regular-scale datasets (Figure~\ref{fig:build_time_comparison_query1}, left), among the algorithms limited to single-threaded construction, PASE has the longest build time. This is because its on-demand loading and caching strategies frequently trigger disk I/O and page scheduling, which seriously affects efficiency. In contrast, VBASE uses full-memory builds and is therefore comparatively faster. Among the multi-threaded algorithms, ACORN-$\gamma$ is the slowest because it needs to expand the neighbor list and evaluate a large number of candidates. Its build time on some datasets even exceeds that of the single-threaded VBASE. }
+\textcolor{red}{On the medium-scale datasets (Figure~\ref{fig:build_time_comparison_query1} left), among the algorithms limited to single-threaded construction, PASE has the longest build time. This is because its on-demand loading and caching strategies frequently trigger disk I/O and page scheduling, which seriously affects efficiency. In contrast, VBASE uses full-memory builds and is therefore comparatively faster. Among the multi-threaded algorithms, ACORN-$\gamma$ is the slowest because it needs to expand the neighbor list and evaluate a large number of candidates. Its build time on some datasets even exceeds that of the single-threaded VBASE. }
 
-\textcolor{orange}{On the large-scale dataset Deep100M (Figure~\ref{fig:build_time_comparison_query1}, right), in addition to the three methods already mentioned, we also observe that algorithms based on Vamana (FilteredDiskANN, StitchedVamana and UNG) exhibit significantly increased construction time. This is because Vamana adopts a two-pass graph construction and optimization strategy (greedy search + robust pruning), resulting in extremely high computational overhead. In contrast, the construction time of IVF-based algorithms grows much more slowly with dataset size.This is because their shard-based design and high parallel efficiency, making them more scalable and advantageous in large-scale scenarios.}
+\textcolor{red}{On the large-scale dataset Deep100M (Figure~\ref{fig:build_time_comparison_query1} right), in addition to the three methods already mentioned, we also observe that algorithms based on Vamana (FilteredDiskANN, StitchedVamana and UNG) exhibit significantly increased construction time. This is because Vamana adopts a two-pass graph construction and optimization strategy (greedy search + robust pruning), resulting in extremely high computational overhead. In contrast, the construction time of IVF-based algorithms grows much more slowly with dataset size.This is because their shard-based design and high parallel efficiency, making them more scalable and advantageous in large-scale scenarios.}
 
 %ACORN-1 achieves the fastest index construction. This efficiency stems from its similarity to the original HNSW construction process and the use of a limited number of candidate neighbors.
 
@@ -737,10 +737,8 @@
 %On large dataset Deep100M, VBASE takes longer to build because it only supports single-threaded construction. The other time-consuming algorithms are all graph-based methods, which employ complex pruning strategies during construction to optimize query performance, leading to significantly increased build times.
 
 
-\textit{\textbf{Index size.}}
-\textcolor{orange}{
-	As shown in Figure~\ref{fig:index_size_mb_comparison_query1}, PASE exhibits significantly larger index sizes across all supported datasets, mainly due to its reliance on a large amount of metadata. For regular-scale datasets, other methods show moderate variation. However, on large-scale dataset, Graph-based algorithms such as ACORN, FilteredDiskANN, and UNG tend to exhibit a sharp increase in index size, primarily due to the large number of candidate neighbors they maintain. Overall, IVF-based methods tend to produce more compact indexes.
-}
+\textit{\textbf{Index size.}} As shown in Figure~\ref{fig:index_size_mb_comparison_query1}, PASE exhibits significantly larger index sizes across all supported datasets, mainly due to its reliance on a large amount of metadata. For medium-scale datasets, other methods show moderate variation. However, on large-scale dataset, Graph-based algorithms such as ACORN, FilteredDiskANN, and UNG tend to exhibit a sharp increase in index size, primarily due to the large number of candidate neighbors they maintain. Overall, IVF-based methods tend to produce more compact indexes.
+
 
 %As shown in the Figure~\ref{fig:index_size_mb_comparison_query1}, PASE exhibits significantly larger index sizes across all supported datasets. This overhead stems primarily from its extensive metadata requirements. The index sizes of other methods show moderate variation.
 %\textcolor{orange}{Among these, we observe a trend that IVF-based methods tend to produce more compact indexes compared to graph-based methods.}
@@ -754,16 +752,15 @@
 % This is because NHQ adopts the kgraph approach for index construction, which requires loading the entire graph data into memory and maintaining a complete graph structure, leading to relatively high memory overhead. 
 % 
 % On large-scale datasets, CAPS exhibits slightly lower memory usage compared to other algorithms. \textcolor{orange}{The reason is that CAPS avoids redundant storage and graph structure overhead through hierarchical partitioning and AFT, and achieves a compact, sparse and controllable index. }.
-\textcolor{orange}{As shown in Figure~\ref{fig:build_memory_mb_comparison}, the build peak memory usage is generally correlated with the sum of the index size and the dataset size. Algorithms that consume more peak memory during construction typically produce larger index sizes, and this trend holds across different datasets. However, PASE breaks this pattern due to its on-demand loading strategy, resulting in peak memory usage even lower than the final index size.}
+As shown in Figure~\ref{fig:build_memory_mb_comparison}, the build peak memory usage is generally correlated with the sum of the index size and the dataset size. Algorithms that consume more peak memory during construction typically produce larger index sizes, and this trend holds across different datasets.
 
-\textcolor{orange}{
+\textcolor{red}{However, PASE breaks this pattern due to its on-demand loading strategy, resulting in peak memory usage even lower than the final index size. 
 In addition, NHQ generates a large number of candidate neighbors during the construction phase, but retains only a small subset for each point in the final index. This leads to high peak memory usage during construction, despite the relatively small size of the final index.}
 
 \textit{\textbf{Search peak memory.}}
 %  \textcolor{orange}{As shown in Figure~\ref{fig:search_memory_mb_comparison}, we can find that the peak memory usage of each algorithm during search does not differ significantly. Among them, CAPS and NHQ have relatively higher peak memory usage, while the peak memory usage of database is comparatively lower.}
 %\textcolor{orange}{For most algorithms, the query phase requires loading both the index and the dataset into memory, so its peak memory usage is usually comparable to that of the construction phase. However, as shown in the Figure~\ref{fig:search_memory_mb_comparison}, CAPS exhibits significantly higher peak memory during querying due to the need to dynamically maintain large candidate sets. In contrast, Milvus has lower peak memory usage because it does not fully load the index and incurs additional metadata overhead during construction.
-\textcolor{orange}{
-Most algorithms load both the index and the dataset into memory during the build and query phases, and the construction process typically generates a large amount of temporary data. As a result, peak memory usage during querying is generally slightly lower than during construction. However, exceptions exist. As shown in Figure~\ref{fig:search_memory_mb_comparison}, CAPS incurs significantly higher peak memory usage during querying due to the need to dynamically maintain a large candidate set.}
+Most algorithms load both the index and the dataset into memory during the build and query phases, and the construction process typically generates a large amount of temporary data. As a result, peak memory usage during querying is generally slightly lower than during construction. However, exceptions exist. As shown in Figure~\ref{fig:search_memory_mb_comparison}, CAPS incurs significantly higher peak memory usage during querying due to the need to dynamically maintain a large candidate set.
 	
 	\subsubsection{Performance Evaluation}
 	
@@ -832,7 +829,8 @@ Most algorithms load both the index and the dataset into memory during the build
 	
 	
 	\textit{Performance of Algorithms under Multi-Attribute Building (M vs. M).}  
-	As shown in Figure \ref{fig:exp_2_1}, IVF-based methods (Puck and CAPS) significantly outperform graph-based methods. The reason for the superior performance of Puck is that it filters out irrelevant results during the retrieval process rather than searching for more candidates. CAPS performs as well as Puck. In contrast, multi-attribute construction significantly degrades the performance of graph-based methods, for which we identify two primary reasons. First, graph fragmentation necessitates searching multiple entry points, undermining the inherent advantage of efficient graph traversal. Second, multi-attribute processing increases the algorithms' intrinsic computational overhead and reduces the effectiveness of their core metric mechanisms, such as distance calculation.
+	\textcolor{red}{
+	As shown in Figure \ref{fig:exp_2_1}, IVF-based methods (Puck and CAPS) significantly outperform graph-based methods. The reason for their superior performance is that they filter out irrelevant results during the retrieval process rather than searching for more candidates. In contrast, multi-attribute construction significantly degrades the performance of graph-based methods, for which we identify two primary reasons. First, graph fragmentation necessitates searching multiple entry points, undermining the inherent advantage of efficient graph traversal. Second, multi-attribute processing increases the algorithms' intrinsic computational overhead and reduces the effectiveness of their core metric mechanisms, such as distance calculation.}
 	%FilteredVamana performs the worst because its multi-attribute indexing forces neighbor selection to cover multiple attributes, reducing the efficiency of single-attribute queries. This results in excessive traversal of irrelevant nodes, making it slower than other methods.
 	
 	
@@ -1186,7 +1184,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	\subsubsection{\textcolor{violet}{Time and Space overhead.}}
 	
 	%Similar to the evaluation of \textit{Attribute Filtering} algorithms, 
-	Similarly, we also evaluate \textcolor{orange}{4} key metrics mentioned above in \textit{Range Filtering} algorithms. \textcolor{orange}{Notably, for regular-scale datasets, all algorithms build indexes using a single thread. For the large-scale dataset Deep100M, all algorithms use 64 threads for index construction to improve efficiency, except DSG, which only supports single-threaded construction.}
+	Similarly, we also evaluate \textcolor{orange}{4} key metrics mentioned above in \textit{Range Filtering} algorithms. \textcolor{orange}{Notably, for medium-scale datasets, all algorithms build indexes using a single thread. For the large-scale dataset Deep100M, all algorithms use 64 threads for index construction to improve efficiency, except DSG, which only supports single-threaded construction.}
 	
 	\textit{\textbf{Index construction time.}}
 %	As shown in the Figure~\ref{fig:rangeFilter_build_time}, for regular-scale datasets, Faiss builds the index fastest. As Faiss obtains subsamples through sampling and calculates the cluster centroid, the computational complexity is significantly reduced.
