@@ -296,7 +296,7 @@ Section 4.3.3:\textcolor{blue}{
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. Using the ID as an attribute for range filtering is a prevalent method in current range filtering algorithm evaluations, which indeed has considerable limitations. To address this issue, we have updated two of our datasets (YT-Audio-Real, WIT-Real) to include real attributes. We observe that the impact of using real attribute versus using ID on the algorithms is negligible. The key factor remains the size of the query range, as shown in Figure~\ref{fig:range_2_2}. \textbf{(Please see the third paragraph of Section 4.1.1, highlighted in blue in the revised manuscript.)}
+Thank you for your suggestion. Using the ID as an attribute for range filtering is a prevalent method in current range filtering algorithm evaluations, which indeed has considerable limitations. To address this issue, we have updated two of our datasets (YT-Audio-Real, WIT-Real) to include real attributes.In fact, current hybrid query algorithms do not explicitly model or leverage complex semantic relationships, such as those between vectors and their attributes, or among different attributes. As shown in Figure~\ref{fig:range_2_2}, our experiments also show that the impact of using real attributes versus using IDs on the algorithms is negligible. The key factor remains the size of the query range. \textbf{(Please see the third paragraph of Section 4.1.1, highlighted in blue in the revised manuscript.)}
 
 
 
@@ -323,13 +323,7 @@ Section 4.2.3:
 \textcolor{blue}{"To investigate the impact of different server configurations on the performance of the algorithms, we conduct additional experiments on an Ubuntu 20.04 server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz featuring 128GB of RAM and 84 MiB of L3 cache using the YT-Audio-Real dataset, and the results are shown in Figure 10. It is not difficult to see that the relative ranking of the algorithms under the two servers essentially remains unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency, reduced RAM capacity, and smaller L3 cache, all methods demonstrate slightly lower QPS values."}
 
 Section 4.3.3:
-%\textcolor{blue}{"Consistent with Section 4.2.4, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure 16b. When compared with the experimental results of the original server, our findings remain consistent with those reported in Section 4.2.4. For brevity and due to space limitations, we omit further discussion of these redundant results."}
-<<<<<<< HEAD
-\textcolor{blue}{"Consistent with Section 4.2.3, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure 15. Although the third-ranked algorithm differs, we consider the ranking order remains stable since the performance of the third and fourth algorithms is comparable. So our findings remain consistent with those reported in Section 4.2.3. For brevity and due to space limitations, we omit further discussion of these redundant results."}
-=======
-\textcolor{blue}{"Consistent with Section 4.2.3, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure 15. Our findings remain consistent with those reported in Section 4.2.3. For brevity and due to space limitations, we omit further discussion of these redundant results."}
->>>>>>> 6f6a83dd11e2f1868974c25a4d73f45d386e179e
-
+\textcolor{blue}{"Consistent with Section 4.2.3, we conduct range filtering experiments on the YT-Audio-Real dataset using two server configurations, with results presented in Figure 15. Although the third-ranked algorithm differs, we consider the ranking order remains stable since the performance of the third and fourth algorithms is comparable. Therefore, different server configurations only affect the performance of individual algorithms, with minimal impact on their relative performance ranking."}
 
 %%%%%%%%%%%%%%%%%%%%%% R6 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -831,9 +825,9 @@ analyzing the strengths and weaknesses of each algorithm and recommended those w
 \textbf{Response:}
 Thank you for your suggestion. We acknowledge that the original manuscript did not clearly explain how attribute filtering (AF) and range filtering (RF) are embedded into standard graph-based and IVF-based index structures. We have revised Section 2.2 and added two paragraphs. These paragraphs summarize how the algorithms discussed in this paper implement hybrid query functionality based on these foundational indexing structures. \textbf{(Please see Section 2.2, highlighted in blue in the revised manuscript.)}
 
-\textcolor{blue}{"Graph indexes are widely used in Hybrid ANN due to their efficiency. To support hybrid queries, in attribute filtering, a common practice involves attaching attribute metadata to nodes or edges, thereby skipping parts that do not satisfy query conditions during traversal (e.g., NHQ, Filtered-DiskANN, ACORN). In range filtering, edges typically store valid attribute intervals, and traversal proceeds only along edges that satisfy range constraints, thus narrowing the search space (e.g., SeRF, DSG)."}
+\textcolor{blue}{"Graph indexes are widely used in hybrid ANN due to their efficiency. To support hybrid queries, in attribute filtering, a common practice involves attaching attribute metadata to nodes or edges, thereby skipping parts that do not satisfy query conditions during traversal (e.g., NHQ, Filtered-DiskANN, ACORN). In range filtering, edges typically store valid attribute intervals, and traversal proceeds only along edges that satisfy range constraints, thus narrowing the search space (e.g., SeRF, DSG)."}
 	
-\textcolor{blue}{"IVF-based indexes also offer unique advantages in Hybrid ANN search scenarios, including natural support for pre-filtering, low memory footprint, and small index size. Efficient filtering is achieved by excluding vectors that do not satisfy attribute constraints before distance computation (e.g., Faiss, Milvus). Furthermore, hierarchical partitioning by attributes can form finer-grained sub-clusters to enhance filtering efficiency (e.g., CAPS, PUCK)."}
+\textcolor{blue}{"IVF-based indexes also offer unique advantages in hybrid ANN search scenarios, including natural support for pre-filtering, low memory footprint, and small index size. Efficient filtering is achieved by excluding vectors that do not satisfy attribute constraints before distance computation (e.g., Faiss, Milvus). Furthermore, hierarchical partitioning by attributes can form finer-grained sub-clusters to enhance filtering efficiency (e.g., CAPS, PUCK)."}
 
 
 
