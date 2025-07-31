@@ -246,11 +246,11 @@ Section 4.1.1:\textcolor{blue}{
 }
 
 Section 4.2.3: \textcolor{blue}{
-	"We conduct experiments on two multimodal datasets Text2image-Mix and Text2image. On Text2imageMix dataset,as shown in Figure 9, UNG and NHQ consistently perform best, followed by CAPS. Although the dataset contains two modalities, due to the significant differences between the modalities, they are actually two separate regions in the vector space. The performance is similar to that of the single-modal dataset in Figure 4. This is because mixed multi-modal queries are actually the same as conducting experiments on two datasets of the same modality.This is not actually a difficult query. In contrast, the Text2image dataset shown in Figure 9 is different. The query set and the base dataset belong to two completely different modalities. Queries are far from the dataset points, and the ground truths are more dispersed. To find the groundtruths, algorithms typically need to examine more points, which leads to degraded performance." 
+	"We conduct experiments on two multimodal datasets Text2image-Mix and Text2image. On Text2imageMix dataset, as shown in Figure 9, UNG and NHQ consistently perform best, followed by CAPS. Although the dataset contains two modalities, due to the significant differences between the modalities, they are actually two separate regions in the vector space. The performance is similar to that of the single-modal dataset in Figure 4. This is because mixed multi-modal queries are actually the same as conducting experiments on two datasets of the same modality. This is not actually a difficult query. In contrast, the Text2image dataset shown in Figure 9 is different. The query set and the base dataset belong to two completely different modalities. Queries are far from the dataset points, and the ground truths are more dispersed. To find the groundtruths, algorithms typically need to examine more points, which leads to degraded performance." 
 }
 
 Section 4.3.3:\textcolor{blue}{
-		"Similar to attribute filtering,on Text2Image-Mix dataset,the performance of multi-modal range filtering queries shown in Figure 14 also aligns with the single-modality results in Figure 13. These algorithms on the Text2Image dataset exhibit a significant performance degradation. This is because most of these range query algorithms are graph-based, and such algorithms require more iterations to find true neighbors in OOD datasets."
+		"Similar to attribute filtering, on Text2Image-Mix dataset, the performance of multi-modal range filtering queries shown in Figure 14 also aligns with the single-modality results in Figure 13. These algorithms on the Text2Image dataset exhibit a significant performance degradation. This is because most of these range query algorithms are graph-based, and such algorithms require more iterations to find true neighbors in OOD datasets."
 }
 
 \begin{figure}[htbp]
@@ -320,11 +320,11 @@ We did observe slightly lower QPS on this server compared to our original one, w
 
 Section 4.2.3:
 %\textcolor{blue}{"To investigate the impact of different server configurations on the performance of the algorithms, we conduct additional experiments on a server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz using the YT-Audio-Real dataset, and the results are shown in Figure 12b. Compared with the experimental results on the original server, the relative ranking of the algorithms remains largely unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency and smaller RAM capacity, the QPS values are slightly lower across all methods."}
-\textcolor{blue}{"To investigate the impact of different server configurations on the performance of the algorithms, we conduct additional experiments on an Ubuntu 20.04 server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz featuring 128GB of RAM and 84 MiB of L3 cache using the YT-Audio-Real dataset, and the results are shown in Figure 9b. It is not difficult to see that the relative ranking of the algorithms under the two servers essentially remains unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency, reduced RAM capacity, and smaller L3 cache, all methods demonstrate slightly lower QPS values."}
+\textcolor{blue}{"To investigate the impact of different server configurations on the performance of the algorithms, we conduct additional experiments on an Ubuntu 20.04 server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz featuring 128GB of RAM and 84 MiB of L3 cache using the YT-Audio-Real dataset, and the results are shown in Figure 10. It is not difficult to see that the relative ranking of the algorithms under the two servers essentially remains unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency, reduced RAM capacity, and smaller L3 cache, all methods demonstrate slightly lower QPS values."}
 
 Section 4.3.3:
 %\textcolor{blue}{"Consistent with Section 4.2.4, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure 16b. When compared with the experimental results of the original server, our findings remain consistent with those reported in Section 4.2.4. For brevity and due to space limitations, we omit further discussion of these redundant results."}
-\textcolor{blue}{"Consistent with Section 4.2.3, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure 12b. Our findings remain consistent with those reported in Section 4.2.3. For brevity and due to space limitations, we omit further discussion of these redundant results."}
+\textcolor{blue}{"Consistent with Section 4.2.3, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure 15. Our findings remain consistent with those reported in Section 4.2.3. For brevity and due to space limitations, we omit further discussion of these redundant results."}
 
 
 %%%%%%%%%%%%%%%%%%%%%% R6 %%%%%%%%%%%%%%%%%%%%%%
@@ -337,7 +337,7 @@ Section 4.3.3:
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. Currently, except for FilteredDiskANN, other hybrid query methods are memory-based, so we added the feature of whether to support disk for each algorithm in Table 1. At the same time, we also compared the search performance difference of FilteredDiskANN on memory and SSD using real data sets. The results are shown in Figure~\ref{fig:recall-latency}:
+Thank you for your suggestion. Currently, except for FilteredDiskANN, other hybrid query methods are memory-based, so we added the characteristic of whether to support disk for each algorithm in Table \ref{tab:compair_1}, which corresponds to Table 1 in the original paper.. At the same time, we also compared the search performance difference of FilteredDiskANN on memory and SSD using real data sets. The results are shown in Figure~\ref{fig:recall-latency}:
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=\linewidth]{fig/recall_latency_all.pdf}
@@ -425,10 +425,10 @@ Thank you for your valuable suggestion regarding our experiments. In Section 4.2
 %\textbf{(Please refer to the blue highlighted parts in Section 4.2.4 and Section 4.3.4 under Large-scale Datasets.)}
 
 
-Section 4.2.3:\textcolor{blue}{"As shown in the figure 12c, on the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating good adaptability to large-scale datasets. However, this also comes with significant memory overhead. The clustering-based algorithm Faiss+HQI\_Batch shows moderate performance but has very low memory overhead, which also has certain practical significance. Furthermore, we do not present the experimental results for StitchedVamana because its recall consistently remains at a very low level. This is due to its search starting point being set to 0 by default, when the entry point is far from the target area, it easily gets stuck in a local optimum, making it difficult to navigate to the vicinity of the correct point."}
+Section 4.2.3:\textcolor{blue}{"As shown in the figure 11, on the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating good adaptability to large-scale datasets. However, this also comes with significant memory overhead. The clustering-based algorithm Faiss+HQI\_Batch shows moderate performance but has very low memory overhead, which also has certain practical significance. Furthermore, we do not present the results of StitchedVamana and CAPS, as their recall remained consistently low. StitchedVamana sets the search entry point to 0 by default, which makes it prone to getting stuck in local optima when the entry is far from the target region, hindering effective navigation. CAPS, on the other hand, cannot properly run large-scale dataset experiments because its code implementation does not account for such scenarios."}
 
 Section 4.3.3:
-\textcolor{blue}{"As shown in the figure 16c, in the 100-million-scale dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption (300-400GB). At the same time, we can see that some algorithms (e.g., SeRF, ACORN-1) perform even worse than the VBASE database, which indicates that they do not adapt well to large-scale dataset scenarios. Although Milvus has a low QPS, it can achieve a recall of 1 with an excellent memory footprint of around 80GB"}
+\textcolor{blue}{"As shown in the figure 16, On the deep100M dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption, as detailed in Figure 12d. Meanwhile, VBASE and Faiss demonstrate moderate performance but significantly lower memory consumption than the top 3 algorithms."}
 
 %%%%%%%%%%%%%%%%%%%%%% R9 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -677,14 +677,13 @@ Thank you for your suggestion. We are deeply aware of this shortcoming, so we pr
 \noindent
 \textbf{Response:} 
 %Thank you for pointing this out. Both paper [49] and our paper are benchmarks. Paper [49] provides a comprehensive review and evaluation of graph-based approximate nearest neighbor search algorithms. Our paper is the first benchmark to evaluate hybrid queries. Since hybrid queries are developed based on ANN, we refer to the evaluation metrics proposed in the cited paper. We realize that we did not clearly explain the difference between our paper and the cited paper, so we have added a description in the introduction, please see section 1.1.
-Thank you for pointing this out. The original reference [49], now updated to reference [50], provides a comprehensive review and evaluation of graph-based approximate nearest neighbor (ANN) search algorithms, whereas our work is the first to establish a benchmark specifically for hybrid query algorithms. We initially cited this reference in the experimental setup section to adopt its proposed evaluation metrics, as hybrid queries are fundamentally built upon ANN techniques. We acknowledge that the distinction between our work and the cited paper was not clearly articulated in the early version. To address this, we have revised the introduction to clarify the difference and added citations to several experimental studies from the ANN literature. \textbf{(Please see Section 1.1, highlighted in blue in the revised manuscript.)}
+Thank you for pointing this out. The original reference [49], now updated to reference [45], provides a comprehensive review and evaluation of graph-based approximate nearest neighbor (ANN) search algorithms, whereas our work is the first to establish a benchmark specifically for hybrid query algorithms. We initially cited this reference in the experimental setup section to adopt its proposed evaluation metrics, as hybrid queries are fundamentally built upon ANN techniques. We acknowledge that the distinction between our work and the cited paper was not clearly articulated in the early version. To address this, we have revised the introduction to clarify the difference and added citations to several experimental studies from the ANN literature. \textbf{(Please see Section 1.1, highlighted in blue in the revised manuscript.)}
 
 
 
  \textcolor{blue}{"
 % 	Although existing work, such as the survey [49] by reviews graph-based ANN methods, the literature still lacks an experimental study specifically targeting hybrid query algorithms. To address this gap, we conduct the first comprehensive experimental evaluation of hybrid query algorithms, systematically analyzing their index construction costs and query efficiency across diverse scenarios. Furthermore, we rigorously assess the robustness of each algorithm under varying conditions, thereby providing valuable insights for future research and practical applications.
- 	Although existing works [9,50] conduct benchmark evaluations of ANN methods, a dedicated experimental study on hybrid query algorithms is still lacking.
- 	To address this gap, we carry out the first comprehensive experimental evaluation of hybrid query algorithms, systematically analyzing their index construction costs and query efficiency across diverse scenarios. Furthermore, we rigorously assess the robustness of each algorithm under different experimental settings, thereby providing valuable insights for future research and practical applications."}
+ 	Although existing works [9,45] conduct benchmark evaluations of ANN methods, a systematic experimental study specifically targeting hybrid query algorithms is still lacking. "}
 
 
 
@@ -874,11 +873,11 @@ For partitioning and merging, only Filtered-DiskANN, which supports disk storage
 
 \textbf{Regarding quantization time in index build:}
 
-Of all the evaluated algorithms, Faiss, Puck, DiskANN, and Milvus support quantization. However, in our experiments, we did not enable quantization in any of our experiments. Therefore, no quantization time was included in the reported index build times.
+Of all the evaluated algorithms, Faiss, Puck, Filtered-DiskANN, and Milvus support quantization. However, in our experiments, we did not enable quantization in any of our experiments. Therefore, no quantization time was included in the reported index build times.
 
-\textbf{Regarding Figure 7 and the exclusion of Vamana:}
+\textbf{Regarding the exclusion of Vamana in Figure 7 (now Figure 6):}
 
-We appreciate the observation of reviewer. Figure 7 presents experiments on multi-attribute construction and search, using Boolean AND logic. The Vamana-based methods (FilteredVamana and StitchedVamana) only support Boolean OR logic for multi-attribute search, which is why they were not included. Since other algorithms also do not support multi-attribute queries, we have explained this situation collectively in the corresponding section of the paper to save space. (\textbf{Please see the "Multi-Attribute Construction and Multi-Attribute Query" part of Section 4.2.2, highlighted in blue in the revised manuscript.})
+We appreciate the observation of reviewer. Figure 6 presents experiments on multi-attribute construction and search, using Boolean AND logic. The Vamana-based methods (FilteredVamana and StitchedVamana) only support Boolean OR logic for multi-attribute search, which is why they were not included. Since other algorithms also do not support multi-attribute queries, we have explained this situation collectively in the corresponding section of the paper to save space. (\textbf{Please see the "Multi-Attribute Construction and Multi-Attribute Query" part of Section 4.2.2, highlighted in blue in the revised manuscript.})
 
 \textcolor{blue}{"In this experiment, we only evaluate the algorithms that support this query scenario."}
 
