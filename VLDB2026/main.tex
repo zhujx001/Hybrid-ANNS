@@ -563,13 +563,13 @@ In Faiss, we use the HQI batch optimization strategy in the IVF index. It groups
 	\subsection{Experimental Setup}
 	\subsubsection{Datasets}
 	
-	\textcolor{blue}{Our experiments employ 12 real-world datasets covering diverse domains: Audio~\cite{audio_unknown},  Enron~\cite{enron2015}, GIST1M~\cite{sift2010}, GloVe~\cite{GloVe2015}, Msong~\cite{msong2011}, SIFT1M~\cite{sift2010}, Deep1M~\cite{yandex_deep_dataset}, WIT-Real~\cite{wit_dataset}, YT-Audio-Real~\cite{youtube8m_dataset}, Text2image~\cite{texttoimage}, Text2image-Mix, and Deep100M.}
+	\textcolor{blue}{Our experiments employ 12 real-world datasets covering diverse domains: Audio~\cite{audio_unknown},  Enron~\cite{enron2015}, GIST1M~\cite{sift2010}, GloV-\\e~\cite{GloVe2015}, Msong~\cite{msong2011}, SIFT1M~\cite{sift2010}, Deep1M~\cite{yandex_deep_dataset}, WIT-Real~\cite{wit_dataset}, YT-Audio-Real~\cite{youtube8m_dataset}, Text2image~\cite{texttoimage}, Text2image-Mix, and Deep100M.}
 	
 	Table~\ref{tab:datasets_combined} summarizes the key characteristics of all datasets and their applicable filtering scenarios. In particular, we report the Local Intrinsic Dimensionality (LID)~\cite{Lid}, which is a commonly used metric to quantify dataset hardness. Following the standard evaluation protocol~\cite{LID2}, we randomly sample 10,000 data points from each dataset to compute LID. The higher the LID value, the harder the dataset.
 	
 	\textcolor{blue}{The first seven datasets are widely used in existing works. As they do not inherently come with attributes, we generate attributes for them to precisely control attribute quantity and distribution. WIT-Real and YT-Audio-Real datasets use real attributes. For the WIT-Real dataset, we use the CLIP model to encode the page title into vectors, and extract the language type and the length of the context page description  as real attributes. The YT-Audio-Real dataset uses YouTube8M data, employing the video category ID and view counts as real attributes for this dataset.}
 	
-	\textcolor{blue}{Additionally, we use the Out-of-Distribution (OOD) dataset Text2Image and the large-scale dataset Deep100M to evaluate the generalization capability of the algorithms. The Text2Image dataset includes two versions. The original version contains 1 million image embeddings as the base dataset and uses 10 thousand text embeddings as the query set. The Text2Image-Mix version is composed of 0.5 million image embeddings and 0.5 million text embeddings as the base dataset, with a query set of 5 thousand image embeddings and 5 thousand text embeddings.}
+	\textcolor{blue}{Additionally, we use the Out-of-Distribution (OOD) dataset Text2-Image and the large-scale dataset Deep100M to evaluate the generalization capability of the algorithms. The Text2Image dataset includes two versions. The original version contains 1 million image embeddings as the base dataset and uses 10 thousand text embeddings as the query set. The Text2Image-Mix version is composed of 0.5 million image embeddings and 0.5 million text embeddings as the base dataset, with a query set of 5 thousand image embeddings and 5 thousand text embeddings.}
 	
 
 	
@@ -614,7 +614,7 @@ In Faiss, we use the HQI batch optimization strategy in the IVF index. It groups
 				WIT-Real & 512 & 1,000,000 & 40,300 & 48& Image& Both \\
 				YT-Audio-Real& 128 & 1,000,000 & 10,000 & 15& Audio& Both \\
 				Text2Image & 200 & 10,000,000 &10,000 & 59& Text,Image& Both \\
-				Text2Image-Mix & 200 & 1,000,000 &10,000 & 59& Text,Image& Both \\
+				Text2Image-Mix & 200 & 1,000,000 &10,000 & 21& Text,Image& Both \\
 				Deep100M & 96 & 100,000,000 & 10,000 & 22& Image& Both \\
 				\bottomrule
 			\end{tabular}
@@ -1525,7 +1525,7 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 	\hline
 	\textbf{Multi-Modal} & \textbf{B} & G & G & P & G & M & \textbf{B} & G & M & M & G & M/M & P/M & P/P & P/P & P/P \\
 	\hline
-	\textbf{High-LID} & \textbf{B} & G & M & G & M & M & \textbf{B} & G & M & M & G & P/P & M/G & P/P & P/M & P/P \\
+	\textbf{High-LID} & \textbf{B} & G & M & G & M & M & \textbf{B} & G & M & M & G & P/P & M/M & P/P & P/P & P/P \\
 	\hline
 	\textbf{Rare Attribute / Low Range} & \textbf{B} & P & M & G & G & G & \textbf{B} & G & P & G & M & M/M & M/M & P/P & P/P & P/P \\
 	\hline
@@ -1544,7 +1544,7 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 \footnotesize{
 	\begin{minipage}{\linewidth}
 		\vspace{0.1cm}
-		\textit{Performance Levels:} B = Best, G = Good , M = Moderate, P = Poor, - = Not Supported;
+		\textit{Performance Levels:} \textbf{B} = Best, G = Good , M = Moderate, P = Poor, - = Not Supported;
 		\textit{Performance-Critical}: Requires low latency and high recall;
 		\textit{Index-Efficient}: Emphasizes lightweight index construction;
 		\textit{Memory-Constrained}: Operates under limited memory conditions;
@@ -1639,7 +1639,9 @@ Moreover, in our experiments, many range filtering algorithms perform worse than
 %	
 	
 	\section{CONCLUSION}
-	In this paper, we systematically evaluate hybrid query methods, including various algorithms, vector databases, and libraries. We enrich the attribute information of the dataset and design a variety of experimental scenarios, and comprehensively analyze the performance of each algorithm. Experiments show that these algorithms still have shortcomings in scenarios such as large-scale data, complex queries, and resource constraints. There are still significant deficiencies in the flexibility and Boolean logic support of attribute filtering algorithms. Additionally, the performance of range filtering algorithms remains limited under high-recall requirements and lacks support for multi-attribute queries. Notably, some algorithms even perform worse than the baseline method (e.g., Faiss) in high recall scenarios.  In the future, it is essential to further explore the flexibility and robustness of attribute filtering algorithms, and improving the performance of range filtering algorithms remains an important direction.
+	In this paper, we systematically evaluate various hybrid query methods, including multiple algorithms, vector databases, and libraries. We enrich the attribute information of the dataset and design a variety of experimental scenarios, and comprehensively analyze the performance of each algorithm. Experiments show that existing algorithms still have significant shortcomings in scenarios such as large-scale data, complex queries, and resource constraints. There are still significant deficiencies in the flexibility and Boolean logic support of attribute filtering algorithms. Furthermore, the performance of range filtering algorithms remains limited under high-recall requirements and lacks support for multi-attribute queries. Notably, in some high-recall scenarios, some algorithms even perform worse than the baseline method (e.g., Faiss). In the future, it is necessary to further explore the flexibility and robustness of attribute filtering algorithms, while improving the performance of range filtering algorithms is also an important direction. \textcolor{blue}{Additionally, exploring algorithms that support a combination of attribute and range filtering is also an important research topic.}
+%	In this paper, we systematically evaluate hybrid query methods, including various algorithms, vector databases, and libraries. We enrich the attribute information of the dataset and design a variety of experimental scenarios, and comprehensively analyze the performance of each algorithm. Experiments show that these algorithms still have shortcomings in scenarios such as large-scale data, complex queries, and resource constraints. There are still significant deficiencies in the flexibility and Boolean logic support of attribute filtering algorithms. Additionally, the performance of range filtering algorithms remains limited under high-recall requirements and lacks support for multi-attribute queries. Notably, some algorithms even perform worse than the baseline method (e.g., Faiss) in high recall scenarios.  In the future, it is necessary to further explore the flexibility and robustness of attribute filtering algorithms, while improving the performance of range filtering algorithms is also an important direction. Furthermore, in many real-time scenarios, both attribute and range filtering are required simultaneously, and therefore, exploring algorithms that support a combination of both is also an important research topic.
+%	In the future, it is essential to further explore the flexibility and robustness of attribute filtering algorithms, and improving the performance of range filtering algorithms remains an important direction.
 %	\textcolor{blue}{
 %		In this paper, we evaluate hybrid query methods, including algorithms, vector databases, and libraries. We design experiments to assess the performance of attribute filtering algorithms. We enrich existing datasets with attribute values and create various experimental scenarios to ensure fair comparisons. We run experiments on 7 real-world datasets to analyze the effectiveness of attribute filtering algorithms. We also compare range filtering algorithms using 4 range query datasets. Finally, we analyze the results, summarize key findings, and identify areas for improvement. Our study validates previous research and provides insights for future work.
 %	}
