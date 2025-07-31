@@ -250,8 +250,8 @@ Section 4.2.3: \textcolor{blue}{
 	"We conduct experiments on two multimodal datasets Text2image-Mix and Text2image. On Text2imageMix dataset, as shown in Figure 9, UNG and NHQ consistently perform best, followed by CAPS. Although the dataset contains two modalities, due to the significant differences between the modalities, they are actually two separate regions in the vector space. The performance is similar to that of the single-modal dataset in Figure 4. This is because mixed multi-modal queries are actually the same as conducting experiments on two datasets of the same modality. This is not actually a difficult query. In contrast, the Text2image dataset shown in Figure 9 is different. The query set and the base dataset belong to two completely different modalities. Queries are far from the dataset points, and the ground truths are more dispersed. To find the ground truths, algorithms typically need to examine more points, which leads to degraded performance." 
 }
 
-Section 4.3.3:\textcolor{blue}{
-		"Similar to attribute filtering, on Text2Image-Mix dataset, the performance of multi-modal range filtering queries shown in Figure 14 also aligns with the single-modality results in Figure 13. These algorithms on the Text2Image dataset exhibit a significant performance degradation. This is because most of these range query algorithms are graph-based, and such algorithms require more iterations to find true neighbors in OOD datasets."
+Section 4.3.3: \textcolor{blue}{
+		"Similar to attribute filtering, the performance of range filtering queries on the Text2image-Mix dataset (Figure 14) is similar to the single-modality query performance (Figure 13). However, on the Text2Image dataset, these algorithms exhibit a significant performance degradation (Figure 14). This is because most of these range query algorithms are graph-based, and such algorithms require more iterations to find true neighbors in OOD datasets."
 }
 
 \begin{figure}[htbp]
@@ -302,7 +302,7 @@ Thank you for your suggestion. Using ID as an attribute is a prevalent method in
 
 
 \textcolor{blue}{
-	"WIT-Real and YT-Audio-Real datasets use real attributes: For the WIT-Real dataset, we use the CLIP model to encode the page title into vectors, and extract the language type and the length of the context page description as real attributes. The YT-Audio-Real dataset uses YouTube8M data, employing the video category ID and view counts as real attributes for this dataset."
+	"WIT-Real and YT-Audio-Real datasets use real attributes. For the WIT-Real dataset, we use the CLIP model to encode the page title into vectors, and extract the language type and the length of the context page description as real attributes. The YT-Audio-Real dataset uses YouTube8M data, employing the video category ID and view counts as real attributes for this dataset."
 }
 %%%%%%%%%%%%%%%%%%%%%% R5 %%%%%%%%%%%%%%%%%%%%%%
 
