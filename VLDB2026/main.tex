@@ -748,7 +748,7 @@ Milvus\footnote{\textcolor{blue}{https://github.com/milvus-io/milvus}} \cite{mil
 
 \textit{\textbf{Index size.}}
 \textcolor{orange}{
-	As shown in Figure~\ref{fig:index_size_mb_comparison_query1}, PASE exhibits significantly larger index sizes across all supported datasets, mainly due to its reliance on a large amount of metadata. For regular-scale datasets, other methods show moderate variation. However, on large-scale dataset, Graph-based algorithms such as ACORN, FilteredDiskANN, and UNG tend to exhibit a sharp increase in index size, primarily due to the large number of candidate neighbors they maintain. Overall, IVF-based methods tend to produce more compact indexes.
+	As shown in Figure~\ref{fig:index_size_mb_comparison_query1}, PASE exhibits significantly larger index sizes across all supported datasets, mainly due to its reliance on a large amount of metadata. For medium-scale datasets, other methods show moderate variation. However, on large-scale dataset, Graph-based algorithms such as ACORN, FilteredDiskANN, and UNG tend to exhibit a sharp increase in index size, primarily due to the large number of candidate neighbors they maintain. Overall, IVF-based methods tend to produce more compact indexes.
 }
 
 %As shown in the Figure~\ref{fig:index_size_mb_comparison_query1}, PASE exhibits significantly larger index sizes across all supported datasets. This overhead stems primarily from its extensive metadata requirements. The index sizes of other methods show moderate variation.
@@ -763,15 +763,15 @@ Milvus\footnote{\textcolor{blue}{https://github.com/milvus-io/milvus}} \cite{mil
 % This is because NHQ adopts the kgraph approach for index construction, which requires loading the entire graph data into memory and maintaining a complete graph structure, leading to relatively high memory overhead. 
 % 
 % On large-scale datasets, CAPS exhibits slightly lower memory usage compared to other algorithms. \textcolor{orange}{The reason is that CAPS avoids redundant storage and graph structure overhead through hierarchical partitioning and AFT, and achieves a compact, sparse and controllable index. }.
-As shown in Figure~\ref{fig:build_memory_mb_comparison}, the build peak memory usage is generally correlated with the sum of the index size and the dataset size. Algorithms that consume more peak memory during construction typically produce larger index sizes, and this trend holds across different datasets.
+ \textcolor{orange}{As shown in Figure~\ref{fig:build_memory_mb_comparison}, the build peak memory usage is generally correlated with the sum of the index size and the dataset size. Algorithms that consume more peak memory during construction typically produce larger index sizes, and this trend holds across different datasets.}
 
 \textcolor{red}{However, PASE breaks this pattern due to its on-demand loading strategy, resulting in peak memory usage even lower than the final index size. 
 In addition, NHQ generates a large number of candidate neighbors during the construction phase, but retains only a small subset for each point in the final index. This leads to high peak memory usage during construction, despite the relatively small size of the final index.}
 
-\textit{\textbf{Search peak memory.}}
+ \textcolor{orange}{\textit{\textbf{Search peak memory.}}
 %  \textcolor{orange}{As shown in Figure~\ref{fig:search_memory_mb_comparison}, we can find that the peak memory usage of each algorithm during search does not differ significantly. Among them, CAPS and NHQ have relatively higher peak memory usage, while the peak memory usage of database is comparatively lower.}
 %\textcolor{orange}{For most algorithms, the query phase requires loading both the index and the dataset into memory, so its peak memory usage is usually comparable to that of the construction phase. However, as shown in the Figure~\ref{fig:search_memory_mb_comparison}, CAPS exhibits significantly higher peak memory during querying due to the need to dynamically maintain large candidate sets. In contrast, Milvus has lower peak memory usage because it does not fully load the index and incurs additional metadata overhead during construction.
-Most algorithms load both the index and the dataset into memory during the build and query phases, and the construction process typically generates a large amount of temporary data. As a result, peak memory usage during querying is generally slightly lower than during construction. However, exceptions exist. As shown in Figure~\ref{fig:search_memory_mb_comparison}, CAPS incurs significantly higher peak memory usage during querying due to the need to dynamically maintain a large candidate set.
+Most algorithms load both the index and the dataset into memory during the build and query phases, and the construction process typically generates a large amount of temporary data. As a result, peak memory usage during querying is generally slightly lower than during construction. However, exceptions exist. As shown in Figure~\ref{fig:search_memory_mb_comparison}, CAPS incurs significantly higher peak memory usage during querying due to the need to dynamically maintain a large candidate set.}
 	
 	\subsubsection{Performance Evaluation}
 	
@@ -789,9 +789,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	As shown in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}, as recall approaches 1, search often requires traversing larger candidate sets or deeper graph paths. This leads to increased computational cost and a sharp QPS drop for most methods. Despite this, UNG consistently maintains high QPS due to its LNG structure, which eliminates unnecessary online filtering of irrelevant attributes and searches only within the subgraph formed by points satisfying the filtering conditions, thereby improving query efficiency.
 	
 	\textcolor{violet}{NHQ and StitchedVamana also perform well and show similar and stable performance across all datasets. This indicates that joint filtering and search strategies can achieve consistent effectiveness under high-recall requirements.} StitchedVamana outperforms FilteredVamana in query efficiency. This difference stems from their pruning strategies: StitchedVamana applies pruning after merging graphs, allowing nodes to accumulate a richer candidate set; while FilteredVamana applies early pruning, potentially eliminating useful candidates prematurely.
-	
 	%	Puck and CAPS perform relatively well. Partition-based methods have limitations regarding different vector data distributions, and how to configure different partitions for different datasets remains a challenge. However, this also demonstrates that IVF-based methods remain very promising for hybrid queries.
-	
 	\textcolor{violet}{Additionally, Puck and CAPS also perform relatively well. They further reduce the search space on IVF indexes by using attribute partitioning, thereby achieving solid search performance.}
 	
 	Among all methods, vector database systems (PASE, VBASE, Milvus) show the worst performance. These systems target general-purpose scenarios but incur communication latency from network I/O and experience high query processing overhead due to complex query parsing. Additionally, we observe that Faiss+HQI\_Batch outperforms original Faiss, indicating that batch querying via HQI can effectively enhance query performance.
@@ -885,7 +883,6 @@ Most algorithms load both the index and the dataset into memory during the build
 	As shown in Figure~\ref{fig:exp_4_1_MultiLabel_1thread}, UNG still maintains the best performance across all datasets. Since some strong competing algorithms do not support multi-attribute querying, CAPS becomes the second-best algorithm, but its performance on small datasets is relatively poor. This is because CAPS performs multi-level partitioning based on attributes on top of the IVF index, which introduces additional overhead. While this overhead negatively impacts performance on small datasets, on large datasets, the overhead is amortized, and the increasing dataset scale makes the advantages of attribute-aware partitioning evident.
 	
 	NHQ performs moderately overall in multi-attribute joint filtering scenarios but poorly on small datasets. Its reliance on fusion distance computations makes it highly sensitive to the number of attributes, impacting both efficiency and accuracy under multi-attribute filtering.
-	
 	For IVF-based methods not specifically optimized for hybrid queries (Faiss and Milvus), their QPS shows a similar and relatively stable trend as recall varies. Among them, Milvus, as a general-purpose system, exhibits comparatively poor performance.
 	
 %	Compared to single-attribute filtering, multi-attribute joint filtering better reflects real-world scenarios. To evaluate algorithm performance under this setting, we construct the index using 3 uniformly distributed attributes and apply filtering on all 3 attributes simultaneously during queries. \textcolor{orange}{Note that FilterDiskANN only supports Boolean OR logic and does not support Boolean AND. Therefore, its two Vamana-based methods are excluded from the multi-attribute construction and search experiments.}
@@ -1303,7 +1300,8 @@ Most algorithms load both the index and the dataset into memory during the build
 	In this experiment, we follow the query range definition adopted by prior work~\cite{HQI}. \textcolor{red}{Specifically, for a given query, the range ratio is defined as $2^{-i}$	when the query range covers $\frac{n}{2^i}$ data points, where $n$ is the total dataset size.}
 	% Based on this definition, we evaluate algorithm performance under 4 query range settings: $2^{-2}$, $2^{-4}$, $2^{-6}$, and $2^{-8}$. \textcolor{blue}{Due to the limitations of existing range filtering algorithms, the range filtering experiment only uses one attribute, and the dataset is sorted in ascending order according to the attribute value size. WIT-Real and YT-Audio-Real use real attribute values, and the rest use randomly generated attribute values.}
 	%\textcolor{red}{Some algorithms don't support using actual attributes as search keys, instead requiring an ID (the primary key, ranging from $0$ to $n-1$). Therefore, we uniformly use this ID as the search key. This ID is pre-sorted according to its corresponding real attribute, allowing us to map an attribute to its ID without loss of generality for efficient range queries.} 
-	Based on this definition, we evaluate algorithm performance under four query range settings: $2^{-2}$, $2^{-4}$, $2^{-6}$, and $2^{-8}$. For space considerations, Figure~\ref{fig:exp_8_2} reports results for only the largest ($2^{-2}$) and smallest ($2^{-8}$) range ratios. The experimental results show consistent performance across all datasets and query ranges.
+	Based on this definition, we evaluate algorithm performance under four query range settings: $2^{-2}$, $2^{-4}$, $2^{-6}$, and $2^{-8}$. For space considerations, Figure~\ref{fig:exp_8_2} reports results for only the largest ($2^{-2}$) and smallest ($2^{-8}$) range ratios. 
+%	The experimental results show consistent performance across all datasets and query ranges.
 	
 	%Due to space constraints, Figure~\ref{fig:exp_8_2} reports results for only the largest ($2^{-2}$) and smallest ($2^{-8}$) range ratios. The experimental results show that across all datasets (YT-Audio-Real, WIT-Real, and Deep1M) and query ranges.
 	
@@ -1404,10 +1402,10 @@ Most algorithms load both the index and the dataset into memory during the build
 		}
 		
 	\textit{\textbf{\textcolor{blue}{Different Hardware Environments.}}} 
-	\textcolor{cyan}{Consistent with Section 4.2.4, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure~\ref{fig:range-cross-platform}. Although the third-ranked algorithm differs, we consider the ranking order essentially unchanged since the performance of the third and fourth algorithms is comparable. So our findings remain consistent with those reported in Section 4.2.4. For brevity and due to space limitations, we omit further discussion of these redundant results.}
+	\textcolor{cyan}{Consistent with Section 4.2.4, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure~\ref{fig:range-cross-platform}. Although the third-ranked algorithm differs, we consider the ranking order remains stable since the performance of the third and fourth algorithms is comparable. So our findings remain consistent with those reported in Section 4.2.4. For brevity and due to space limitations, we omit further discussion of these redundant results.}
 %	\textcolor{cyan}{Consistent with Section 4.2.4, we conducted additional range filtering experiments using the YT-Audio-Real dataset on the same server, with results shown in Figure \ref{fig:Different Computer range}. Compared with the original server's experimental results (Figure \ref{fig:exp_8_2}($e$)), the conclusions remain identical to those described in Section 4.2.4. Due to space constraints, these details are not reiterated here.}
 	
-	\textit{\textbf{\textcolor{red}{Large-scale Datasets.}}} \textcolor{red}{As shown in the figure~\ref{fig: range big dataset}, On the 100M dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption, as detailed in Figure~\ref{fig:rangeFilter_search_memory_mb}. Meanwhile, VBASE and Faiss demonstrate moderate performance but significantly lower memory consumption than the top three algorithms}.
+	\textit{\textbf{\textcolor{red}{Large-scale Datasets.}}} \textcolor{red}{As shown in the figure~\ref{fig: range big dataset}, On the deep100M dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption, as detailed in Figure~\ref{fig:rangeFilter_search_memory_mb}. Meanwhile, VBASE and Faiss demonstrate moderate performance but significantly lower memory consumption than the top three algorithms}.
 	
 	
 %	\textit{\textbf{Multimodel, 85 and Deep100M.}} \textcolor{red}{The fig is Figure \ref{fig:TrinityExtension——Range}}
@@ -1438,7 +1436,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	\textbf{Large-Scale Dataset} & S & S & W & W &\textbf{S} &S  &M  &S  &M  &S  &\textbf{S}  &M/W  &W/M  &W/W  &M/M  &-  \\
 	\textbf{Rare Attribute \& Low Range} &M  &M  &S  &S &\textbf{S}  &S  &S  &S  &W  &M  &\textbf{S} &M/M  &M/M  &W/W  &W/W  &W/W  \\
 	\textbf{Robust to Multi-Modal Dataset} &S  &S  &W  &S  &\textbf{S}  &M  &M  &S  &M  &S  &\textbf{S}  &M/M  &W/M  &W/W  &W/W  &W/W  \\
-%	\textbf{Robust to Attribute Distribution} &W  &W  &S  &S  &S  &S  &-  &-  &-  &-  &-  &S/-  &W/-  &\textbf{S}/-  &W/-  &W/-  \\
+	\textbf{Robust to Attribute Distribution} &W  &W  &S  &S  &S  &S  &-  &-  &-  &-  &-  &S/-  &W/-  &\textbf{S}/-  &W/-  &W/-  \\
 	\textbf{High LID Dataset} &S  &M  &S  &M  &\textbf{S}  &M  &M  &S  &M  &S  &\textbf{S}  &W/W  &M/S  &W/W  &W/M  &W/W  \\
 	\textbf{General-Purpose} &\faCheck  &\faCheck  &\faTimes  &\faTimes  &\faCheck  &\faTimes  &\faTimes  &\faTimes &\faTimes  & \faCheck &\faCheck&\faTimes  &\faCheck  &\faCheck  &\faCheck&\faTimes  \\
 	\hline
@@ -1454,7 +1452,7 @@ Most algorithms load both the index and the dataset into memory during the build
 \end{table*}
 
 	
-	\subsubsection{\textbf{Attribute Filtering}}
+	\subsubsection{Attribute Filtering}
 %	We summarize the applicability of different algorithms across various attribute filtering scenarios in Table~\ref{tab:algo_scenarios}. Puck and UNG excel on large-scale datasets (S1). ACORN-1 and UNG achieve fast index construction (S2). UNG performs well on different datasets (S3, S4). In addition, CAPS performs well on hard datasets with high LID (S3), while NHQ and StitchedVamana perform better on easy datasets with low LID (S4).
 %	Faiss and CAPS can generate relatively compact indexes with low memory usage, which is suitable for resource-constrained situations (S6). Milvus and Faiss serve as general-purpose solutions (S5). UNG stands out for its higher recall, precision, and QPS, and performs well in the OOD scenario (S7, S8).
 \textcolor{orange}{
@@ -1467,7 +1465,7 @@ CAPS, based on clustering, features low index space overhead. It offers flexible
 Puck is well-suited for large-scale datasets such as those with 100 million points. It offers fast index construction and low memory consumption in such scenarios. Moreover, it delivers high search performance in multi-threaded environments, making it an excellent choice for deployment on extremely large datasets.}
 
 
-	\subsubsection{\textbf{Range Filtering}}
+	\subsubsection{Range Filtering}
 \textcolor{orange}{
 	WinFilter achieves the best search performance but requires high time and memory resources during index construction. For large-scale datasets (e.g., with 100 million points), parameter tuning—particularly of tree height—is needed to prevent excessive index growth. When QPS and recall are not strict requirements, its basic variant, Vamana-WST, offers a more efficient alternative with significantly lower indexing overhead.
 		}
@@ -1481,7 +1479,7 @@ Puck is well-suited for large-scale datasets such as those with 100 million poin
 	UNIFY adopts multiple filtering strategies tailored to different query range sizes, avoiding the limitations of a single strategy in specific scenarios. It requires only one index to support all queries, allows dynamic insertions, and features low time and space overhead during index construction, making it a more general-purpose solution.}
 %	Table~\ref{tab:algo_scenarios} also shows the application scenarios of range filtering. iRange performs well on large-scale datasets, combining efficient construction and excellent query capabilities (S1). Faiss performs well in fast index construction (S2). When processing hard datasets, WinFilter, iRange, and DSG are recommended (S3), while WinFilter and iRange also perform well on easy datasets (S4). For general applications, DSG supports dynamic updates, while UNIFY provides flexible filtering strategies (S5). Faiss and SeRF show superior memory efficiency (S6). For static queries with high recall, WinFilter is the best choice (S7). In addition, WinFilter also performs well in OOD scenarios (S8).
 
-	\subsubsection{\textbf{General Algorithm}}
+	\subsubsection{General Algorithm}
 \textcolor{orange}{All of the following methods support both attribute filtering and range filtering.}
 
 \textcolor{orange}{
@@ -1491,7 +1489,7 @@ ACORN demonstrates average overall performance. Among its variants, ACORN-1 show
 Faiss, Milvus, and VBASE handle complex scenarios with advanced filtering operations more effectively. While they offer strong flexibility, their overall search performance is relatively modest. Relatively speaking, PASE performs less well across various aspects.}
 	
 	\subsection{Challenges}
-	\subsubsection{\textbf{Attribute Filtering}}
+	\subsubsection{Attribute Filtering}
 	Most existing attribute filtering algorithms are graph-based, they typically outperform other methods in terms of query accuracy and efficiency. Filtered-DiskANN leverages disk-based storage, making it more suitable for extremely large-scale datasets even in memory-constrained environments. Moreover, the index construction phase of graph-based algorithms is computationally intensive. Therefore, exploring GPU-based acceleration for graph construction and vector computation during indexing is promising. It can significantly improve the performance of graph-based methods.
 	
 	\textcolor{blue}{In addition, existing attribute filtering algorithms face two major limitations: strict requirements on attribute format and limited support for complex filtering conditions. }
@@ -1512,7 +1510,7 @@ Therefore, designing algorithms that can support complex filtering expressions w
 %	%The original implementations of 
 %	NHQ imposes strict constraints on the number of base and query attributes and only support AND conditions. While UNG is relatively flexible—supporting both AND and OR logic—it still lacks support for arbitrary Boolean expressions (e.g., combinations of AND and OR). The lack of flexible Boolean filtering remains a key challenge, limiting the practicality of hybrid query methods in real-world systems with diverse and complex query requirements.
 	
-	\subsubsection{\textbf{Range Filtering}}
+	\subsubsection{Range Filtering}
 	
 	Except for DSG and UNIFY, most range filtering algorithms require the dataset to be pre-sorted before building the index. \textcolor{green}{Moreover, these methods do not support multi-attribute range queries. }Enhancing these methods to support an arbitrary number of range filterable attributes remains an open research challenge.
 	
