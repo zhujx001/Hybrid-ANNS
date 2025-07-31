@@ -764,23 +764,28 @@ In Faiss, we use the HQI batch optimization strategy in the IVF index. It groups
 
 
 %\underline{Faiss generates slightly smaller indexes due to its efficient index design}.
-\textit{\textbf{Build peak memory.}}
-% As shown in Figure~\ref{fig:build_memory_mb_comparison}, 
-% %on small-scale datasets, all methods except NHQ exhibit low memory usage. 
-% \textcolor{orange}{NHQ has the highest peak memory usage on almost all datasets.}
-% This is because NHQ adopts the kgraph approach for index construction, which requires loading the entire graph data into memory and maintaining a complete graph structure, leading to relatively high memory overhead. 
-% 
-% On large-scale datasets, CAPS exhibits slightly lower memory usage compared to other algorithms. \textcolor{orange}{The reason is that CAPS avoids redundant storage and graph structure overhead through hierarchical partitioning and AFT, and achieves a compact, sparse and controllable index. }.
- \textcolor{orange}{As shown in Figure~\ref{fig:build_memory_mb_comparison}, the build peak memory usage is generally correlated with the sum of the index size and the dataset size. Algorithms that consume more peak memory during construction typically produce larger index sizes, and this trend holds across different datasets.}
+%\textit{\textbf{Build peak memory.}}
+% \textcolor{orange}{As shown in Figure~\ref{fig:build_memory_mb_comparison}, the build peak memory usage is generally correlated with the sum of the index size and the dataset size. Algorithms that consume more peak memory during construction typically produce larger index sizes, and this trend holds across different datasets.}
+%
+%\textcolor{red}{However, PASE breaks this pattern due to its on-demand loading strategy, resulting in peak memory usage even lower than the final index size. 
+%In addition, NHQ generates a large number of candidate neighbors during the construction phase, but retains only a small subset for each point in the final index. This leads to high peak memory usage during construction, despite the relatively small size of the final index.}
+%
+% \textcolor{orange}{\textit{\textbf{Search peak memory.}}
+%Most algorithms load both the index and the dataset into memory during the build and query phases, and the construction process typically generates a large amount of temporary data. As a result, peak memory usage during querying is generally slightly lower than during construction. However, exceptions exist. As shown in Figure~\ref{fig:search_memory_mb_comparison}, CAPS incurs significantly higher peak memory usage during querying due to the need to dynamically maintain a large candidate set.}
+\textcolor{orange}{\textit{\textbf{Peak memory.}}	
+We present the peak memory usage during index construction and query processing in Figure~\ref{fig:build_memory_mb_comparison} and Figure~\ref{fig:search_memory_mb_comparison}, respectively. We observe that peak memory usage is generally correlated with the combined size of the index and the dataset. Methods that produce larger indexes tend to consume more memory during both construction and querying, and this trend holds consistently across different datasets.}
 
-\textcolor{red}{However, PASE breaks this pattern due to its on-demand loading strategy, resulting in peak memory usage even lower than the final index size. 
-In addition, NHQ generates a large number of candidate neighbors during the construction phase, but retains only a small subset for each point in the final index. This leads to high peak memory usage during construction, despite the relatively small size of the final index.}
+\textcolor{orange}{However, there are notable exceptions. During index construction, PASE adopts an on-demand loading strategy, resulting in build peak memory usage even lower than the final index size. NHQ generates a large number of candidate neighbors during construction but retains only a small subset per node in the final index, leading to high peak memory usage despite a relatively compact index.
+During querying, CAPS maintains a large candidate set dynamically, which significantly increases its search peak memory consumption.}
 
- \textcolor{orange}{\textit{\textbf{Search peak memory.}}
-%  \textcolor{orange}{As shown in Figure~\ref{fig:search_memory_mb_comparison}, we can find that the peak memory usage of each algorithm during search does not differ significantly. Among them, CAPS and NHQ have relatively higher peak memory usage, while the peak memory usage of database is comparatively lower.}
-%\textcolor{orange}{For most algorithms, the query phase requires loading both the index and the dataset into memory, so its peak memory usage is usually comparable to that of the construction phase. However, as shown in the Figure~\ref{fig:search_memory_mb_comparison}, CAPS exhibits significantly higher peak memory during querying due to the need to dynamically maintain large candidate sets. In contrast, Milvus has lower peak memory usage because it does not fully load the index and incurs additional metadata overhead during construction.
-Most algorithms load both the index and the dataset into memory during the build and query phases, and the construction process typically generates a large amount of temporary data. As a result, peak memory usage during querying is generally slightly lower than during construction. However, exceptions exist. As shown in Figure~\ref{fig:search_memory_mb_comparison}, CAPS incurs significantly higher peak memory usage during querying due to the need to dynamically maintain a large candidate set.}
-	
+% \textcolor{orange}{As shown in Figure~\ref{fig:build_memory_mb_comparison}, the build peak memory usage is generally correlated with the sum of the index size and the dataset size. Algorithms that consume more peak memory during construction typically produce larger index sizes, and this trend holds across different datasets.}
+%
+%\textcolor{orange}{However, PASE breaks this pattern due to its on-demand loading strategy, resulting in peak memory usage even lower than the final index size. 
+%	In addition, NHQ generates a large number of candidate neighbors during the construction phase, but retains only a small subset for each point in the final index. This leads to high peak memory usage during construction, despite the relatively small size of the final index.}
+%	
+% \textcolor{orange}{Most algorithms load both the index and the dataset into memory during the build and query phases, and the construction process typically generates a large amount of temporary data. As a result, peak memory usage during querying is generally slightly lower than during construction. However, exceptions exist. As shown in Figure~\ref{fig:search_memory_mb_comparison}, CAPS incurs significantly higher peak memory usage during querying due to the need to dynamically maintain a large candidate set.}
+ 
+ 
 	\subsubsection{Performance Evaluation}
 	
 	
@@ -1236,7 +1241,8 @@ Although the dataset contains two modalities, due to the significant differences
 	\subsubsection{\textcolor{violet}{Time and Space overhead.}}
 	
 	%Similar to the evaluation of \textit{Attribute Filtering} algorithms, 
-	Similarly, we also evaluate \textcolor{orange}{4} key metrics mentioned above in \textit{Range Filtering} algorithms. \textcolor{orange}{Notably, for medium-scale datasets, all algorithms build indexes using a single thread. For the large-scale dataset Deep100M, all algorithms use 64 threads for index construction to improve efficiency, except DSG, which only supports single-threaded construction.}
+	Similarly, we also evaluate \textcolor{orange}{4} key metrics mentioned above in \textit{Range Filtering} algorithms. \textcolor{orange}{Notably, all algorithms use single-threaded index construction on medium-scale datasets, and 64-thread construction on the large-scale Deep100M dataset, except DSG, which only supports single-threading. For WinFilter, we use Super Postfiltering on medium datasets for best performance, and switch to the base algorithm Vamana-WST on Deep100M due to construction overhead.
+	}
 	
 	\textit{\textbf{Index construction time.}}
 %	As shown in the Figure~\ref{fig:rangeFilter_build_time}, for regular-scale datasets, Faiss builds the index fastest. As Faiss obtains subsamples through sampling and calculates the cluster centroid, the computational complexity is significantly reduced.
@@ -1250,22 +1256,27 @@ Although the dataset contains two modalities, due to the significant differences
 %	\textcolor{orange}{
 %	DSG only supports single-threaded construction, resulting in the longest build time.}
 	\textcolor{orange}{
-	As shown in Figure~\ref{fig:rangeFilter_build_time}, Faiss, based on the IVF\_Flat architecture, achieves fast index construction through subset sampling and centroid computation, which lowers the computational cost. 
-	As another IVF\_Flat-based method, Milvus performs even better on large-scale datasets, mainly due to its cache-aware optimization that greatly reduces CPU cache misses.}
+	As shown in Figure~\ref{fig:rangeFilter_build_time}, Faiss and Milvus, based on the IVF\_Flat architecture, require less time. This indexing structure enables fast construction through subset sampling and centroid computation, thereby reducing computational cost. Milvus performs particularly well on large-scale datasets, mainly due to its cache-aware optimizations, which significantly reduce CPU cache misses.}
+%	As shown in Figure~\ref{fig:rangeFilter_build_time}, Faiss, based on the IVF\_Flat architecture, achieves fast index construction through subset sampling and centroid computation, which lowers the computational cost. 
+%	As another IVF\_Flat-based method, Milvus performs even better on large-scale datasets, mainly due to its cache-aware optimization that greatly reduces CPU cache misses.}
+
+\textcolor{orange}{In addition, the two HNSW-based methods, ACORN-1 and SeRF, also achieve short index construction time. ACORN-1 closely follows the original HNSW construction process and reduces the number of candidate neighbors in the upper layers to lower computational overhead. SeRF attaches timestamp information to edges during construction, making the total build time comparable to that of a single HNSW graph.
+	}
+%		\textcolor{orange}{
+%	ACORN-1 also achieves highly efficient index construction, especially on large-scale datasets. This efficiency stems from its construction process, which closely resembles that of the original HNSW, and from reducing the number of candidate neighbors in the upper layers, thereby lowering computational cost. SeRF, another HNSW-based method, also exhibits very short construction time. During construction, it attaches timestamp information to edges, keeping the total time comparable to building a single HNSW graph, which enables efficient construction even on large datasets.}
+
+\textcolor{orange}{We observe that ACORN-\(\gamma\), DSG and WinFilter exhibit relatively long index construction time. Although the first two methods are also based on HNSW, ACORN-\(\gamma\) extends the neighbor list of each node to provide more candidate paths, which increases both computational and memory overhead. DSG, on the other hand, incorporates a rectangle tree structure for index management, making the construction process more complex and costly. 
+%	Additionally, DSG builds index using a single thread on the Deep100M dataset, resulting in the longest construction time. 
+WinFilter also incurs high construction cost, as it relies on a tree structure and builds a separate nearest neighbor graph for each node, which leads to redundant computations. However, on large-scale datasets, its preprocessing stage is replaced by the base algorithm Vamana-WST, effectively avoiding significant time overhead.}
+%		\textcolor{orange}{
+%	In contrast, WinFilter relies on a tree-based structure, where a separate nearest neighbor graph must be built for each node. This design introduces redundant computation and high construction cost. However, on large-scale datasets, the preprocessing phase of WinFilter is replaced in the experiments by the base algorithm Vamana-WST, thus avoiding significant time overhead.}
+%	
+%		\textcolor{orange}{
+%	ACORN-\(\gamma\)  extends the neighbor list of each node to provide more candidate paths, which increases both computational and memory overhead. Although it prunes distant neighbors to save storage, the additional construction logic still incurs substantial time cost.}
 	
-		\textcolor{orange}{
-	ACORN-1 also achieves highly efficient index construction, especially on large-scale datasets. This efficiency stems from its construction process, which closely resembles that of the original HNSW, and from reducing the number of candidate neighbors in the upper layers, thereby lowering computational cost. SeRF, another HNSW-based method, also exhibits very short construction time. During construction, it attaches timestamp information to edges, keeping the total time comparable to building a single HNSW graph, which enables efficient construction even on large datasets.}
 	
-		\textcolor{orange}{
-	In contrast, WinFilter relies on a tree-based structure, where a separate nearest neighbor graph must be built for each node. This design introduces redundant computation and high construction cost. However, on large-scale datasets, the preprocessing phase of WinFilter is replaced in the experiments by the base algorithm Vamana-WST, thus avoiding significant time overhead.}
-	
-		\textcolor{orange}{
-	ACORN-\(\gamma\)  extends the neighbor list of each node to provide more candidate paths, which increases both computational and memory overhead. Although it prunes distant neighbors to save storage, the additional construction logic still incurs substantial time cost.}
-	
-%	The reason for the high construction time of ACORN-$\gamma$ has been explained in the attribute filtering section and is therefore omitted here.
-	
-		\textcolor{orange}{
-	DSG is an optimization over SeRF, incorporating a rectangular tree structure for index management. This makes the construction process more complex and costly. In addition, on Deep100M, DSG uses single-threaded construction, resulting in the longest build time.}
+%		\textcolor{orange}{
+%	DSG is an optimization over SeRF, incorporating a rectangular tree structure for index management. This makes the construction process more complex and costly. In addition, on Deep100M, DSG uses single-threaded construction, resulting in the longest build time.}
 	
 	\textit{\textbf{Index size.}} 
 	As shown in Figure~\ref{fig:rangeFilter_index_size_mb}, Among all algorithms, Faiss has the smallest index size. Because IVF only adds centroid data and partition information to the vector dataset, the IVF index is only slightly larger than the vector dataset.
@@ -1278,23 +1289,19 @@ Although the dataset contains two modalities, due to the significant differences
 	
 	%SeRF maintains a compact index for low-dimensional data. However, for high-dimensional dataset (WIT), SeRF stores more edges and dynamic range data, significantly increasing its size.
 	
-	\textit{\textbf{Build peak memory.}}  
-	\textcolor{orange}{As explained in the attribute filtering analysis, algorithms with larger index sizes (including the dataset) tend to exhibit higher build peak memory consumption. As shown in Figure~\ref{fig:rangeFilter_build_memory_mb}, range filtering also adheres to this pattern, while PASE deviates due to reasons discussed earlier.}  
-	
+	\textcolor{orange}{\textit{\textbf{Peak memory.}}  
+	As explained in the attribute filtering analysis, methods with larger index sizes (including the dataset) tend to exhibit higher peak memory consumption. As shown in Figure~\ref{fig:rangeFilter_build_memory_mb} and Figure~\ref{fig:rangeFilter_search_memory_mb}, range filtering also adheres to this pattern.}  
+%	, while PASE deviates due to reasons discussed earlier
+
 	\textcolor{orange}{WinFilter also presents an exception:  its peak memory usage is also affected by the level of parallelism. Although the final index size remains relatively small, the peak memory usage increases significantly during both construction and search. During construction, this is caused by the parallel building of local indices for each tree node, which results in substantial temporary memory usage. Similarly, during search, WinFilter needs to load multiple local indices in parallel for different tree nodes, further contributing to high peak memory consumption.}
 	
 
 	
-%	As Figure~\ref{fig:rangeFilter_build_memory_mb} shows, Faiss uses the least memory on low-dimensional datasets. It stores minimal temporary data during index construction.
-%	
-%	On low-dimensional datasets, DSG and WinFilter exhibit higher peak memory usage compared to other algorithms. This suggests that their index structures suffer from severe structural redundancy and are difficult to compress in low-dimensional scenarios.
-%	
-%	For high-dimensional dataset WIT, iRange achieves the lowest peak memory usage. It pre-builds graphs only for a limited number of intervals, avoiding explicit index construction for all possible query ranges. Its index structure remains stable in high dimensions without significant graph growth. This effectively controls index size, making iRange more advantageous for high-dimensional datasets.
-%	In contrast, \textcolor{orange}{Milvus exhibits the highest memory consumption,}
 
 
-		\textit{\textbf{Search peak memory.}}  
-		\textcolor{orange}{As shown in Figure~\ref{fig:rangeFilter_search_memory_mb}, the peak memory usage during search generally follows a similar trend to that observed during index construction. This observation is consistent with our earlier analysis in the attribute filtering section.}
+
+%		\textit{\textbf{Search peak memory.}}  
+%		\textcolor{orange}{As shown in Figure~\ref{fig:rangeFilter_search_memory_mb}, the peak memory usage during search generally follows a similar trend to that observed during index construction. This observation is consistent with our earlier analysis in the attribute filtering section.}
 		
 	\begin{figure*}[t]
 		
@@ -1401,15 +1408,17 @@ Although the dataset contains two modalities, due to the significant differences
 	
 	\textit{\textbf{\textcolor{blue}{Multi-Modal Queries.}}}
 	\textcolor{blue}{
-		Similar to attribute filtering,on Text2Image-Mix dataset,the performance of multi-modal range filtering queries shown in Figure~\ref{fig:range-multimodal} also aligns with the single-modality results in Figure~\ref{fig:exp_8_2}. These algorithms on the Text2Image dataset exhibit a significant performance degradation. This is because most of these range query algorithms are graph-based, and such algorithms require more iterations to find true neighbors in OOD datasets.
+		Similar to attribute filtering, the performance of range filtering queries on the Text2image-Mix dataset (Figure~\ref{fig:range-multimodal}) is similar to the single-modality query performance (Figure~\ref{fig:exp_8_2}). However, on the Text2Image dataset, these algorithms exhibit a significant performance degradation (Figure~\ref{fig:range-multimodal}). This is because most of these range query algorithms are graph-based, and such algorithms require more iterations to find true neighbors in OOD datasets.
+%		Similar to attribute filtering,on Text2Image-Mix dataset,the performance of multi-modal range filtering queries shown in Figure~\ref{fig:range-multimodal} also aligns with the single-modality results in Figure~\ref{fig:exp_8_2}. These algorithms on the Text2Image dataset exhibit a significant performance degradation. This is because most of these range query algorithms are graph-based, and such algorithms require more iterations to find true neighbors in OOD datasets.
 %		Similar to attribute filtering, the performance of multimodal queries with range filtering shown in Figure~\ref{fig:range-multimodal} is also consistent with the single-modality results in Figure~\ref{fig:exp_8_2}. As shown in Figure~\ref{fig:exp_8_3}, the algorithms still perform the worst on multimodal datasets like Text2Image. This is because these range query algorithms are almost graph-based. Graph algorithms need more iterations to find true neighbors in OOD datasets.
 		}
 		
 	\textit{\textbf{\textcolor{blue}{Different Hardware Environments.}}} 
-	\textcolor{cyan}{Consistent with Section 4.2.3, we conduct additional range filtering experiments on the YT-Audio-Real dataset using the same server configuration, with results presented in Figure~\ref{fig:range-cross-platform}. Although the third-ranked algorithm differs, we consider the ranking order remains stable since the performance of the third and fourth algorithms is comparable. So our findings remain consistent with those reported in Section 4.2.3. For brevity and due to space limitations, we omit further discussion of these redundant results.}
+	\textcolor{cyan}{Consistent with Section 4.2.3, we conduct range filtering experiments on the YT-Audio-Real dataset using two server configurations, with results presented in Figure~\ref{fig:range-cross-platform}. Although the third-ranked algorithm differs, we consider the ranking order remains stable since the performance of the third and fourth algorithms is comparable. Therefore, different server configurations only affect the performance of individual algorithms, with minimal impact on their relative performance ranking.}  
+%		So our findings remain consistent with those reported in Section 4.2.3. For brevity and due to space limitations, we omit further discussion of these redundant results.}
 %	\textcolor{cyan}{Consistent with Section 4.2.4, we conducted additional range filtering experiments using the YT-Audio-Real dataset on the same server, with results shown in Figure \ref{fig:Different Computer range}. Compared with the original server's experimental results (Figure \ref{fig:exp_8_2}($e$)), the conclusions remain identical to those described in Section 4.2.4. Due to space constraints, these details are not reiterated here.}
 	
-	\textit{\textbf{\textcolor{red}{Large-scale Dataset.}}} \textcolor{red}{As shown in the figure~\ref{fig: range big dataset}, On the deep100M dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption, as detailed in Figure~\ref{fig:rangeFilter_search_memory_mb}. Meanwhile, VBASE and Faiss demonstrate moderate performance but significantly lower memory consumption than the top 3 algorithms}.
+	\textit{\textbf{\textcolor{red}{Large-scale Dataset.}}} \textcolor{red}{As shown in the figure~\ref{fig: range big dataset}, On the deep100M dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption (Figure~\ref{fig:rangeFilter_search_memory_mb}). In contrast, VBASE and Faiss demonstrate moderate performance while consuming significantly less memory.}
 	
 	
 %	\textit{\textbf{Multimodel, 85 and Deep100M.}} \textcolor{red}{The fig is Figure \ref{fig:TrinityExtension——Range}}
