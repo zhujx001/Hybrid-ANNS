@@ -1356,7 +1356,7 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 	\textcolor{blue}{SeRF, ACORN and vector databases performed poorly.
 		SeRF demonstrates relatively weak overall performance, with a pronounced drop in recall under small-range query scenarios. This is because SeRF compresses the entire HNSW graph by attaching range information to its edges. However, during small-range queries, its multi-filtering mechanism requires scanning a large number of edge entries that are irrelevant to the current query range, introducing fixed computational and memory access overhead. Additionally, graph traversal may lead to the exploration of numerous invalid neighbors, increasing the likelihood of the search becoming trapped in local optima and further degrading performance.
 		The overall performance of ACORN is poor. Unlike other algorithms specifically designed for range filtering, ACORN does not design an index specifically for range queries; instead, it adopts a pre-filtering strategy, resulting in poorer performance.
-		The performance of vector databases in range queries is also poor, as their database systems also incorporate many other designs that can affect the algorithm's performance. Among them, Milvus performed well. PASE performs poorly on small-range queries, with recall lower than 0.1, due to its post-filtering strategy. 
+		The performance of vector databases is also poor in range queries, as they are not specifically optimized for such queries. PASE performs particularly poorly in small range queries, with a recall rate lower than 0.1, mainly due to its post-filtering strategy.
 	}
 
 	
