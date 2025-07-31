@@ -1090,8 +1090,7 @@ During querying, CAPS maintains a large candidate set dynamically, which signifi
 		\includegraphics[width=0.495\linewidth]{figures/exp/attribute_multimodel.pdf}
 		\hfill 
 		\includegraphics[width=0.47\linewidth]{figures/exp/attribute_multimodel_1.pdf}
-		\caption{Multi-Modal Datasets}
-		\label{fig:attribute-multimodal} 
+		
 	\end{minipage}%
 	\hfill % 在盒子之间添加弹性间距
 	%
@@ -1100,14 +1099,37 @@ During querying, CAPS maintains a large candidate set dynamically, which signifi
 		\includegraphics[width=0.495\linewidth]{figures/exp/attribute_85.pdf}
 		\hfill
 		\includegraphics[width=0.47\linewidth]{figures/exp/attribute_71.pdf}
-		\caption{Different Platforms}
-		\label{fig:attribute-cross-platform}
+		
 	\end{minipage}%
 	\hfill
 	%
 	\begin{minipage}[t]{0.203\textwidth}
 		\centering
 		\includegraphics[width=0.96\linewidth]{figures/exp/attribute_100M.pdf} 
+
+	\end{minipage}
+\end{figure*}
+
+
+\begin{figure*}
+	\centering
+	\setlength{\abovecaptionskip}{0.0cm}
+	\begin{minipage}[t]{0.37\textwidth}
+		\centering
+		\caption{Multi-Modal Datasets}
+		\label{fig:attribute-multimodal}  
+	\end{minipage}%
+	\hfill % 在盒子之间添加弹性间距
+	%
+	\begin{minipage}[t]{0.37\textwidth}
+		\centering
+		\caption{Different Platforms}
+		\label{fig:attribute-cross-platform}
+	\end{minipage}%
+	\hfill
+	%
+	\begin{minipage}[t]{0.24\textwidth}
+		\centering
 		\caption{Large-Scale Dataset}
 		\label{fig:attribute big dataset}
 	\end{minipage}
@@ -1372,7 +1394,6 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 	
 \begin{figure*}
 	\centering
-	
 	\includegraphics[width=0.7\textwidth]{figures/exp/range_legend.pdf}
 	
 	\begin{minipage}[t]{0.38\textwidth}
@@ -1380,8 +1401,7 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 		\includegraphics[width=0.495\linewidth]{figures/exp/range_multimodel.pdf}
 		\hfill 
 		\includegraphics[width=0.47\linewidth]{figures/exp/range_multimodel_1.pdf}
-		\caption{Multi-Modal Datasets}
-		\label{fig:range-multimodal} 
+
 	\end{minipage}%
 	\hfill % 在盒子之间添加弹性间距
 	%
@@ -1390,19 +1410,41 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 		\includegraphics[width=0.495\linewidth]{figures/exp/range_85.pdf}
 		\hfill
 		\includegraphics[width=0.47\linewidth]{figures/exp/range_71.pdf}
-		\caption{Different Platforms}
-		\label{fig:range-cross-platform}
+
 	\end{minipage}%
 	\hfill
 	%
 	\begin{minipage}[t]{0.203\textwidth}
 		\centering
 		\includegraphics[width=0.96\linewidth]{figures/exp/range_deep100M.pdf} 
+
+	\end{minipage}
+	
+\end{figure*}
+
+\begin{figure*}
+	\centering
+	\setlength{\abovecaptionskip}{0.0cm}
+	\begin{minipage}[t]{0.37\textwidth}
+		\centering
+		\caption{Multi-Modal Datasets}
+		\label{fig:range-multimodal} 
+	\end{minipage}%
+	\hfill % 在盒子之间添加弹性间距
+	%
+	\begin{minipage}[t]{0.37\textwidth}
+		\centering
+		\caption{Different Platforms}
+		\label{fig:range-cross-platform}
+	\end{minipage}%
+	\hfill
+	%
+	\begin{minipage}[t]{0.24\textwidth}
+		\centering
 		\caption{Large-Scale Dataset}
 		\label{fig: range big dataset}
 	\end{minipage}
 \end{figure*}
-
 	
 	\subsubsection{Robustness}
 	
@@ -1532,13 +1574,11 @@ Therefore, designing algorithms that can support complex filtering expressions w
 	\subsubsection{Range Filtering}
 	Except for DSG and UNIFY, most range filtering algorithms require the dataset to be pre-sorted before building the index. \textcolor{green}{Moreover, existing range filtering algorithms do not support range queries with more than 3 attributes.} \textcolor{violet}{Designing algorithms that support an arbitrary number of range filterable attributes remains an open research challenge.}
 	
-	
-%	Our experiments show that graph compression methods often lead to poor query performance in RF-ANN search. To address this problem, subsequent algorithms usually optimize the index processing at the segment tree nodes. UNIFY newly proposes segment graphs and integrates multiple data structures to process queries. Although UNIFY performs slightly worse on small-range queries, its proposed index structure broadens the research direction.
 
 \textcolor{blue}{
-Experimental results show that different algorithms exhibit varying strengths under different query ranges. Therefore, designing a general range query algorithm that can adapt to diverse query conditions holds significant research value. For example, UNIFY demonstrates strong generality by dynamically selecting execution strategies based on the query range. Building on this idea, further exploration of more adaptive and high-performance range query algorithms is a promising direction for future research.}
+In addition,our experiments show that different algorithms exhibit varying strengths under different query ranges. Therefore, designing a general range query algorithm that can adapt to diverse query conditions holds significant research value. For example, UNIFY demonstrates strong generality by dynamically selecting execution strategies based on the query range. Building on this idea, further exploration of more adaptive and high-performance range query algorithms is a promising direction for future research.}
 	
-In our experiments, many range filtering algorithms perform worse than Faiss at high recall (0.95), showing that current algorithm designs still need improvement. We suggest future future range filtering algorithms include Faiss as a baseline.
+Moreover, in our experiments, many range filtering algorithms perform worse than Faiss at high recall (0.95), showing that current algorithm designs still need improvement. We suggest future future range filtering algorithms include Faiss as a baseline.
 	
 	
 	It is also worth noting that range filtering and attribute filtering are both forms of hybrid queries. However, aside from vector databases and ACORN, few existing algorithms support both modalities simultaneously. Designing unified frameworks that simultaneously support both is an important research frontier. 
