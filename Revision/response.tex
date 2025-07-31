@@ -239,17 +239,15 @@ As for complex query types that involve both attribute filtering and range queri
 }
 
 Section 4.1.1:\textcolor{blue}{
-"Additionally, we use the Out-of-Distribution (OOD) dataset Text2Image and the large-scale dataset Deep100M to evaluate the generalization capability of the algorithms. The Text2Image dataset includes two versions: the original version contains 1 million image embeddings as the base dataset and uses 10 thousand text embeddings as the query set; the Text2Image-Mix version is composed of 0.5 million image embeddings and 0.5 million text embeddings as the base dataset, with a query set of 5 thousand image embeddings and 5 thousand text embeddings."
+"Additionally, we use the Out-of-Distribution (OOD) dataset Text2Image and the large-scale dataset Deep100M to evaluate the generalization capability of the algorithms. The Text2Image dataset includes two versions. The original version contains 1 million image embeddings as the base dataset and uses 10 thousand text embeddings as the query set. The Text2Image-Mix version is composed of 0.5 million image embeddings and 0.5 million text embeddings as the base dataset, with a query set of 5 thousand image embeddings and 5 thousand text embeddings."
 }
 
 Section 4.2.3: \textcolor{blue}{
-	"We conduct experiments on the Text2image-Mix dataset. This dataset contains image and text vectors and is a hybrid multimodal dataset. As shown in Figure 9a, UNG and NHQ consistently perform best, followed by CAPS.
-	Although this dataset mixes two modalities, the vector space distributions of different modalities often differ significantly. In practice, this means that the experiments effectively treat the image and text subsets as separate datasets, since the ground truths for each query belong to the same modality. Therefore, the performance on this dataset is similar to the results shown in Figure 4.
-	In contrast, the Text2image dataset shown in Figure 9a is different. The query set and the base dataset belong to two completely different modalities. Queries are far from the dataset points, and the ground truths are more dispersed. To find the ground truths, algorithms typically need to examine more points, which leads to degraded performance." 
+	"We conduct experiments on the Text2image-Mix dataset. This dataset contains image and text vectors and is a hybrid multi-modal dataset. As shown in Figure 9, UNG and NHQ consistently perform best, followed by CAPS. Although this dataset mixes two modalities, the vector space distributions of different modalities often differ significantly. In practice, this means that the experiments effectively treat the image and text subsets as separate datasets, since the ground truths for each query belong to the same modality. Therefore, the performance on this dataset is similar to the results shown in Figure 4. In contrast, the Text2image dataset shown in Figure 9 is different. The query set and the base dataset belong to two completely different modalities. Queries are far from the dataset points, and the ground truths are more dispersed. To find the ground truths, algorithms typically need to examine more points, which leads to degraded performance." 
 }
 
 Section 4.3.3:\textcolor{blue}{
-		"Similar to attribute filtering, the performance of multimodal queries with range filtering shown in Figure 12a is also consistent with the single-modality results in Figure 14. As shown in Figure 11, the algorithms still perform the worst on multimodal datasets like Text2Image. This is because these range query algorithms are almost graph-based. Graph algorithms need more iterations to find true neighbors in OOD datasets."
+		"Similar to attribute filtering, the performance of multi-modal range filtering queries shown in Figure 14 also aligns with the single-modality results in Figure 13. These algorithms on the Text2Image dataset exhibit a significant performance degradation. This is because these range query algorithms are almost entirely graph-based, and graph algorithms require more iterations to find true neighbors in OOD datasets."
 }
 
 \begin{figure}[htbp]
