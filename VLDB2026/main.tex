@@ -629,7 +629,7 @@ In Faiss, we use the HQI batch optimization strategy in the IVF index. It groups
 	
 	\begin{enumerate}
 		
-		\item \textbf{Recall@k}: The proportion of overlap between the returned approximate $k$ nearest neighbors and the ground-truth $k$ nearest neighbors.
+		\item \textbf{Recall@k}: The proportion of overlap between the returned approximate $k$ nearest neighbors and the ground truth $k$ nearest neighbors.
 		\item \textbf{QPS (Queries Per Second)}: The number of queries processed per second.
 		\item \textbf{Index Construction Time}: The total time required to transform the raw dataset into a queryable index structure.
 		\item \textbf{Index Size}: The storage size of the persisted index on disk.
@@ -1185,7 +1185,7 @@ During querying, CAPS maintains a large candidate set dynamically, which signifi
 On Text2image-Mix dataset, as shown in Figure~\ref{fig:attribute-multimodal}, UNG and NHQ consistently perform best, followed by CAPS.
 Although the dataset contains two modalities, due to the significant differences between the modalities, they are actually two separate regions in the vector space. The performance is similar to that of the single-modal dataset in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}. This is because mixed multi-modal queries are actually the same as conducting experiments on two datasets of the same modality.This is not actually a difficult query.
 %		Although this dataset mixes two modalities, the vector space distributions of different modalities often differ significantly. In practice, this means that the experiments effectively treat the image and text subsets as separate datasets, since the ground truths for each query belong to the same modality. Therefore, the performance on this dataset is similar to the results shown in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}.
-		In contrast, the Text2image dataset shown in Figure~\ref{fig:attribute-multimodal} is different. The query set and the base dataset belong to two completely different modalities. Queries are far from the dataset points, and the ground truths are more dispersed. To find the groundtruths, algorithms typically need to examine more points, which leads to degraded performance.
+		In contrast, the Text2image dataset shown in Figure~\ref{fig:attribute-multimodal} is different. The query set and the base dataset belong to two completely different modalities. Queries are far from the dataset points, and the ground truths are more dispersed. To find the ground truths, algorithms typically need to examine more points, which leads to degraded performance.
 		%	We conduct experiments on the text2image-mix dataset. This dataset contains both image and text vectors. It is a more complex multimodal dataset. As shown in Figure~\ref{fig:attribute-multimodal}, although the queries are more complex, UNG and NHQ still perform the best. CAPS is the next best.
 		%	Since the dataset mixes two modalities, the ground truth of the query set usually corresponds to the same modality. The nearest neighbors in the index are often from the same modality because they are closer in distance. Therefore, the search results on this dataset are similar to those in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}. UNG and NHQ perform the best. CAPS clusters based on vector similarity. It actually clusters the vectors into the same modality. Then it uses attribute filtering to divide the data further. This allows CAPS to quickly find nearest neighbors that meet the filter conditions.
 		%	In contrast, the text2image dataset shown in Figure~\ref{fig:exp_6_1} is different. The queries and the dataset are from different modalities. The queries are far from the dataset. The ground truths are also scattered and not clustered together. To find the ground truths, the algorithm often needs to traverse more points. This is a greater challenge for the algorithms.
@@ -1508,23 +1508,6 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 
 
 	}
-%	\vspace{1mm}
-%		\small
-%\begin{flushleft}
-%
-%	\textbf{Performance Levels:} \quad B = Best, G = Good , M = Moderate, P = Poor, - = Not Supported \\
-%	\textit{Performance-Critical}: Requires low latency and high recall.
-%	\textit{Index-Efficient}: Emphasizes lightweight index construction.
-%	\textit{Memory-Constrained}: Operates under limited memory conditions.
-%	\textit{Large-Scale}: Designed for datasets with tens to hundreds of millions of vectors.
-%	\textit{Multi-Modal}: Supports heterogeneous data modalities.
-%	\textit{High-LID}: Robust in high local intrinsic dimensionality spaces.
-%	\textit{Rare Attribute / Low Range}: For filtering with low attribute selectivity or small ranges.
-%	\textit{Distribution-Robust}: Insensitive to shifts in attribute distribution.
-%	\textit{General-Purpose}: Balanced performance across varied scenarios.
-%	
-%\end{flushleft}
-%	\centering
 
 \centering
 
