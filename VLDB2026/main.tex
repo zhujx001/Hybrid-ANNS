@@ -148,7 +148,9 @@
 	
 	\begin{figure*}
 		\centering
-		\setlength{\belowcaptionskip}{-0.cm}
+		\setlength{\abovecaptionskip}{0.2cm}
+		\setlength{\belowcaptionskip}{-0.1cm}
+
 		\includegraphics[width=0.92\textwidth]{figures/hybrid ANNS.pdf}
 		\caption{Hybrid Query Example}
 		
@@ -372,8 +374,6 @@
 		
 		
 		\centering
-		%	 \setlength{\abovecaptionskip}{0cm}
-		%	\setlength{\belowcaptionskip}{0.1cm}
 		\footnotesize{
 			\begin{minipage}{\linewidth}
 				\vspace{0.1cm}
@@ -670,6 +670,7 @@ In Faiss, we use the HQI batch optimization strategy in the IVF index. It groups
 		\centering
 		
 		
+		
 		% 上面的图例，居中并可通过 hspace 调整左右位置
 		\hspace*{8pt} % 可调整的参数，负值左移，正值右移，例如 -20pt 或 20pt
 		\includegraphics[width=0.95\columnwidth]{figures/indexData/legend_only.pdf} % 图例图片路径
@@ -705,13 +706,15 @@ In Faiss, we use the HQI batch optimization strategy in the IVF index. It groups
 		
 		\begin{subfigure}{\columnwidth}
 			\centering
-			
+
 			\includegraphics[width=0.99\linewidth]{figures/searchMem/label_memory_comparison.pdf}
 			\caption{Search Peak Memory}
 			\label{fig:search_memory_mb_comparison}
 		\end{subfigure}
 		
 		%		\caption{Time and space overhead of attribute filtering index construction}
+		\setlength{\abovecaptionskip}{0.1cm}
+		\setlength{\belowcaptionskip}{-0.3cm}
 		\caption{\textcolor{blue}{Time and Space Overhead (AF)}}
 		\label{fig:build_index_comparison}
 	\end{figure}
@@ -723,7 +726,8 @@ In Faiss, we use the HQI batch optimization strategy in the IVF index. It groups
 	
 	\begin{figure*}
 		\centering
-		
+		\setlength{\abovecaptionskip}{0.1cm}
+		\setlength{\belowcaptionskip}{-0.2cm}
 		\includegraphics[width=0.95\textwidth]{figures/exp/exp_1_1_SingleLabel_1thread.pdf}
 		\caption{Performance of Single-Attribute Index Construction and Single-Attribute Query }
 		\label{fig:exp_1_1_SingleLabel_1thread}
@@ -832,7 +836,8 @@ During querying, CAPS maintains a large candidate set dynamically, which signifi
 	
 	\begin{figure}[t]
 		\centering
-		
+		\setlength{\abovecaptionskip}{0.1cm}
+		\setlength{\belowcaptionskip}{-0.3cm}
 		% 上面的图例，居中并可通过 hspace 调整左右位置
 		\hspace*{15pt} % 可调整的参数，负值左移，正值右移，例如 -20pt 或 20pt
 		\includegraphics[width=0.85\columnwidth]{figures/exp/exp_2_legend.pdf} % 图例图片路径
@@ -859,7 +864,8 @@ During querying, CAPS maintains a large candidate set dynamically, which signifi
 	
 	\begin{figure*}
 		\centering
-		
+		\setlength{\abovecaptionskip}{0.1cm}
+		\setlength{\belowcaptionskip}{-0.2cm}
 		\includegraphics[width=0.95\textwidth]{figures/exp/exp_4_1_MultiLabel_1thread.pdf}
 		\caption{Performance of Multi-Attribute Index Construction and Multi-Attribute Query}
 		\label{fig:exp_4_1_MultiLabel_1thread}
@@ -868,7 +874,8 @@ During querying, CAPS maintains a large candidate set dynamically, which signifi
 	
 	\begin{figure*}
 	\centering
-
+	\setlength{\abovecaptionskip}{0.1cm}
+	\setlength{\belowcaptionskip}{-0.2cm}
 	\includegraphics[width=0.95\textwidth]{figures/exp/exp_3_1.pdf}
 	\caption{
 		Effect of Attribute Distribution on Query Performance}
@@ -1087,6 +1094,8 @@ During querying, CAPS maintains a large candidate set dynamically, which signifi
 	
 	\begin{minipage}[t]{0.38\textwidth}
 		\centering
+		\setlength{\abovecaptionskip}{0.1cm}
+		\setlength{\belowcaptionskip}{-0.2cm}
 		% 内部图片宽度使用\linewidth，它会自适应为容器宽度(0.32\textwidth)
 		\includegraphics[width=0.495\linewidth]{figures/exp/attribute_multimodel.pdf}
 		\hfill 
@@ -1096,12 +1105,16 @@ During querying, CAPS maintains a large candidate set dynamically, which signifi
 	\hfill
 	\begin{minipage}[t]{0.203\textwidth}
 		\centering
+		\setlength{\abovecaptionskip}{0.1cm}
+		\setlength{\belowcaptionskip}{-0.2cm}
 		\includegraphics[width=0.96\linewidth]{figures/exp/attribute_100M.pdf} 
 		
 	\end{minipage}
 	\hfill % 在盒子之间添加弹性间距
 	\begin{minipage}[t]{0.39\textwidth}
 		\centering
+		\setlength{\abovecaptionskip}{0.1cm}
+		\setlength{\belowcaptionskip}{-0.2cm}
 		\includegraphics[width=0.495\linewidth]{figures/exp/attribute_85.pdf}
 		\hfill
 		\includegraphics[width=0.47\linewidth]{figures/exp/attribute_71.pdf}
@@ -1255,6 +1268,8 @@ Although the dataset contains two modalities, due to the significant differences
 		
 		%		\caption{Time and space overhead of range filtering index construction}
 %		\caption{Time and space overhead of index construction}
+		\setlength{\abovecaptionskip}{0.1cm}
+		\setlength{\belowcaptionskip}{-0.3cm}
 		\caption{\textcolor{blue}{Time and Space Overhead (RF)}}
 		\label{fig:rangeFilter_build_index_comparison}
 	\end{figure}
