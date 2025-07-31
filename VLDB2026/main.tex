@@ -563,13 +563,13 @@ In Faiss, we use the HQI batch optimization strategy in the IVF index. It groups
 	\subsection{Experimental Setup}
 	\subsubsection{Datasets}
 	
-	\textcolor{blue}{Our experiments employ 12 real-world datasets covering diverse domains: Audio~\cite{audio_unknown},  Enron~\cite{enron2015}, GIST1M~\cite{sift2010}, GloVe~\cite{GloVe2015}, Msong~\cite{msong2011}, SIFT1M~\cite{sift2010}, Deep1M~\cite{yandex_deep_dataset}, WIT-Real~\cite{wit_dataset}, YT-Audio-Real~\cite{youtube8m_dataset}, Text2image~\cite{texttoimage}, Text2image-Mix, and Deep100M.}
+	\textcolor{blue}{Our experiments employ 12 real-world datasets covering diverse domains: Audio~\cite{audio_unknown},  Enron~\cite{enron2015}, GIST1M~\cite{sift2010}, GloV-\\e~\cite{GloVe2015}, Msong~\cite{msong2011}, SIFT1M~\cite{sift2010}, Deep1M~\cite{yandex_deep_dataset}, WIT-Real~\cite{wit_dataset}, YT-Audio-Real~\cite{youtube8m_dataset}, Text2image~\cite{texttoimage}, Text2image-Mix, and Deep100M.}
 	
 	Table~\ref{tab:datasets_combined} summarizes the key characteristics of all datasets and their applicable filtering scenarios. In particular, we report the Local Intrinsic Dimensionality (LID)~\cite{Lid}, which is a commonly used metric to quantify dataset hardness. Following the standard evaluation protocol~\cite{LID2}, we randomly sample 10,000 data points from each dataset to compute LID. The higher the LID value, the harder the dataset.
 	
 	\textcolor{blue}{The first seven datasets are widely used in existing works. As they do not inherently come with attributes, we generate attributes for them to precisely control attribute quantity and distribution. WIT-Real and YT-Audio-Real datasets use real attributes. For the WIT-Real dataset, we use the CLIP model to encode the page title into vectors, and extract the language type and the length of the context page description  as real attributes. The YT-Audio-Real dataset uses YouTube8M data, employing the video category ID and view counts as real attributes for this dataset.}
 	
-	\textcolor{blue}{Additionally, we use the Out-of-Distribution (OOD) dataset Text2Image and the large-scale dataset Deep100M to evaluate the generalization capability of the algorithms. The Text2Image dataset includes two versions. The original version contains 1 million image embeddings as the base dataset and uses 10 thousand text embeddings as the query set. The Text2Image-Mix version is composed of 0.5 million image embeddings and 0.5 million text embeddings as the base dataset, with a query set of 5 thousand image embeddings and 5 thousand text embeddings.}
+	\textcolor{blue}{Additionally, we use the Out-of-Distribution (OOD) dataset Text2-Image and the large-scale dataset Deep100M to evaluate the generalization capability of the algorithms. The Text2Image dataset includes two versions. The original version contains 1 million image embeddings as the base dataset and uses 10 thousand text embeddings as the query set. The Text2Image-Mix version is composed of 0.5 million image embeddings and 0.5 million text embeddings as the base dataset, with a query set of 5 thousand image embeddings and 5 thousand text embeddings.}
 	
 
 	
@@ -1544,7 +1544,7 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 \footnotesize{
 	\begin{minipage}{\linewidth}
 		\vspace{0.1cm}
-		\textit{Performance Levels:} B = Best, G = Good , M = Moderate, P = Poor, - = Not Supported;
+		\textit{Performance Levels:} \textbf{B} = Best, G = Good , M = Moderate, P = Poor, - = Not Supported;
 		\textit{Performance-Critical}: Requires low latency and high recall;
 		\textit{Index-Efficient}: Emphasizes lightweight index construction;
 		\textit{Memory-Constrained}: Operates under limited memory conditions;
