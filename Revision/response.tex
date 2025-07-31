@@ -692,7 +692,6 @@ We conduct experiments on these two datasets with real attributes and analyze th
 
 
 
-
 %%%%%%%%%%%%%%%%%%%%%% W2 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
 	\begin{observation}
@@ -753,7 +752,7 @@ We believe your suggestion is very reasonable, and the experiment on search peak
 \noindent
 \textbf{Response:} 
 %Thank you for pointing this out. Both paper [49] and our paper are benchmarks. Paper [49] provides a comprehensive review and evaluation of graph-based approximate nearest neighbor search algorithms. Our paper is the first benchmark to evaluate hybrid queries. Since hybrid queries are developed based on ANN, we refer to the evaluation metrics proposed in the cited paper. We realize that we did not clearly explain the difference between our paper and the cited paper, so we have added a description in the introduction, please see section 1.1.
-Thank you for pointing this out. The original reference [49] ([50] in the revised manuscript), provides a comprehensive review and evaluation of graph-based approximate nearest neighbor (ANN) search algorithms, whereas our work is the first to establish a benchmark specifically for hybrid query algorithms. We initially cited this reference in the experimental setup section to adopt its proposed evaluation metrics, as hybrid queries are fundamentally built upon ANN techniques. We acknowledge that the distinction between our work and the cited paper was not clearly articulated in the early version. To address this, we have revised the introduction to clarify the difference and added citations to several experimental studies from the ANN literature.  \textbf{  (Please see Section 1.1, highlighted in blue in the revised manuscript.)}
+Thank you for pointing this out. The original reference [49] ([45] in the revised manuscript), provides a comprehensive review and evaluation of graph-based approximate nearest neighbor (ANN) search algorithms, whereas our work is the first to establish a benchmark specifically for hybrid query algorithms. We initially cited this reference in the experimental setup section to adopt its proposed evaluation metrics, as hybrid queries are fundamentally built upon ANN techniques. We acknowledge that the distinction between our work and the cited paper was not clearly articulated in the early version. To address this, we have revised the introduction to clarify the difference and added citations to several experimental studies from the ANN literature. \textbf{(Please see Section 1.1, highlighted in blue in the revised manuscript.)}
 
 
 
@@ -951,7 +950,7 @@ For partitioning and merging, only Filtered-DiskANN, which supports disk storage
 \textbf{Regarding quantization time in index build:}
 
 Of all the evaluated algorithms, Faiss, Puck, Filtered-DiskANN, and Milvus support quantization.
-However, quantization serves to reduce memory usage during queries by sacrificing query accuracy. Given that most of the graph-based algorithms involved in this paper (with the exception of Filtered-DiskANN) do not support quantization, we do not enable quantization in our experiments for a fair comparison. Therefore, the reported index construction time does not include quantization time. 
+Quantization serves to reduce memory usage during queries by sacrificing query accuracy. Given that most of the graph-based algorithms involved in this paper (with the exception of Filtered-DiskANN) do not support quantization, we do not enable quantization in our experiments for a fair comparison. Therefore, the reported index construction time does not include quantization time. 
 
 \textbf{Regarding the exclusion of Vamana in Figure 7 (now Figure 6):}
 
