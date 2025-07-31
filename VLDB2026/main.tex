@@ -12,7 +12,7 @@
 \usepackage{ulem}  % 导言区加上这一行
 \usepackage{microtype}  %处理换行
 \usepackage{subcaption} % 需要subcaption宏包支持子图
-
+\usepackage{caption}
 \usepackage{fontawesome}
 
 
@@ -748,7 +748,7 @@ Milvus\footnote{\textcolor{blue}{https://github.com/milvus-io/milvus}} \cite{mil
 
 \textit{\textbf{Index size.}}
 \textcolor{orange}{
-	As shown in Figure~\ref{fig:index_size_mb_comparison_query1}, PASE exhibits significantly larger index sizes across all supported datasets, mainly due to its reliance on a large amount of metadata. For regular-scale datasets, other methods show moderate variation. However, on large-scale dataset, Graph-based algorithms such as ACORN, FilteredDiskANN, and UNG tend to exhibit a sharp increase in index size, primarily due to the large number of candidate neighbors they maintain. Overall, IVF-based methods tend to produce more compact indexes.
+	As shown in Figure~\ref{fig:index_size_mb_comparison_query1}, PASE exhibits significantly larger index sizes across all supported datasets, mainly due to its reliance on a large amount of metadata. For medium-scale datasets, other methods show moderate variation. However, on large-scale dataset, Graph-based algorithms such as ACORN, FilteredDiskANN, and UNG tend to exhibit a sharp increase in index size, primarily due to the large number of candidate neighbors they maintain. Overall, IVF-based methods tend to produce more compact indexes.
 }
 
 %As shown in the Figure~\ref{fig:index_size_mb_comparison_query1}, PASE exhibits significantly larger index sizes across all supported datasets. This overhead stems primarily from its extensive metadata requirements. The index sizes of other methods show moderate variation.
@@ -763,15 +763,15 @@ Milvus\footnote{\textcolor{blue}{https://github.com/milvus-io/milvus}} \cite{mil
 % This is because NHQ adopts the kgraph approach for index construction, which requires loading the entire graph data into memory and maintaining a complete graph structure, leading to relatively high memory overhead. 
 % 
 % On large-scale datasets, CAPS exhibits slightly lower memory usage compared to other algorithms. \textcolor{orange}{The reason is that CAPS avoids redundant storage and graph structure overhead through hierarchical partitioning and AFT, and achieves a compact, sparse and controllable index. }.
-As shown in Figure~\ref{fig:build_memory_mb_comparison}, the build peak memory usage is generally correlated with the sum of the index size and the dataset size. Algorithms that consume more peak memory during construction typically produce larger index sizes, and this trend holds across different datasets.
+ \textcolor{orange}{As shown in Figure~\ref{fig:build_memory_mb_comparison}, the build peak memory usage is generally correlated with the sum of the index size and the dataset size. Algorithms that consume more peak memory during construction typically produce larger index sizes, and this trend holds across different datasets.}
 
 \textcolor{red}{However, PASE breaks this pattern due to its on-demand loading strategy, resulting in peak memory usage even lower than the final index size. 
 In addition, NHQ generates a large number of candidate neighbors during the construction phase, but retains only a small subset for each point in the final index. This leads to high peak memory usage during construction, despite the relatively small size of the final index.}
 
-\textit{\textbf{Search peak memory.}}
+ \textcolor{orange}{\textit{\textbf{Search peak memory.}}
 %  \textcolor{orange}{As shown in Figure~\ref{fig:search_memory_mb_comparison}, we can find that the peak memory usage of each algorithm during search does not differ significantly. Among them, CAPS and NHQ have relatively higher peak memory usage, while the peak memory usage of database is comparatively lower.}
 %\textcolor{orange}{For most algorithms, the query phase requires loading both the index and the dataset into memory, so its peak memory usage is usually comparable to that of the construction phase. However, as shown in the Figure~\ref{fig:search_memory_mb_comparison}, CAPS exhibits significantly higher peak memory during querying due to the need to dynamically maintain large candidate sets. In contrast, Milvus has lower peak memory usage because it does not fully load the index and incurs additional metadata overhead during construction.
-Most algorithms load both the index and the dataset into memory during the build and query phases, and the construction process typically generates a large amount of temporary data. As a result, peak memory usage during querying is generally slightly lower than during construction. However, exceptions exist. As shown in Figure~\ref{fig:search_memory_mb_comparison}, CAPS incurs significantly higher peak memory usage during querying due to the need to dynamically maintain a large candidate set.
+Most algorithms load both the index and the dataset into memory during the build and query phases, and the construction process typically generates a large amount of temporary data. As a result, peak memory usage during querying is generally slightly lower than during construction. However, exceptions exist. As shown in Figure~\ref{fig:search_memory_mb_comparison}, CAPS incurs significantly higher peak memory usage during querying due to the need to dynamically maintain a large candidate set.}
 	
 	\subsubsection{Performance Evaluation}
 	
@@ -789,9 +789,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	As shown in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}, as recall approaches 1, search often requires traversing larger candidate sets or deeper graph paths. This leads to increased computational cost and a sharp QPS drop for most methods. Despite this, UNG consistently maintains high QPS due to its LNG structure, which eliminates unnecessary online filtering of irrelevant attributes and searches only within the subgraph formed by points satisfying the filtering conditions, thereby improving query efficiency.
 	
 	\textcolor{violet}{NHQ and StitchedVamana also perform well and show similar and stable performance across all datasets. This indicates that joint filtering and search strategies can achieve consistent effectiveness under high-recall requirements.} StitchedVamana outperforms FilteredVamana in query efficiency. This difference stems from their pruning strategies: StitchedVamana applies pruning after merging graphs, allowing nodes to accumulate a richer candidate set; while FilteredVamana applies early pruning, potentially eliminating useful candidates prematurely.
-	
 	%	Puck and CAPS perform relatively well. Partition-based methods have limitations regarding different vector data distributions, and how to configure different partitions for different datasets remains a challenge. However, this also demonstrates that IVF-based methods remain very promising for hybrid queries.
-	
 	\textcolor{violet}{Additionally, Puck and CAPS also perform relatively well. They further reduce the search space on IVF indexes by using attribute partitioning, thereby achieving solid search performance.}
 	
 	Among all methods, vector database systems (PASE, VBASE, Milvus) show the worst performance. These systems target general-purpose scenarios but incur communication latency from network I/O and experience high query processing overhead due to complex query parsing. Additionally, we observe that Faiss+HQI\_Batch outperforms original Faiss, indicating that batch querying via HQI can effectively enhance query performance.
@@ -885,7 +883,6 @@ Most algorithms load both the index and the dataset into memory during the build
 	As shown in Figure~\ref{fig:exp_4_1_MultiLabel_1thread}, UNG still maintains the best performance across all datasets. Since some strong competing algorithms do not support multi-attribute querying, CAPS becomes the second-best algorithm, but its performance on small datasets is relatively poor. This is because CAPS performs multi-level partitioning based on attributes on top of the IVF index, which introduces additional overhead. While this overhead negatively impacts performance on small datasets, on large datasets, the overhead is amortized, and the increasing dataset scale makes the advantages of attribute-aware partitioning evident.
 	
 	NHQ performs moderately overall in multi-attribute joint filtering scenarios but poorly on small datasets. Its reliance on fusion distance computations makes it highly sensitive to the number of attributes, impacting both efficiency and accuracy under multi-attribute filtering.
-	
 	For IVF-based methods not specifically optimized for hybrid queries (Faiss and Milvus), their QPS shows a similar and relatively stable trend as recall varies. Among them, Milvus, as a general-purpose system, exhibits comparatively poor performance.
 	
 %	Compared to single-attribute filtering, multi-attribute joint filtering better reflects real-world scenarios. To evaluate algorithm performance under this setting, we construct the index using 3 uniformly distributed attributes and apply filtering on all 3 attributes simultaneously during queries. \textcolor{orange}{Note that FilterDiskANN only supports Boolean OR logic and does not support Boolean AND. Therefore, its two Vamana-based methods are excluded from the multi-attribute construction and search experiments.}
@@ -1069,19 +1066,12 @@ Most algorithms load both the index and the dataset into memory during the build
 	%Most algorithms struggle to achieve high recall on GloVe, because it has the highest LID. Compare to other algorithms, the 4 algorithms (UNG, Faiss, CAPS, and Milvus) manage to maintain relatively high recall, demonstrating better adaptability to complex datasets. Notably, although vanilla Faiss performs worse on SIFT1M compared to Enron dataset, Faiss+HQI\_Batch outperforms on SIFT1M. Because batch optimization in HQI reduces query overhead and increases throughput.	}
 	
 	%\textcolor{green}{Most algorithms exhibit the worst performance on the OOD dataset Text2Image. However, ACORN, UNG, and FilteredVamana show relatively stable performance on Text2Image. Their performance drops less compared to in-distribution (ID) datasets such as GIST1M and GloVe, indicating better adaptability to OOD queries.}
-	
-\begin{figure*}[t]
+\begin{figure*}
 	\centering
 	
-	% 1. 全局图例 (Legend) - 位置保持不变
 	\includegraphics[width=0.9\textwidth]{figures/exp/attribute_legend.pdf}
 	
-	% --- 主要改动：将以下三个 subfigure 全部放在同一行 ---
-	
-	% 2. 第一部分：两张图，共用标题
-	% [b]表示按底部对齐，在一行内通常比顶部对齐[t]效果好
-	% 宽度从\textwidth缩小到0.32\textwidth
-	\begin{subfigure}[b]{0.38\textwidth}
+	\begin{minipage}[t]{0.38\textwidth}
 		\centering
 		% 内部图片宽度使用\linewidth，它会自适应为容器宽度(0.32\textwidth)
 		\includegraphics[width=0.495\linewidth]{figures/exp/attribute_multimodel.pdf}
@@ -1089,31 +1079,71 @@ Most algorithms load both the index and the dataset into memory during the build
 		\includegraphics[width=0.47\linewidth]{figures/exp/attribute_multimodel_1.pdf}
 		\caption{Multi-Modal}
 		\label{fig:attribute-multimodal} 
-	\end{subfigure}
-	\hfill % 在第一部分和第二部分之间添加弹性间距
-	% 3. 第二部分：两张图，共用标题
-	\begin{subfigure}[b]{0.39\textwidth}
+	\end{minipage}%
+	\hfill % 在盒子之间添加弹性间距
+	%
+	\begin{minipage}[t]{0.39\textwidth}
 		\centering
 		\includegraphics[width=0.495\linewidth]{figures/exp/attribute_85.pdf}
 		\hfill
 		\includegraphics[width=0.47\linewidth]{figures/exp/attribute_71.pdf}
 		\caption{Cross-Platform}
 		\label{fig:attribute-cross-platform}
-	\end{subfigure}
-	\hfill % 在第二部分和第三部分之间添加弹性间距
-	% 4. 第三部分：只有一张图
-	\begin{subfigure}[b]{0.203\textwidth}
+	\end{minipage}%
+	\hfill
+	%
+	\begin{minipage}[t]{0.203\textwidth}
 		\centering
-		% !!! 注意：这是一个占位符，请替换成您自己的第五张图 !!!
 		\includegraphics[width=0.96\linewidth]{figures/exp/attribute_100M.pdf} 
 		\caption{Big Dataset}
 		\label{fig:attribute big dataset}
-	\end{subfigure}
-	
-	% 5. 全局总标题
-	\caption{\textcolor{violet}Scalability Study (Attribute Filtering)}
-	\label{fig:TrinityExtension——Attribution_main}
+	\end{minipage}
 \end{figure*}
+	
+%\begin{figure*}[t]
+%	\centering
+%	
+%	% 1. 全局图例 (Legend) - 位置保持不变
+%	\includegraphics[width=0.9\textwidth]{figures/exp/attribute_legend.pdf}
+%	
+%	% --- 主要改动：将以下三个 subfigure 全部放在同一行 ---
+%	
+%	% 2. 第一部分：两张图，共用标题
+%	% [b]表示按底部对齐，在一行内通常比顶部对齐[t]效果好
+%	% 宽度从\textwidth缩小到0.32\textwidth
+%	\begin{subfigure}[b]{0.38\textwidth}
+%		\centering
+%		% 内部图片宽度使用\linewidth，它会自适应为容器宽度(0.32\textwidth)
+%		\includegraphics[width=0.495\linewidth]{figures/exp/attribute_multimodel.pdf}
+%		\hfill 
+%		\includegraphics[width=0.47\linewidth]{figures/exp/attribute_multimodel_1.pdf}
+%		\caption{Multi-Modal}
+%		\label{fig:attribute-multimodal} 
+%	\end{subfigure}
+%	\hfill % 在第一部分和第二部分之间添加弹性间距
+%	% 3. 第二部分：两张图，共用标题
+%	\begin{subfigure}[b]{0.39\textwidth}
+%		\centering
+%		\includegraphics[width=0.495\linewidth]{figures/exp/attribute_85.pdf}
+%		\hfill
+%		\includegraphics[width=0.47\linewidth]{figures/exp/attribute_71.pdf}
+%		\caption{Cross-Platform}
+%		\label{fig:attribute-cross-platform}
+%	\end{subfigure}
+%	\hfill % 在第二部分和第三部分之间添加弹性间距
+%	% 4. 第三部分：只有一张图
+%	\begin{subfigure}[b]{0.203\textwidth}
+%		\centering
+%		% !!! 注意：这是一个占位符，请替换成您自己的第五张图 !!!
+%		\includegraphics[width=0.96\linewidth]{figures/exp/attribute_100M.pdf} 
+%		\caption{Big Dataset}
+%		\label{fig:attribute big dataset}
+%	\end{subfigure}
+%	
+%	% 5. 全局总标题
+%	\caption{\textcolor{violet}Scalability Study (Attribute Filtering)}
+%	\label{fig:TrinityExtension——Attribution_main}
+%\end{figure*}
 
 %	\subsubsection{Scalability Study}
 	\textit{\textbf{\textcolor{blue}{Multi-Modal Queries.}}} \textcolor{blue}{
@@ -1328,50 +1358,39 @@ Most algorithms load both the index and the dataset into memory during the build
 	%	
 	%	However, the DSG algorithm shows a noticeable performance gap between the Deep and YT-Audio datasets, despite their comparable LID. This indicates that DSG is less robust than other methods when facing dataset-dependent variations, possibly due to its sensitivity to data distribution beyond LID alone.
 	
-\begin{figure*}[t]
+\begin{figure*}
 	\centering
 	
-	% 1. 全局图例 (Legend) - 位置保持不变
-	\includegraphics[width=0.8\textwidth]{figures/exp/range_legend.pdf}
+	\includegraphics[width=0.7\textwidth]{figures/exp/range_legend.pdf}
 	
-	% --- 主要改动：将以下三个 subfigure 全部放在同一行 ---
-	
-	% 2. 第一部分：两张图，共用标题
-	% [b]表示按底部对齐，在一行内通常比顶部对齐[t]效果好
-	% 宽度从\textwidth缩小到0.32\textwidth
-	\begin{subfigure}[b]{0.39\textwidth}
+	\begin{minipage}[t]{0.38\textwidth}
 		\centering
-		% 内部图片宽度使用\linewidth，它会自适应为容器宽度(0.32\textwidth)
 		\includegraphics[width=0.495\linewidth]{figures/exp/range_multimodel.pdf}
 		\hfill 
 		\includegraphics[width=0.47\linewidth]{figures/exp/range_multimodel_1.pdf}
 		\caption{Multi-Modal}
 		\label{fig:range-multimodal} 
-	\end{subfigure}
-	\hfill % 在第一部分和第二部分之间添加弹性间距
-	% 3. 第二部分：两张图，共用标题
-	\begin{subfigure}[b]{0.39\textwidth}
+	\end{minipage}%
+	\hfill % 在盒子之间添加弹性间距
+	%
+	\begin{minipage}[t]{0.39\textwidth}
 		\centering
 		\includegraphics[width=0.495\linewidth]{figures/exp/range_85.pdf}
 		\hfill
 		\includegraphics[width=0.47\linewidth]{figures/exp/range_71.pdf}
 		\caption{Cross-Platform}
 		\label{fig:range-cross-platform}
-	\end{subfigure}
-	\hfill % 在第二部分和第三部分之间添加弹性间距
-	% 4. 第三部分：只有一张图
-	\begin{subfigure}[b]{0.203\textwidth}
+	\end{minipage}%
+	\hfill
+	%
+	\begin{minipage}[t]{0.203\textwidth}
 		\centering
-		% !!! 注意：这是一个占位符，请替换成您自己的第五张图 !!!
 		\includegraphics[width=0.96\linewidth]{figures/exp/range_deep100M.pdf} 
 		\caption{Big Dataset}
 		\label{fig: range big dataset}
-	\end{subfigure}
-	
-	% 5. 全局总标题
-	\caption{\textcolor{violet}Scalability Study (Range Filtering)}
-	\label{fig:TrinityExtension——Attribution_main}
+	\end{minipage}
 \end{figure*}
+
 	
 	\subsubsection{Robustness}
 	
@@ -1432,7 +1451,7 @@ Most algorithms load both the index and the dataset into memory during the build
 \end{table*}
 
 	
-	\subsubsection{\textbf{Attribute Filtering}}
+	\subsubsection{Attribute Filtering}
 %	We summarize the applicability of different algorithms across various attribute filtering scenarios in Table~\ref{tab:algo_scenarios}. Puck and UNG excel on large-scale datasets (S1). ACORN-1 and UNG achieve fast index construction (S2). UNG performs well on different datasets (S3, S4). In addition, CAPS performs well on hard datasets with high LID (S3), while NHQ and StitchedVamana perform better on easy datasets with low LID (S4).
 %	Faiss and CAPS can generate relatively compact indexes with low memory usage, which is suitable for resource-constrained situations (S6). Milvus and Faiss serve as general-purpose solutions (S5). UNG stands out for its higher recall, precision, and QPS, and performs well in the OOD scenario (S7, S8).
 \textcolor{orange}{
@@ -1445,7 +1464,7 @@ CAPS, based on clustering, features low index space overhead. It offers flexible
 Puck is well-suited for large-scale datasets such as those with 100 million points. It offers fast index construction and low memory consumption in such scenarios. Moreover, it delivers high search performance in multi-threaded environments, making it an excellent choice for deployment on extremely large datasets.}
 
 
-	\subsubsection{\textbf{Range Filtering}}
+	\subsubsection{Range Filtering}
 \textcolor{orange}{
 	WinFilter achieves the best search performance but requires high time and memory resources during index construction. For large-scale datasets (e.g., with 100 million points), parameter tuning—particularly of tree height—is needed to prevent excessive index growth. When QPS and recall are not strict requirements, its basic variant, Vamana-WST, offers a more efficient alternative with significantly lower indexing overhead.
 		}
@@ -1459,7 +1478,7 @@ Puck is well-suited for large-scale datasets such as those with 100 million poin
 	UNIFY adopts multiple filtering strategies tailored to different query range sizes, avoiding the limitations of a single strategy in specific scenarios. It requires only one index to support all queries, allows dynamic insertions, and features low time and space overhead during index construction, making it a more general-purpose solution.}
 %	Table~\ref{tab:algo_scenarios} also shows the application scenarios of range filtering. iRange performs well on large-scale datasets, combining efficient construction and excellent query capabilities (S1). Faiss performs well in fast index construction (S2). When processing hard datasets, WinFilter, iRange, and DSG are recommended (S3), while WinFilter and iRange also perform well on easy datasets (S4). For general applications, DSG supports dynamic updates, while UNIFY provides flexible filtering strategies (S5). Faiss and SeRF show superior memory efficiency (S6). For static queries with high recall, WinFilter is the best choice (S7). In addition, WinFilter also performs well in OOD scenarios (S8).
 
-	\subsubsection{\textbf{General Algorithm}}
+	\subsubsection{General Algorithm}
 \textcolor{orange}{All of the following methods support both attribute filtering and range filtering.}
 
 \textcolor{orange}{
@@ -1469,7 +1488,7 @@ ACORN demonstrates average overall performance. Among its variants, ACORN-1 show
 Faiss, Milvus, and VBASE handle complex scenarios with advanced filtering operations more effectively. While they offer strong flexibility, their overall search performance is relatively modest. Relatively speaking, PASE performs less well across various aspects.}
 	
 	\subsection{Challenges}
-	\subsubsection{\textbf{Attribute Filtering}}
+	\subsubsection{Attribute Filtering}
 	Most existing attribute filtering algorithms are graph-based, they typically outperform other methods in terms of query accuracy and efficiency. Filtered-DiskANN leverages disk-based storage, making it more suitable for extremely large-scale datasets even in memory-constrained environments. Moreover, the index construction phase of graph-based algorithms is computationally intensive. Therefore, exploring GPU-based acceleration for graph construction and vector computation during indexing is promising. It can significantly improve the performance of graph-based methods.
 	
 	\textcolor{blue}{In addition, existing attribute filtering algorithms face two major limitations: strict requirements on attribute format and limited support for complex filtering conditions. }
@@ -1490,7 +1509,7 @@ Therefore, designing algorithms that can support complex filtering expressions w
 %	%The original implementations of 
 %	NHQ imposes strict constraints on the number of base and query attributes and only support AND conditions. While UNG is relatively flexible—supporting both AND and OR logic—it still lacks support for arbitrary Boolean expressions (e.g., combinations of AND and OR). The lack of flexible Boolean filtering remains a key challenge, limiting the practicality of hybrid query methods in real-world systems with diverse and complex query requirements.
 	
-	\subsubsection{\textbf{Range Filtering}}
+	\subsubsection{Range Filtering}
 	
 	Except for DSG and UNIFY, most range filtering algorithms require the dataset to be pre-sorted before building the index. \textcolor{green}{Moreover, these methods do not support multi-attribute range queries. }Enhancing these methods to support an arbitrary number of range filterable attributes remains an open research challenge.
 	
