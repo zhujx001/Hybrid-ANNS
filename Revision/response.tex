@@ -250,8 +250,8 @@ Section 4.2.3: \textcolor{blue}{
 	"We conduct experiments on two multimodal datasets Text2image-Mix and Text2image. On Text2imageMix dataset, as shown in Figure 9, UNG and NHQ consistently perform best, followed by CAPS. Although the dataset contains two modalities, due to the significant differences between the modalities, they are actually two separate regions in the vector space. The performance is similar to that of the single-modal dataset in Figure 4. This is because mixed multi-modal queries are actually the same as conducting experiments on two datasets of the same modality. This is not actually a difficult query. In contrast, the Text2image dataset shown in Figure 9 is different. The query set and the base dataset belong to two completely different modalities. Queries are far from the dataset points, and the ground truths are more dispersed. To find the ground truths, algorithms typically need to examine more points, which leads to degraded performance." 
 }
 
-Section 4.3.3:\textcolor{blue}{
-		"Similar to attribute filtering, on Text2Image-Mix dataset, the performance of multi-modal range filtering queries shown in Figure 14 also aligns with the single-modality results in Figure 13. These algorithms on the Text2Image dataset exhibit a significant performance degradation. This is because most of these range query algorithms are graph-based, and such algorithms require more iterations to find true neighbors in OOD datasets."
+Section 4.3.3: \textcolor{blue}{
+		"Similar to attribute filtering, the performance of range filtering queries on the Text2image-Mix dataset (Figure 14) is similar to the single-modality query performance (Figure 13). However, on the Text2Image dataset, these algorithms exhibit a significant performance degradation (Figure 14). This is because most of these range query algorithms are graph-based, and such algorithms require more iterations to find true neighbors in OOD datasets."
 }
 
 \begin{figure}[htbp]
@@ -302,7 +302,7 @@ Thank you for your suggestion. Using ID as an attribute is a prevalent method in
 
 
 \textcolor{blue}{
-	"WIT-Real and YT-Audio-Real datasets use real attributes: For the WIT-Real dataset, we use the CLIP model to encode the page title into vectors, and extract the language type and the length of the context page description as real attributes. The YT-Audio-Real dataset uses YouTube8M data, employing the video category ID and view counts as real attributes for this dataset."
+	"WIT-Real and YT-Audio-Real datasets use real attributes. For the WIT-Real dataset, we use the CLIP model to encode the page title into vectors, and extract the language type and the length of the context page description as real attributes. The YT-Audio-Real dataset uses YouTube8M data, employing the video category ID and view counts as real attributes for this dataset."
 }
 %%%%%%%%%%%%%%%%%%%%%% R5 %%%%%%%%%%%%%%%%%%%%%%
 
@@ -315,7 +315,7 @@ Thank you for your suggestion. Using ID as an attribute is a prevalent method in
 
 \noindent
 \textbf{Response:} 
-That is a great suggestion. In order to figure out if the server setting affects the relative ordering of methods, we conducted additional experiments on an Ubuntu 20.04 server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz featuring 128GB of RAM and 84 MiB of L3 cache using the YT-Audio-Real dataset. The experimental results are shown in Figure~\ref{fig:attribute_multimodel}.
+That is a great suggestion. In order to figure out if the server setting affects the relative ordering of methods, we conducted additional experiments on an Ubuntu 20.04 server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz featuring 128GB of RAM and 84 MiB of L3 cache using the YT-Audio-Real dataset. The experimental results of attribute filtering and range filtering are shown in Figure~\ref{fig:attribute-cross-platform} and Figure~\ref{fig:range-cross-platform}, respectively.
 The results show that the performance differences across algorithms remain small, and their relative rankings do not change significantly across servers.
 We did observe slightly lower QPS on this server compared to our original one, which is mainly due to the the lower CPU frequency, reduced RAM capacity, and smaller L3 cache of the Xeon 6330 processors. \textbf{(Please see Section 4.2.3 and Section 4.3.3, highlighted in blue in the revised manuscript.)} 
 
@@ -328,10 +328,20 @@ Section 4.3.3:
 
 \begin{figure}[htbp]
 	\centering
+	\includegraphics[width=0.48\textwidth]{fig/attribute_legend.pdf}
 	\includegraphics[width=0.495\linewidth]{fig/attribute_85.pdf}
 	\includegraphics[width=0.47\linewidth]{fig/attribute_71.pdf}
 	\caption{Different Platforms (AF)}
 	\label{fig:attribute-cross-platform}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.48\textwidth]{fig/range_legend.pdf}
+	\includegraphics[width=0.495\linewidth]{fig/range_85.pdf}
+	\includegraphics[width=0.47\linewidth]{fig/range_71.pdf}
+	\caption{Different Platforms (RF)}
+	\label{fig:range-cross-platform}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%% R6 %%%%%%%%%%%%%%%%%%%%%%
@@ -344,7 +354,7 @@ Section 4.3.3:
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. Currently, except for FilteredDiskANN, other hybrid query methods are memory-based, so we added the characteristic of whether to support disk for each algorithm in Table \ref{tab:compair_1}, which corresponds to Table 1 in the original paper.. At the same time, we also compared the search performance difference of FilteredDiskANN on memory and SSD using real data sets. The results are shown in Figure~\ref{fig:recall-latency}:
+Thank you for your suggestion. Currently, except for Filtered-DiskANN, other hybrid query methods are memory-based, so we added the characteristic of whether to support disk for each algorithm in Table \ref{tab:compair_1}, which corresponds to Table 1 in the original paper.
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=\linewidth]{fig/recall_latency_all.pdf}
@@ -352,11 +362,12 @@ Thank you for your suggestion. Currently, except for FilteredDiskANN, other hybr
 	\label{fig:recall-latency}
 \end{figure}
 
+ To analyze the cost breakdown of disk-based methods in greater detail, we also compared the search performance difference of Filtered-DiskANN on memory and SSD using real data sets. 
 We conducted additional experiments on the YT-Audio-Real dataset, comparing three variants of DiskANN.
-(1) SSD-based FilteredDiskANN (original disk-based method);
+(1) SSD-based Filtered-DiskANN (original disk-based method);
 (2) FilteredVamana (memory-based method);
 (3) StitchedVamana (memory-based method).
-
+We have run all experiments with 32 search threads for fair comparison. Figure~\ref{fig:recall-latency} shows the mean latency (log-scale, left y-axis) and I/O vs CPU proportion (right y-axis) across different Recall\@10 levels:
 
 %\begin{itemize}
 %	\item SSD-based FilteredDiskANN (original disk-based method)
@@ -364,18 +375,14 @@ We conducted additional experiments on the YT-Audio-Real dataset, comparing thre
 %	\item StitchedVamana (memory-based method)
 %\end{itemize}
 
-
-All experiments were run with 32 search threads for fair comparison. The following figure shows the mean latency (log-scale, left y-axis) and I/O vs CPU proportion (right y-axis) across different Recall\@10 levels:
-
-\textbf{ Key Observations:}
 Latency-Recall Tradeoff:
-As expected, SSD-based FilteredDiskANN exhibits significantly higher latency than in-memory methods, especially at higher recall levels. When Recall@10 reaches 0.96, its latency increases super-linearly to over 100 ms.
+As expected, SSD-based Filtered-DiskANN exhibits significantly higher latency than in-memory methods, especially at higher recall levels. When Recall@10 reaches 0.96, its latency increases super-linearly to over 100 ms.
 
-Cost Breakdown of DiskANN:The I/O proportion consistently dominates, maintaining 80\%–85\% of the total latency even at different recall levels.
+Cost Breakdown of Filtered-DiskANN:The I/O proportion consistently dominates, maintaining 80\%–85\% of the total latency even at different recall levels.
 The CPU proportion remains low (10–15\%), indicating that I/O is the major bottleneck in disk-based search pipelines.
 This clearly shows that improving disk read efficiency or reducing I/O volume is critical for performance optimization.
 
-\textbf{In-memory Methods:}
+In-memory Methods:
 FilteredVamana achieves a good balance, staying under 30 ms while achieving Recall@10 > 0.97.
 While StitchedVamana achieves extremely low latency (sub-5 ms) due to its stitched multi-label index structure, its fixed edge connectivity may limit effectiveness under highly uncorrelated label distributions. Nevertheless, it consistently supports 90\%+ Recall@10 across diverse datasets, as shown in our evaluations.
 
@@ -390,7 +397,7 @@ While StitchedVamana achieves extremely low latency (sub-5 ms) due to its stitch
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We are deeply aware of this shortcoming, so we provide the search peak memory usage of each algorithm in the time and space overhead section and carefully analyze the reasons. We present the search peak memory usage for the newly added attribute filtering and range filtering in Figure \ref{fig:search_memory_mb_comparison} and Figure \ref{fig:rangeFilter_search_memory_mb}, respectively.
+We believe your suggestion is very reasonable, and the experiment on search peak memory is indeed an important component. We are deeply aware of this shortcoming, so we provide the search peak memory usage of each algorithm in the time and space overhead section and carefully analyze the reasons. We present the search peak memory usage for the newly added attribute filtering and range filtering in Figure \ref{fig:search_memory_mb_comparison} and Figure \ref{fig:rangeFilter_search_memory_mb}, respectively.
 \textbf{(Please see Section 4.2.1 and Section 4.3.1, highlighted in blue in the revised manuscript.)}
 \begin{figure}[htbp]
 	\centering
@@ -407,6 +414,7 @@ Thank you for your suggestion. We are deeply aware of this shortcoming, so we pr
 	\caption{Range Filtering Search Peak Memory}
 	\label{fig:rangeFilter_search_memory_mb}
 \end{figure}
+
 
 
 %For attribute filtering, please see section 4.2.1.
@@ -437,14 +445,32 @@ During querying, CAPS maintains a large candidate set dynamically, which signifi
 
 \noindent
 \textbf{Response:} 
-Thank you for your valuable suggestion regarding our experiments. In Section 4.2.3 and Section 4.3.3, we have added experiments on the Deep100M dataset. The results show that most algorithms struggle to balance performance with time and space costs on this large-scale dataset. In particular, StitchedVamana performs poorly on Deep100M. \textbf{(Please see the "Large-scale Datasets" part of Section 4.2.3 and Section 4.3.3, highlighted in blue in the revised manuscript.)}
+Thank you for your valuable suggestion regarding our experiments. In Section 4.2.3 and Section 4.3.3, we have added experiments on the Deep100M dataset. The results show that most algorithms struggle to balance performance with time and space costs on this large-scale dataset. In particular, StitchedVamana performs poorly on Deep100M. The experimental results are shown in Figure~\ref{fig:attribute big dataset} and Figure~\ref{fig:range big dataset}. \textbf{(Please see the "Large-scale Datasets" part of Section 4.2.3 and Section 4.3.3, highlighted in blue in the revised manuscript.)}
 %\textbf{(Please refer to the blue highlighted parts in Section 4.2.4 and Section 4.3.4 under Large-scale Datasets.)}
 
 
-Section 4.2.3:\textcolor{blue}{"As shown in the figure 11, on the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating good adaptability to large-scale datasets. However, this also comes with significant memory overhead. The clustering-based algorithm Faiss+HQI\_Batch shows moderate performance but has very low memory overhead, which also has certain practical significance. Furthermore, we do not present the results of StitchedVamana and CAPS, as their recall remained consistently low. StitchedVamana sets the search entry point to 0 by default, which makes it prone to getting stuck in local optima when the entry is far from the target region, hindering effective navigation. CAPS, on the other hand, cannot properly run large-scale dataset experiments because its code implementation does not account for such scenarios."}
+Section 4.2.3:\textcolor{blue}{"As shown in the Figure 11, on the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating good adaptability to large-scale datasets. However, this also comes with significant memory overhead. The clustering-based algorithm Faiss+HQI\_Batch shows moderate performance but has very low memory overhead, which also has certain practical significance. Furthermore, we do not present the results of StitchedVamana and CAPS, as their recall remained consistently low. StitchedVamana sets the search entry point to 0 by default, which makes it prone to getting stuck in local optima when the entry is far from the target region, hindering effective navigation. CAPS, on the other hand, cannot properly run large-scale dataset experiments because its code implementation does not account for such scenarios."}
 
 Section 4.3.3:
-\textcolor{blue}{"As shown in the figure 16, On the deep100M dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption, as detailed in Figure 12d. Meanwhile, VBASE and Faiss demonstrate moderate performance but significantly lower memory consumption than the top 3 algorithms."}
+\textcolor{blue}{"As shown in the Figure 16, On the deep100M dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption (Figure 12d). In contrast, VBASE and Faiss demonstrate moderate performance while consuming significantly less memory."}
+
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.95\linewidth]{fig/attribute_legend.pdf}
+	\includegraphics[width=0.7\linewidth]{fig/attribute_100M.pdf}
+	\caption{Large-Scale Dataset (AF)}
+	\label{fig:attribute big dataset}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.95\linewidth]{fig/range_legend.pdf}
+	\includegraphics[width=0.7\linewidth]{fig/range_deep100M.pdf}
+	\caption{Large-Scale Dataset (RF)}
+	\label{fig:range big dataset}
+\end{figure}
+
 
 %%%%%%%%%%%%%%%%%%%%%% R9 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -458,7 +484,7 @@ Section 4.3.3:
 %Thank you for your valuable suggestion. We agree that our previous analysis of the strengths and weaknesses of the algorithms was not sufficiently clear.
 %
 %To address this, we add a summary table that provides a clearer and more structured comparison of the strengths and weaknesses of each algorithm, offering deeper insights and more concrete guidelines for understanding their trade-offs.
-Thank you very much for your insightful comments. We fully agree with your views. We have revised the discussion section of the paper accordingly. In this section, we have added a recommendation table for the algorithms, which summarizes their performance under various conditions. Additionally, we have provided a more in-depth analysis of the internal mechanisms of each algorithm in the text, aiming to uncover the fundamental reasons behind their performance.
+Thank you very much for your insightful comments.  We have revised the discussion section to provide a detailed analysis of the pros and cons of each algorithm, along with an in-depth examination of their internal mechanisms to uncover the fundamental reasons behind their performance.
 \textbf{(Please see Section 5.1.1, Section 5.1.2 and Section 5.1.3, highlighted in blue in the revised manuscript.)}
 
 Section 5.1.1:\textcolor{blue}{
@@ -489,7 +515,7 @@ Senction 5.1.3:	\textcolor{blue}{"All of the following methods support both attr
 	ACORN demonstrates average overall performance. Among its variants, ACORN-1 shows significant advantages in indexing speed on 100M-scale datasets, but suffers from high memory consumption and delivers only moderate performance.}
 
 \textcolor{blue}{
-	Faiss, Milvus and VBASE effectively handle complex filtering by employing versatile "pre-filtering" or "post-filtering" strategies, granting them significant flexibility and broad applicability. This flexibility, however, is often counterbalanced by their relatively modest overall search performance. Relatively speaking, PASE performs less well across various aspects."}
+	Faiss, Milvus and VBASE effectively handle complex filtering by employing versatile "pre-filtering" or "post-filtering" strategies, granting them significant flexibility and broad applicability. This flexibility, however, is often counterbalanced by their relatively modest overall search performance. Relatively speaking, PASE performs less well across various aspects, which indicates that its strategy of loading data pages on-demand is unsuitable for performance-demanding scenarios."}
 %下面放那个优劣势表
 
 %%%%%%%%%%%%%%%%%%%%%% R10 %%%%%%%%%%%%%%%%%%%%%%
@@ -500,8 +526,9 @@ Senction 5.1.3:	\textcolor{blue}{"All of the following methods support both attr
 }
 
 \noindent
-\textbf{Response:} Thank you very much for your valuable suggestions. Your advice is very insightful. In the recommendation section of our paper, we have added a clearer summary table of the algorithms to help readers choose the appropriate algorithm based on their application scenarios, as shown in Table~\ref{tab:algorithm_recommendation}. \textbf{(Please see Section 5.1.1 and Section 5.1.2, highlighted in blue in the revised manuscript.)}
+\textbf{Response:} Thank you very much for your valuable suggestions. Your advice is very insightful. In the recommendation section of our paper, we have added a clearer summary table of the algorithms to help readers choose the appropriate algorithm based on their application scenarios, as shown in Table~\ref{tab:algorithm_recommendation}. \textbf{(Please see Section 5.1, highlighted in blue in the revised manuscript.)}
 
+\textcolor{blue}{"Based on the performance of algorithms across various experimental settings, we evaluate their strengths and weaknesses in different application scenarios, as shown in Table 1. "}
 
 %\subsection{Recommendations.}
 %Based on the performance of different algorithms in experiments, we recommend algorithms suitable for different scenarios, as shown in the table \ref{tab:algo_scenarios}.
@@ -577,9 +604,9 @@ Senction 5.1.3:	\textcolor{blue}{"All of the following methods support both attr
 }
 
 \noindent
-\textbf{Response:} I really appreciate your suggestion. Current hybrid query algorithms do not explicitly model or leverage complex semantic relationships, such as those between vectors and their attributes, or among different attributes. However, our evaluation covered a range of realistic scenarios, including multi-attribute setting, diverse distributions and selectivity, to assess the algorithms' generalization capabilities (though we used synthetic attributes).
+\textbf{Response:} I really appreciate your suggestion. Current hybrid query algorithms do not explicitly model or leverage complex semantic relationships, such as those between vectors and their attributes, or among different attributes. Our evaluation covered a range of realistic scenarios, including multi-attribute setting, diverse distributions and selectivity, to assess the algorithms' generalization capabilities (though we used synthetic attributes).
 
-To demonstrate that the choice between synthetic and real attributes has little impact on algorithm performance, we have conducted an additional set of experiments. We used the YouTube-Audio dataset for vectors and compared results with both synthetic and real attributes (video classification). As shown in Figure~\ref{fig:compare}, the experimental outcomes have validated our hypothesis.
+To demonstrate that the choice between synthetic and real attributes has little impact on algorithm performance, we have conducted an additional set of experiments. We used the YouTube-Audio dataset for vectors and compared results with both synthetic and real attributes (video classification). As shown in Figure~\ref{fig:compare}, the experimental outcomes have validated our hypothesis that the impact of using synthetic versus real attributes on the algorithms is limited.
 
 \begin{figure}[t]
 	\centering
@@ -698,7 +725,7 @@ We have already provided a detailed response to this issue in our reply to Meta 
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We are deeply aware of this shortcoming, so we provide the search peak memory usage of each algorithm in the time and space overhead section and carefully analyze the reasons. For more details, please refer to our response Meta R6.
+We believe your suggestion is very reasonable, and the experiment on search peak memory is indeed an important component. We are deeply aware of this shortcoming, so we provide the search peak memory usage of each algorithm in the time and space overhead section and carefully analyze the reasons. For more details, please refer to our response Meta R6.
 
 %We have made a detailed response to this issue in our reply to Meta R6. Please refer to that response for more information.
 	
@@ -715,13 +742,13 @@ Thank you for your suggestion. We are deeply aware of this shortcoming, so we pr
 \noindent
 \textbf{Response:} 
 %Thank you for pointing this out. Both paper [49] and our paper are benchmarks. Paper [49] provides a comprehensive review and evaluation of graph-based approximate nearest neighbor search algorithms. Our paper is the first benchmark to evaluate hybrid queries. Since hybrid queries are developed based on ANN, we refer to the evaluation metrics proposed in the cited paper. We realize that we did not clearly explain the difference between our paper and the cited paper, so we have added a description in the introduction, please see section 1.1.
-Thank you for pointing this out. The original reference [49], now updated to reference [45], provides a comprehensive review and evaluation of graph-based approximate nearest neighbor (ANN) search algorithms, whereas our work is the first to establish a benchmark specifically for hybrid query algorithms. We initially cited this reference in the experimental setup section to adopt its proposed evaluation metrics, as hybrid queries are fundamentally built upon ANN techniques. We acknowledge that the distinction between our work and the cited paper was not clearly articulated in the early version. To address this, we have revised the introduction to clarify the difference and added citations to several experimental studies from the ANN literature. \textbf{(Please see Section 1.1, highlighted in blue in the revised manuscript.)}
+Thank you for pointing this out. The original reference [49](now [50] in our latest version), provides a comprehensive review and evaluation of graph-based approximate nearest neighbor (ANN) search algorithms, whereas our work is the first to establish a benchmark specifically for hybrid query algorithms. We initially cited this reference in the experimental setup section to adopt its proposed evaluation metrics, as hybrid queries are fundamentally built upon ANN techniques. We acknowledge that the distinction between our work and the cited paper was not clearly articulated in the early version. To address this, we have revised the introduction to clarify the difference and added citations to several experimental studies from the ANN literature. \textbf{(Please see Section 1.1, highlighted in blue in the revised manuscript.)}
 
 
 
- \textcolor{blue}{"
+ \textcolor{blue}{
 % 	Although existing work, such as the survey [49] by reviews graph-based ANN methods, the literature still lacks an experimental study specifically targeting hybrid query algorithms. To address this gap, we conduct the first comprehensive experimental evaluation of hybrid query algorithms, systematically analyzing their index construction costs and query efficiency across diverse scenarios. Furthermore, we rigorously assess the robustness of each algorithm under varying conditions, thereby providing valuable insights for future research and practical applications.
- 	Although existing works [9,45] conduct benchmark evaluations of ANN methods, a systematic experimental study specifically targeting hybrid query algorithms is still lacking. "}
+ 	"Although existing works [9,45] conduct benchmark evaluations of ANN methods, a systematic experimental study specifically targeting hybrid query algorithms is still lacking."}
 
 
 
@@ -737,7 +764,8 @@ Thank you for pointing this out. The original reference [49], now updated to ref
 \noindent
  \textbf{Response:} 
  Thank you for your suggestion. We cited these two papers in the introduction to show that there are several papers that study attribute distribution and selectivity.
- In addition, attribute distribution and selectivity are indeed widely used in real-world scenarios. For attribute distribution, the label attributes of many recommendation application scenarios in reality conform to the power-law distribution. For attribute selectivity: for example, if you need to query data with a very small proportion of a certain attribute, choosing a better algorithm will greatly improve the search effect. There are also some databases with practical applications that mention attribute selectivity, such as Milvus and AnalyticDB-V. For the two parts you suggested, we have replaced them in the paper with more comprehensive and accurate references. \textbf{(Please see Section 1.1, highlighted in blue in the revised manuscript.)}
+% In addition, attribute distribution and selectivity are indeed widely used in real-world scenarios. For attribute distribution, the label attributes of many recommendation application scenarios in reality conform to the power-law distribution. For attribute selectivity: for example, if you need to query data with a very small proportion of a certain attribute, choosing a better algorithm will greatly improve the search effect. 
+There are also some databases with practical applications that mention attribute selectivity, such as Milvus and AnalyticDB-V. Therefore, we have replaced them in the paper with more comprehensive and accurate references. \textbf{(Please see Section 1.1, highlighted in blue in the revised manuscript.)}
 \textcolor{blue}{"For attribute filtering algorithms, factors such as the number of attributes, attribute distribution [13], and attribute selectivity [42,47] significantly impact algorithm performance."}
 
 \textcolor{blue}{"
@@ -774,35 +802,35 @@ Thank you for pointing it out. We sincerely apologize for the misuse of notation
 \textbf{Response:} 
 Thank you for the suggestion. Since there are multiple methods, listing all URLs in Section 4.1 would be overwhelming. Instead, in Section 3, we added superscript markers next to each algorithm name and provided the corresponding implementation URLs as footnotes on the same page. \textbf{(Please see Section 3, highlighted in blue in the revised manuscript.)}
 
-\textcolor{blue}{"https://github.com/KGLab-HDU/TKDE-under-review-Native-Hybrid-Queries-via-ANNS"}
-
-\textcolor{blue}{"https://github.com/microsoft/DiskANN"}
-
-\textcolor{blue}{"https://github.com/gaurav16gupta/constrainedANN"}
-
-\textcolor{blue}{"https://github.com/stanford-futuredata/ACORN"}
-
-\textcolor{blue}{"https://github.com/YZ-Cai/Unified-Navigating-Graph"}
-
-\textcolor{blue}{"https://github.com/baidu/puck"}
-
-\textcolor{blue}{"https://github.com/rutgers-db/SeRF"}
-
-\textcolor{blue}{"https://github.com/JoshEngels/RangeFilteredANN"}
-
-\textcolor{blue}{"https://github.com/YuexuanXu7/iRangeGraph"}
-
-\textcolor{blue}{"https://github.com/rutgers-db/DynamicSegmentGraph"}
-
-\textcolor{blue}{"https://github.com/sjtu-dbgroup/UNIFY"}
-
-\textcolor{blue}{"https://github.com/facebookresearch/faiss"}
-
-\textcolor{blue}{"https://github.com/alipay/PASE"}
-
-\textcolor{blue}{"https://github.com/microsoft/MSVBASE"}
-
-\textcolor{blue}{"https://github.com/milvus-io/milvus"}
+%\textcolor{blue}{"https://github.com/KGLab-HDU/TKDE-under-review-Native-Hybrid-Queries-via-ANNS"}
+%
+%\textcolor{blue}{"https://github.com/microsoft/DiskANN"}
+%
+%\textcolor{blue}{"https://github.com/gaurav16gupta/constrainedANN"}
+%
+%\textcolor{blue}{"https://github.com/stanford-futuredata/ACORN"}
+%
+%\textcolor{blue}{"https://github.com/YZ-Cai/Unified-Navigating-Graph"}
+%
+%\textcolor{blue}{"https://github.com/baidu/puck"}
+%
+%\textcolor{blue}{"https://github.com/rutgers-db/SeRF"}
+%
+%\textcolor{blue}{"https://github.com/JoshEngels/RangeFilteredANN"}
+%
+%\textcolor{blue}{"https://github.com/YuexuanXu7/iRangeGraph"}
+%
+%\textcolor{blue}{"https://github.com/rutgers-db/DynamicSegmentGraph"}
+%
+%\textcolor{blue}{"https://github.com/sjtu-dbgroup/UNIFY"}
+%
+%\textcolor{blue}{"https://github.com/facebookresearch/faiss"}
+%
+%\textcolor{blue}{"https://github.com/alipay/PASE"}
+%
+%\textcolor{blue}{"https://github.com/microsoft/MSVBASE"}
+%
+%\textcolor{blue}{"https://github.com/milvus-io/milvus"}
 
 \section*{Response to Review 3}
 \setcounter{weakness}{0}
@@ -817,7 +845,7 @@ Thank you for the suggestion. Since there are multiple methods, listing all URLs
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We have added experiments on the Deep100M dataset in Section 4.2.3 and Section 4.3.3, and we observed some pitfalls. For more details, please refer to our response to Meta R7.
+Thank you for your suggestion. We have added experiments on the Deep100M dataset in Section 4.2.3 and Section 4.3.3. For more details, please refer to our response to Meta R7.
 
 %%%%%%%%%%%%%%%%%%%%%% W2 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -843,10 +871,9 @@ Thank you for pointing this out. We agree that the initial explanations accompan
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. %We have already addressed this issue in detail in our responses to Meta R8 and R9. 
+Thank you for your suggestion. 
 We have addressed this issue in the revised manuscript by
-%Specifically, we 
-analyzing the strengths and weaknesses of each algorithm and recommended those with strong performance. Additionally, we provided a summary table illustrating how each algorithm performs across different application scenarios. For more details, please refer to our responses to Meta R8 and R9.
+analyzing the strengths and weaknesses of each algorithm and recommended those with strong performance. Additionally, we provided a recommendation table illustrating how each algorithm performs across different application scenarios. For more details, please refer to our responses to Meta R8 and R9.
 
 
 
@@ -942,7 +969,7 @@ Thank you for the suggestion. We realized that the original wording is somewhat 
 	\centering
 	%\setlength{\belowcaptionskip}{-0.3cm}
 	
-	\caption{Comparison of AF-ANN and RF-ANN Search Algorithms}
+	\caption{Overview of AF-ANN and RF-ANN Search Algorithms}
 	\small
 	%		\label{tab:compair_1}
 	%		\begin{tabular}{|l|l|c|c|c|c|c|c|c|}
@@ -968,7 +995,8 @@ Thank you for the suggestion. We realized that the original wording is somewhat 
 		
 		\multicolumn{2}{|c|}{\textbf{Characteristics/Algorithms}} & \textbf{NHQ} & \textbf{Filtered} & \textbf{Stitched} & \textbf{CAPS} & \textbf{ACORN} & \textbf{UNG} & \textbf{Puck} & \textbf{DSG} & \textbf{iRange} & \textbf{SeRF} & \textbf{UNIFY} & \textbf{Win}
 		\\ \hline
-		\multirow{6}{*}{\textbf{AF}} 
+		%		\multirow{6}{*}{\centering\textbf{AF}} 
+		\multirow{6}{*}{\raisebox{4ex}{\textbf{AF}}}
 		%& Filter Type         & C   & C   & C   & C   & B   & B   & B   & \multicolumn{5}{c|}{} \\ \cline{2-9}
 		& AND                 & Y   & N   & N   & Y   & Y   & Y   & Y   & \multicolumn{5}{c|}{\multirow{4}{*}{\centering\shortstack{AF\\Not Support}}} \\ \cline{2-9}
 		& OR                  & N   & Y   & Y   & N   & Y   & Y   & Y   & \multicolumn{5}{c|}{} \\ \cline{2-9}
@@ -1003,24 +1031,30 @@ Thank you for the suggestion. We realized that the original wording is somewhat 
 	\footnotesize{
 		\begin{minipage}{\linewidth}
 			\vspace{0.1cm}
-			Win: WinFilter, Filtered: FilteredVamana, Stitched: StitchedVamana. 
-			\textsuperscript{A} Post-filtering, 
-			\textsuperscript{B} Pre-filtering, 
-			\textsuperscript{C} Simultaneous filtering, 
-			\textsuperscript{Y} Support, 
-			\textsuperscript{N} Unsupport. 
-			\textit{AND} and \textit{OR} indicate whether the algorithm supports the corresponding logical operations.
-			\textit{Flexible Attributes} indicates whether the number of query attributes can differ from the number of attributes used during index construction. 
-			\textit{Complex Boolean} indicates if the algorithm supports complex expressions, such as using the NOT operator or nested logic with parentheses.
-			\textit{Dynamic Insert} indicates whether the algorithm supports the operation of dynamically inserting data points.
-			\textit{Multi Thread} indicates whether the algorithm supports multi-threaded search.
-			\textit{Disk Support} indicates whether the algorithm supports disk storage.
-			\textit{Base} indicates the foundational ANN algorithm for the hybrid query method.
+			%				\textit{AND} and \textit{OR} indicate whether the algorithm supports the corresponding logical operations.
+			%				\textit{Flexible Attributes} indicates whether the number of query attributes can differ from the number of attributes used during index construction. 
+			%				\textit{Complex Boolean} indicates if the algorithm supports complex expressions, such as using the NOT operator or nested logic with parentheses.
+			%				\textit{Dynamic Insert} indicates whether the algorithm supports the operation of dynamically inserting data points.
+			%				\textit{Multi Thread} indicates whether the algorithm supports multi-threaded search.
+			%				\textit{Disk Support} indicates whether the algorithm supports disk storage.
+			%				\textit{Base} indicates the foundational ANN algorithm for the hybrid query method.
+		
+				\textit{Filtered}: FilteredVamana, \textit{Stitched}: StitchedVamana, \textit{Win}: WinFilter.
+				\textit{AND} / \textit{OR}: Whether the algorithm supports the corresponding logical operations.
+				\textit{Flexible Attributes}: Allows the number of query attributes to differ from that in index construction.
+				\textit{Complex Boolean}: Supports NOT or nested Boolean expressions.
+				\textit{Dynamic Insert}: Supports dynamic data insertion.
+				\textit{Multi Thread}: Supports multi-threaded search.
+				\textit{Disk Support}: Supports disk-based storage.
+				\textit{Base}: Underlying ANN index structure used.
+			\textit{A}: Post-filtering (Filter after ANN search), 
+			\textit{B}: Pre-filtering (Filter before ANN search), 
+			\textit{C}: Simultaneous filtering (Filter simultaneously with ANN search), 
+			\textit{Y}: Support, 
+			\textit{N}: Unsupport. 
 	\end{minipage}}
 	
 \end{table*}
-
-
 
 %%%%%%%%%%%%%%%%%%%%%% D4 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
