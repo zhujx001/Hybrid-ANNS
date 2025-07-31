@@ -712,7 +712,7 @@ Faiss is an efficient similarity search library. It uses an ID selector to filte
 	
 	
 	
-	\textcolor{violet}{To investigate the time and space overhead of different algorithms,} we evaluate \textcolor{orange}{4} key metrics in the single-attribute scenario: index construction time, index size, \textcolor{orange}{build peak memory and search peak memory}. Notably, PASE on GIST1M and Enron is omitted, as it supports only data with dimensionality less than 512. \textcolor{red}{We use 64 threads to build the index for the large-scale Deep100M dataset, and 32 threads for the other six datasets. Notably, the VBASE and PASE algorithms only support single-threaded construction.}
+	\textcolor{violet}{To investigate the time and space overhead of different algorithms,} we evaluate \textcolor{orange}{4} key metrics in the single-attribute scenario: index construction time, index size, \textcolor{orange}{build peak memory and search peak memory}. Notably, PASE on GIST1M and Enron is omitted, as it supports only data with dimensionality less than 512. \textcolor{red}{We use 64 threads to build the index for the large-scale Deep100M dataset, and 32 threads for the other 6 medium-scale datasets. Notably, the VBASE and PASE algorithms only support single-threaded construction.}
 	
 	
 	\begin{figure*}
@@ -1489,7 +1489,7 @@ Puck is well-suited for large-scale datasets such as those with 100 million poin
 \textcolor{orange}{
 ACORN demonstrates average overall performance. Among its variants, ACORN-1 shows significant advantages in indexing speed on 100M-scale datasets, but suffers from high memory consumption and delivers only moderate performance.}
 
-\textcolor{orange}{
+\textcolor{red}{
 Faiss, Milvus and VBASE effectively handle complex filtering by employing versatile "pre-filtering" or "post-filtering" strategies, granting them significant flexibility and broad applicability. This flexibility, however, is often counterbalanced by their relatively modest overall search performance. Relatively speaking, PASE performs less well across various aspects.}
 	
 	\subsection{Challenges}
