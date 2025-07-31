@@ -786,7 +786,7 @@ Most algorithms load both the index and the dataset into memory during the build
 	In this scenario, we construct the index using an attribute and apply filtering conditions on the same attribute.
 	
 	
-	\textit{Single-Thread Search.}  
+	
 	As shown in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}, as recall approaches 1, search often requires traversing larger candidate sets or deeper graph paths. This leads to increased computational cost and a sharp QPS drop for most methods. Despite this, UNG consistently maintains high QPS due to its LNG structure, which eliminates unnecessary online filtering of irrelevant attributes and searches only within the subgraph formed by points satisfying the filtering conditions, thereby improving query efficiency.
 	
 	\textcolor{violet}{NHQ and StitchedVamana also perform well and show similar and stable performance across all datasets. This indicates that joint filtering and search strategies can achieve consistent effectiveness under high-recall requirements.} StitchedVamana outperforms FilteredVamana in query efficiency. This difference stems from their pruning strategies: StitchedVamana applies pruning after merging graphs, allowing nodes to accumulate a richer candidate set; while FilteredVamana applies early pruning, potentially eliminating useful candidates prematurely.
@@ -841,7 +841,9 @@ Most algorithms load both the index and the dataset into memory during the build
 	
 	
 	\textit{Performance of Algorithms under Multi-Attribute Building (M vs. M).}  
-	As shown in Figure \ref{fig:exp_2_1}, IVF-based methods (Puck and CAPS) significantly outperform graph-based methods. The reason for the superior performance of Puck is that it filters out irrelevant results during the retrieval process rather than searching for more candidates. CAPS performs as well as Puck. In contrast, multi-attribute construction significantly degrades the performance of graph-based methods, for which we identify two primary reasons. First, graph fragmentation necessitates searching multiple entry points, undermining the inherent advantage of efficient graph traversal. Second, multi-attribute processing increases the algorithms' intrinsic computational overhead and reduces the effectiveness of their core metric mechanisms, such as distance calculation.
+	As shown in Figure \ref{fig:exp_2_1}, IVF-based methods (Puck and CAPS) significantly outperform graph-based methods. The reason for the superior performance of Puck is that it filters out irrelevant results during the retrieval process rather than searching for more candidates. CAPS performs as well as Puck. In contrast, multi-attribute construction significantly degrades the performance of graph-based methods, for which we identify the primary reason. 
+	\textcolor{orange}{For algorithms with tightly coupled attribute and graph structures, increasing the number of attributes during index construction increases graph complexity. This makes single-attribute queries more difficult and degrades performance.}
+%	First, graph fragmentation necessitates searching multiple entry points, undermining the inherent advantage of efficient graph traversal. Second, multi-attribute processing increases the algorithms' intrinsic computational overhead and reduces the effectiveness of their core metric mechanisms, such as distance calculation.
 	%FilteredVamana performs the worst because its multi-attribute indexing forces neighbor selection to cover multiple attributes, reducing the efficiency of single-attribute queries. This results in excessive traversal of irrelevant nodes, making it slower than other methods.
 	
 	
