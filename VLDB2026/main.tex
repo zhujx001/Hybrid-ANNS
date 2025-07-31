@@ -12,7 +12,7 @@
 \usepackage{ulem}  % 导言区加上这一行
 \usepackage{microtype}  %处理换行
 \usepackage{subcaption} % 需要subcaption宏包支持子图
-
+\usepackage{caption}
 \usepackage{fontawesome}
 
 
@@ -1060,19 +1060,12 @@ Most algorithms load both the index and the dataset into memory during the build
 	%Most algorithms struggle to achieve high recall on GloVe, because it has the highest LID. Compare to other algorithms, the 4 algorithms (UNG, Faiss, CAPS, and Milvus) manage to maintain relatively high recall, demonstrating better adaptability to complex datasets. Notably, although vanilla Faiss performs worse on SIFT1M compared to Enron dataset, Faiss+HQI\_Batch outperforms on SIFT1M. Because batch optimization in HQI reduces query overhead and increases throughput.	}
 	
 	%\textcolor{green}{Most algorithms exhibit the worst performance on the OOD dataset Text2Image. However, ACORN, UNG, and FilteredVamana show relatively stable performance on Text2Image. Their performance drops less compared to in-distribution (ID) datasets such as GIST1M and GloVe, indicating better adaptability to OOD queries.}
-	
-\begin{figure*}[t]
+\begin{figure*}
 	\centering
 	
-	% 1. 全局图例 (Legend) - 位置保持不变
 	\includegraphics[width=0.9\textwidth]{figures/exp/attribute_legend.pdf}
 	
-	% --- 主要改动：将以下三个 subfigure 全部放在同一行 ---
-	
-	% 2. 第一部分：两张图，共用标题
-	% [b]表示按底部对齐，在一行内通常比顶部对齐[t]效果好
-	% 宽度从\textwidth缩小到0.32\textwidth
-	\begin{subfigure}[b]{0.38\textwidth}
+	\begin{minipage}[t]{0.38\textwidth}
 		\centering
 		% 内部图片宽度使用\linewidth，它会自适应为容器宽度(0.32\textwidth)
 		\includegraphics[width=0.495\linewidth]{figures/exp/attribute_multimodel.pdf}
@@ -1080,31 +1073,71 @@ Most algorithms load both the index and the dataset into memory during the build
 		\includegraphics[width=0.47\linewidth]{figures/exp/attribute_multimodel_1.pdf}
 		\caption{Multi-Modal}
 		\label{fig:attribute-multimodal} 
-	\end{subfigure}
-	\hfill % 在第一部分和第二部分之间添加弹性间距
-	% 3. 第二部分：两张图，共用标题
-	\begin{subfigure}[b]{0.39\textwidth}
+	\end{minipage}%
+	\hfill % 在盒子之间添加弹性间距
+	%
+	\begin{minipage}[t]{0.39\textwidth}
 		\centering
 		\includegraphics[width=0.495\linewidth]{figures/exp/attribute_85.pdf}
 		\hfill
 		\includegraphics[width=0.47\linewidth]{figures/exp/attribute_71.pdf}
 		\caption{Cross-Platform}
 		\label{fig:attribute-cross-platform}
-	\end{subfigure}
-	\hfill % 在第二部分和第三部分之间添加弹性间距
-	% 4. 第三部分：只有一张图
-	\begin{subfigure}[b]{0.203\textwidth}
+	\end{minipage}%
+	\hfill
+	%
+	\begin{minipage}[t]{0.203\textwidth}
 		\centering
-		% !!! 注意：这是一个占位符，请替换成您自己的第五张图 !!!
 		\includegraphics[width=0.96\linewidth]{figures/exp/attribute_100M.pdf} 
 		\caption{Big Dataset}
 		\label{fig:attribute big dataset}
-	\end{subfigure}
-	
-	% 5. 全局总标题
-	\caption{\textcolor{violet}Scalability Study (Attribute Filtering)}
-	\label{fig:TrinityExtension——Attribution_main}
+	\end{minipage}
 \end{figure*}
+	
+%\begin{figure*}[t]
+%	\centering
+%	
+%	% 1. 全局图例 (Legend) - 位置保持不变
+%	\includegraphics[width=0.9\textwidth]{figures/exp/attribute_legend.pdf}
+%	
+%	% --- 主要改动：将以下三个 subfigure 全部放在同一行 ---
+%	
+%	% 2. 第一部分：两张图，共用标题
+%	% [b]表示按底部对齐，在一行内通常比顶部对齐[t]效果好
+%	% 宽度从\textwidth缩小到0.32\textwidth
+%	\begin{subfigure}[b]{0.38\textwidth}
+%		\centering
+%		% 内部图片宽度使用\linewidth，它会自适应为容器宽度(0.32\textwidth)
+%		\includegraphics[width=0.495\linewidth]{figures/exp/attribute_multimodel.pdf}
+%		\hfill 
+%		\includegraphics[width=0.47\linewidth]{figures/exp/attribute_multimodel_1.pdf}
+%		\caption{Multi-Modal}
+%		\label{fig:attribute-multimodal} 
+%	\end{subfigure}
+%	\hfill % 在第一部分和第二部分之间添加弹性间距
+%	% 3. 第二部分：两张图，共用标题
+%	\begin{subfigure}[b]{0.39\textwidth}
+%		\centering
+%		\includegraphics[width=0.495\linewidth]{figures/exp/attribute_85.pdf}
+%		\hfill
+%		\includegraphics[width=0.47\linewidth]{figures/exp/attribute_71.pdf}
+%		\caption{Cross-Platform}
+%		\label{fig:attribute-cross-platform}
+%	\end{subfigure}
+%	\hfill % 在第二部分和第三部分之间添加弹性间距
+%	% 4. 第三部分：只有一张图
+%	\begin{subfigure}[b]{0.203\textwidth}
+%		\centering
+%		% !!! 注意：这是一个占位符，请替换成您自己的第五张图 !!!
+%		\includegraphics[width=0.96\linewidth]{figures/exp/attribute_100M.pdf} 
+%		\caption{Big Dataset}
+%		\label{fig:attribute big dataset}
+%	\end{subfigure}
+%	
+%	% 5. 全局总标题
+%	\caption{\textcolor{violet}Scalability Study (Attribute Filtering)}
+%	\label{fig:TrinityExtension——Attribution_main}
+%\end{figure*}
 
 %	\subsubsection{Scalability Study}
 	\textit{\textbf{\textcolor{blue}{Multi-Modal Queries.}}} \textcolor{blue}{
@@ -1319,50 +1352,39 @@ Most algorithms load both the index and the dataset into memory during the build
 	%	
 	%	However, the DSG algorithm shows a noticeable performance gap between the Deep and YT-Audio datasets, despite their comparable LID. This indicates that DSG is less robust than other methods when facing dataset-dependent variations, possibly due to its sensitivity to data distribution beyond LID alone.
 	
-\begin{figure*}[t]
+\begin{figure*}
 	\centering
 	
-	% 1. 全局图例 (Legend) - 位置保持不变
-	\includegraphics[width=0.8\textwidth]{figures/exp/range_legend.pdf}
+	\includegraphics[width=0.7\textwidth]{figures/exp/range_legend.pdf}
 	
-	% --- 主要改动：将以下三个 subfigure 全部放在同一行 ---
-	
-	% 2. 第一部分：两张图，共用标题
-	% [b]表示按底部对齐，在一行内通常比顶部对齐[t]效果好
-	% 宽度从\textwidth缩小到0.32\textwidth
-	\begin{subfigure}[b]{0.39\textwidth}
+	\begin{minipage}[t]{0.38\textwidth}
 		\centering
-		% 内部图片宽度使用\linewidth，它会自适应为容器宽度(0.32\textwidth)
 		\includegraphics[width=0.495\linewidth]{figures/exp/range_multimodel.pdf}
 		\hfill 
 		\includegraphics[width=0.47\linewidth]{figures/exp/range_multimodel_1.pdf}
 		\caption{Multi-Modal}
 		\label{fig:range-multimodal} 
-	\end{subfigure}
-	\hfill % 在第一部分和第二部分之间添加弹性间距
-	% 3. 第二部分：两张图，共用标题
-	\begin{subfigure}[b]{0.39\textwidth}
+	\end{minipage}%
+	\hfill % 在盒子之间添加弹性间距
+	%
+	\begin{minipage}[t]{0.39\textwidth}
 		\centering
 		\includegraphics[width=0.495\linewidth]{figures/exp/range_85.pdf}
 		\hfill
 		\includegraphics[width=0.47\linewidth]{figures/exp/range_71.pdf}
 		\caption{Cross-Platform}
 		\label{fig:range-cross-platform}
-	\end{subfigure}
-	\hfill % 在第二部分和第三部分之间添加弹性间距
-	% 4. 第三部分：只有一张图
-	\begin{subfigure}[b]{0.203\textwidth}
+	\end{minipage}%
+	\hfill
+	%
+	\begin{minipage}[t]{0.203\textwidth}
 		\centering
-		% !!! 注意：这是一个占位符，请替换成您自己的第五张图 !!!
 		\includegraphics[width=0.96\linewidth]{figures/exp/range_deep100M.pdf} 
 		\caption{Big Dataset}
 		\label{fig: range big dataset}
-	\end{subfigure}
-	
-	% 5. 全局总标题
-	\caption{\textcolor{violet}Scalability Study (Range Filtering)}
-	\label{fig:TrinityExtension——Attribution_main}
+	\end{minipage}
 \end{figure*}
+
 	
 	\subsubsection{Robustness}
 	
