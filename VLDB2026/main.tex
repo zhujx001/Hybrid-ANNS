@@ -390,9 +390,9 @@
 		\textit{Multi Thread}: Supports multi-threaded search.
 		\textit{Disk Support}: Supports disk-based storage.
 		\textit{Base}: Underlying ANN index structure used.}
-		\textit{A}: Post-filtering, 
-		\textit{B}: Pre-filtering, 
-		\textit{C}: Simultaneous filtering, 
+		\textit{A}: Post-filtering (Filter after ANN search), 
+		\textit{B}: Pre-filtering (Filter before ANN search), 
+		\textit{C}: Simultaneous filtering (Filter simultaneously with ANN search), 
 		\textit{Y}: Support, 
 		\textit{N}: Unsupport. 
 		\end{minipage}}
@@ -524,13 +524,15 @@
 	\subsection{Vector Libraries and Databases}
 The vector library and databases discussed in the following are not explicitly designed for hybrid query, but they support both attribute filtering and range filtering. 
 
-Faiss\footnote{\textcolor{blue}{https://github.com/facebookresearch/faiss}} \cite{Faiss} is an efficient similarity search library. It uses an ID selector to filter data before performing approximate nearest neighbor search. This supports hybrid search.In Faiss, we use the HQI batch optimization strategy in the IVF index. It groups queries with the same filter conditions. Each group only runs the filter once. It uses efficient matrix operations to compute vector similarity in batches.
+\noindent\textbf{\underline{Faiss}\footnote{\textcolor{blue}{https://github.com/facebookresearch/faiss}} \cite{Faiss}}
+Faiss is an efficient similarity search library. It uses an ID selector to filter data before performing ANN search. This supports hybrid search. In Faiss, we use the HQI batch optimization strategy in the IVF index. It groups queries with the same filter conditions. Each group only runs the filter once. It uses efficient matrix operations to compute vector similarity in batches.
 
-PASE\footnote{\textcolor{blue}{https://github.com/alipay/PASE}} \cite{pase} is a vector index plugin for PostgreSQL. It uses a "search first, then filter" strategy. But because the candidate set size is fixed, it may not return enough top-k results.
+\noindent\textbf{\underline{PASE} \footnote{\textcolor{blue}{https://github.com/alipay/PASE}} \cite{pase}} PASE is a vector index plugin for PostgreSQL. It uses a post-filtering strategy. Since the candidate set size is fixed, it may fail to return enough top-k results.
 
-VBASE\footnote{\textcolor{blue}{https://github.com/microsoft/MSVBASE}} \cite{vbase} is also a vector plugin for PostgreSQL. It applies filters during the HNSW index traversal. This ensures enough results.
+\noindent\textbf{\underline{VBASE} \footnote{\textcolor{blue}{https://github.com/microsoft/MSVBASE}} \cite{vbase}} VBASE is also a vector plugin for PostgreSQL. It applies filters during the HNSW index traversal. This ensures enough results.
 
-Milvus\footnote{\textcolor{blue}{https://github.com/milvus-io/milvus}} \cite{milvus} is a vector database built for large-scale similarity search. It filters data first, then performs approximate nearest neighbor search. This supports hybrid search.
+\noindent\textbf{\underline{Milvus} \footnote{\textcolor{blue}{https://github.com/milvus-io/milvus}} \cite{milvus}} Milvus is a vector database designed for large-scale similarity search. In hybrid queries, it adopts a pre-filtering strategy, similar to the ID selector mechanism used in Faiss.
+%It filters data first, then performs approximate nearest neighbor search. This supports hybrid search.
 
 	
 %	The vector libraries and databases discussed in the following are not explicitly designed for hybrid queries, but they support both attribute filtering and range filtering. Additionally, all the functionalities shown in Table 1 are also supported.
