@@ -1263,7 +1263,7 @@ Although the dataset contains two modalities, due to the significant differences
 	\subsubsection{\textcolor{blue}{Time and Space overhead.}}
 	
 	%Similar to the evaluation of \textit{Attribute Filtering} algorithms, 
-	Similarly, we also evaluate \textcolor{blue}{4} key metrics mentioned above in \textit{Range Filtering} algorithms. \textcolor{blue}{Notably, all algorithms use single-threaded index construction on medium-scale datasets, and 64-thread construction on the large-scale Deep100M dataset, except DSG, which only supports single-threading. For WinFilter, we use Super Postfiltering on medium datasets for best performance, and switch to the base algorithm Vamana-WST on Deep100M due to construction overhead.
+	Similarly, we also evaluate \textcolor{blue}{4} key metrics mentioned above in \textit{Range Filtering} algorithms. \textcolor{blue}{Notably, all algorithms use single-threaded index construction on medium-scale datasets, and 64-thread construction on the large-scale Deep100M dataset, except DSG, which only supports single-threading. For WinFilter, we use its integrated Super-Postfiltering on medium datasets for best performance, and switch to its base algorithm Vamana-WST on Deep100M due to construction overhead.
 	}
 	
 	\textit{\textbf{Index construction time.}}
@@ -1278,7 +1278,7 @@ Although the dataset contains two modalities, due to the significant differences
 %	\textcolor{orange}{
 %	DSG only supports single-threaded construction, resulting in the longest build time.}
 	\textcolor{blue}{
-	As shown in Figure~\ref{fig:rangeFilter_build_time}, Faiss and Milvus, based on the IVF\_Flat architecture, require less time. This indexing structure enables fast construction through subset sampling and centroid computation, thereby reducing computational cost. Milvus performs particularly well on large-scale datasets, mainly due to its cache-aware optimizations, which significantly reduce CPU cache misses.}
+	As shown in Figure~\ref{fig:rangeFilter_build_time}, Faiss and Milvus, based on the IVF architecture, require less time. This indexing structure enables fast construction through subset sampling and centroid computation, thereby reducing computational cost. Milvus performs particularly well on large-scale datasets, mainly due to its cache-aware optimizations, which significantly reduce CPU cache misses.}
 %	As shown in Figure~\ref{fig:rangeFilter_build_time}, Faiss, based on the IVF\_Flat architecture, achieves fast index construction through subset sampling and centroid computation, which lowers the computational cost. 
 %	As another IVF\_Flat-based method, Milvus performs even better on large-scale datasets, mainly due to its cache-aware optimization that greatly reduces CPU cache misses.}
 
@@ -1340,7 +1340,7 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 	In this experiment, we follow the query range definition adopted by prior work~\cite{HQI}. \textcolor{blue}{Specifically, for a given query, the range ratio is defined as $2^{-i}$	when the query range covers $\frac{n}{2^i}$ data points, where $n$ is the total dataset size.}
 	% Based on this definition, we evaluate algorithm performance under 4 query range settings: $2^{-2}$, $2^{-4}$, $2^{-6}$, and $2^{-8}$. \textcolor{blue}{Due to the limitations of existing range filtering algorithms, the range filtering experiment only uses one attribute, and the dataset is sorted in ascending order according to the attribute value size. WIT-Real and YT-Audio-Real use real attribute values, and the rest use randomly generated attribute values.}
 	%\textcolor{red}{Some algorithms don't support using actual attributes as search keys, instead requiring an ID (the primary key, ranging from $0$ to $n-1$). Therefore, we uniformly use this ID as the search key. This ID is pre-sorted according to its corresponding real attribute, allowing us to map an attribute to its ID without loss of generality for efficient range queries.} 
-	Based on this definition, we evaluate algorithm performance under four query range settings: $2^{-2}$, $2^{-4}$, $2^{-6}$, and $2^{-8}$. For space considerations, Figure~\ref{fig:exp_8_2} reports results for only the largest ($2^{-2}$) and smallest ($2^{-8}$) range ratios. 
+	Based on this definition, we evaluate algorithm performance under the largest ($2^{-2}$) and smallest ($2^{-8}$) query range settings. We report the results for these two representative cases in Figure~\ref{fig:exp_8_2}.
 %	The experimental results show consistent performance across all datasets and query ranges.
 	
 	%Due to space constraints, Figure~\ref{fig:exp_8_2} reports results for only the largest ($2^{-2}$) and smallest ($2^{-8}$) range ratios. The experimental results show that across all datasets (YT-Audio-Real, WIT-Real, and Deep1M) and query ranges.
@@ -1450,7 +1450,7 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 %		Similar to attribute filtering, the performance of multimodal queries with range filtering shown in Figure~\ref{fig:range-multimodal} is also consistent with the single-modality results in Figure~\ref{fig:exp_8_2}. As shown in Figure~\ref{fig:exp_8_3}, the algorithms still perform the worst on multimodal datasets like Text2Image. This is because these range query algorithms are almost graph-based. Graph algorithms need more iterations to find true neighbors in OOD datasets.
 		}
 		
-	\textit{\textbf{\textcolor{blue}{Large-scale Dataset.}}} \textcolor{blue}{As shown in the Figure~\ref{fig: range big dataset}, On the deep100M dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption (Figure~\ref{fig:rangeFilter_search_memory_mb}). In contrast, VBASE and Faiss demonstrate moderate performance while consuming significantly less memory.}
+	\textit{\textbf{\textcolor{blue}{Large-scale Dataset.}}} \textcolor{red}{As shown in the Figure~\ref{fig: range big dataset}, On the Deep100M dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption (Figure~\ref{fig:rangeFilter_search_memory_mb}). In contrast, VBASE and Faiss demonstrate moderate performance while consuming significantly less memory.}
 		
 	\textit{\textbf{\textcolor{blue}{Different Hardware Environments.}}} 
 	\textcolor{blue}{Consistent with Section 4.2.3, we conduct range filtering experiments on the YT-Audio-Real dataset using two server configurations, with results presented in Figure~\ref{fig:range-cross-platform}. Although the third-ranked algorithm differs, we consider the ranking order remains stable since the performance of the third and fourth algorithms is comparable. Therefore, different server configurations only affect the performance of individual algorithms, with minimal impact on their relative performance ranking.}  
