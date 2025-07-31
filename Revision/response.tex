@@ -315,7 +315,7 @@ Thank you for your suggestion. Using ID as an attribute is a prevalent method in
 
 \noindent
 \textbf{Response:} 
-That is a great suggestion. In order to figure out if the server setting affects the relative ordering of methods, we conducted additional experiments on an Ubuntu 20.04 server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz featuring 128GB of RAM and 84 MiB of L3 cache using the YT-Audio-Real dataset. The experimental results are shown in Figure~\ref{fig:attribute_multimodel}.
+That is a great suggestion. In order to figure out if the server setting affects the relative ordering of methods, we conducted additional experiments on an Ubuntu 20.04 server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz featuring 128GB of RAM and 84 MiB of L3 cache using the YT-Audio-Real dataset. The experimental results of attribute filtering and range filtering are shown in Figure~\ref{fig:attribute-cross-platform} and Figure~\ref{fig:range-cross-platform}, respectively.
 The results show that the performance differences across algorithms remain small, and their relative rankings do not change significantly across servers.
 We did observe slightly lower QPS on this server compared to our original one, which is mainly due to the the lower CPU frequency, reduced RAM capacity, and smaller L3 cache of the Xeon 6330 processors. \textbf{(Please see Section 4.2.3 and Section 4.3.3, highlighted in blue in the revised manuscript.)} 
 
@@ -332,6 +332,14 @@ Section 4.3.3:
 	\includegraphics[width=0.47\linewidth]{fig/attribute_71.pdf}
 	\caption{Different Platforms (AF)}
 	\label{fig:attribute-cross-platform}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.495\linewidth]{fig/range_85.pdf}
+	\includegraphics[width=0.47\linewidth]{fig/range_71.pdf}
+	\caption{Different Platforms (RF)}
+	\label{fig:range-cross-platform}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%% R6 %%%%%%%%%%%%%%%%%%%%%%
