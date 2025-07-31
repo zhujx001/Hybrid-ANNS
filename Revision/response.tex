@@ -382,7 +382,8 @@ While StitchedVamana achieves extremely low latency (sub-5 ms) due to its stitch
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We are deeply aware of this shortcoming, so we provide the search peak memory usage of each algorithm in the time and space overhead section and carefully analyze the reasons. \textbf{(Please see Section 4.2.1 and Section 4.3.1, highlighted in blue in the revised manuscript.)}
+Thank you for your suggestion. We are deeply aware of this shortcoming, so we provide the search peak memory usage of each algorithm in the time and space overhead section and carefully analyze the reasons. We present the search peak memory usage for the newly added attribute filtering and range filtering in Figure \ref{fig:search_memory_mb_comparison} and Figure \ref{fig:rangeFilter_search_memory_mb}, respectively.
+\textbf{(Please see Section 4.2.1 and Section 4.3.1, highlighted in blue in the revised manuscript.)}
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=\linewidth]{fig/legend_only.pdf}
@@ -403,12 +404,20 @@ Thank you for your suggestion. We are deeply aware of this shortcoming, so we pr
 %For attribute filtering, please see section 4.2.1.
 % \textbf{(Please refer to the blue highlighted parts in Section 4.2.1 for attribute filtering.)}
 Section 4.2.1:
-\textcolor{blue}{"Most algorithms load both the index and the dataset into memory during the build and query phases, and the construction process typically generates a large amount of temporary data. As a result, peak memory usage during querying is generally slightly lower than during construction. However, exceptions exist. As shown in Figure~\ref{fig:search_memory_mb_comparison}, CAPS incurs significantly higher peak memory usage during querying due to the need to dynamically maintain a large candidate set."}
+\textcolor{blue}{\textit{\textbf{"Peak memory.}}	
+	We present the peak memory usage during index construction and query processing in Figure 3c and Figure 3d, respectively. We observe that peak memory usage is generally correlated with the combined size of the index and the dataset. Methods that produce larger indexes tend to consume more memory during both construction and querying, and this trend holds consistently across different datasets.}
+
+\textcolor{blue}{However, there are notable exceptions. During index construction, PASE adopts an on-demand loading strategy, resulting in build peak memory usage even lower than the final index size. NHQ generates a large number of candidate neighbors during construction but retains only a small subset per node in the final index, leading to high peak memory usage despite a relatively compact index.
+During querying, CAPS maintains a large candidate set dynamically, which significantly increases its search peak memory consumption."}
 
 %For range filtering, please see section 4.3.1.
  %\textbf{(Please refer to the blue highlighted parts in Section 4.3.1 for range filtering.)}
  Section 4.3.1:
-\textcolor{blue}{"As for the search peak memory usage, we can find from the Figure ~\ref{fig:rangeFilter_search_memory_mb} that it is basically consistent with the build peak memory usage trend. As we analyzed in the section on attribute filtering."}
+\textcolor{blue}{\textit{\textbf{"Peak memory.}}  
+	As explained in the attribute filtering analysis, methods with larger index sizes (including the dataset) tend to exhibit higher peak memory consumption. As shown in Figure12c and Figure12d, range filtering also adheres to this pattern.}  
+
+	
+	\textcolor{blue}{WinFilter also presents an exception:  its peak memory usage is also affected by the level of parallelism. Although the final index size remains relatively small, the peak memory usage increases significantly during both construction and search. During construction, this is caused by the parallel building of local indices for each tree node, which results in substantial temporary memory usage. Similarly, during search, WinFilter needs to load multiple local indices in parallel for different tree nodes, further contributing to high peak memory consumption."}
 
 
 %%%%%%%%%%%%%%%%%%%%%% R8 %%%%%%%%%%%%%%%%%%%%%%
@@ -483,46 +492,68 @@ Senction 5.1.3:	\textcolor{blue}{"All of the following methods support both attr
 }
 
 \noindent
-\textbf{Response:} Thank you very much for your valuable suggestions. Your advice is very insightful. In the recommendation section of our paper, we have added a clearer summary table of the algorithms to help readers choose the appropriate algorithm based on their application scenarios, as shown in Table~\ref{tab:algo_scenarios}. \textbf{(Please see Section 5.1.1 and Section 5.1.2, highlighted in blue in the revised manuscript.)}
+\textbf{Response:} Thank you very much for your valuable suggestions. Your advice is very insightful. In the recommendation section of our paper, we have added a clearer summary table of the algorithms to help readers choose the appropriate algorithm based on their application scenarios, as shown in Table~\ref{tab:algorithm_recommendation}. \textbf{(Please see Section 5.1.1 and Section 5.1.2, highlighted in blue in the revised manuscript.)}
 
 
 %\subsection{Recommendations.}
 %Based on the performance of different algorithms in experiments, we recommend algorithms suitable for different scenarios, as shown in the table \ref{tab:algo_scenarios}.
-
 \begin{table*}[htbp]
 	\caption{Algorithm Recommendation}
-	\label{tab:algo_scenarios}
+	\label{tab:algorithm_recommendation}
 	\resizebox{\textwidth}{!}{
+		\large
 		\begin{tabular}{|l|*{16}{c|}}
 			\hline
-			\multirow{2}{*}{\textbf{Application Scenarios / Algorithms}} 
+			\multirow{2}{*}{\textbf{Application Scenarios }} 
 			& \multicolumn{6}{c|}{\textbf{AF}} 
 			& \multicolumn{5}{c|}{\textbf{RF}} 
 			& \multicolumn{5}{c|}{\textbf{AF / RF}} \\
 			\cline{2-17}
-			& \textbf{NHQ} & \textbf{Filtered} & \textbf{Stitched} & \textbf{CAPS}  & \textbf{UNG} & \textbf{Puck} 
-			& \textbf{DSG} & \textbf{iRange} & \textbf{SeRF} & \textbf{UNIFY} & \textbf{Win} 
-			& \textbf{ACORN}& \textbf{Faiss} & \textbf{Milvus} & \textbf{VBASE} & \textbf{PASE} \\
+			& \textbf{UNG} & \textbf{NHQ} & \textbf{Filtered} & \textbf{Stitched} & \textbf{CAPS} & \textbf{Puck} 
+			& \textbf{Win} & \textbf{iRange} & \textbf{SeRF} & \textbf{DSG} & \textbf{UNIFY} 
+			& \textbf{ACORN} & \textbf{Faiss} & \textbf{Milvus} & \textbf{VBASE} & \textbf{PASE} \\
 			\hline
-			\textbf{Query Performance} & S & M & S & M &\textbf{S} & S & M & M & W & M & S & M/M & M/M & M/M & W/W & W/W \\
-			\textbf{Index Time} &M  &M  &M  &M  &M  &S  &W  &M  &S  &W  &W  &W/W &\textbf{S}/\textbf{S} &S/S  &W/M  &W/W  \\
-			\textbf{Peak Memory} &W  &M  &M  &M  &M  &S  &W  &W  &M  &W  &W  &W/W  &\textbf{S}/\textbf{S}  &S/M  &S/M  &S/S \\
-			\textbf{Large-Scale Dataset} & S & S & W & W &\textbf{S} &S  &M  &S  &M  &S  &\textbf{S}  &M/W  &W/M  &W/W  &M/M  &-  \\
-			\textbf{Rare Attribute \& Low Range} &M  &M  &S  &S &\textbf{S}  &S  &S  &S  &W  &M  &\textbf{S} &M/M  &M/M  &W/W  &W/W  &W/W  \\
-			\textbf{Robust to MultiModal Dataset} &S  &S  &W  &S  &\textbf{S}  &M  &M  &S  &M  &S  &\textbf{S}  &M/M  &W/M  &W/W  &W/W  &W/W  \\
-			\textbf{Robust to Attribute Distribution} &W  &W  &S  &S  &S  &S  &-  &-  &-  &-  &-  &S/-  &W/-  &\textbf{S}/-  &W/-  &W/-  \\
-			\textbf{High LID Dataset} &S  &M  &S  &M  &\textbf{S}  &M  &M  &S  &M  &S  &\textbf{S}  &W/W  &M/S  &W/W  &W/M  &W/W  \\
-			\textbf{General-Purpose} &\faCheck  &\faCheck  &\faTimes  &\faTimes  &\faCheck  &\faTimes  &\faTimes  &\faTimes &\faTimes  & \faCheck &\faCheck&\faTimes  &\faCheck  &\faCheck  &\faCheck&\faTimes  \\
+			\textbf{Performance-Critical} & \textbf{B} & G & M & G & M & G & G & M & P & M & M & M/M & M/M & M/M & P/P & P/P \\
+			\hline
+			\textbf{Index-Efficient} & M & M & M & M & M & G & P & M & G & P & P & P/P & \textbf{B}/\textbf{B} & G/G & P/M & P/P \\
+			\hline
+			\textbf{Memory-Constrained} & M & P & M & M & M & G & P & P & M & P & P & P/P & \textbf{B}/\textbf{B} & G/M & G/M & G/G \\
+			\hline
+			\textbf{Large-Scale} & \textbf{B} & G & G & P & P & G & \textbf{B} & G & M & M & G & M/P & P/M & P/P & M/M & - \\
+			\hline
+			\textbf{Multi-Modal} & \textbf{B} & G & G & P & G & M & \textbf{B} & G & M & M & G & M/M & P/M & P/P & P/P & P/P \\
+			\hline
+			\textbf{High-LID} & \textbf{B} & G & M & G & M & M & \textbf{B} & G & M & M & G & P/P & M/G & P/P & P/M & P/P \\
+			\hline
+			\textbf{Rare Attribute / Low Range} & \textbf{B} & P & M & G & G & G & \textbf{B} & G & P & G & M & M/M & M/M & P/P & P/P & P/P \\
+			\hline
+			\textbf{Distribution-Robust} & G & P & P & G & G & G & - & - & - & - & - & G/- & P/- & \textbf{B}/- & P/- & P/- \\
+			\hline
+			\textbf{General-Purpose} & G & G & G & P & P & P & G & P & P & P & G & P & G & G & G & P \\
 			\hline
 		\end{tabular}
+		
+		
+		
 	}
-	\vspace{1mm}
-\begin{flushleft}
-	\textbf{Performance Levels:} \quad \textbf{S} = Strongest, S = Strong, M = Medium, W = Weak, - = Not Supported \\
-	\textbf{Recommendation:} \quad \faCheck = Recommended, \faTimes = Not Recommended
-\end{flushleft}
-
+	
 	\centering
+	
+	\footnotesize{
+		\begin{minipage}{\linewidth}
+			\vspace{0.1cm}
+			\textit{Performance Levels:} B = Best, G = Good , M = Moderate, P = Poor, - = Not Supported;
+			\textit{Performance-Critical}: Requires low latency and high recall;
+			\textit{Index-Efficient}: Emphasizes lightweight index construction;
+			\textit{Memory-Constrained}: Operates under limited memory conditions;
+			\textit{Large-Scale}: For scenarios involving datasets at the scale of 100 million vectors;
+			\textit{Multi-Modal}: For multi-modal dataset scenarios;
+			\textit{High-LID}: For complex dataset scenarios;
+			\textit{Rare Attribute / Low Range}: For filtering with low attribute selectivity or small ranges;
+			\textit{Distribution-Robust}: For scenarios with variable attribute distributions;
+			\textit{General-Purpose}: Balanced performance across varied scenarios.
+			
+	\end{minipage}}
 	
 \end{table*}
 
@@ -1009,19 +1040,17 @@ To make the paper more readable, we have added a more detailed explanation of th
 
 In response to the large difference in index construction time shown in Figure 12a, we have revised the paper based on your suggestion. We added more detailed and in-depth analysis to provide a clearer explanation. \textbf{(Please see the "Index construction time" part of Section 4.3.1, highlighted in blue in the revised manuscript.)}
 
-
-
 \textcolor{blue}{
-	"ACORN-1 also achieves highly efficient index construction, especially on large-scale datasets. This efficiency stems from its construction process, which closely resembles that of the original HNSW, and from reducing the number of candidate neighbors in the upper layers, thereby lowering computational cost. SeRF, another HNSW-based method, also exhibits very short construction time. During construction, it attaches timestamp information to edges, keeping the total time comparable to building a single HNSW graph, which enables efficient construction even on large datasets.}
+"As shown in Figure 12a, Faiss and Milvus, based on the IVF\_Flat architecture, require less time. This indexing structure enables fast construction through subset sampling and centroid computation, thereby reducing computational cost. Milvus performs particularly well on large-scale datasets, mainly due to its cache-aware optimizations, which significantly reduce CPU cache misses.}
 
-\textcolor{blue}{
-	In contrast, WinFilter relies on a tree-based structure, where a separate nearest neighbor graph must be built for each node. This design introduces redundant computation and high construction cost. However, on large-scale datasets, the preprocessing phase of WinFilter is replaced in the experiments by the base algorithm Vamana-WST, thus avoiding significant time overhead.}
+\textcolor{blue}{In addition, the two HNSW-based methods, ACORN-1 and SeRF, also achieve short index construction time. ACORN-1 closely follows the original HNSW construction process and reduces the number of candidate neighbors in the upper layers to lower computational overhead. SeRF attaches timestamp information to edges during construction, making the total build time comparable to that of a single HNSW graph.
+}
 
-\textcolor{blue}{
-	ACORN-\(\gamma\)  extends the neighbor list of each node to provide more candidate paths, which increases both computational and memory overhead. Although it prunes distant neighbors to save storage, the additional construction logic still incurs substantial time cost.}
+\textcolor{blue}{We observe that ACORN-\(\gamma\), DSG and WinFilter exhibit relatively long index construction time. Although the first two methods are also based on HNSW, ACORN-\(\gamma\) extends the neighbor list of each node to provide more candidate paths, which increases both computational and memory overhead. DSG, on the other hand, incorporates a rectangle tree structure for index management, making the construction process more complex and costly. 
+	%	Additionally, DSG builds index using a single thread on the Deep100M dataset, resulting in the longest construction time. 
+	WinFilter also incurs high construction cost, as it relies on a tree structure and builds a separate nearest neighbor graph for each node, which leads to redundant computations. However, on large-scale datasets, its preprocessing stage is replaced by the base algorithm Vamana-WST, effectively avoiding significant time overhead."}
 
-	\textcolor{blue}{
-	DSG is an optimization over SeRF, incorporating a rectangular tree structure for index management. This makes the construction process more complex and costly. In addition, on Deep100M, DSG uses single-threaded construction, resulting in the longest build time."}
+
 
 
 
