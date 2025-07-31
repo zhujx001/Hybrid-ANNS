@@ -1010,18 +1010,15 @@ To make the paper more readable, we have added a more detailed explanation of th
 In response to the large difference in index construction time shown in Figure 12a, we have revised the paper based on your suggestion. We added more detailed and in-depth analysis to provide a clearer explanation. \textbf{(Please see the "Index construction time" part of Section 4.3.1, highlighted in blue in the revised manuscript.)}
 
 
-
-\textcolor{blue}{
-	"ACORN-1 also achieves highly efficient index construction, especially on large-scale datasets. This efficiency stems from its construction process, which closely resembles that of the original HNSW, and from reducing the number of candidate neighbors in the upper layers, thereby lowering computational cost. SeRF, another HNSW-based method, also exhibits very short construction time. During construction, it attaches timestamp information to edges, keeping the total time comparable to building a single HNSW graph, which enables efficient construction even on large datasets.}
-
-\textcolor{blue}{
-	In contrast, WinFilter relies on a tree-based structure, where a separate nearest neighbor graph must be built for each node. This design introduces redundant computation and high construction cost. However, on large-scale datasets, the preprocessing phase of WinFilter is replaced in the experiments by the base algorithm Vamana-WST, thus avoiding significant time overhead.}
-
-\textcolor{blue}{
-	ACORN-\(\gamma\)  extends the neighbor list of each node to provide more candidate paths, which increases both computational and memory overhead. Although it prunes distant neighbors to save storage, the additional construction logic still incurs substantial time cost.}
-
 	\textcolor{blue}{
-	DSG is an optimization over SeRF, incorporating a rectangular tree structure for index management. This makes the construction process more complex and costly. In addition, on Deep100M, DSG uses single-threaded construction, resulting in the longest build time."}
+	"As shown in Figure 12a, Faiss and Milvus, based on the IVF\_Flat architecture, require less time. This indexing structure enables fast construction through subset sampling and centroid computation, thereby reducing computational cost. Milvus performs particularly well on large-scale datasets, mainly due to its cache-aware optimizations, which significantly reduce CPU cache misses.}
+	
+	\textcolor{blue}{In addition, the two HNSW-based methods, ACORN-1 and SeRF, also achieve short index construction time. ACORN-1 closely follows the original HNSW construction process and reduces the number of candidate neighbors in the upper layers to lower computational overhead. SeRF attaches timestamp information to edges during construction, making the total build time comparable to that of a single HNSW graph.
+	}
+	
+	
+	\textcolor{blue}{We observe that ACORN-\(\gamma\), DSG and WinFilter exhibit relatively long index construction time. Although the first two methods are also based on HNSW, ACORN-\(\gamma\) extends the neighbor list of each node to provide more candidate paths, which increases both computational and memory overhead. DSG, on the other hand, incorporates a rectangle tree structure for index management, making the construction process more complex and costly. 
+		WinFilter also incurs high construction cost, as it relies on a tree structure and builds a separate nearest neighbor graph for each node, which leads to redundant computations. However, on large-scale datasets, its preprocessing stage is replaced by the base algorithm Vamana-WST, effectively avoiding significant time overhead."}
 
 
 
