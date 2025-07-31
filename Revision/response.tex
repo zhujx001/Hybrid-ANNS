@@ -358,7 +358,7 @@ Thank you for your suggestion. Currently, except for Filtered-DiskANN, other hyb
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=\linewidth]{fig/recall_latency_all.pdf}
-	\caption{Performance Comparison of SSD-Based and In-Memory Execution of FilteredDiskANN}
+	\caption{Performance Comparison of SSD-Based and In-Memory Execution of Filtered-DiskANN}
 	\label{fig:recall-latency}
 \end{figure}
 
@@ -716,7 +716,7 @@ Thank you for your suggestion. We have added relevant experiments conducted on d
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We clarify in Table ~\ref{tab:compair_1} which methods support disk-based execution. Since only FilteredDiskANN supports disk-based execution, we conduct additional experiments to analyze its performance and report a detailed cost breakdown (I/O vs. CPU). Figure~\ref{fig:recall-latency} shows that I/O consistently dominates total latency (accounting for 80–85\%) and becomes the primary bottleneck at high recall levels. We also compare it with two in-memory baselines—FilteredVamana and StitchedVamana—to highlight their efficiency and trade-offs. Due to space constraints and the limited relevance to other methods, we exclude this analysis from the revised paper and provide it here for completeness.
+Thank you for your suggestion. We clarify in Table ~\ref{tab:compair_1} which methods support disk-based execution. Since only Filtered-DiskANN supports disk-based execution, we conduct additional experiments to analyze its performance and report a detailed cost breakdown (I/O vs. CPU). Figure~\ref{fig:recall-latency} shows that I/O consistently dominates total latency (accounting for 80–85\%) and becomes the primary bottleneck at high recall levels. We also compare it with two in-memory baselines—FilteredVamana and StitchedVamana—to highlight their efficiency and trade-offs. Due to space constraints and the limited relevance to other methods, we exclude this analysis from the revised paper and provide it here for completeness.
 
 We have already provided a detailed response to this issue in our reply to Meta R5. Please refer to that response for more information.
 
