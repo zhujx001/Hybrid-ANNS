@@ -328,6 +328,7 @@ Section 4.3.3:
 
 \begin{figure}[htbp]
 	\centering
+	\includegraphics[width=0.48\textwidth]{fig/attribute_legend.pdf}
 	\includegraphics[width=0.495\linewidth]{fig/attribute_85.pdf}
 	\includegraphics[width=0.47\linewidth]{fig/attribute_71.pdf}
 	\caption{Different Platforms (AF)}
@@ -336,6 +337,7 @@ Section 4.3.3:
 
 \begin{figure}[htbp]
 	\centering
+	\includegraphics[width=0.48\textwidth]{fig/range_legend.pdf}
 	\includegraphics[width=0.495\linewidth]{fig/range_85.pdf}
 	\includegraphics[width=0.47\linewidth]{fig/range_71.pdf}
 	\caption{Different Platforms (RF)}
@@ -414,6 +416,7 @@ We believe your suggestion is very reasonable, and the experiment on search peak
 \end{figure}
 
 
+
 %For attribute filtering, please see section 4.2.1.
 % \textbf{(Please refer to the blue highlighted parts in Section 4.2.1 for attribute filtering.)}
 Section 4.2.1:
@@ -442,14 +445,32 @@ During querying, CAPS maintains a large candidate set dynamically, which signifi
 
 \noindent
 \textbf{Response:} 
-Thank you for your valuable suggestion regarding our experiments. In Section 4.2.3 and Section 4.3.3, we have added experiments on the Deep100M dataset. The results show that most algorithms struggle to balance performance with time and space costs on this large-scale dataset. In particular, StitchedVamana performs poorly on Deep100M. \textbf{(Please see the "Large-scale Datasets" part of Section 4.2.3 and Section 4.3.3, highlighted in blue in the revised manuscript.)}
+Thank you for your valuable suggestion regarding our experiments. In Section 4.2.3 and Section 4.3.3, we have added experiments on the Deep100M dataset. The results show that most algorithms struggle to balance performance with time and space costs on this large-scale dataset. In particular, StitchedVamana performs poorly on Deep100M. The experimental results are shown in Figure~\ref{fig:attribute big dataset} and Figure~\ref{fig:range big dataset}. \textbf{(Please see the "Large-scale Datasets" part of Section 4.2.3 and Section 4.3.3, highlighted in blue in the revised manuscript.)}
 %\textbf{(Please refer to the blue highlighted parts in Section 4.2.4 and Section 4.3.4 under Large-scale Datasets.)}
 
 
-Section 4.2.3:\textcolor{blue}{"As shown in the figure 11, on the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating good adaptability to large-scale datasets. However, this also comes with significant memory overhead. The clustering-based algorithm Faiss+HQI\_Batch shows moderate performance but has very low memory overhead, which also has certain practical significance. Furthermore, we do not present the results of StitchedVamana and CAPS, as their recall remained consistently low. StitchedVamana sets the search entry point to 0 by default, which makes it prone to getting stuck in local optima when the entry is far from the target region, hindering effective navigation. CAPS, on the other hand, cannot properly run large-scale dataset experiments because its code implementation does not account for such scenarios."}
+Section 4.2.3:\textcolor{blue}{"As shown in the Figure 11, on the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating good adaptability to large-scale datasets. However, this also comes with significant memory overhead. The clustering-based algorithm Faiss+HQI\_Batch shows moderate performance but has very low memory overhead, which also has certain practical significance. Furthermore, we do not present the results of StitchedVamana and CAPS, as their recall remained consistently low. StitchedVamana sets the search entry point to 0 by default, which makes it prone to getting stuck in local optima when the entry is far from the target region, hindering effective navigation. CAPS, on the other hand, cannot properly run large-scale dataset experiments because its code implementation does not account for such scenarios."}
 
 Section 4.3.3:
-\textcolor{blue}{"As shown in the figure 16, On the deep100M dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption, as detailed in Figure 12d. Meanwhile, VBASE and Faiss demonstrate moderate performance but significantly lower memory consumption than the top 3 algorithms."}
+\textcolor{blue}{"As shown in the Figure 16, On the deep100M dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption (Figure 12d). In contrast, VBASE and Faiss demonstrate moderate performance while consuming significantly less memory."}
+
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.95\linewidth]{fig/attribute_legend.pdf}
+	\includegraphics[width=\linewidth]{fig/attribute_100M.pdf}
+	\caption{Large-Scale Dataset (AF)}
+	\label{fig:attribute big dataset}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.95\linewidth]{fig/range_legend.pdf}
+	\includegraphics[width=\linewidth]{fig/range_deep100M.pdf}
+	\caption{Large-Scale Dataset (RF)}
+	\label{fig:range big dataset}
+\end{figure}
+
 
 %%%%%%%%%%%%%%%%%%%%%% R9 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
