@@ -900,7 +900,7 @@ Thank you for your suggestion. We acknowledge that the original manuscript did n
 
 \textcolor{blue}{"Graph indexes are widely used in hybrid ANN due to their efficiency. To support hybrid queries, in attribute filtering, a common practice involves attaching attribute metadata to nodes or edges, thereby skipping parts that do not satisfy query conditions during traversal (e.g., NHQ, Filtered-DiskANN, ACORN). In range filtering, edges typically store valid attribute intervals, and traversal proceeds only along edges that satisfy range constraints, thus narrowing the search space (e.g., SeRF, DSG)."}
 	
-\textcolor{blue}{"IVF-based indexes also offer unique advantages in hybrid ANN search scenarios, including natural support for pre-filtering, low memory footprint, and small index size. Efficient filtering is achieved by excluding vectors that do not satisfy attribute constraints before distance computation (e.g., Faiss, Milvus). Furthermore, hierarchical partitioning by attributes can form finer-grained sub-clusters to enhance filtering efficiency (e.g., CAPS, PUCK)."}
+\textcolor{blue}{"IVF-based indexes also offer unique advantages in hybrid ANN search scenarios, including natural support for pre-filtering, low memory footprint, and small index size. Efficient filtering is achieved by excluding vectors that do not satisfy attribute constraints before distance computation (e.g., Faiss, Milvus). Furthermore, hierarchical partitioning by attributes can form finer-grained sub-clusters to enhance filtering efficiency (e.g., CAPS, Puck)."}
 
 
 
@@ -1103,9 +1103,11 @@ In response to the large difference in index construction time shown in Figure 1
 
 Finally, your observation about the missing peak memory usage data for Milvus in Figure 12c is very insightful. Initially, we hesitated to include the peak memory usage of databases (such as Milvus) because they are full systems that run continuously and contain many components. This makes them quite different from other algorithms.
 
-However, we agree with your point. To provide a more comprehensive evaluation, we have added the peak memory usage data of the database systems  in the revised version of the paper. This offers a more complete comparative view. \textbf{(Please see the "Peak memory" part of Section 4.2.1 and Section 4.3.1, highlighted in blue in the revised manuscript.)}
+We agree with your point of view. To provide a more comprehensive evaluation, we have added the peak memory usage data of the database systems  in the revised version of the paper. This offers a more complete comparative view. \textbf{(Please see the "Peak memory" part of Section 4.2.1 and Section 4.3.1, highlighted in blue in the revised manuscript.)}
 
-Once again, thank you for your constructive comments. Your valuable feedback has helped us improve the paper further.
+\textcolor{blue}{
+}
+
 
 
 
