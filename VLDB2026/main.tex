@@ -102,7 +102,10 @@
 	% article.
 	\begin{abstract}
 		Recent studies demonstrate the significant practical value of hybrid queries, which integrate vector search with structured filters (e.g., attribute and range filtering) for refined retrieval.
-		However, current evaluations lack unified benchmarking standards and systematic assessment methodologies. Existing studies not only fail to cover mainstream algorithms but also omit systematic comparisons or in-depth analysis on different methods. To address this issue, we design a complete evaluation framework for hybrid queries. Our study introduces 15 hybrid query algorithms and systematically classifies them based on multiple dimensions, such as index organization and filtering strategy, providing a reference for the categorization of hybrid queries. In experiments, for attribute filtering, we construct standard attribute sets, enabling a unified comparison of algorithms in terms of index construction efficiency, query performance, and robustness. For range filtering, we also evaluate the algorithm performance across the 3 metrics through controlled variation of query ranges. Additionally, we conduct an in-depth analysis of the experimental results based on the underlying principles of algorithms. Extensive experimental results reveal the strengths and weaknesses of each algorithm. Based on the findings, we develop a set of practical guidelines for algorithm selection, offering reliable references for different application scenarios. Furthermore, we identify potential directions for improvement to address the current limitations of these algorithms.
+		However, current evaluations lack unified benchmarking standards and systematic assessment methodologies. Existing studies not only fail to cover mainstream algorithms but also omit systematic comparisons or in-depth analysis on different methods. To address this issue, we design a complete evaluation framework for hybrid queries. Our study introduces 15 hybrid query algorithms and systematically classifies them based on multiple dimensions, such as index organization and filtering strategy, providing a reference for the categorization of hybrid queries. 
+%		In experiments, for attribute filtering, we construct standard attribute sets, enabling a unified comparison of algorithms in terms of index construction efficiency, query performance, and robustness. For range filtering, we also evaluate the algorithm performance across the 3 metrics through controlled variation of query ranges.
+	\textcolor{orange}{In the experiments, we constructed standardized attribute and range sets for attribute filtering and range filtering, respectively, enabling a unified comparison of algorithms in terms of index construction efficiency and query performance. Furthermore, we evaluate the robustness of the algorithms across multiple dimensions, including different data distributions, platforms, and scalability on a 100M-scale dataset.}
+	 Additionally, we conduct an in-depth analysis of the experimental results based on the underlying principles of algorithms. Extensive experimental results reveal the strengths and weaknesses of each algorithm. Based on the findings, we develop a set of practical guidelines for algorithm selection, offering reliable references for different application scenarios. Furthermore, we identify potential directions for improvement to address the current limitations of these algorithms.
 		
 	\end{abstract}
 	
@@ -706,13 +709,13 @@ Faiss is an efficient similarity search library. It uses an ID selector to filte
 		\end{subfigure}
 		
 		%		\caption{Time and space overhead of attribute filtering index construction}
-		\caption{\textcolor{violet}{Time and Space Overhead (Attribute Filtering)}}
+		\caption{\textcolor{violet}{Time and Space Overhead}}
 		\label{fig:build_index_comparison}
 	\end{figure}
 	
 	
 	
-	\textcolor{violet}{To investigate the time and space overhead of different algorithms,} we evaluate \textcolor{orange}{4} key metrics in the single-attribute scenario: index construction time, index size, \textcolor{orange}{build peak memory and search peak memory}. Notably, PASE on GIST1M and Enron is omitted, as it supports only data with dimensionality less than 512. \textcolor{red}{We use 64 threads to build the index for the large-scale Deep100M dataset, and 32 threads for the other six datasets. Notably, the VBASE and PASE algorithms only support single-threaded construction.}
+	\textcolor{violet}{To investigate the time and space overhead of different algorithms,} we evaluate \textcolor{orange}{4} key metrics in the single-attribute scenario: index construction time, index size, \textcolor{orange}{build peak memory and search peak memory}. Notably, PASE on GIST1M and Enron is omitted, as it supports only data with dimensionality less than 512. \textcolor{red}{We use 64 threads to build the index for the large-scale Deep100M dataset, and 32 threads for the other 6 medium-scale datasets. Notably, the VBASE and PASE algorithms only support single-threaded construction.}
 	
 	
 	\begin{figure*}
@@ -1219,7 +1222,7 @@ Most algorithms load both the index and the dataset into memory during the build
 		
 		%		\caption{Time and space overhead of range filtering index construction}
 %		\caption{Time and space overhead of index construction}
-		\caption{\textcolor{violet}{Time and Space Overhead (Range Filtering)}}
+		\caption{\textcolor{violet}{Time and Space Overhead}}
 		\label{fig:rangeFilter_build_index_comparison}
 	\end{figure}
 	\subsection{Range Filtering}
@@ -1489,7 +1492,7 @@ Puck is well-suited for large-scale datasets such as those with 100 million poin
 \textcolor{orange}{
 ACORN demonstrates average overall performance. Among its variants, ACORN-1 shows significant advantages in indexing speed on 100M-scale datasets, but suffers from high memory consumption and delivers only moderate performance.}
 
-\textcolor{orange}{
+\textcolor{red}{
 Faiss, Milvus and VBASE effectively handle complex filtering by employing versatile "pre-filtering" or "post-filtering" strategies, granting them significant flexibility and broad applicability. This flexibility, however, is often counterbalanced by their relatively modest overall search performance. Relatively speaking, PASE performs less well across various aspects.}
 	
 	\subsection{Challenges}
