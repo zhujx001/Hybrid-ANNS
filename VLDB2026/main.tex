@@ -525,11 +525,14 @@
 The vector library and databases discussed in the following are not explicitly designed for hybrid query, but they support both attribute filtering and range filtering. 
 
 \noindent\textbf{\underline{Faiss}\footnote{\textcolor{blue}{https://github.com/facebookresearch/faiss}} \cite{Faiss}}
-Faiss is an efficient similarity search library. It uses an ID selector to filter data before performing ANN search. This supports hybrid search. In Faiss, we use the HQI batch optimization strategy in the IVF index. It groups queries with the same filter conditions. Each group only runs the filter once. It uses efficient matrix operations to compute vector similarity in batches.
+Faiss is an efficient similarity search library. It supports hybrid search by using an ID selector to filter data before performing ANN search.
+In Faiss, we use the HQI batch optimization strategy in the IVF index. It groups queries with the same filter conditions. Each group only runs the filter once. It uses efficient matrix operations to compute vector similarity in batches.
 
 \noindent\textbf{\underline{PASE} \footnote{\textcolor{blue}{https://github.com/alipay/PASE}} \cite{pase}} PASE is a vector index plugin for PostgreSQL. It uses a post-filtering strategy. Since the candidate set size is fixed, it may fail to return enough top-k results.
 
-\noindent\textbf{\underline{VBASE} \footnote{\textcolor{blue}{https://github.com/microsoft/MSVBASE}} \cite{vbase}} VBASE is also a vector plugin for PostgreSQL. It applies filters during the HNSW index traversal. This ensures enough results.
+\noindent\textbf{\underline{VBASE} \footnote{\textcolor{blue}{https://github.com/microsoft/MSVBASE}} \cite{vbase}} VBASE is also a vector plugin for PostgreSQL. Unlike PASE, it applies filters during the HNSW index traversal, discarding unmatched nodes on the fly. This strategy ensures that enough valid results are returned .
+
+
 
 \noindent\textbf{\underline{Milvus} \footnote{\textcolor{blue}{https://github.com/milvus-io/milvus}} \cite{milvus}} Milvus is a vector database designed for large-scale similarity search. In hybrid queries, it adopts a pre-filtering strategy, similar to the ID selector mechanism used in Faiss.
 %It filters data first, then performs approximate nearest neighbor search. This supports hybrid search.
