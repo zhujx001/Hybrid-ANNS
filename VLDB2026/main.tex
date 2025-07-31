@@ -1431,7 +1431,7 @@ Most algorithms load both the index and the dataset into memory during the build
 \end{table*}
 
 	
-	\subsubsection{\textbf{Attribute Filtering}}
+	\subsubsection{Attribute Filtering}
 %	We summarize the applicability of different algorithms across various attribute filtering scenarios in Table~\ref{tab:algo_scenarios}. Puck and UNG excel on large-scale datasets (S1). ACORN-1 and UNG achieve fast index construction (S2). UNG performs well on different datasets (S3, S4). In addition, CAPS performs well on hard datasets with high LID (S3), while NHQ and StitchedVamana perform better on easy datasets with low LID (S4).
 %	Faiss and CAPS can generate relatively compact indexes with low memory usage, which is suitable for resource-constrained situations (S6). Milvus and Faiss serve as general-purpose solutions (S5). UNG stands out for its higher recall, precision, and QPS, and performs well in the OOD scenario (S7, S8).
 \textcolor{orange}{
@@ -1444,7 +1444,7 @@ CAPS, based on clustering, features low index space overhead. It offers flexible
 Puck is well-suited for large-scale datasets such as those with 100 million points. It offers fast index construction and low memory consumption in such scenarios. Moreover, it delivers high search performance in multi-threaded environments, making it an excellent choice for deployment on extremely large datasets.}
 
 
-	\subsubsection{\textbf{Range Filtering}}
+	\subsubsection{Range Filtering}
 \textcolor{orange}{
 	WinFilter achieves the best search performance but requires high time and memory resources during index construction. For large-scale datasets (e.g., with 100 million points), parameter tuning—particularly of tree height—is needed to prevent excessive index growth. When QPS and recall are not strict requirements, its basic variant, Vamana-WST, offers a more efficient alternative with significantly lower indexing overhead.
 		}
@@ -1458,7 +1458,7 @@ Puck is well-suited for large-scale datasets such as those with 100 million poin
 	UNIFY adopts multiple filtering strategies tailored to different query range sizes, avoiding the limitations of a single strategy in specific scenarios. It requires only one index to support all queries, allows dynamic insertions, and features low time and space overhead during index construction, making it a more general-purpose solution.}
 %	Table~\ref{tab:algo_scenarios} also shows the application scenarios of range filtering. iRange performs well on large-scale datasets, combining efficient construction and excellent query capabilities (S1). Faiss performs well in fast index construction (S2). When processing hard datasets, WinFilter, iRange, and DSG are recommended (S3), while WinFilter and iRange also perform well on easy datasets (S4). For general applications, DSG supports dynamic updates, while UNIFY provides flexible filtering strategies (S5). Faiss and SeRF show superior memory efficiency (S6). For static queries with high recall, WinFilter is the best choice (S7). In addition, WinFilter also performs well in OOD scenarios (S8).
 
-	\subsubsection{\textbf{General Algorithm}}
+	\subsubsection{General Algorithm}
 \textcolor{orange}{All of the following methods support both attribute filtering and range filtering.}
 
 \textcolor{orange}{
@@ -1468,7 +1468,7 @@ ACORN demonstrates average overall performance. Among its variants, ACORN-1 show
 Faiss, Milvus, and VBASE handle complex scenarios with advanced filtering operations more effectively. While they offer strong flexibility, their overall search performance is relatively modest. Relatively speaking, PASE performs less well across various aspects.}
 	
 	\subsection{Challenges}
-	\subsubsection{\textbf{Attribute Filtering}}
+	\subsubsection{Attribute Filtering}
 	Most existing attribute filtering algorithms are graph-based, they typically outperform other methods in terms of query accuracy and efficiency. Filtered-DiskANN leverages disk-based storage, making it more suitable for extremely large-scale datasets even in memory-constrained environments. Moreover, the index construction phase of graph-based algorithms is computationally intensive. Therefore, exploring GPU-based acceleration for graph construction and vector computation during indexing is promising. It can significantly improve the performance of graph-based methods.
 	
 	\textcolor{blue}{In addition, existing attribute filtering algorithms face two major limitations: strict requirements on attribute format and limited support for complex filtering conditions. }
@@ -1489,7 +1489,7 @@ Therefore, designing algorithms that can support complex filtering expressions w
 %	%The original implementations of 
 %	NHQ imposes strict constraints on the number of base and query attributes and only support AND conditions. While UNG is relatively flexible—supporting both AND and OR logic—it still lacks support for arbitrary Boolean expressions (e.g., combinations of AND and OR). The lack of flexible Boolean filtering remains a key challenge, limiting the practicality of hybrid query methods in real-world systems with diverse and complex query requirements.
 	
-	\subsubsection{\textbf{Range Filtering}}
+	\subsubsection{Range Filtering}
 	
 	Except for DSG and UNIFY, most range filtering algorithms require the dataset to be pre-sorted before building the index. \textcolor{green}{Moreover, these methods do not support multi-attribute range queries. }Enhancing these methods to support an arbitrary number of range filterable attributes remains an open research challenge.
 	
