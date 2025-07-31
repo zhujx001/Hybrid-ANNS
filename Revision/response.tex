@@ -851,7 +851,7 @@ Thank you for your insightful comments.
 
 \textbf{Regarding dataset scale and scalability:}
 
-We conducted experiments on a 100M-scale deep dataset and analyzed the performance of each algorithm on the large dataset. Please refer to the response to Meta R7.
+We conducted experiments on a 100M-scale deep dataset and analyzed the performance of each algorithm on the large dataset. For more details, please refer to our response to Meta R7.
 
 \textbf{Regarding the experimental parameter settings:}
 
@@ -863,15 +863,15 @@ Due to the large number of algorithms and datasets involved, we did not include 
 
 	\textcolor{blue}{
 %"In the experiments, for datasets with recommended parameters in the original paper, we use the recommended settings. For datasets without recommended parameters, we conduct experiments with different parameter settings and select the one that performs best for the final experiment.Due to the large number of datasets and algorithms involved, the parameters are not listed individually, but they are provided in the code repository."}
-Regarding experimental parameter selection, we adopted the recommended settings from original papers when available. For datasets without suggested parameters, we experimented with different configurations and selected the optimal one for final evaluation. Due to the extensive number of datasets and algorithms involved, specific parameters are not listed individually but are provided in our code repository.}
+"Regarding experimental parameter selection, we adopt the recommended settings from original papers when available. For datasets without suggested parameters, we test different configurations and select relatively optimal ones for final evaluation. Due to the large number of datasets and algorithms involved, specific parameters are not individually listed in the paper but are fully provided in our code repository."}
  
 \textbf{Regarding index partitioning and merging:}
 
-For partitioning and merging, only Filtered-DiskANN, which supports disk storage, builds indices separately and then merges them. However, the algorithms we focused on and evaluated in this study (with the exception of Filtered-DiskANN) are all designed and implemented based on in-memory index construction. Therefore, for the vast majority of algorithms, index partitioning and merging are not involved, which differs from DiskANN's design considerations.
+For partitioning and merging, only Filtered-DiskANN, which supports disk storage, builds indices separately and then merges them. However, the algorithms we focused on and evaluated in this study (with the exception of Filtered-DiskANN) are all designed and implemented based on in-memory index construction. Therefore, for the vast majority of algorithms, index partitioning and merging are not involved, which differs from the design considerations of DiskANN.
 
 \textbf{Regarding quantization time in index build:}
 
-Of all the evaluated algorithms, Faiss, Puck, Filtered-DiskANN, and Milvus support quantization. However, in our experiments, we did not enable quantization in any of our experiments. Therefore, no quantization time was included in the reported index build times.
+Of all the evaluated algorithms, Faiss, Puck, Filtered-DiskANN, and Milvus support quantization. However, in our experiments, we did not enable quantization in any of our experiments. Therefore, no quantization time was included in the reported index construction time.
 
 \textbf{Regarding the exclusion of Vamana in Figure 7 (now Figure 6):}
 
@@ -1002,7 +1002,7 @@ Regarding the issue of range attributes, we indeed used only one range attribute
 
 To make the paper more readable, we have added a more detailed explanation of the range attribute in Section 4.3. \textbf{(Please see Section 4.3, highlighted in blue in the revised manuscript.)}
 
-\textcolor{blue}{"Due to the limitations of existing range filtering algorithms, our experiment uses only a single attribute, with the dataset sorted in ascending order by value. The WIT-Real and YT-Audio-Real datasets use real attribute values, while the rest use randomly generated ones. "}
+\textcolor{blue}{"Due to the limitations of existing range filtering algorithms, our experiment uses only a single attribute, with the dataset sorted in ascending order by value. The WIT-Real and YT-Audio-Real datasets use real attribute values, while the rest use randomly generated ones."}
 
 
 
