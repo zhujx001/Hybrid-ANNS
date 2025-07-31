@@ -354,7 +354,7 @@ Section 4.3.3:
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. Currently, except for FilteredDiskANN, other hybrid query methods are memory-based, so we added the characteristic of whether to support disk for each algorithm in Table \ref{tab:compair_1}, which corresponds to Table 1 in the original paper.. At the same time, we also compared the search performance difference of FilteredDiskANN on memory and SSD using real data sets. The results are shown in Figure~\ref{fig:recall-latency}:
+Thank you for your suggestion. Currently, except for Filtered-DiskANN, other hybrid query methods are memory-based, so we added the characteristic of whether to support disk for each algorithm in Table \ref{tab:compair_1}, which corresponds to Table 1 in the original paper.
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=\linewidth]{fig/recall_latency_all.pdf}
@@ -362,11 +362,12 @@ Thank you for your suggestion. Currently, except for FilteredDiskANN, other hybr
 	\label{fig:recall-latency}
 \end{figure}
 
+ To analyze the cost breakdown of disk-based methods in greater detail, we also compared the search performance difference of Filtered-DiskANN on memory and SSD using real data sets. 
 We conducted additional experiments on the YT-Audio-Real dataset, comparing three variants of DiskANN.
-(1) SSD-based FilteredDiskANN (original disk-based method);
+(1) SSD-based Filtered-DiskANN (original disk-based method);
 (2) FilteredVamana (memory-based method);
 (3) StitchedVamana (memory-based method).
-
+We have run all experiments with 32 search threads for fair comparison. Figure~\ref{fig:recall-latency} shows the mean latency (log-scale, left y-axis) and I/O vs CPU proportion (right y-axis) across different Recall\@10 levels:
 
 %\begin{itemize}
 %	\item SSD-based FilteredDiskANN (original disk-based method)
@@ -374,18 +375,14 @@ We conducted additional experiments on the YT-Audio-Real dataset, comparing thre
 %	\item StitchedVamana (memory-based method)
 %\end{itemize}
 
-
-All experiments were run with 32 search threads for fair comparison. The following figure shows the mean latency (log-scale, left y-axis) and I/O vs CPU proportion (right y-axis) across different Recall\@10 levels:
-
-\textbf{ Key Observations:}
 Latency-Recall Tradeoff:
-As expected, SSD-based FilteredDiskANN exhibits significantly higher latency than in-memory methods, especially at higher recall levels. When Recall@10 reaches 0.96, its latency increases super-linearly to over 100 ms.
+As expected, SSD-based Filtered-DiskANN exhibits significantly higher latency than in-memory methods, especially at higher recall levels. When Recall@10 reaches 0.96, its latency increases super-linearly to over 100 ms.
 
-Cost Breakdown of DiskANN:The I/O proportion consistently dominates, maintaining 80\%–85\% of the total latency even at different recall levels.
+Cost Breakdown of Filtered-DiskANN:The I/O proportion consistently dominates, maintaining 80\%–85\% of the total latency even at different recall levels.
 The CPU proportion remains low (10–15\%), indicating that I/O is the major bottleneck in disk-based search pipelines.
 This clearly shows that improving disk read efficiency or reducing I/O volume is critical for performance optimization.
 
-\textbf{In-memory Methods:}
+In-memory Methods:
 FilteredVamana achieves a good balance, staying under 30 ms while achieving Recall@10 > 0.97.
 While StitchedVamana achieves extremely low latency (sub-5 ms) due to its stitched multi-label index structure, its fixed edge connectivity may limit effectiveness under highly uncorrelated label distributions. Nevertheless, it consistently supports 90\%+ Recall@10 across diverse datasets, as shown in our evaluations.
 
@@ -400,7 +397,7 @@ While StitchedVamana achieves extremely low latency (sub-5 ms) due to its stitch
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. We are deeply aware of this shortcoming, so we provide the search peak memory usage of each algorithm in the time and space overhead section and carefully analyze the reasons. We present the search peak memory usage for the newly added attribute filtering and range filtering in Figure \ref{fig:search_memory_mb_comparison} and Figure \ref{fig:rangeFilter_search_memory_mb}, respectively.
+We believe your suggestion is very reasonable, and the experiment on search peak memory is indeed an important component. We are deeply aware of this shortcoming, so we provide the search peak memory usage of each algorithm in the time and space overhead section and carefully analyze the reasons. We present the search peak memory usage for the newly added attribute filtering and range filtering in Figure \ref{fig:search_memory_mb_comparison} and Figure \ref{fig:rangeFilter_search_memory_mb}, respectively.
 \textbf{(Please see Section 4.2.1 and Section 4.3.1, highlighted in blue in the revised manuscript.)}
 \begin{figure}[htbp]
 	\centering
@@ -468,7 +465,7 @@ Section 4.3.3:
 %Thank you for your valuable suggestion. We agree that our previous analysis of the strengths and weaknesses of the algorithms was not sufficiently clear.
 %
 %To address this, we add a summary table that provides a clearer and more structured comparison of the strengths and weaknesses of each algorithm, offering deeper insights and more concrete guidelines for understanding their trade-offs.
-Thank you very much for your insightful comments. We fully agree with your views. We have revised the discussion section of the paper accordingly. In this section, we have added a recommendation table for the algorithms, which summarizes their performance under various conditions. Additionally, we have provided a more in-depth analysis of the internal mechanisms of each algorithm in the text, aiming to uncover the fundamental reasons behind their performance.
+Thank you very much for your insightful comments.  We have revised the discussion section to provide a detailed analysis of the pros and cons of each algorithm, along with an in-depth examination of their internal mechanisms to uncover the fundamental reasons behind their performance.
 \textbf{(Please see Section 5.1.1, Section 5.1.2 and Section 5.1.3, highlighted in blue in the revised manuscript.)}
 
 Section 5.1.1:\textcolor{blue}{
@@ -510,8 +507,9 @@ Senction 5.1.3:	\textcolor{blue}{"All of the following methods support both attr
 }
 
 \noindent
-\textbf{Response:} Thank you very much for your valuable suggestions. Your advice is very insightful. In the recommendation section of our paper, we have added a clearer summary table of the algorithms to help readers choose the appropriate algorithm based on their application scenarios, as shown in Table~\ref{tab:algorithm_recommendation}. \textbf{(Please see Section 5.1.1 and Section 5.1.2, highlighted in blue in the revised manuscript.)}
+\textbf{Response:} Thank you very much for your valuable suggestions. Your advice is very insightful. In the recommendation section of our paper, we have added a clearer summary table of the algorithms to help readers choose the appropriate algorithm based on their application scenarios, as shown in Table~\ref{tab:algorithm_recommendation}. \textbf{(Please see Section 5.1, highlighted in blue in the revised manuscript.)}
 
+\textcolor{blue}{"Based on the performance of algorithms across various experimental settings, we evaluate their strengths and weaknesses in different application scenarios, as shown in Table \ref{tab:algorithm_recommendation}. "}
 
 %\subsection{Recommendations.}
 %Based on the performance of different algorithms in experiments, we recommend algorithms suitable for different scenarios, as shown in the table \ref{tab:algo_scenarios}.
