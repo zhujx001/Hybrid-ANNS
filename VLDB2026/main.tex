@@ -1183,7 +1183,7 @@ During querying, CAPS maintains a large candidate set dynamically, which signifi
 	We conduct experiments on two multi-modal  datasets Text2image-Mix and Text2image. 
 %This dataset contains image and text vectors and is a hybrid multi-modal dataset. 
 On Text2image-Mix dataset, as shown in Figure~\ref{fig:attribute-multimodal}, UNG and NHQ consistently perform best, followed by CAPS.
-Although the dataset contains two modalities, due to the significant differences between the modalities, they are actually two separate regions in the vector space. The performance is similar to that of the single-modal dataset in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}. This is because mixed multi-modal queries are actually the same as conducting experiments on two datasets of the same modality.This is not actually a difficult query.
+Although the dataset contains two modalities, due to the significant differences between the modalities, they are actually two separate regions in the vector space. The performance is similar to that of the single-modal dataset in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}. This is because mixed multi-modal queries are actually the same as conducting experiments on two datasets of the same modality. This is not actually a difficult query.
 %		Although this dataset mixes two modalities, the vector space distributions of different modalities often differ significantly. In practice, this means that the experiments effectively treat the image and text subsets as separate datasets, since the ground truths for each query belong to the same modality. Therefore, the performance on this dataset is similar to the results shown in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}.
 		In contrast, the Text2image dataset shown in Figure~\ref{fig:attribute-multimodal} is different. The query set and the base dataset belong to two completely different modalities. Queries are far from the dataset points, and the ground truths are more dispersed. To find the ground truths, algorithms typically need to examine more points, which leads to degraded performance.
 		%	We conduct experiments on the text2image-mix dataset. This dataset contains both image and text vectors. It is a more complex multimodal dataset. As shown in Figure~\ref{fig:attribute-multimodal}, although the queries are more complex, UNG and NHQ still perform the best. CAPS is the next best.
@@ -1346,16 +1346,16 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 	%Due to space constraints, Figure~\ref{fig:exp_8_2} reports results for only the largest ($2^{-2}$) and smallest ($2^{-8}$) range ratios. The experimental results show that across all datasets (YT-Audio-Real, WIT-Real, and Deep1M) and query ranges.
 	
 	\textcolor{blue}{
-		As shown in Figure~\ref{fig:exp_8_2}, the algorithms that performed well are WinFilter, iRange, UNIFY and Faiss.
+		As shown in Figure~\ref{fig:exp_8_2}, the algorithms that performed well are WinFilter, iRange, UNIFY, and Faiss.
 	WinFilter maintains optimal performance by building an index for each tree node. It then performs an ANN search on the relevant nodes and post-filters the results, ensuring high recall and QPS.
 	In contrast, iRange dynamically constructs a search graph during query time. This method has low overhead and performs well in small-range queries, but its performance degrades as the query range increases.
 	UNIFY utilizes a skip list for localization followed by a linear scan for searching in small-range query scenarios. Its performance is generally lower than graph-based structures like iRange in these cases.
 	Interestingly, Faiss, aided by its efficient ID selector for filtering, calculates distances for only a small subset of points in small-range scenarios. Consequently, it can outperform algorithms specifically designed for range searches.
 	}
 
-	\textcolor{blue}{SeRF, ACORN and vector databases performed poorly.
+	\textcolor{blue}{SeRF, ACORN, and vector databases performed poorly.
 		SeRF demonstrates relatively weak overall performance, with a pronounced drop in recall under small-range query scenarios. This is because SeRF compresses the entire HNSW graph by attaching range information to its edges. However, during small-range queries, its multi-filtering mechanism requires scanning a large number of edge entries that are irrelevant to the current query range, introducing fixed computational and memory access overhead. Additionally, graph traversal may lead to the exploration of numerous invalid neighbors, increasing the likelihood of the search becoming trapped in local optima and further degrading performance.
-		The overall performance of ACORN is poor. Unlike other algorithms specifically designed for range filtering, ACORN does not design an index specifically for range queries; instead, it adopts a pre-filtering strategy, resulting in poorer performance.
+		The overall performance of ACORN is poor. Unlike other algorithms specifically designed for range filtering, ACORN does not design an index specifically for range queries. Instead, it adopts a pre-filtering strategy, resulting in poorer performance.
 		The performance of vector databases is also poor in range queries, as they are not specifically optimized for such queries. PASE performs particularly poorly in small range queries, with a recall rate lower than 0.1, mainly due to its post-filtering strategy.
 	}
 
