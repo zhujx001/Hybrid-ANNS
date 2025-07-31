@@ -278,7 +278,7 @@
 	\noindent\textbf{\underline{IVF.}} 
 	\textcolor{violet}{IVF divides data into multiple clusters through through a clustering algorithm (e.g., K-Means), with each cluster represented by a center (Figure~\ref{fig:ivf}). During querying, algorithms search only within the few clusters closest to the query point, which reduces computational load.}
 	
-	\textcolor{violet}{IVF-based indexes also offer unique advantages in hybrid ANN search scenarios, including natural support for pre-filtering, low memory footprint, and small index size. Efficient filtering is achieved by excluding vectors that do not satisfy attribute constraints before distance computation (e.g., Faiss, Milvus). Furthermore, hierarchical partitioning by attributes can form finer-grained sub-clusters to enhance filtering efficiency (e.g., CAPS, Puck).}
+	\textcolor{violet}{IVF-based indexes also offer unique advantages in hybrid ANN search scenarios, including natural support for pre-filtering, low memory footprint, and small index size. Efficient filtering is achieved by excluding vectors that do not satisfy attribute constraints before distance computation (e.g., Faiss, Milvus). Furthermore, hierarchical partitioning by attributes can form finer-grained sub-clusters to enhance filtering efficiency (e.g., CAPS, PUCK).}
 %	IVF-based ANN search algorithms improve computational efficiency by partitioning the dataset into clusters and restricting the search to clusters nearest to the query point. Specifically, as shown in Figure~\ref{fig:ivf}, IVF first selects a subset of data points and applies a clustering algorithm (e.g., K-Means) to obtain a set of centroids $(C_0, C_1, ..., C_6)$, each representing a distinct cluster. Every data point (gray dots) is then assigned to the cluster corresponding to its nearest centroid based on the distance metric, thereby forming the index structure.
 %	
 %	During the query process, given a query point $q$, the algorithm computes distances between $q$ and all centroids, selects a small number of the closest centroids ($C_0, C_1, C_2$), and then performs a search only within the associated clusters to identify the approximate nearest neighbors.
@@ -303,7 +303,7 @@
 		\end{subfigure}
 		
 		\setlength{\abovecaptionskip}{0.1cm}
-		\setlength{\belowcaptionskip}{-0.2cm}		
+		\setlength{\belowcaptionskip}{-0.3cm}		
 		\caption{Graph Index and IVF Index}
 		
 	\end{figure}
@@ -315,6 +315,8 @@
 	\renewcommand{\arraystretch}{0.9}
 	\begin{table*}[t]
 		\centering
+		\setlength{\abovecaptionskip}{0.15cm}
+		\setlength{\belowcaptionskip}{-0.1cm}
 		%\setlength{\belowcaptionskip}{-0.3cm}
 		
 		\caption{\textcolor{orange}{Overview of AF-ANN and RF-ANN Search Algorithms}}
@@ -587,7 +589,8 @@ In Faiss, we use the HQI batch optimization strategy in the IVF index. It groups
 	\renewcommand{\arraystretch}{0.9}
 	\begin{table}[t]
 		\centering
-		
+		\setlength{\abovecaptionskip}{0.15cm}
+		\setlength{\belowcaptionskip}{-0.1cm}
 		
 		
 		\caption{Datasets}
@@ -865,7 +868,7 @@ During querying, CAPS maintains a large candidate set dynamically, which signifi
 	\begin{figure*}
 		\centering
 		\setlength{\abovecaptionskip}{0.1cm}
-		\setlength{\belowcaptionskip}{-0.2cm}
+		\setlength{\belowcaptionskip}{-0.25cm}
 		\includegraphics[width=0.95\textwidth]{figures/exp/exp_4_1_MultiLabel_1thread.pdf}
 		\caption{Performance of Multi-Attribute Index Construction and Multi-Attribute Query}
 		\label{fig:exp_4_1_MultiLabel_1thread}
@@ -875,7 +878,7 @@ During querying, CAPS maintains a large candidate set dynamically, which signifi
 	\begin{figure*}
 	\centering
 	\setlength{\abovecaptionskip}{0.1cm}
-	\setlength{\belowcaptionskip}{-0.2cm}
+	\setlength{\belowcaptionskip}{-0.25cm}
 	\includegraphics[width=0.95\textwidth]{figures/exp/exp_3_1.pdf}
 	\caption{
 		Effect of Attribute Distribution on Query Performance}
@@ -978,7 +981,7 @@ During querying, CAPS maintains a large candidate set dynamically, which signifi
 		\begin{subfigure}{\textwidth}
 			\centering
 			
-			\includegraphics[width=0.95\textwidth]{figures/exp/exp_5_2_1.pdf}
+			\includegraphics[width=0.98\textwidth]{figures/exp/exp_5_2_1.pdf}
 			\caption{Algorithms Optimized for Low AS}
 			\label{fig:exp_5_2_1}
 		\end{subfigure}
@@ -986,7 +989,7 @@ During querying, CAPS maintains a large candidate set dynamically, which signifi
 		\vfill % 增加垂直间距
 		
 		% 第二行：两张子图，左侧宽度是右侧的两倍
-		\begin{subfigure}{0.627\textwidth} % 2/3 宽度
+		\begin{subfigure}{0.64\textwidth} % 2/3 宽度
 			\centering
 			
 			\includegraphics[width=0.96\textwidth]{figures/exp/exp_5_2_2.pdf}
@@ -994,7 +997,7 @@ During querying, CAPS maintains a large candidate set dynamically, which signifi
 			\label{fig:exp_5_2_2}
 		\end{subfigure}
 		\hspace{1mm} % 增加水平间距
-		\begin{subfigure}{0.33\textwidth} % 1/3 宽度
+		\begin{subfigure}{0.34\textwidth} % 1/3 宽度
 			\centering
 			
 			\includegraphics[width=0.96\textwidth]{figures/exp/exp_5_2_3.pdf}
@@ -1002,6 +1005,8 @@ During querying, CAPS maintains a large candidate set dynamically, which signifi
 			\label{fig:exp_5_2_3}
 		\end{subfigure}
 		
+		\setlength{\abovecaptionskip}{0.1cm}
+		\setlength{\belowcaptionskip}{-0.15cm}
 		
 		\caption{Performance of Different Attribute Selectivity (AS) under the Same Algorithm}
 		\label{fig:exp_5_2_combined}
@@ -1092,10 +1097,9 @@ During querying, CAPS maintains a large candidate set dynamically, which signifi
 	
 	\includegraphics[width=0.9\textwidth]{figures/exp/attribute_legend.pdf}
 	
-	\begin{minipage}[t]{0.38\textwidth}
+	\begin{minipage}[t]{0.36\textwidth}
 		\centering
-		\setlength{\abovecaptionskip}{0.1cm}
-		\setlength{\belowcaptionskip}{-0.2cm}
+		
 		% 内部图片宽度使用\linewidth，它会自适应为容器宽度(0.32\textwidth)
 		\includegraphics[width=0.495\linewidth]{figures/exp/attribute_multimodel.pdf}
 		\hfill 
@@ -1103,18 +1107,14 @@ During querying, CAPS maintains a large candidate set dynamically, which signifi
 		
 	\end{minipage}
 	\hfill
-	\begin{minipage}[t]{0.203\textwidth}
+	\begin{minipage}[t]{0.20\textwidth}
 		\centering
-		\setlength{\abovecaptionskip}{0.1cm}
-		\setlength{\belowcaptionskip}{-0.2cm}
-		\includegraphics[width=0.96\linewidth]{figures/exp/attribute_100M.pdf} 
+		\includegraphics[width=0.9\linewidth]{figures/exp/attribute_100M.pdf} 
 		
 	\end{minipage}
 	\hfill % 在盒子之间添加弹性间距
-	\begin{minipage}[t]{0.39\textwidth}
+	\begin{minipage}[t]{0.37\textwidth}
 		\centering
-		\setlength{\abovecaptionskip}{0.1cm}
-		\setlength{\belowcaptionskip}{-0.2cm}
 		\includegraphics[width=0.495\linewidth]{figures/exp/attribute_85.pdf}
 		\hfill
 		\includegraphics[width=0.47\linewidth]{figures/exp/attribute_71.pdf}
@@ -1129,18 +1129,24 @@ During querying, CAPS maintains a large candidate set dynamically, which signifi
 	\setlength{\abovecaptionskip}{0.0cm}
 	\begin{minipage}[t]{0.37\textwidth}
 		\centering
+		\setlength{\abovecaptionskip}{-0.2cm}
+		\setlength{\belowcaptionskip}{-0.25cm}
 		\caption{Multi-Modal Datasets (AF)}
 		\label{fig:attribute-multimodal}  
 	\end{minipage}%
 	\hfill
 	\begin{minipage}[t]{0.27\textwidth}
 		\centering
+		\setlength{\abovecaptionskip}{-0.2cm}
+		\setlength{\belowcaptionskip}{-0.25cm}
 		\caption{Large-Scale Dataset (AF)}
 		\label{fig:attribute big dataset}
 	\end{minipage}
 	\hfill 
 	\begin{minipage}[t]{0.35\textwidth}
 		\centering
+		\setlength{\abovecaptionskip}{-0.2cm}
+		\setlength{\belowcaptionskip}{-0.25cm}
 		\caption{Different Platforms (AF)}
 		\label{fig:attribute-cross-platform}
 	\end{minipage}%
@@ -1269,7 +1275,7 @@ Although the dataset contains two modalities, due to the significant differences
 		%		\caption{Time and space overhead of range filtering index construction}
 %		\caption{Time and space overhead of index construction}
 		\setlength{\abovecaptionskip}{0.1cm}
-		\setlength{\belowcaptionskip}{-0.3cm}
+		\setlength{\belowcaptionskip}{-0.4cm}
 		\caption{\textcolor{violet}{Time and Space Overhead (RF)}}
 		\label{fig:rangeFilter_build_index_comparison}
 	\end{figure}
@@ -1278,7 +1284,7 @@ Although the dataset contains two modalities, due to the significant differences
 	\subsubsection{\textcolor{violet}{Time and Space overhead.}}
 	
 	%Similar to the evaluation of \textit{Attribute Filtering} algorithms, 
-	Similarly, we also evaluate \textcolor{orange}{4} key metrics mentioned above in \textit{Range Filtering} algorithms. \textcolor{orange}{Notably, all algorithms use single-threaded index construction on medium-scale datasets, and 64-thread construction on the large-scale Deep100M dataset, except DSG, which only supports single-threading. For WinFilter, we use its integrated Super-Postfiltering on medium datasets for best performance, and switch to its base algorithm Vamana-WST on Deep100M due to construction overhead.
+	Similarly, we also evaluate \textcolor{orange}{4} key metrics mentioned above in \textit{Range Filtering} algorithms. \textcolor{orange}{Notably, all algorithms use single-threaded index construction on medium-scale datasets, and 64-thread construction on the large-scale Deep100M dataset, except DSG, which only supports single-threading. For WinFilter, we use Super Postfiltering on medium datasets for best performance, and switch to the base algorithm Vamana-WST on Deep100M due to construction overhead.
 	}
 	
 	\textit{\textbf{Index construction time.}}
@@ -1293,7 +1299,7 @@ Although the dataset contains two modalities, due to the significant differences
 %	\textcolor{orange}{
 %	DSG only supports single-threaded construction, resulting in the longest build time.}
 	\textcolor{orange}{
-	As shown in Figure~\ref{fig:rangeFilter_build_time}, Faiss and Milvus, based on the IVF architecture, require less time. This indexing structure enables fast construction through subset sampling and centroid computation, thereby reducing computational cost. Milvus performs particularly well on large-scale datasets, mainly due to its cache-aware optimizations, which significantly reduce CPU cache misses.}
+	As shown in Figure~\ref{fig:rangeFilter_build_time}, Faiss and Milvus, based on the IVF\_Flat architecture, require less time. This indexing structure enables fast construction through subset sampling and centroid computation, thereby reducing computational cost. Milvus performs particularly well on large-scale datasets, mainly due to its cache-aware optimizations, which significantly reduce CPU cache misses.}
 %	As shown in Figure~\ref{fig:rangeFilter_build_time}, Faiss, based on the IVF\_Flat architecture, achieves fast index construction through subset sampling and centroid computation, which lowers the computational cost. 
 %	As another IVF\_Flat-based method, Milvus performs even better on large-scale datasets, mainly due to its cache-aware optimization that greatly reduces CPU cache misses.}
 
@@ -1344,7 +1350,9 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 		
 		\centering
 		
-		\includegraphics[width=0.92\textwidth]{figures/exp/exp_8_2.pdf}
+		\includegraphics[width=0.99\textwidth]{figures/exp/exp_8_2.pdf}
+		\setlength{\abovecaptionskip}{0.1cm}
+		\setlength{\belowcaptionskip}{-0.15cm}
 		\caption{Performance of RF-ANN Search}
 		\label{fig:exp_8_2}
 	\end{figure*}
@@ -1355,7 +1363,7 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 	In this experiment, we follow the query range definition adopted by prior work~\cite{HQI}. \textcolor{red}{Specifically, for a given query, the range ratio is defined as $2^{-i}$	when the query range covers $\frac{n}{2^i}$ data points, where $n$ is the total dataset size.}
 	% Based on this definition, we evaluate algorithm performance under 4 query range settings: $2^{-2}$, $2^{-4}$, $2^{-6}$, and $2^{-8}$. \textcolor{blue}{Due to the limitations of existing range filtering algorithms, the range filtering experiment only uses one attribute, and the dataset is sorted in ascending order according to the attribute value size. WIT-Real and YT-Audio-Real use real attribute values, and the rest use randomly generated attribute values.}
 	%\textcolor{red}{Some algorithms don't support using actual attributes as search keys, instead requiring an ID (the primary key, ranging from $0$ to $n-1$). Therefore, we uniformly use this ID as the search key. This ID is pre-sorted according to its corresponding real attribute, allowing us to map an attribute to its ID without loss of generality for efficient range queries.} 
-	Based on this definition, we evaluate algorithm performance under the largest ($2^{-2}$) and smallest ($2^{-8}$) query range settings. We report the results for these two representative cases in Figure~\ref{fig:exp_8_2}.
+	Based on this definition, we evaluate algorithm performance under four query range settings: $2^{-2}$, $2^{-4}$, $2^{-6}$, and $2^{-8}$. For space considerations, Figure~\ref{fig:exp_8_2} reports results for only the largest ($2^{-2}$) and smallest ($2^{-8}$) range ratios. 
 %	The experimental results show consistent performance across all datasets and query ranges.
 	
 	%Due to space constraints, Figure~\ref{fig:exp_8_2} reports results for only the largest ($2^{-2}$) and smallest ($2^{-8}$) range ratios. The experimental results show that across all datasets (YT-Audio-Real, WIT-Real, and Deep1M) and query ranges.
@@ -1412,7 +1420,7 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 	\centering
 	\includegraphics[width=0.7\textwidth]{figures/exp/range_legend.pdf}
 	
-	\begin{minipage}[t]{0.38\textwidth}
+	\begin{minipage}[t]{0.36\textwidth}
 		\centering
 		\includegraphics[width=0.495\linewidth]{figures/exp/range_multimodel.pdf}
 		\hfill 
@@ -1420,12 +1428,12 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 
 	\end{minipage}
 	\hfill
-	\begin{minipage}[t]{0.203\textwidth}
+	\begin{minipage}[t]{0.18\textwidth}
 		\centering
 		\includegraphics[width=0.96\linewidth]{figures/exp/range_deep100M.pdf} 
 	\end{minipage}
 	\hfill % 在盒子之间添加弹性间距
-	\begin{minipage}[t]{0.39\textwidth}
+	\begin{minipage}[t]{0.36\textwidth}
 		\centering
 		\includegraphics[width=0.495\linewidth]{figures/exp/range_85.pdf}
 		\hfill
@@ -1435,21 +1443,26 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 
 \begin{figure*}
 	\centering
-	\setlength{\abovecaptionskip}{0.0cm}
 	\begin{minipage}[t]{0.37\textwidth}
 		\centering
+		\setlength{\abovecaptionskip}{-0.2cm}
+		\setlength{\belowcaptionskip}{-0.3cm}
 		\caption{Multi-Modal Datasets (RF)}
 		\label{fig:range-multimodal} 
 	\end{minipage}%
 	\hfill
 	\begin{minipage}[t]{0.27\textwidth}
 		\centering
+		\setlength{\abovecaptionskip}{-0.2cm}
+		\setlength{\belowcaptionskip}{-0.3cm}
 		\caption{Large-Scale Dataset (RF)}
 		\label{fig: range big dataset}
 	\end{minipage}
 	\hfill % 在盒子之间添加弹性间距
 	\begin{minipage}[t]{0.35\textwidth}
 		\centering
+		\setlength{\abovecaptionskip}{-0.2cm}
+		\setlength{\belowcaptionskip}{-0.3cm}
 		\caption{Different Platforms (RF)}
 		\label{fig:range-cross-platform}
 	\end{minipage}%
@@ -1465,7 +1478,7 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 %		Similar to attribute filtering, the performance of multimodal queries with range filtering shown in Figure~\ref{fig:range-multimodal} is also consistent with the single-modality results in Figure~\ref{fig:exp_8_2}. As shown in Figure~\ref{fig:exp_8_3}, the algorithms still perform the worst on multimodal datasets like Text2Image. This is because these range query algorithms are almost graph-based. Graph algorithms need more iterations to find true neighbors in OOD datasets.
 		}
 		
-	\textit{\textbf{\textcolor{red}{Large-scale Dataset.}}} \textcolor{red}{As shown in the Figure~\ref{fig: range big dataset}, On the Deep100M dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption (Figure~\ref{fig:rangeFilter_search_memory_mb}). In contrast, VBASE and Faiss demonstrate moderate performance while consuming significantly less memory.}
+	\textit{\textbf{\textcolor{red}{Large-scale Dataset.}}} \textcolor{red}{As shown in the Figure~\ref{fig: range big dataset}, On the deep100M dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption (Figure~\ref{fig:rangeFilter_search_memory_mb}). In contrast, VBASE and Faiss demonstrate moderate performance while consuming significantly less memory.}
 		
 	\textit{\textbf{\textcolor{blue}{Different Hardware Environments.}}} 
 	\textcolor{cyan}{Consistent with Section 4.2.3, we conduct range filtering experiments on the YT-Audio-Real dataset using two server configurations, with results presented in Figure~\ref{fig:range-cross-platform}. Although the third-ranked algorithm differs, we consider the ranking order remains stable since the performance of the third and fourth algorithms is comparable. Therefore, different server configurations only affect the performance of individual algorithms, with minimal impact on their relative performance ranking.}  
@@ -1485,6 +1498,8 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 	%Based on the performance of different algorithms in experiments, we recommend algorithms suitable for different scenarios, as shown in the table \ref{tab:algo_scenarios}.
 	
 \begin{table*}[htbp]
+	\setlength{\abovecaptionskip}{0.1cm}
+	\setlength{\belowcaptionskip}{0.1cm}
 	\caption{Algorithm Recommendation}
 	\label{tab:algorithm_recommendation}
 	\resizebox{\textwidth}{!}{

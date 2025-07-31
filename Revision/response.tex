@@ -945,7 +945,7 @@ For partitioning and merging, only Filtered-DiskANN, which supports disk storage
 \textbf{Regarding quantization time in index build:}
 
 Of all the evaluated algorithms, Faiss, Puck, Filtered-DiskANN, and Milvus support quantization.
-However, quantization serves to reduce memory usage during queries by sacrificing query accuracy. Given that most of the graph-based algorithms involved in this paper (with the exception of Filtered-DiskANN) do not support quantization, we do not enable quantization in our experiments for a fair comparison. Therefore, the reported index construction time does not include quantization time. 
+Quantization serves to reduce memory usage during queries by sacrificing query accuracy. Given that most of the graph-based algorithms involved in this paper (with the exception of Filtered-DiskANN) do not support quantization, we do not enable quantization in our experiments for a fair comparison. Therefore, the reported index construction time does not include quantization time. 
 
 \textbf{Regarding the exclusion of Vamana in Figure 7 (now Figure 6):}
 
