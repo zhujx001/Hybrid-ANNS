@@ -247,7 +247,7 @@ Section 4.1.1: \textcolor{blue}{
 }
 
 Section 4.2.3: \textcolor{blue}{
-	"We conduct experiments on two multimodal datasets Text2image-Mix and Text2image. On Text2imageMix dataset, as shown in Figure 9, UNG and NHQ consistently perform best, followed by CAPS. Although the dataset contains two modalities, due to the significant differences between the modalities, they are actually two separate regions in the vector space. The performance is similar to that of the single-modal dataset in Figure 4. This is because mixed multi-modal queries are actually the same as conducting experiments on two datasets of the same modality. This is not actually a difficult query. In contrast, the Text2image dataset shown in Figure 9 is different. The query set and the base dataset belong to two completely different modalities. Queries are far from the dataset points, and the ground truths are more dispersed. To find the groundtruths, algorithms typically need to examine more points, which leads to degraded performance." 
+	"We conduct experiments on two multimodal datasets Text2image-Mix and Text2image. On Text2imageMix dataset, as shown in Figure 9, UNG and NHQ consistently perform best, followed by CAPS. Although the dataset contains two modalities, due to the significant differences between the modalities, they are actually two separate regions in the vector space. The performance is similar to that of the single-modal dataset in Figure 4. This is because mixed multi-modal queries are actually the same as conducting experiments on two datasets of the same modality. This is not actually a difficult query. In contrast, the Text2image dataset shown in Figure 9 is different. The query set and the base dataset belong to two completely different modalities. Queries are far from the dataset points, and the ground truths are more dispersed. To find the ground truths, algorithms typically need to examine more points, which leads to degraded performance." 
 }
 
 Section 4.3.3:\textcolor{blue}{
@@ -258,7 +258,7 @@ Section 4.3.3:\textcolor{blue}{
 	\centering
 	\includegraphics[width=0.95\linewidth]{fig/attribute_legend.pdf}
 	\includegraphics[width=\linewidth]{fig/attribute_multimodel_2.pdf}
-	\caption{Attribute Filtering Multi-modal}
+	\caption{Multi-modal Datasets (AF)}
 	\label{fig:attribute_multimodel}
 \end{figure}
 
@@ -266,7 +266,7 @@ Section 4.3.3:\textcolor{blue}{
 	\centering
 	\includegraphics[width=0.95\linewidth]{fig/range_legend.pdf}
 	\includegraphics[width=\linewidth]{fig/range_multimodel_2.pdf}
-	\caption{Range Filtering Multi-modal}
+	\caption{Multi-modal Datasets (RF)}
 	\label{fig:range_multimodel}
 \end{figure}
 
@@ -297,7 +297,7 @@ Section 4.3.3:\textcolor{blue}{
 
 \noindent
 \textbf{Response:} 
-Thank you for your suggestion. Using the ID as an attribute for range filtering is a prevalent method in current range filtering algorithm evaluations, which indeed has considerable limitations. To address this issue, we have updated two of our datasets (YT-Audio-Real, WIT-Real) to include real attributes.In fact, current hybrid query algorithms do not explicitly model or leverage complex semantic relationships, such as those between vectors and their attributes, or among different attributes. As shown in Figure~\ref{fig:range_2_2}, our experiments also show that the impact of using real attributes versus using IDs on the algorithms is negligible. The key factor remains the size of the query range. \textbf{(Please see the third paragraph of Section 4.1.1, highlighted in blue in the revised manuscript.)}
+Thank you for your suggestion. Using ID as an attribute is a prevalent method in current range filtering algorithm evaluations, so we also use ID as attributes in our experiments. To conduct a meaningful evaluation, we have updated two of our datasets (YT-Audio-Real, WIT-Real) to include real attributes.  \textbf{(Please see Section 4.1.1, highlighted in blue in the revised manuscript.)}
 
 
 
@@ -1056,7 +1056,7 @@ In response to the large difference in index construction time shown in Figure 1
 
 Finally, your observation about the missing peak memory usage data for Milvus in Figure 12c is very insightful. Initially, we hesitated to include the peak memory usage of databases (such as Milvus) because they are full systems that run continuously and contain many components. This makes them quite different from other algorithms.
 
-However, we agree with your point. To provide a more comprehensive evaluation, we have added the peak memory usage data of the database systems  in the revised version of the paper. This offers a more complete comparative view. \textbf{(Please see the "Build peak memory" part of Section 4.2.1 and Section 4.3.1, highlighted in blue in the revised manuscript.)}
+However, we agree with your point. To provide a more comprehensive evaluation, we have added the peak memory usage data of the database systems  in the revised version of the paper. This offers a more complete comparative view. \textbf{(Please see the "Peak memory" part of Section 4.2.1 and Section 4.3.1, highlighted in blue in the revised manuscript.)}
 
 Once again, thank you for your constructive comments. Your valuable feedback has helped us improve the paper further.
 
