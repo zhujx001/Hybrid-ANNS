@@ -681,6 +681,12 @@ In fact, we have conducted experiments to verify that the choice between synthet
 
 For range filtering, we have also included the YT-Audio-Real and WIT-Real datasets with their respective real-world attributes in our experiments. For more details, please refer to our response to Meta R3.
 
+Regarding your review comment, we did indeed try to find suitable e-commerce datasets to better align with the application scenarios mentioned in the introduction. We investigated some publicly available e-commerce datasets, such as ecommerce\_product\_images\_18K and MEP-3M datasets. However, we found that neither of these datasets fully met our requirements for conducting hybrid querying experiments.
+Specifically, the ecommerce\_product\_images\_18K dataset was too small to effectively evaluate the performance and scalability of hybrid querying algorithms under large-scale datasets. On the other hand, while the MEP-3M dataset was larger, it did not directly provide image data that could be encoded into vectors, and we were unable to find suitable fields for vectorization.
+As we were unable to locate an ideal e-commerce dataset that simultaneously contained sufficient scale of both vectors and structured attributes, we ultimately decided to continue using the WIT and YouTube-Audio datasets, which are widely employed in existing hybrid querying algorithm research. These datasets feature real attribute information and have been broadly accepted by the community as standard benchmarks for evaluating hybrid query performance. We believe that despite not being directly from e-commerce platforms, their data characteristics and complexity are sufficient to support our comprehensive evaluation and in-depth analysis of hybrid querying algorithms.
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%% W2 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -1072,9 +1078,7 @@ Thank you for the suggestion. We realized that the original wording is somewhat 
 \noindent
 \textbf{Response:} Thank you very much for your careful review and valuable suggestions. We greatly appreciate your feedback and sincerely apologize for any lack of clarity in our paper.
 
-Regarding the issue of range attributes, we indeed used only one range attribute for evaluation. At present, most existing range filtering algorithms only support filtering on a single attribute. This is a major limitation of current range filtering methods. We have clearly pointed this out in Section 5.2.2 of the "Discussion" part of the paper and listed it as an important challenge for future work. Thank you for highlighting this point, which further emphasizes the significance of our work. \textbf{(Please see the "Build peak memory" part of Section 5.2.2, highlighted in green in the revised manuscript.)}
-
-To make the paper more readable, we have added a more detailed explanation of the range attribute in Section 4.3. \textbf{(Please see Section 4.3, highlighted in blue in the revised manuscript.)}
+Regarding the issue of range attributes, we indeed used only one range attribute for evaluation. At present, most existing range filtering algorithms only support filtering on a single attribute. This is a major limitation of current range filtering methods. We have added a more detailed explanation of the range attribute in Section 4.3. \textbf{(Please see Section 4.3, highlighted in blue in the revised manuscript.)}
 
 \textcolor{blue}{"Due to the limitations of existing range filtering algorithms, our experiment uses only a single attribute, with the dataset sorted in ascending order by value. The WIT-Real and YT-Audio-Real datasets use real attribute values, while the rest use randomly generated ones."}
 
