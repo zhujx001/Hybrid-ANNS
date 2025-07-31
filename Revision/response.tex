@@ -823,7 +823,7 @@ analyzing the strengths and weaknesses of each algorithm and recommended those w
 
 \noindent
 \textbf{Response:}
-Thank you for your suggestion. We acknowledge that the original manuscript did not clearly explain how attribute filtering (AF) and range filtering (RF) are embedded into standard graph-based and IVF-based index structures. We have revised Section 2.2 and added two paragraphs. These paragraphs summarize how the algorithms discussed in this paper implement hybrid query functionality based on these foundational indexing structures. \textbf{(Please see Section 2.2, highlighted in blue in the revised manuscript.)}
+Thank you for your suggestion. We acknowledge that the original manuscript did not clearly explain how attribute filtering (AF) and range filtering (RF) are embedded into standard graph-based and IVF-based index structures. We have revised Section 2.2 and added descriptions related to attribute filtering and range filtering. We have also summarized how the algorithms discussed in this paper implement hybrid query functionality based on these foundational indexing structures. \textbf{(Please see Section 2.2, highlighted in blue in the revised manuscript.)}
 
 \textcolor{blue}{"Graph indexes are widely used in hybrid ANN due to their efficiency. To support hybrid queries, in attribute filtering, a common practice involves attaching attribute metadata to nodes or edges, thereby skipping parts that do not satisfy query conditions during traversal (e.g., NHQ, Filtered-DiskANN, ACORN). In range filtering, edges typically store valid attribute intervals, and traversal proceeds only along edges that satisfy range constraints, thus narrowing the search space (e.g., SeRF, DSG)."}
 	
