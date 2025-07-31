@@ -148,7 +148,7 @@ and concerns, and the changes are highlighted \textcolor{blue}{in blue} accordin
 \noindent
 \textbf{Response:} We sincerely appreciate your valuable suggestions, which provide meaningful improvements to our work. Ensuring the readability of the figures is indeed crucial. We have modified both the figure and the related description in the paper to improve readability and ensure academic rigor. \textbf{(Please see Section 4.2.3, highlighted in blue in the revised manuscript.)}
 
-\textcolor{blue}{"The proximity of the curves in the figure reflects algorithm sensitivity to distributional variations. When the curves converge closely, the algorithm demonstrates strong resilience against attribute distribution shifts."}
+\textcolor{blue}{"The proximity of the curves in the figure reflects algorithm sensitivity to attribute distributional variations. When the curves converge closely, it demonstrates that the algorithm maintains stable performance when attribute distributions change."}
 
 For performance under different attribute distributions, to illustrate how different algorithms are affected by varying attribute distributions, we added robustness indicators (Stable and Unstable) in the figure. This provides more intuitive visualization of how robust each algorithm performs across different attribute distributions. As shown in Figure\ref{fig:attribute_distribution} below.
 %\textbf{Response:} Thank you for your valuable suggestions. We agree that the original figure had readability issues. We have first improved the readability of the attribute selectivity Figure~\ref{fig:attribute_selectivity} by adding comparative legends for each algorithm and standardizing the y-axis scales across different subplots.
@@ -171,13 +171,13 @@ For performance under different attribute distributions, to illustrate how diffe
 	\centering
 %	\includegraphics[width=\linewidth]{fig/exp_3_1_legend.pdf}
 	\includegraphics[width=\linewidth]{fig/exp_3_1.pdf}
-	\caption{Effect of Attribute Distribution on Query Performance (Strong is robust to attribute distribution shifts, Weak is sensitive to attribute distribution shifts)}
+	\caption{Effect of Attribute Distribution on Query Performance}
 	\label{fig:attribute_distribution}
 \end{figure*}
 
 For performance under different attribute selectivity, to reflect the performance differences of each algorithm under different attribute selectivity, we added performance rankings for each algorithm across different selectivity levels in the figure. This provides a clearer illustration of how each algorithm is affected by attribute selectivity rates. As shown in Figure~\ref{fig:attribute_selectivity} below.
 
-We also removed the original Figure~\ref{fig:attribute_selectivity_2}, which displayed too many algorithms in one plot and was difficult to interpret and somewhat redundant with Figure~\ref{fig:attribute_selectivity}. We believe these changes improve the clarity and readability of the paper, without reducing the completeness of the evaluation.
+We also removed the  Figure~\ref{fig:attribute_selectivity_2}, which displayed too many algorithms in one plot and was difficult to interpret and somewhat redundant with Figure~\ref{fig:attribute_selectivity}. We believe these changes improve the clarity and readability of the paper, without reducing the completeness of the evaluation.
 
 
 
@@ -699,18 +699,17 @@ Thank you for pointing this out. The original reference [49], now updated to ref
 
 
 \noindent
-\textbf{Response:} 
-Thank you for your suggestion. We cited these two papers in the introduction to show that there are several papers that study attribute selectivity. In practice, attribute selectivity are indeed widely used in real-world scenarios. For example, if you need to query data with a very small proportion of a certain attribute, choosing a better algorithm will greatly improve the search effect. There are also some databases with practical applications that mention attribute selectivity, such as Milvus and AnalyticDB-V. We have replaced the two references ([12] and [36]) with more comprehensive and accurate references ([47] and [52]). \textbf{(Please see Section 1.1, highlighted in blue in the revised manuscript.)}
- 
-
-\textcolor{blue}{"For attribute filtering algorithms, factors such as the number of attributes, attribute  selectivity [47,52] significantly impact algorithm performance."}
+ \textbf{Response:} 
+ Thank you for your suggestion. We cited these two papers in the introduction to show that there are several papers that study attribute distribution and selectivity.
+ In addition, attribute distribution and selectivity are indeed widely used in real-world scenarios. For attribute distribution, the label attributes of many recommendation application scenarios in reality conform to the power-law distribution. For attribute selectivity: for example, if you need to query data with a very small proportion of a certain attribute, choosing a better algorithm will greatly improve the search effect. There are also some databases with practical applications that mention attribute selectivity, such as Milvus and AnalyticDB-V. For the two parts you suggested, we have replaced them in the paper with more comprehensive and accurate references. \textbf{(Please see Section 1.1, highlighted in blue in the revised manuscript.)}
+\textcolor{blue}{"For attribute filtering algorithms, factors such as the number of attributes, attribute distribution [13], and attribute selectivity [42,47] significantly impact algorithm performance."}
 
 \textcolor{blue}{"
-[47]Jianguo Wang, Xiaomeng Yi, Rentong Guo, and et al. 2021. Milvus: A PurposeBuilt Vector Data Management System. In SIGMOD Conference. ACM, 2614-2627."
+[42]Jianguo Wang, Xiaomeng Yi, Rentong Guo, and et al. 2021. Milvus: A PurposeBuilt Vector Data Management System. In SIGMOD Conference. ACM, 2614-2627."
 }
 
 \textcolor{blue}{"
-[52]Chuangxian Wei, Bin Wu, Sheng Wang, Renjie Lou, Chaoqun Zhan, Feifei Liand Yuanzhe Cai. 2020.AnalyticDB-V: A Hybrid Analytical Engine TowardsOuery Fusion for Structured and Unstructured Data. Proc. VLDB Endow. 13, 12(2020),3152-3165."
+[47]Chuangxian Wei, Bin Wu, Sheng Wang, Renjie Lou, Chaoqun Zhan, Feifei Liand Yuanzhe Cai. 2020.AnalyticDB-V: A Hybrid Analytical Engine TowardsOuery Fusion for Structured and Unstructured Data. Proc. VLDB Endow. 13, 12(2020),3152-3165."
 }
 
 %%%%%%%%%%%%%%%%%%%%%% D3 %%%%%%%%%%%%%%%%%%%%%%
@@ -1011,23 +1010,25 @@ To make the paper more readable, we have added a more detailed explanation of th
 
 
 
-In response to the large difference in index construction time shown in Figure 12a(now 10a), we have revised the paper based on your suggestion. We added more detailed and in-depth analysis to provide a clearer explanation. \textbf{(Please see the "Index construction time" part of Section 4.3.1, highlighted in blue in the revised manuscript.)}
+In response to the large difference in index construction time shown in Figure 12a, we have revised the paper based on your suggestion. We added more detailed and in-depth analysis to provide a clearer explanation. \textbf{(Please see the "Index construction time" part of Section 4.3.1, highlighted in blue in the revised manuscript.)}
 
-	\textcolor{blue}{
+
+
+\textcolor{blue}{
 	"ACORN-1 also achieves highly efficient index construction, especially on large-scale datasets. This efficiency stems from its construction process, which closely resembles that of the original HNSW, and from reducing the number of candidate neighbors in the upper layers, thereby lowering computational cost. SeRF, another HNSW-based method, also exhibits very short construction time. During construction, it attaches timestamp information to edges, keeping the total time comparable to building a single HNSW graph, which enables efficient construction even on large datasets.}
 
 \textcolor{blue}{
-	In contrast, WinFilter relies on a tree-based structure, where a separate nearest neighbor graph must be built for each node. This design introduces redundant computation and high construction cost. However, on large-scale datasets, the preprocessing phase of WinFilter was replaced with a base algorithm in the experiments, thus avoiding significant time overhead.}
+	In contrast, WinFilter relies on a tree-based structure, where a separate nearest neighbor graph must be built for each node. This design introduces redundant computation and high construction cost. However, on large-scale datasets, the preprocessing phase of WinFilter is replaced in the experiments by the base algorithm Vamana-WST, thus avoiding significant time overhead.}
 
 \textcolor{blue}{
 	ACORN-\(\gamma\)  extends the neighbor list of each node to provide more candidate paths, which increases both computational and memory overhead. Although it prunes distant neighbors to save storage, the additional construction logic still incurs substantial time cost.}
 
-%	The reason for the high construction time of ACORN-$\gamma$ has been explained in the attribute filtering section and is therefore omitted here.
-
-\textcolor{blue}{
+	\textcolor{blue}{
 	DSG is an optimization over SeRF, incorporating a rectangular tree structure for index management. This makes the construction process more complex and costly. In addition, on Deep100M, DSG uses single-threaded construction, resulting in the longest build time."}
 
-Finally, your observation about the missing peak memory usage data for Milvus in Figure 12c(now 10c) is very insightful. Initially, we hesitated to include the peak memory usage of databases (such as Milvus) because they are full systems that run continuously and contain many components. This makes them quite different from other algorithms.
+
+
+Finally, your observation about the missing peak memory usage data for Milvus in Figure 12c is very insightful. Initially, we hesitated to include the peak memory usage of databases (such as Milvus) because they are full systems that run continuously and contain many components. This makes them quite different from other algorithms.
 
 However, we agree with your point. To provide a more comprehensive evaluation, we have added the peak memory usage data of the database systems  in the revised version of the paper. This offers a more complete comparative view. \textbf{(Please see the "Build peak memory" part of Section 4.2.1 and Section 4.3.1, highlighted in blue in the revised manuscript.)}
 
