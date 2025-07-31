@@ -1090,8 +1090,7 @@ During querying, CAPS maintains a large candidate set dynamically, which signifi
 		\includegraphics[width=0.495\linewidth]{figures/exp/attribute_multimodel.pdf}
 		\hfill 
 		\includegraphics[width=0.47\linewidth]{figures/exp/attribute_multimodel_1.pdf}
-		\caption{Multi-Modal Datasets}
-		\label{fig:attribute-multimodal} 
+		
 	\end{minipage}%
 	\hfill % 在盒子之间添加弹性间距
 	%
@@ -1100,14 +1099,37 @@ During querying, CAPS maintains a large candidate set dynamically, which signifi
 		\includegraphics[width=0.495\linewidth]{figures/exp/attribute_85.pdf}
 		\hfill
 		\includegraphics[width=0.47\linewidth]{figures/exp/attribute_71.pdf}
-		\caption{Different Platforms}
-		\label{fig:attribute-cross-platform}
+		
 	\end{minipage}%
 	\hfill
 	%
 	\begin{minipage}[t]{0.203\textwidth}
 		\centering
 		\includegraphics[width=0.96\linewidth]{figures/exp/attribute_100M.pdf} 
+
+	\end{minipage}
+\end{figure*}
+
+
+\begin{figure*}
+	\centering
+	\setlength{\abovecaptionskip}{0.0cm}
+	\begin{minipage}[t]{0.37\textwidth}
+		\centering
+		\caption{Multi-Modal Datasets}
+		\label{fig:attribute-multimodal}  
+	\end{minipage}%
+	\hfill % 在盒子之间添加弹性间距
+	%
+	\begin{minipage}[t]{0.37\textwidth}
+		\centering
+		\caption{Different Platforms}
+		\label{fig:attribute-cross-platform}
+	\end{minipage}%
+	\hfill
+	%
+	\begin{minipage}[t]{0.24\textwidth}
+		\centering
 		\caption{Large-Scale Dataset}
 		\label{fig:attribute big dataset}
 	\end{minipage}
@@ -1372,7 +1394,6 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 	
 \begin{figure*}
 	\centering
-	
 	\includegraphics[width=0.7\textwidth]{figures/exp/range_legend.pdf}
 	
 	\begin{minipage}[t]{0.38\textwidth}
@@ -1380,8 +1401,7 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 		\includegraphics[width=0.495\linewidth]{figures/exp/range_multimodel.pdf}
 		\hfill 
 		\includegraphics[width=0.47\linewidth]{figures/exp/range_multimodel_1.pdf}
-		\caption{Multi-Modal Datasets}
-		\label{fig:range-multimodal} 
+
 	\end{minipage}%
 	\hfill % 在盒子之间添加弹性间距
 	%
@@ -1390,19 +1410,41 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 		\includegraphics[width=0.495\linewidth]{figures/exp/range_85.pdf}
 		\hfill
 		\includegraphics[width=0.47\linewidth]{figures/exp/range_71.pdf}
-		\caption{Different Platforms}
-		\label{fig:range-cross-platform}
+
 	\end{minipage}%
 	\hfill
 	%
 	\begin{minipage}[t]{0.203\textwidth}
 		\centering
 		\includegraphics[width=0.96\linewidth]{figures/exp/range_deep100M.pdf} 
+
+	\end{minipage}
+	
+\end{figure*}
+
+\begin{figure*}
+	\centering
+	\setlength{\abovecaptionskip}{0.0cm}
+	\begin{minipage}[t]{0.37\textwidth}
+		\centering
+		\caption{Multi-Modal Datasets}
+		\label{fig:range-multimodal} 
+	\end{minipage}%
+	\hfill % 在盒子之间添加弹性间距
+	%
+	\begin{minipage}[t]{0.37\textwidth}
+		\centering
+		\caption{Different Platforms}
+		\label{fig:range-cross-platform}
+	\end{minipage}%
+	\hfill
+	%
+	\begin{minipage}[t]{0.24\textwidth}
+		\centering
 		\caption{Large-Scale Dataset}
 		\label{fig: range big dataset}
 	\end{minipage}
 \end{figure*}
-
 	
 	\subsubsection{Robustness}
 	
@@ -1423,7 +1465,8 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 	
 %	\textit{\textbf{Multimodel, 85 and Deep100M.}} \textcolor{red}{The fig is Figure \ref{fig:TrinityExtension——Range}}
 	\section{DISCUSSION}
-	Based on the performance of the algorithms on different experimental scenarios, we discuss our findings as follows.
+	\textcolor{orange}{Based on the performance of algorithms across various experimental settings, we evaluate their strengths and weaknesses in different application scenarios, as shown in Table \ref{tab:algorithm_recommendation}. Next, we provide a detailed discussion of the advantages and disadvantages of each algorithm.}
+	
 	
 	
 	\subsection{Recommendations.}
@@ -1431,7 +1474,9 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 	
 \begin{table*}[htbp]
 	\caption{Algorithm Recommendation}
+	\label{tab:algorithm_recommendation}
 	\resizebox{\textwidth}{!}{
+
 \begin{tabular}{|l|*{16}{c|}}
 	\hline
 	\multirow{2}{*}{\textbf{Application Scenarios / Algorithms}} 
@@ -1439,26 +1484,27 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 	& \multicolumn{5}{c|}{\textbf{RF}} 
 	& \multicolumn{5}{c|}{\textbf{AF / RF}} \\
 	\cline{2-17}
-	& \textbf{NHQ} & \textbf{Filtered} & \textbf{Stitched} & \textbf{CAPS}  & \textbf{UNG} & \textbf{Puck} 
-	& \textbf{DSG} & \textbf{iRange} & \textbf{SeRF} & \textbf{UNIFY} & \textbf{Win} 
-	& \textbf{ACORN}& \textbf{Faiss} & \textbf{Milvus} & \textbf{VBASE} & \textbf{PASE} \\
+	& \textbf{UNG} & \textbf{NHQ} & \textbf{Filtered} & \textbf{Stitched} & \textbf{CAPS} & \textbf{Puck} 
+	& \textbf{Win} & \textbf{iRange} & \textbf{SeRF} & \textbf{DSG} & \textbf{UNIFY} 
+	& \textbf{ACORN} & \textbf{Faiss} & \textbf{Milvus} & \textbf{VBASE} & \textbf{PASE} \\
 	\hline
-	\textbf{Query Performance} & S & M & S & M &\textbf{S} & S & M & M & W & M & S & M/M & M/M & M/M & W/W & W/W \\
-	\textbf{Index Time} &M  &M  &M  &M  &M  &S  &W  &M  &S  &W  &W  &W/W &\textbf{S}/\textbf{S} &S/S  &W/M  &W/W  \\
-	\textbf{Peak Memory} &W  &M  &M  &M  &M  &S  &W  &W  &M  &W  &W  &W/W  &\textbf{S}/\textbf{S}  &S/M  &S/M  &S/S \\
-	\textbf{Large-Scale Dataset} & S & S & W & W &\textbf{S} &S  &M  &S  &M  &S  &\textbf{S}  &M/W  &W/M  &W/W  &M/M  &-  \\
-	\textbf{Rare Attribute \& Low Range} &M  &M  &S  &S &\textbf{S}  &S  &S  &S  &W  &M  &\textbf{S} &M/M  &M/M  &W/W  &W/W  &W/W  \\
-	\textbf{Robust to Multi-Modal Dataset} &S  &S  &W  &S  &\textbf{S}  &M  &M  &S  &M  &S  &\textbf{S}  &M/M  &W/M  &W/W  &W/W  &W/W  \\
-	\textbf{Robust to Attribute Distribution} &W  &W  &S  &S  &S  &S  &-  &-  &-  &-  &-  &S/-  &W/-  &\textbf{S}/-  &W/-  &W/-  \\
-	\textbf{High LID Dataset} &S  &M  &S  &M  &\textbf{S}  &M  &M  &S  &M  &S  &\textbf{S}  &W/W  &M/S  &W/W  &W/M  &W/W  \\
-	\textbf{General-Purpose} &\faCheck  &\faCheck  &\faTimes  &\faTimes  &\faCheck  &\faTimes  &\faTimes  &\faTimes &\faTimes  & \faCheck &\faCheck&\faTimes  &\faCheck  &\faCheck  &\faCheck&\faTimes  \\
+	\textbf{Performance Critical} & \textbf{B} & G & M & G & M & G & G & M & P & M & M & M/M & M/M & M/M & P/P & P/P \\
+	\textbf{Fast Index Construction} & M & M & M & M & M & G & P & M & G & P & P & P/P & \textbf{B}/\textbf{B} & G/G & P/M & P/P \\
+	\textbf{Memory Constraint} & M & P & M & M & M & G & P & P & M & P & P & P/P & \textbf{B}/\textbf{B} & G/M & G/M & G/G \\
+	\textbf{Large-Scale Dataset} & \textbf{B} & G & G & P & P & G & \textbf{B} & G & M & M & G & M/P & P/M & P/P & M/M & - \\
+	\textbf{Multi-Modal Dataset} & \textbf{B} & G & G & P & G & M & \textbf{B} & G & M & M & G & M/M & P/M & P/P & P/P & P/P \\
+	\textbf{High LID Dataset} & \textbf{B} & G & M & G & M & M & \textbf{B} & G & M & M & G & P/P & M/G & P/P & P/M & P/P \\
+	\textbf{Rare Attribute \& Low Range} & \textbf{B} & P & M & G & G & G & \textbf{B} & G & P & G & M & M/M & M/M & P/P & P/P & P/P \\
+	\textbf{Robust to Attribute Distribution} & G & P & P & G & G & G & - & - & - & - & - & G/- & P/- & \textbf{B}/- & P/- & P/- \\
+	\textbf{General-Purpose} & G & G & G & P & P & P & G & P & P & P & G & P & G & G & G & P \\
 	\hline
 \end{tabular}
+
+
 	}
 	\vspace{1mm}
 \begin{flushleft}
-	\textbf{Performance Levels:} \quad \textbf{S} = Strongest, S = Strong, M = Medium, W = Weak, - = Not Supported \\
-	\textbf{Recommendation:} \quad \faCheck = Recommended, \faTimes = Not Recommended
+	\textbf{Performance Levels:} \quad B = Best, G = Good , M = Moderate, P = Poor, - = Not Supported \\
 \end{flushleft}
 	\centering
 
@@ -1501,7 +1547,7 @@ Puck is well-suited for large-scale datasets such as those with 100 million poin
 ACORN demonstrates average overall performance. Among its variants, ACORN-1 shows significant advantages in indexing speed on 100M-scale datasets, but suffers from high memory consumption and delivers only moderate performance.}
 
 \textcolor{red}{
-Faiss, Milvus and VBASE effectively handle complex filtering by employing versatile "pre-filtering" or "post-filtering" strategies, granting them significant flexibility and broad applicability. This flexibility, however, is often counterbalanced by their relatively modest overall search performance. Relatively speaking, PASE performs less well across various aspects.}
+Faiss, Milvus and VBASE effectively handle complex filtering by employing versatile "pre-filtering" or "post-filtering" strategies, granting them significant flexibility and broad applicability. This flexibility, however, is often counterbalanced by their relatively modest overall search performance. Relatively speaking, PASE performs less well across various aspects, which indicates that its strategy of loading data pages on-demand is unsuitable for performance-demanding scenarios.}
 	
 	\subsection{Challenges}
 	\subsubsection{Attribute Filtering}
@@ -1515,7 +1561,7 @@ Faiss, Milvus and VBASE effectively handle complex filtering by employing versat
 For example, in multi-attribute scenarios, some algorithms only support Boolean OR logic (e.g., FilterDiskANN), while others only support Boolean AND logic (e.g., NHQ and CAPS). Although algorithms such as ACORN, UNG, and Puck support both AND and OR logic across multiple attributes, they still struggle to handle complex Boolean expressions that involve nested combinations of conjunctions (AND) and disjunctions (OR). In contrast, while databases and the vector search library Faiss support more expressive Boolean logic, their performance is often suboptimal in queries involving only basic attribute filtering.
 Therefore, designing algorithms that can support complex filtering expressions while maintaining high query efficiency remains a key challenge to be addressed. }
 
-\textcolor{violet}{Notably, we find that IVF-based methods are easily extendable to support joint query scenarios of attribute filtering and range filtering, and are compatible with arbitrary combinations of Boolean logic. Experiments in this paper also indicate that IVF-based methods (CAPS, Puck) achieve performance comparable to graph algorithms, while having the lowest time and space overhead, making them highly suitable for large-scale data processing. Therefore, IVF-based hybrid query methods represent a very promising research direction.}
+\textcolor{violet}{Notably, we find that IVF-based methods are easily extendable to support joint query scenarios of attribute filtering and range filtering, and are compatible with arbitrary combinations of Boolean logic. Our experiments also indicate that IVF-based methods (CAPS, Puck) achieve performance comparable to graph algorithms, while having the lowest time and space overhead, making them highly suitable for large-scale data processing. Therefore, IVF-based hybrid query methods represent a very promising research direction.}
 		
 		
 	\textcolor{blue}{
