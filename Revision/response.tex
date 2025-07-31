@@ -245,18 +245,9 @@ As for complex query types that involve both attribute filtering and range queri
 Section 4.1.1: \textcolor{blue}{
 "Additionally, we use the Out-of-Distribution (OOD) dataset Text2Image and the large-scale dataset Deep100M to evaluate the generalization capability of the algorithms. The Text2Image dataset includes two versions. The original version contains 1 million image embeddings as the base dataset and uses 10 thousand text embeddings as the query set. The Text2Image-Mix version is composed of 0.5 million image embeddings and 0.5 million text embeddings as the base dataset, with a query set of 5 thousand image embeddings and 5 thousand text embeddings."
 }
-
-Section 4.2.3: \textcolor{blue}{
-	"We conduct experiments on two multimodal datasets Text2image-Mix and Text2image. On Text2imageMix dataset, as shown in Figure 9, UNG and NHQ consistently perform best, followed by CAPS. Although the dataset contains two modalities, due to the significant differences between the modalities, they are actually two separate regions in the vector space. The performance is similar to that of the single-modal dataset in Figure 4. This is because mixed multi-modal queries are actually the same as conducting experiments on two datasets of the same modality. This is not actually a difficult query. In contrast, the Text2image dataset shown in Figure 9 is different. The query set and the base dataset belong to two completely different modalities. Queries are far from the dataset points, and the ground truths are more dispersed. To find the ground truths, algorithms typically need to examine more points, which leads to degraded performance." 
-}
-
-Section 4.3.3: \textcolor{blue}{
-		"Similar to attribute filtering, the performance of range filtering queries on the Text2image-Mix dataset (Figure 14) is similar to the single-modality query performance (Figure 13). However, on the Text2Image dataset, these algorithms exhibit a significant performance degradation (Figure 14). This is because most of these range query algorithms are graph-based, and such algorithms require more iterations to find true neighbors in OOD datasets."
-}
-
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.95\linewidth]{fig/attribute_legend.pdf}
+	\includegraphics[width=0.99\linewidth]{fig/attribute_legend.pdf}
 	\includegraphics[width=\linewidth]{fig/attribute_multimodel_2.pdf}
 	\caption{Multi-modal Datasets (AF)}
 	\label{fig:attribute_multimodel}
@@ -266,9 +257,20 @@ Section 4.3.3: \textcolor{blue}{
 	\centering
 	\includegraphics[width=0.95\linewidth]{fig/range_legend.pdf}
 	\includegraphics[width=\linewidth]{fig/range_multimodel_2.pdf}
+	\setlength{\abovecaptionskip}{0.2cm}
+	\setlength{\belowcaptionskip}{-0.1cm}
 	\caption{Multi-modal Datasets (RF)}
 	\label{fig:range_multimodel}
 \end{figure}
+
+Section 4.2.3: \textcolor{blue}{
+	"We conduct experiments on two multimodal datasets Text2image-Mix and Text2image. On Text2imageMix dataset, as shown in Figure 9, UNG and NHQ consistently perform best, followed by CAPS. Although the dataset contains two modalities, due to the significant differences between the modalities, they are actually two separate regions in the vector space. The performance is similar to that of the single-modal dataset in Figure 4. This is because mixed multi-modal queries are actually the same as conducting experiments on two datasets of the same modality. This is not actually a difficult query. In contrast, the Text2image dataset shown in Figure 9 is different. The query set and the base dataset belong to two completely different modalities. Queries are far from the dataset points, and the ground truths are more dispersed. To find the ground truths, algorithms typically need to examine more points, which leads to degraded performance." 
+}
+
+Section 4.3.3: \textcolor{blue}{
+		"Similar to attribute filtering, the performance of range filtering queries on the Text2image-Mix dataset (Figure 14) is similar to the single-modality query performance (Figure 13). However, on the Text2Image dataset, these algorithms exhibit a significant performance degradation (Figure 14). This is because most of these range query algorithms are graph-based, and such algorithms require more iterations to find true neighbors in OOD datasets."
+}
+
 
 %\begin{figure}[t]
 %	\centering
