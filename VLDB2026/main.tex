@@ -14,8 +14,8 @@
 \usepackage{subcaption} % 需要subcaption宏包支持子图
 \usepackage{caption}
 \usepackage{fontawesome}
-
-
+\usepackage{makecell}
+\usepackage{array}
 
 % \newtheorem{definition}{DEFINITION} % 定义“定义”环境
 % % \newtheorem{example}{例} % 定义“例”环境，不与“定义”共享编号
@@ -1476,10 +1476,10 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 	\caption{Algorithm Recommendation}
 	\label{tab:algorithm_recommendation}
 	\resizebox{\textwidth}{!}{
-
+\large
 \begin{tabular}{|l|*{16}{c|}}
 	\hline
-	\multirow{2}{*}{\textbf{Application Scenarios / Algorithms}} 
+	\multirow{2}{*}{\textbf{Application Scenarios }} 
 	& \multicolumn{6}{c|}{\textbf{AF}} 
 	& \multicolumn{5}{c|}{\textbf{RF}} 
 	& \multicolumn{5}{c|}{\textbf{AF / RF}} \\
@@ -1488,25 +1488,64 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 	& \textbf{Win} & \textbf{iRange} & \textbf{SeRF} & \textbf{DSG} & \textbf{UNIFY} 
 	& \textbf{ACORN} & \textbf{Faiss} & \textbf{Milvus} & \textbf{VBASE} & \textbf{PASE} \\
 	\hline
-	\textbf{Performance Critical} & \textbf{B} & G & M & G & M & G & G & M & P & M & M & M/M & M/M & M/M & P/P & P/P \\
-	\textbf{Fast Index Construction} & M & M & M & M & M & G & P & M & G & P & P & P/P & \textbf{B}/\textbf{B} & G/G & P/M & P/P \\
-	\textbf{Memory Constraint} & M & P & M & M & M & G & P & P & M & P & P & P/P & \textbf{B}/\textbf{B} & G/M & G/M & G/G \\
-	\textbf{Large-Scale Dataset} & \textbf{B} & G & G & P & P & G & \textbf{B} & G & M & M & G & M/P & P/M & P/P & M/M & - \\
-	\textbf{Multi-Modal Dataset} & \textbf{B} & G & G & P & G & M & \textbf{B} & G & M & M & G & M/M & P/M & P/P & P/P & P/P \\
-	\textbf{High LID Dataset} & \textbf{B} & G & M & G & M & M & \textbf{B} & G & M & M & G & P/P & M/G & P/P & P/M & P/P \\
-	\textbf{Rare Attribute \& Low Range} & \textbf{B} & P & M & G & G & G & \textbf{B} & G & P & G & M & M/M & M/M & P/P & P/P & P/P \\
-	\textbf{Robust to Attribute Distribution} & G & P & P & G & G & G & - & - & - & - & - & G/- & P/- & \textbf{B}/- & P/- & P/- \\
+	\textbf{Performance-Critical} & \textbf{B} & G & M & G & M & G & G & M & P & M & M & M/M & M/M & M/M & P/P & P/P \\
+	\hline
+	\textbf{Index-Efficient} & M & M & M & M & M & G & P & M & G & P & P & P/P & \textbf{B}/\textbf{B} & G/G & P/M & P/P \\
+	\hline
+	\textbf{Memory-Constrained} & M & P & M & M & M & G & P & P & M & P & P & P/P & \textbf{B}/\textbf{B} & G/M & G/M & G/G \\
+	\hline
+	\textbf{Large-Scale} & \textbf{B} & G & G & P & P & G & \textbf{B} & G & M & M & G & M/P & P/M & P/P & M/M & - \\
+	\hline
+	\textbf{Multi-Modal} & \textbf{B} & G & G & P & G & M & \textbf{B} & G & M & M & G & M/M & P/M & P/P & P/P & P/P \\
+	\hline
+	\textbf{High-LID} & \textbf{B} & G & M & G & M & M & \textbf{B} & G & M & M & G & P/P & M/G & P/P & P/M & P/P \\
+	\hline
+	\textbf{Rare Attribute / Low Range} & \textbf{B} & P & M & G & G & G & \textbf{B} & G & P & G & M & M/M & M/M & P/P & P/P & P/P \\
+	\hline
+	\textbf{Distribution-Robust} & G & P & P & G & G & G & - & - & - & - & - & G/- & P/- & \textbf{B}/- & P/- & P/- \\
+	\hline
 	\textbf{General-Purpose} & G & G & G & P & P & P & G & P & P & P & G & P & G & G & G & P \\
 	\hline
 \end{tabular}
 
 
+
 	}
-	\vspace{1mm}
-\begin{flushleft}
-	\textbf{Performance Levels:} \quad B = Best, G = Good , M = Moderate, P = Poor, - = Not Supported \\
-\end{flushleft}
-	\centering
+%	\vspace{1mm}
+%		\small
+%\begin{flushleft}
+%
+%	\textbf{Performance Levels:} \quad B = Best, G = Good , M = Moderate, P = Poor, - = Not Supported \\
+%	\textit{Performance-Critical}: Requires low latency and high recall.
+%	\textit{Index-Efficient}: Emphasizes lightweight index construction.
+%	\textit{Memory-Constrained}: Operates under limited memory conditions.
+%	\textit{Large-Scale}: Designed for datasets with tens to hundreds of millions of vectors.
+%	\textit{Multi-Modal}: Supports heterogeneous data modalities.
+%	\textit{High-LID}: Robust in high local intrinsic dimensionality spaces.
+%	\textit{Rare Attribute / Low Range}: For filtering with low attribute selectivity or small ranges.
+%	\textit{Distribution-Robust}: Insensitive to shifts in attribute distribution.
+%	\textit{General-Purpose}: Balanced performance across varied scenarios.
+%	
+%\end{flushleft}
+%	\centering
+
+\centering
+
+\footnotesize{
+	\begin{minipage}{\linewidth}
+		\vspace{0.1cm}
+		\textit{Performance Levels:} B = Best, G = Good , M = Moderate, P = Poor, - = Not Supported;
+		\textit{Performance-Critical}: Requires low latency and high recall;
+		\textit{Index-Efficient}: Emphasizes lightweight index construction;
+		\textit{Memory-Constrained}: Operates under limited memory conditions;
+		\textit{Large-Scale}: For scenarios involving datasets at the scale of 100 million vectors;
+		\textit{Multi-Modal}: For multi-modal dataset scenarios;
+		\textit{High-LID}: For complex dataset scenarios;
+		\textit{Rare Attribute / Low Range}: For filtering with low attribute selectivity or small ranges;
+		\textit{Distribution-Robust}: For scenarios with variable attribute distributions;
+		\textit{General-Purpose}: Balanced performance across varied scenarios.
+	
+\end{minipage}}
 
 \end{table*}
 
