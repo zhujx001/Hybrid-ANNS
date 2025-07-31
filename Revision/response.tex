@@ -425,10 +425,10 @@ Thank you for your valuable suggestion regarding our experiments. In Section 4.2
 %\textbf{(Please refer to the blue highlighted parts in Section 4.2.4 and Section 4.3.4 under Large-scale Datasets.)}
 
 
-Section 4.2.3:\textcolor{blue}{"As shown in the figure 12c, on the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating good adaptability to large-scale datasets. However, this also comes with significant memory overhead. The clustering-based algorithm Faiss+HQI\_Batch shows moderate performance but has very low memory overhead, which also has certain practical significance. Furthermore, we do not present the experimental results for StitchedVamana because its recall consistently remains at a very low level. This is due to its search starting point being set to 0 by default, when the entry point is far from the target area, it easily gets stuck in a local optimum, making it difficult to navigate to the vicinity of the correct point."}
+Section 4.2.3:\textcolor{blue}{"As shown in the figure 11, on the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating good adaptability to large-scale datasets. However, this also comes with significant memory overhead. The clustering-based algorithm Faiss+HQI\_Batch shows moderate performance but has very low memory overhead, which also has certain practical significance. Furthermore, we do not present the results of StitchedVamana and CAPS, as their recall remained consistently low. StitchedVamana sets the search entry point to 0 by default, which makes it prone to getting stuck in local optima when the entry is far from the target region, hindering effective navigation. CAPS, on the other hand, cannot properly run large-scale dataset experiments because its code implementation does not account for such scenarios."}
 
 Section 4.3.3:
-\textcolor{blue}{"As shown in the figure 16c, in the 100-million-scale dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption (300-400GB). At the same time, we can see that some algorithms (e.g., SeRF, ACORN-1) perform even worse than the VBASE database, which indicates that they do not adapt well to large-scale dataset scenarios. Although Milvus has a low QPS, it can achieve a recall of 1 with an excellent memory footprint of around 80GB"}
+\textcolor{blue}{"As shown in the figure 16, On the deep100M dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption, as detailed in Figure 12d. Meanwhile, VBASE and Faiss demonstrate moderate performance but significantly lower memory consumption than the top 3 algorithms."}
 
 %%%%%%%%%%%%%%%%%%%%%% R9 %%%%%%%%%%%%%%%%%%%%%%
 \myfbox{
@@ -443,17 +443,16 @@ Section 4.3.3:
 %
 %To address this, we add a summary table that provides a clearer and more structured comparison of the strengths and weaknesses of each algorithm, offering deeper insights and more concrete guidelines for understanding their trade-offs.
 Thank you very much for your insightful comments. We fully agree with your views. We have revised the discussion section of the paper accordingly. In this section, we have added a recommendation table for the algorithms, which summarizes their performance under various conditions. Additionally, we have provided a more in-depth analysis of the internal mechanisms of each algorithm in the text, aiming to uncover the fundamental reasons behind their performance.
-\textbf{(Please see Section 5.1.1 and Section 5.1.2, highlighted in blue in the revised manuscript.)}
+\textbf{(Please see Section 5.1.1, Section 5.1.2 and Section 5.1.3, highlighted in blue in the revised manuscript.)}
 
-Section 5.1.1: \textcolor{blue}{
-	"Overall, UNG, NHQ, and FilteredDisk-ANN demonstrate strong performance. However, UNG suffers from performance degradation when the attribute count differs between indexing and querying. NHQ, due to its distance fusion design, also experiences performance drops when there is a significant mismatch in attribute numbers between indexing and querying, and its performance is sensitive to attribute distribution. }
+Section 5.1.1:\textcolor{blue}{
+	"Overall, UNG, NHQ and FilteredDisk-ANN demonstrate strong performance. However, UNG suffers from performance degradation when the attribute count differs between indexing and querying. NHQ, due to its distance fusion design, also experiences performance drops when there is a significant mismatch in attribute numbers between indexing and querying, and its performance is sensitive to attribute distribution. }
 
-\textcolor{blue}{"The two variants of FilteredDiskANN (FilteredVamana and StitchedVamana) support only single-attribute queries and multi-attribute OR queries. FilteredVamana supports dynamic insertion and disk-based indexing, making it suitable for memory-constrained scenarios. However, its disk-based construction significantly increases indexing time, and its performance is highly sensitive to attribute distribution. In contrast, StitchedVamana offers better search performance but performs poorly on 100M-scale datasets and OOD datasets.}
+\textcolor{blue}{The two variants of Filtered-DiskANN (FilteredVamana and StitchedVamana) support only single-attribute queries and multi-attribute OR queries. FilteredVamana supports dynamic insertion and disk-based indexing, making it suitable for memory-constrained scenarios. However, its disk-based construction significantly increases indexing time, and its performance is highly sensitive to attribute distribution. In contrast, StitchedVamana offers better search performance but performs poorly on 100M-scale datasets and OOD datasets.}
 
 \textcolor{blue}{
 	CAPS, based on clustering, features low index space overhead. It offers flexible support for varying numbers of attributes and is optimized for low-selectivity attribute scenarios, but its overall performance is relatively moderate.
-	Puck is well-suited for large-scale datasets such as those with 100 million points. It offers fast index construction and low memory consumption in such scenarios. Moreover, it delivers high search performance in multi-threaded environments, making it an excellent choice for deployment on extremely large datasets."}
-
+	Puck is well-suited for large-scale datasets such as those with 100 million points. It offers fast index construction and low memory consumption in such scenarios. "}
 
 
 Section 5.1.2: \textcolor{blue}{
@@ -461,20 +460,20 @@ Section 5.1.2: \textcolor{blue}{
 }
 
 \textcolor{blue}{
-	iRange has relatively low time and space costs for index construction; however, its search performance declines significantly with increasing query range. Despite offering threading parameters for indexing, it does not effectively utilize multi-core parallelism in practical scenarios.
+	iRange has relatively low time and space costs for index construction. However, its search performance declines significantly with increasing query range. Despite offering threading parameters for indexing, it does not effectively utilize multi-core parallelism in practical scenarios.
 	SeRF incurs low time and space overhead but achieves only moderate overall query performance, with notably weaker results in small-range query scenarios.
 	DSG supports unordered dynamic insertions and range queries, but its index construction is limited to single-threaded execution, resulting in long build times and poor practical applicability.}
 
 \textcolor{blue}{
-	UNIFY adopts multiple filtering strategies tailored to different query range sizes, avoiding the limitations of a single strategy in specific scenarios. It requires only one index to support all queries, allows dynamic insertions, and features low time and space overhead during index construction, making it a more general-purpose solution.}
+	UNIFY adopts multiple filtering strategies tailored to different query range sizes, avoiding the limitations of a single strategy in specific scenarios. It requires only one index to support all queries, allows dynamic insertions, and features low time and space overhead during index construction, making it a more general-purpose solution."}
 	
 Senction 5.1.3:	\textcolor{blue}{"All of the following methods support both attribute filtering and range filtering.}
-	
-	\textcolor{blue}{
-		ACORN demonstrates average overall performance. Among its variants, ACORN-1 shows significant advantages in indexing speed on billion-scale datasets, but suffers from high memory consumption and delivers only moderate performance.}
-	
-	\textcolor{blue}{
-		Faiss, Milvus, and VBASE handle complex scenarios with advanced filtering operations more effectively. While they offer strong flexibility, their overall search performance is relatively modest. Relatively speaking, PASE performs less well across various aspects."}
+
+\textcolor{blue}{
+	ACORN demonstrates average overall performance. Among its variants, ACORN-1 shows significant advantages in indexing speed on 100M-scale datasets, but suffers from high memory consumption and delivers only moderate performance.}
+
+\textcolor{blue}{
+	Faiss, Milvus and VBASE effectively handle complex filtering by employing versatile "pre-filtering" or "post-filtering" strategies, granting them significant flexibility and broad applicability. This flexibility, however, is often counterbalanced by their relatively modest overall search performance. Relatively speaking, PASE performs less well across various aspects."}
 %下面放那个优劣势表
 
 %%%%%%%%%%%%%%%%%%%%%% R10 %%%%%%%%%%%%%%%%%%%%%%
