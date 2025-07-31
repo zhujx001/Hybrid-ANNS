@@ -1079,6 +1079,7 @@ During querying, CAPS maintains a large candidate set dynamically, which signifi
 	%Most algorithms struggle to achieve high recall on GloVe, because it has the highest LID. Compare to other algorithms, the 4 algorithms (UNG, Faiss, CAPS, and Milvus) manage to maintain relatively high recall, demonstrating better adaptability to complex datasets. Notably, although vanilla Faiss performs worse on SIFT1M compared to Enron dataset, Faiss+HQI\_Batch outperforms on SIFT1M. Because batch optimization in HQI reduces query overhead and increases throughput.	}
 	
 	%\textcolor{green}{Most algorithms exhibit the worst performance on the OOD dataset Text2Image. However, ACORN, UNG, and FilteredVamana show relatively stable performance on Text2Image. Their performance drops less compared to in-distribution (ID) datasets such as GIST1M and GloVe, indicating better adaptability to OOD queries.}
+
 \begin{figure*}
 	\centering
 	
@@ -1091,23 +1092,22 @@ During querying, CAPS maintains a large candidate set dynamically, which signifi
 		\hfill 
 		\includegraphics[width=0.47\linewidth]{figures/exp/attribute_multimodel_1.pdf}
 		
-	\end{minipage}%
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.203\textwidth}
+		\centering
+		\includegraphics[width=0.96\linewidth]{figures/exp/attribute_100M.pdf} 
+		
+	\end{minipage}
 	\hfill % 在盒子之间添加弹性间距
-	%
 	\begin{minipage}[t]{0.39\textwidth}
 		\centering
 		\includegraphics[width=0.495\linewidth]{figures/exp/attribute_85.pdf}
 		\hfill
 		\includegraphics[width=0.47\linewidth]{figures/exp/attribute_71.pdf}
 		
-	\end{minipage}%
-	\hfill
-	%
-	\begin{minipage}[t]{0.203\textwidth}
-		\centering
-		\includegraphics[width=0.96\linewidth]{figures/exp/attribute_100M.pdf} 
-
 	\end{minipage}
+
 \end{figure*}
 
 
@@ -1116,23 +1116,21 @@ During querying, CAPS maintains a large candidate set dynamically, which signifi
 	\setlength{\abovecaptionskip}{0.0cm}
 	\begin{minipage}[t]{0.37\textwidth}
 		\centering
-		\caption{Multi-Modal Datasets}
+		\caption{Multi-Modal Datasets (AF)}
 		\label{fig:attribute-multimodal}  
 	\end{minipage}%
-	\hfill % 在盒子之间添加弹性间距
-	%
-	\begin{minipage}[t]{0.37\textwidth}
-		\centering
-		\caption{Different Platforms}
-		\label{fig:attribute-cross-platform}
-	\end{minipage}%
 	\hfill
-	%
-	\begin{minipage}[t]{0.24\textwidth}
+	\begin{minipage}[t]{0.27\textwidth}
 		\centering
-		\caption{Large-Scale Dataset}
+		\caption{Large-Scale Dataset (AF)}
 		\label{fig:attribute big dataset}
 	\end{minipage}
+	\hfill 
+	\begin{minipage}[t]{0.35\textwidth}
+		\centering
+		\caption{Different Platforms (AF)}
+		\label{fig:attribute-cross-platform}
+	\end{minipage}%
 \end{figure*}
 	
 %\begin{figure*}[t]
@@ -1197,12 +1195,14 @@ Although the dataset contains two modalities, due to the significant differences
 		%	It is worth noting that, compared to the OOD dataset discussed in the "Dataset Impact" section, the Text2Image-Mix dataset also involves modality differences. However, its complexity lies in modality mixing. The OOD dataset, on the other hand, has a modality gap. This often requires traversing a broader and more sparse search space to find the ground truth. It poses a more severe challenge to the algorithm.
 	}
 	
+	\textit{\textbf{\textcolor{blue}{Large-scale Dataset.}}} 
+	\textcolor{violet}{As shown in the Figure~\ref{fig:attribute big dataset}, on the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating good adaptability to large-scale datasets. However, this also comes with significant memory overhead. The clustering-based algorithm Faiss+HQI\_Batch shows moderate performance but has very low memory overhead, which also has certain practical significance. Furthermore, we do not present the results of StitchedVamana and CAPS, as their recall remained consistently low. StitchedVamana sets the search entry point to 0 by default, which makes it prone to getting stuck in local optima when the entry is far from the target region, hindering effective navigation. CAPS, on the other hand, cannot properly run large-scale dataset experiments because its code implementation does not account for such scenarios.}
+	
 	\textit{\textbf{\textcolor{blue}{Different Hardware Environments.}}} 
 %	\textcolor{cyan}{To investigate the impact of different server configurations on the performance of the algorithms, we conducted additional experiments on Server B using the YT-Audio-Real dataset, and the results are shown in Figure~\ref{fig:Different Computer}. Compared with the experimental results on Server A shown in Figure~\ref{fig:exp_1_1_SingleLabel_1thread}f, the relative ranking of the algorithms remains largely unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency and smaller RAM capacity of Server B compared to Server A, the QPS values are slightly lower across all methods.}
 	\textcolor{red}{To investigate the impact of different server configurations on the performance of the algorithms, we conduct additional experiments on an Ubuntu 20.04 server equipped with dual Intel(R) Xeon(R) Gold 6330 CPUs @ 2.00GHz featuring 128GB of RAM and 84 MiB of L3 cache using the YT-Audio-Real dataset, and the results are shown in Figure~\ref{fig:attribute-cross-platform}. It is not difficult to see that the relative ranking of the algorithms under the two servers essentially remains unchanged, indicating that the performance of these methods is not significantly affected by differences in CPU configurations. Due to the lower CPU frequency, reduced RAM capacity, and smaller L3 cache, all methods demonstrate slightly lower QPS values.}
 
-	\textit{\textbf{\textcolor{blue}{Large-scale Dataset.}}} 
-	\textcolor{violet}{As shown in the Figure~\ref{fig:attribute big dataset}, on the 100M dataset, UNG and NHQ still exhibit excellent performance, demonstrating good adaptability to large-scale datasets. However, this also comes with significant memory overhead. The clustering-based algorithm Faiss+HQI\_Batch shows moderate performance but has very low memory overhead, which also has certain practical significance. Furthermore, we do not present the results of StitchedVamana and CAPS, as their recall remained consistently low. StitchedVamana sets the search entry point to 0 by default, which makes it prone to getting stuck in local optima when the entry is far from the target region, hindering effective navigation. CAPS, on the other hand, cannot properly run large-scale dataset experiments because its code implementation does not account for such scenarios.}
+	
 %		we do not present the experimental results for StitchedVamana because its recall consistently remains at a very low level. This is due to its search starting point being set to 0 by default, when the entry point is far from the target area, it easily gets stuck in a local optimum, making it difficult to navigate to the vicinity of the correct point.}
 	
 	
@@ -1392,6 +1392,7 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 	%	
 	%	However, the DSG algorithm shows a noticeable performance gap between the Deep and YT-Audio datasets, despite their comparable LID. This indicates that DSG is less robust than other methods when facing dataset-dependent variations, possibly due to its sensitivity to data distribution beyond LID alone.
 	
+	
 \begin{figure*}
 	\centering
 	\includegraphics[width=0.7\textwidth]{figures/exp/range_legend.pdf}
@@ -1402,24 +1403,19 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 		\hfill 
 		\includegraphics[width=0.47\linewidth]{figures/exp/range_multimodel_1.pdf}
 
-	\end{minipage}%
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.203\textwidth}
+		\centering
+		\includegraphics[width=0.96\linewidth]{figures/exp/range_deep100M.pdf} 
+	\end{minipage}
 	\hfill % 在盒子之间添加弹性间距
-	%
 	\begin{minipage}[t]{0.39\textwidth}
 		\centering
 		\includegraphics[width=0.495\linewidth]{figures/exp/range_85.pdf}
 		\hfill
 		\includegraphics[width=0.47\linewidth]{figures/exp/range_71.pdf}
-
-	\end{minipage}%
-	\hfill
-	%
-	\begin{minipage}[t]{0.203\textwidth}
-		\centering
-		\includegraphics[width=0.96\linewidth]{figures/exp/range_deep100M.pdf} 
-
 	\end{minipage}
-	
 \end{figure*}
 
 \begin{figure*}
@@ -1427,23 +1423,22 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 	\setlength{\abovecaptionskip}{0.0cm}
 	\begin{minipage}[t]{0.37\textwidth}
 		\centering
-		\caption{Multi-Modal Datasets}
+		\caption{Multi-Modal Datasets (RF)}
 		\label{fig:range-multimodal} 
 	\end{minipage}%
-	\hfill % 在盒子之间添加弹性间距
-	%
-	\begin{minipage}[t]{0.37\textwidth}
-		\centering
-		\caption{Different Platforms}
-		\label{fig:range-cross-platform}
-	\end{minipage}%
 	\hfill
-	%
-	\begin{minipage}[t]{0.24\textwidth}
+	\begin{minipage}[t]{0.27\textwidth}
 		\centering
-		\caption{Large-Scale Dataset}
+		\caption{Large-Scale Dataset (RF)}
 		\label{fig: range big dataset}
 	\end{minipage}
+	\hfill % 在盒子之间添加弹性间距
+	\begin{minipage}[t]{0.35\textwidth}
+		\centering
+		\caption{Different Platforms (RF)}
+		\label{fig:range-cross-platform}
+	\end{minipage}%
+	
 \end{figure*}
 	
 	\subsubsection{Robustness}
@@ -1455,12 +1450,14 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 %		Similar to attribute filtering, the performance of multimodal queries with range filtering shown in Figure~\ref{fig:range-multimodal} is also consistent with the single-modality results in Figure~\ref{fig:exp_8_2}. As shown in Figure~\ref{fig:exp_8_3}, the algorithms still perform the worst on multimodal datasets like Text2Image. This is because these range query algorithms are almost graph-based. Graph algorithms need more iterations to find true neighbors in OOD datasets.
 		}
 		
+	\textit{\textbf{\textcolor{red}{Large-scale Dataset.}}} \textcolor{red}{As shown in the Figure~\ref{fig: range big dataset}, On the deep100M dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption (Figure~\ref{fig:rangeFilter_search_memory_mb}). In contrast, VBASE and Faiss demonstrate moderate performance while consuming significantly less memory.}
+		
 	\textit{\textbf{\textcolor{blue}{Different Hardware Environments.}}} 
 	\textcolor{cyan}{Consistent with Section 4.2.3, we conduct range filtering experiments on the YT-Audio-Real dataset using two server configurations, with results presented in Figure~\ref{fig:range-cross-platform}. Although the third-ranked algorithm differs, we consider the ranking order remains stable since the performance of the third and fourth algorithms is comparable. Therefore, different server configurations only affect the performance of individual algorithms, with minimal impact on their relative performance ranking.}  
 %		So our findings remain consistent with those reported in Section 4.2.3. For brevity and due to space limitations, we omit further discussion of these redundant results.}
 %	\textcolor{cyan}{Consistent with Section 4.2.4, we conducted additional range filtering experiments using the YT-Audio-Real dataset on the same server, with results shown in Figure \ref{fig:Different Computer range}. Compared with the original server's experimental results (Figure \ref{fig:exp_8_2}($e$)), the conclusions remain identical to those described in Section 4.2.4. Due to space constraints, these details are not reiterated here.}
 	
-	\textit{\textbf{\textcolor{red}{Large-scale Dataset.}}} \textcolor{red}{As shown in the Figure~\ref{fig: range big dataset}, On the deep100M dataset, the top 3 ranked algorithms (WinFilter, UNIFY, and iRange) remain unchanged. However, their high performance is achieved at the cost of extremely high memory consumption (Figure~\ref{fig:rangeFilter_search_memory_mb}). In contrast, VBASE and Faiss demonstrate moderate performance while consuming significantly less memory.}
+
 	
 	
 %	\textit{\textbf{Multimodel, 85 and Deep100M.}} \textcolor{red}{The fig is Figure \ref{fig:TrinityExtension——Range}}
@@ -1511,23 +1508,6 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 
 
 	}
-%	\vspace{1mm}
-%		\small
-%\begin{flushleft}
-%
-%	\textbf{Performance Levels:} \quad B = Best, G = Good , M = Moderate, P = Poor, - = Not Supported \\
-%	\textit{Performance-Critical}: Requires low latency and high recall.
-%	\textit{Index-Efficient}: Emphasizes lightweight index construction.
-%	\textit{Memory-Constrained}: Operates under limited memory conditions.
-%	\textit{Large-Scale}: Designed for datasets with tens to hundreds of millions of vectors.
-%	\textit{Multi-Modal}: Supports heterogeneous data modalities.
-%	\textit{High-LID}: Robust in high local intrinsic dimensionality spaces.
-%	\textit{Rare Attribute / Low Range}: For filtering with low attribute selectivity or small ranges.
-%	\textit{Distribution-Robust}: Insensitive to shifts in attribute distribution.
-%	\textit{General-Purpose}: Balanced performance across varied scenarios.
-%	
-%\end{flushleft}
-%	\centering
 
 \centering
 
