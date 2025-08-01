@@ -853,12 +853,12 @@ During querying, CAPS maintains a large candidate set dynamically, which signifi
 		
 	\end{figure}
 	
-	\textit{Effect of Multi-Attribute Building on Algorithm Performance (M vs. S).}
+	(1) \textit{Effect of Multi-Attribute Building on Algorithm Performance (M vs. S).}
 	As shown in Figure \ref{fig:exp_2_1}, Puck demonstrates nearly no performance degradation. CAPS shows a slight performance decline due to the increased query overhead caused by excessive attribute-based grouping. In contrast, the performance of StitchedVamana, FilteredVamana, NHQ, and UNG drops significantly, with the following reasons: 1) FilteredVamana increases the complexity introduced by retaining attribute during index construction. 2) The complexity of StitchedVamana increases because data points may duplicate across multiple subgraphs. 3) The fusion distance of NHQ exhibits sensitivity to the number of attributes, which degrades its effectiveness. 4) UNG has poor performance because large number of entry points that need to be traversed. It is difficult for a graph with multiple entries to have good connectivity, degenerating into a situation closer to inverted retrieval, and the effect may be greatly impaired.
 	
 	
 	
-	\textit{Performance of Algorithms under Multi-Attribute Building (M vs. M).}  
+	(2) \textit{Performance of Algorithms under Multi-Attribute Building (M vs. M).}  
 	As shown in Figure \ref{fig:exp_2_1}, IVF-based methods (Puck and CAPS) significantly outperform graph-based methods. The reason for their superior performance is that they filter out irrelevant results during the retrieval process rather than searching for more candidates. In contrast, multi-attribute construction significantly degrades the performance of graph-based methods, for which we identify the primary reason. 
 	\textcolor{blue}{For algorithms with tightly coupled attribute and graph structures, increasing the number of attributes during index construction increases graph complexity. This makes single-attribute queries more difficult and degrades performance.}
 %	First, graph fragmentation necessitates searching multiple entry points, undermining the inherent advantage of efficient graph traversal. Second, multi-attribute processing increases the algorithms' intrinsic computational overhead and reduces the effectiveness of their core metric mechanisms, such as distance calculation.
