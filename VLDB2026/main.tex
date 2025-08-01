@@ -724,7 +724,7 @@ In Faiss, we use the HQI batch optimization strategy in the IVF index. It groups
 	
 	
 	
-	\textcolor{blue}{To investigate the time and space overhead of different algorithms,} we evaluate \textcolor{blue}{4} key metrics in the single-attribute scenario: index construction time, index size, \textcolor{blue}{build peak memory and search peak memory}. Notably, PASE on GIST1M and Enron is omitted, as it supports only data with dimensionality less than 512. \textcolor{blue}{We use 64 threads to build the index for the large-scale Deep100M dataset, and 32 threads for the other 6 medium-scale datasets. Notably, the VBASE and PASE algorithms only support single-threaded construction.}
+	\textcolor{blue}{To investigate the time and space overhead of different algorithms,} we evaluate \textcolor{blue}{4} key metrics in the single-attribute scenario: index construction time, index size, \textcolor{blue}{build peak memory and search peak memory}. Notably, PASE on GIST1M and Enron is omitted, as it supports only data with dimensionality less than 512. Furthermore, we did not measure PASE on large-scale datasets, as we estimated it would take over 10 days. \textcolor{blue}{We use 64 threads to build the index for the large-scale Deep100M dataset, and 32 threads for the other 6 medium-scale datasets. Notably, the VBASE and PASE algorithms only support single-threaded construction.}
 	
 	
 	\begin{figure*}
