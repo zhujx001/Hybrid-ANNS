@@ -157,12 +157,12 @@
 		\label{fig:hybrid ANNS}
 	\end{figure*}
 	\subsection{Motivation}
-	In recent years, hybrid query algorithms develop rapidly, giving rise to numerous attribute filtering algorithms~\cite{NHQ,diskann} and range filtering algorithms~\cite{serf,iRangeGraph}. In practical applications, the performance of hybrid query algorithms is influenced not only by unstructured data but also closely relates to structured data. For attribute filtering algorithms, \textcolor{blue}{factors such as the number of attributes, attribute distribution \cite{UNG}, and attribute selectivity ~\cite{analyticdb,milvus} significantly impact algorithm performance.} As for range filtering algorithms, the size of the query range and the characteristics of different datasets play an important role in determining algorithm performance.
+	In recent years, hybrid query algorithms develop rapidly, giving rise to numerous attribute filtering algorithms~\cite{NHQ,diskann} and range filtering algorithms~\cite{serf,iRangeGraph}. In practical applications, the performance of hybrid query algorithms is influenced not only by unstructured data but also closely relates to structured data. For attribute filtering algorithms, \textcolor{blue}{factors such as the number of attributes, attribute distribution \cite{UNG}, and attribute selectivity ~\cite{analyticdb,milvus} significantly impact algorithm performance.} As for range filtering algorithms, the width of the query range and the characteristics of different datasets play an important role in determining algorithm performance.
 	
-	\textcolor{blue}{Although existing works~\cite{compare,azizi2025graph} conduct benchmark evaluations of ANN methods, a systematic experimental study specifically targeting hybrid query algorithms is still lacking. Despite BigANN 2023~\cite{bigann2023} evaluates the performance of some hybrid query algorithms, it still presents the following notable limitations:
+	\textcolor{blue}{Although existing studies~\cite{compare,azizi2025graph} conduct benchmark evaluations of ANN methods, a systematic experimental study specifically targeting hybrid query algorithms is still lacking. Despite BigANN 2023~\cite{bigann2023} evaluates the performance of some hybrid query algorithms, it still presents the following notable limitations:
 	1) The evaluation covers a limited number of algorithms and fails to comprehensively include mainstream methods.
 	2) It only uses a single dataset and focuses solely on single-attribute and dual-attribute query scenarios, while not considering the impact of attribute selectivity on query performance.
-	3) It only simply compares the query speed and recall of different algorithms, but does not consider key metrics such as the time and space overhead of each algorithm, and also does not deeply analyze the specific reasons for algorithm performance.}
+	3) It only simply compares the query speed and recall of different algorithms, but does not consider key metrics such as the time and space overhead of each algorithm, and it lacks an in-depth analysis of the specific reasons for algorithm performance.}
 	
 	\textcolor{blue}{To fill this gap, we conduct the first comprehensive experimental evaluation of hybrid query algorithms, systematically analyzing their index construction costs and query efficiency across diverse scenarios. Furthermore, we rigorously assess the robustness of each algorithm under different experimental settings, thereby providing valuable insights for future research and practical applications.}
 	
@@ -189,7 +189,7 @@
 	Our study focuses on the problem of ANN search in hybrid query scenarios and provides a comprehensive review and evaluation of existing algorithms and systems. The main contributions are summarized in the following 5 aspects.
 	
 	(1)\textbf{ Systematic Classification and Overview.}
-	We systematically classify 6 representative attribute filtering algorithms along multiple dimensions, including index organization, filtering strategies, Boolean logic support, and index construction methods. In addition, we survey 5 range filtering algorithms, and provide an overview of a vector library and three vector databases. These efforts offer a unified reference framework for future research.
+	We systematically classify 6 representative attribute filtering algorithms along multiple dimensions, including index organization, filtering strategies, Boolean logic support, and index construction methods. In addition, we survey 5 range filtering algorithms, and provide an overview of one vector library and 3 vector databases. These efforts offer a unified reference framework for future research.
 %	\textcolor{orange}{%We systematically describe the distinct characteristics of 6 representative attribute filtering algorithms and 5 range filtering algorithms from various perspectives. We also provide an overview of these algorithms, along with a representative vector retrieval library and 3 vector databases, to help readers intuitively understand their design principles. This work offers a unified reference framework and technical foundation for future research in this field.}
 %	We provide an overview of 6 representative attribute filtering algorithms and 5 range filtering algorithms from various perspectives, alongside a representative retrieval library and 3 vector databases. This work offers a unified reference framework and technical foundation for future research in this field.}
 	
@@ -210,7 +210,7 @@
 %	
 
 	(4)\textbf{ Evaluation of Range Filtering Algorithms.}
-	We benchmark algorithms that support range filtering on 6 real-world datasets, using varying query range settings in the experiments. The experimental results show the performance of these algorithms in terms of index construction efficiency, storage overhead, and query performance. we also further analyze the factors that affect the performance of the range filtering algorithms.
+	We benchmark algorithms that support range filtering on 6 real-world datasets, using varying query range settings in the experiments. The experimental results show the performance of these algorithms in terms of index construction efficiency, storage overhead, and query performance. We also further analyze the factors that affect the performance of the range filtering algorithms.
 %	We benchmark algorithms that support range filtering on 3 large-scale datasets, using varying query range settings in the experiments. The experimental results show the performance of these algorithms in terms of index construction efficiency, storage overhead, and query performance. We further analyze the factors that affect the performance of the range filtering algorithms.
 %	\textcolor{orange}{
 %		We conduct benchmark evaluations of range filtering algorithms on one synthetic and 2 real-world datasets, using various query range settings. Our experiments reveal and analyze the differences in time and query efficiency across these algorithms. Furthermore, we compare their performance on multimodal and large-scale datasets, and assess their adaptability across different server environments.
@@ -257,7 +257,7 @@
 	
 	
 %	\subsection{Index Organization in Hybrid ANN Search}
-	\subsection{Index Organization}
+	\subsection{Index Organization in Hybrid Query}
 	
 	Current hybrid query methods mainly adopt graph-based ~\cite{nsw,kgraph,nsg,fanng,ngt} or Inverted File Index (IVF)-based \cite{PQ} index organization. 
 	%We briefly introduce the fundamental principles of these two types in the following.
@@ -565,9 +565,9 @@ In Faiss, we use the HQI batch optimization strategy in the IVF index. It groups
 	
 	\textcolor{blue}{Our experiments employ 12 real-world datasets covering diverse domains: Audio~\cite{audio_unknown},  Enron~\cite{enron2015}, GIST1M~\cite{sift2010}, GloV-\\e~\cite{GloVe2015}, Msong~\cite{msong2011}, SIFT1M~\cite{sift2010}, Deep1M~\cite{yandex_deep_dataset}, WIT-Real~\cite{wit_dataset}, YT-Audio-Real~\cite{youtube8m_dataset}, Text2image~\cite{texttoimage}, Text2image-Mix, and Deep100M.}
 	
-	Table~\ref{tab:datasets_combined} summarizes the key characteristics of all datasets and their applicable filtering scenarios. In particular, we report the Local Intrinsic Dimensionality (LID)~\cite{Lid}, which is a commonly used metric to quantify dataset hardness. Following the standard evaluation protocol~\cite{LID2}, we randomly sample 10,000 data points from each dataset to compute LID. The higher the LID value, the harder the dataset.
+	Table~\ref{tab:datasets_combined} summarizes the key characteristics of all datasets and their applicable filtering scenarios. In particular, we report the Local Intrinsic Dimensionality (LID)~\cite{Lid}, which is a commonly used metric to quantify dataset hardness. Following the standard evaluation protocol~\cite{LID2}, we randomly sample 10,000 data points from each dataset to compute LID.  A higher LID value indicates a more complex dataset.
 	
-	\textcolor{blue}{The first seven datasets are widely used in existing works. As they do not inherently come with attributes, we generate attributes for them to precisely control attribute quantity and distribution. WIT-Real and YT-Audio-Real datasets use real attributes. For the WIT-Real dataset, we use the CLIP model to encode the page title into vectors, and extract the language type and the length of the context page description  as real attributes. The YT-Audio-Real dataset uses YouTube8M data, employing the video category ID and view counts as real attributes for this dataset.}
+	\textcolor{blue}{The first 7 datasets are widely used in existing studies, while the remaining are common datasets with added real attributes. As they do not inherently come with attributes, we generate attributes for them to precisely control attribute quantity and distribution. WIT-Real and YT-Audio-Real datasets use real attributes. For the WIT-Real dataset, we use the CLIP model to encode the page title into vectors, and extract the language type and the length of the context page description  as real attributes. The YT-Audio-Real dataset uses YouTube8M data, employing the video category ID and view counts as real attributes.}
 	
 	\textcolor{blue}{Additionally, we use the Out-of-Distribution (OOD) dataset Text2-Image and the large-scale dataset Deep100M to evaluate the generalization capability of the algorithms. The Text2Image dataset includes two versions. The original version contains 1 million image embeddings as the base dataset and uses 10 thousand text embeddings as the query set. The Text2Image-Mix version is composed of 0.5 million image embeddings and 0.5 million text embeddings as the base dataset, with a query set of 5 thousand image embeddings and 5 thousand text embeddings.}
 	
