@@ -538,6 +538,8 @@ Senction 5.1.3:	\textcolor{blue}{"All of the following methods support both attr
 %\subsection{Recommendations.}
 %Based on the performance of different algorithms in experiments, we recommend algorithms suitable for different scenarios, as shown in the table \ref{tab:algo_scenarios}.
 \begin{table*}[htbp]
+	\setlength{\abovecaptionskip}{0.1cm}
+	\setlength{\belowcaptionskip}{0.1cm}
 	\caption{Algorithm Recommendation}
 	\label{tab:algorithm_recommendation}
 	\resizebox{\textwidth}{!}{
@@ -553,7 +555,7 @@ Senction 5.1.3:	\textcolor{blue}{"All of the following methods support both attr
 			& \textbf{Win} & \textbf{iRange} & \textbf{SeRF} & \textbf{DSG} & \textbf{UNIFY} 
 			& \textbf{ACORN} & \textbf{Faiss} & \textbf{Milvus} & \textbf{VBASE} & \textbf{PASE} \\
 			\hline
-			\textbf{Performance-Critical} & \textbf{B} & G & M & G & M & G & G & M & P & M & M & M/M & M/M & M/M & P/P & P/P \\
+			\textbf{Performance-Critical} & \textbf{B} & G & M & G & M & G & G & M & M & M & M & M/M & M/M & M/M & P/P & P/P \\
 			\hline
 			\textbf{Index-Efficient} & M & M & M & M & M & G & P & M & G & P & P & P/P & \textbf{B}/\textbf{B} & G/G & P/M & P/P \\
 			\hline
@@ -561,13 +563,13 @@ Senction 5.1.3:	\textcolor{blue}{"All of the following methods support both attr
 			\hline
 			\textbf{Large-Scale} & \textbf{B} & G & G & P & P & G & \textbf{B} & G & M & M & G & M/P & P/M & P/P & M/M & - \\
 			\hline
-			\textbf{Multi-Modal} & \textbf{B} & G & G & P & G & M & \textbf{B} & G & M & M & G & M/M & P/M & P/P & P/P & P/P \\
+			%	\textbf{Multi-Modal} & \textbf{B} & G & G & P & G & M & \textbf{B} & G & M & M & G & M/M & P/M & P/P & P/P & P/P \\
+			%	\hline
+			\textbf{Multi-Modal} & \textbf{B} & G & G & P & M & M & \textbf{B} & G & M & M & G & P/P & P/M & M/M & P/P & P/P \\
 			\hline
-			\textbf{High-LID} & \textbf{B} & G & M & G & M & M & \textbf{B} & G & M & M & G & P/P & M/G & P/P & P/M & P/P \\
+			\textbf{Rare Attribute / Low Range} & \textbf{B} & M & M & G & G & G & \textbf{B} & G & P & G & M & M/M & M/G & P/P & P/P & P/P \\
 			\hline
-			\textbf{Rare Attribute / Low Range} & \textbf{B} & P & M & G & G & G & \textbf{B} & G & P & G & M & M/M & M/M & P/P & P/P & P/P \\
-			\hline
-			\textbf{Distribution-Robust} & G & P & P & G & G & G & - & - & - & - & - & G/- & P/- & \textbf{B}/- & P/- & P/- \\
+			\textbf{Distribution-Robust} & G & P & P & G & G & G & - & - & - & - & - & G/- & P/- & \textbf{B}/- & P/- & - \\
 			\hline
 			\textbf{General-Purpose} & G & G & G & P & P & P & G & P & P & P & G & P & G & G & G & P \\
 			\hline
@@ -582,13 +584,13 @@ Senction 5.1.3:	\textcolor{blue}{"All of the following methods support both attr
 	\footnotesize{
 		\begin{minipage}{\linewidth}
 			\vspace{0.1cm}
-			\textit{Performance Levels:} B = Best, G = Good , M = Moderate, P = Poor, - = Not Supported;
+			\textit{Performance Levels:} \textbf{B} = Best, G = Good , M = Moderate, P = Poor, - = Not Supported;
 			\textit{Performance-Critical}: Requires low latency and high recall;
 			\textit{Index-Efficient}: Emphasizes lightweight index construction;
 			\textit{Memory-Constrained}: Operates under limited memory conditions;
 			\textit{Large-Scale}: For scenarios involving datasets at the scale of 100 million vectors;
 			\textit{Multi-Modal}: For multi-modal dataset scenarios;
-			\textit{High-LID}: For complex dataset scenarios;
+			%		\textit{High-LID}: For complex dataset scenarios;
 			\textit{Rare Attribute / Low Range}: For filtering with low attribute selectivity or small ranges;
 			\textit{Distribution-Robust}: For scenarios with variable attribute distributions;
 			\textit{General-Purpose}: Balanced performance across varied scenarios.
