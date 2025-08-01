@@ -1371,7 +1371,7 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 	\textcolor{blue}{
 		As shown in Figure~\ref{fig:exp_8_2}, the algorithms that performed well are WinFilter, iRange, UNIFY, and Faiss.
 	WinFilter maintains optimal performance by building an index for each tree node. It then performs an ANN search on the relevant nodes and post-filters the results, ensuring high recall and QPS.
-	In contrast, iRange dynamically constructs a search graph during query time. This method has low overhead and performs well in small-range queries, but its performance degrades as the query range increases.
+	In contrast, iRange dynamically constructs a search graph during querying. This method has low overhead and performs well in small-range queries, but its performance degrades as the query range increases.
 	UNIFY utilizes a skip list for localization followed by a linear scan for searching in small-range query scenarios. Its performance is generally lower than graph-based structures like iRange in these cases.
 	Interestingly, Faiss, aided by its efficient ID selector for filtering, calculates distances for only a small subset of points in small-range scenarios. Consequently, it can outperform algorithms specifically designed for range searches.
 	}
@@ -1490,7 +1490,7 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 	
 %	\textit{\textbf{Multimodel, 85 and Deep100M.}} \textcolor{red}{The fig is Figure \ref{fig:TrinityExtension——Range}}
 	\section{DISCUSSION}
-	\textcolor{blue}{Based on the performance of algorithms across various experimental settings, we evaluate their strengths and weaknesses in different application scenarios, as shown in Table \ref{tab:algorithm_recommendation}. Next, we provide a detailed discussion of the advantages and disadvantages of each algorithm.}
+	\textcolor{blue}{Based on the performance of algorithms across various experimental settings, we evaluate their strengths and weaknesses in different application scenarios, as shown in Table \ref{tab:algorithm_recommendation}. Next, we provide a discussion of the advantages and disadvantages of each algorithm.}
 	
 	
 	
@@ -1586,7 +1586,7 @@ Puck is well-suited for large-scale datasets such as those with 100 million poin
 	DSG supports unordered dynamic insertions and range queries, but its index construction is limited to single-threaded execution, resulting in long build times and poor practical applicability.}
 	
 		\textcolor{blue}{
-	UNIFY adopts multiple filtering strategies tailored to different query range sizes, avoiding the limitations of a single strategy in specific scenarios. It requires only one index to support all queries, allows dynamic insertions, and features low time and space overhead during index construction, making it a more general-purpose solution.}
+	UNIFY adopts multiple filtering strategies tailored to different query range sizes, avoiding the limitations of a single strategy in specific scenarios. It requires only one index to support all queries, allows dynamic insertions, and features low time and space overhead during index construction, making it more general-purpose.}
 %	Table~\ref{tab:algo_scenarios} also shows the application scenarios of range filtering. iRange performs well on large-scale datasets, combining efficient construction and excellent query capabilities (S1). Faiss performs well in fast index construction (S2). When processing hard datasets, WinFilter, iRange, and DSG are recommended (S3), while WinFilter and iRange also perform well on easy datasets (S4). For general applications, DSG supports dynamic updates, while UNIFY provides flexible filtering strategies (S5). Faiss and SeRF show superior memory efficiency (S6). For static queries with high recall, WinFilter is the best choice (S7). In addition, WinFilter also performs well in OOD scenarios (S8).
 
 	\subsubsection{General Algorithm}
@@ -1600,7 +1600,7 @@ Faiss, Milvus and VBASE effectively handle complex filtering by employing versat
 	
 	\subsection{Challenges}
 	\subsubsection{Attribute Filtering}
-	Most existing attribute filtering algorithms are graph-based, they typically outperform other methods in terms of query accuracy and efficiency. Filtered-DiskANN leverages disk-based storage, making it more suitable for extremely large-scale datasets even in memory-constrained environments. Moreover, the index construction phase of graph-based algorithms is computationally intensive. Therefore, exploring GPU-based acceleration for graph construction and vector computation during indexing is promising. It can significantly improve the performance of graph-based methods.
+	Most existing attribute filtering algorithms are graph-based, they typically outperform other methods in terms of query accuracy and efficiency. Filtered-DiskANN leverages disk-based storage, making it suitable for  large-scale datasets even in memory-constrained environments. Moreover, the index construction phase of graph-based algorithms is computationally intensive. Therefore, exploring GPU-based acceleration for graph construction and vector computation during indexing is promising. It can significantly improve the performance of graph-based methods.
 	
 	\textcolor{blue}{In addition, existing attribute filtering algorithms face two major limitations: strict requirements on attribute format and limited support for complex filtering conditions. }
 %	For example, NHQ organizes attributes by column, which is suitable for uniformly structured data, but performs poorly in scenarios where the number of attributes varies across data points, resulting in poor scalability. Furthermore, NHQ only supports multi-attribute filtering with conjunctions ("AND" conditions). UNG is relatively more flexible in this regard, as it supports both "AND" and "OR" logic; however, it still cannot handle more complex Boolean expressions involving combinations of conjunctions and disjunctions.
@@ -1614,7 +1614,7 @@ Therefore, designing algorithms that can support complex filtering expressions w
 		
 		
 	\textcolor{blue}{
-	Besides, our research findings indicate that the distribution and selectivity of attributes significantly impact the performance of attribute filtering methods. Therefore, when designing algorithms, efforts should be made to minimize the coupling with specific attribute value distributions, in order to enhance the robustness and generalization ability of the algorithms under varying data conditions.}
+	Besides, our research indicates that the distribution and selectivity of attributes significantly impact the performance of attribute filtering methods. Therefore, when designing algorithms, efforts should be made to minimize the coupling with specific attribute value distributions, in order to enhance the robustness and generalization ability of the algorithms under varying data conditions.}
 	
 %	Furthermore, current attribute filtering algorithms offer limited support for complex filtering conditions. For example, Filtered-DiskANN  supports single-attribute filtering, and in multi-attribute scenarios, it only supports OR conditions between attributes. 
 %	%The original implementations of 
@@ -1629,8 +1629,7 @@ In addition,our experiments show that different algorithms exhibit varying stren
 	
 Moreover, in our experiments, many range filtering algorithms perform worse than Faiss at high recall (0.95), showing that current algorithm designs still need improvement. We suggest future future range filtering algorithms include Faiss as a baseline.
 	
-	
-	It is also worth noting that range filtering and attribute filtering are both forms of hybrid queries. However, aside from vector databases and ACORN, few existing algorithms support both modalities simultaneously. Designing unified frameworks that simultaneously support both is an important research frontier. 
+It is also worth noting that range filtering and attribute filtering are both forms of hybrid queries. However, aside from vector databases and ACORN, few existing algorithms support both modalities simultaneously. Designing unified frameworks that simultaneously support both is an important research frontier. 
 	
 	\textcolor{blue}{
 	Lastly, existing algorithms suffer from significant performance degradation on OOD datasets. Exploring how to improve these algorithms to better adapt to more complex query conditions is a worthwhile direction for further research.}
