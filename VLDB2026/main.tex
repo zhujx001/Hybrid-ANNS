@@ -154,8 +154,8 @@ In the experiments, we construct standardized attribute and range sets for attri
 	
 	\begin{figure*}
 		\centering
-		\setlength{\abovecaptionskip}{0.2cm}
-		\setlength{\belowcaptionskip}{-0.1cm}
+		\setlength{\abovecaptionskip}{0.15cm}
+		\setlength{\belowcaptionskip}{-0.10cm}
 
 		\includegraphics[width=0.92\textwidth]{figures/hybridANNS.pdf}
 		\caption{Hybrid Query Example}
@@ -274,8 +274,8 @@ Graph indexes are widely used in hybrid ANN search due to their efficiency. To s
 			\label{fig:ivf}
 		\end{subfigure}
 		
-		\setlength{\abovecaptionskip}{0.1cm}
-		\setlength{\belowcaptionskip}{-0.3cm}		
+	\setlength{\abovecaptionskip}{0.15cm}
+	\setlength{\belowcaptionskip}{-0.10cm}
 		\caption{Graph Index and IVF Index}
 		
 	\end{figure}
@@ -322,7 +322,7 @@ Graph indexes are widely used in hybrid ANN search due to their efficiency. To s
 		\centering
 		\footnotesize{
 			\begin{minipage}{\linewidth}
-				\vspace{0.1cm}
+%				\vspace{0.1cm}
 
 		\textcolor{black}{
 		\textit{Filtered}: FilteredVamana, \textit{Stitched}: StitchedVamana, \textit{Win}: WinFilter.
@@ -589,8 +589,8 @@ In Faiss, we use the HQI batch optimization strategy in the IVF index. It groups
 		\end{subfigure}
 		
 		%		\caption{Time and space overhead of attribute filtering index construction}
-		\setlength{\abovecaptionskip}{0.1cm}
-		\setlength{\belowcaptionskip}{-0.3cm}
+		\setlength{\abovecaptionskip}{0.15cm}
+		\setlength{\belowcaptionskip}{-0.10cm}
 		\caption{\textcolor{black}{Time and Space Overhead (AF)}}
 		\label{fig:build_index_comparison}
 	\end{figure}
@@ -602,8 +602,8 @@ In Faiss, we use the HQI batch optimization strategy in the IVF index. It groups
 	
 	\begin{figure*}
 		\centering
-		\setlength{\abovecaptionskip}{0.1cm}
-		\setlength{\belowcaptionskip}{-0.2cm}
+		\setlength{\abovecaptionskip}{0.15cm}
+		\setlength{\belowcaptionskip}{-0.10cm}
 		\includegraphics[width=0.95\textwidth]{figures/exp/exp_1_1_SingleLabel_1thread.pdf}
 		\caption{Performance of Single-Attribute Index Construction and Single-Attribute Query }
 		\label{fig:exp_1_1_SingleLabel_1thread}
@@ -672,8 +672,8 @@ During querying, CAPS maintains a large candidate set dynamically, which signifi
 	
 	\begin{figure}[t]
 		\centering
-		\setlength{\abovecaptionskip}{0.1cm}
-		\setlength{\belowcaptionskip}{-0.3cm}
+		\setlength{\abovecaptionskip}{0.15cm}
+		\setlength{\belowcaptionskip}{-0.10cm}
 		% 上面的图例，居中并可通过 hspace 调整左右位置
 		\hspace*{15pt} % 可调整的参数，负值左移，正值右移，例如 -20pt 或 20pt
 		\includegraphics[width=0.85\columnwidth]{figures/exp/exp_2_legend.pdf} % 图例图片路径
@@ -699,8 +699,8 @@ During querying, CAPS maintains a large candidate set dynamically, which signifi
 	
 	\begin{figure*}
 		\centering
-		\setlength{\abovecaptionskip}{0.1cm}
-		\setlength{\belowcaptionskip}{-0.25cm}
+		\setlength{\abovecaptionskip}{0.15cm}
+		\setlength{\belowcaptionskip}{-0.10cm}
 		\includegraphics[width=0.95\textwidth]{figures/exp/exp_4_1_MultiLabel_1thread.pdf}
 		\caption{Performance of Multi-Attribute Index Construction and Multi-Attribute Query}
 		\label{fig:exp_4_1_MultiLabel_1thread}
@@ -800,8 +800,8 @@ textcolor{black}{
 			\label{fig:exp_5_2_3}
 		\end{subfigure}
 		
-		\setlength{\abovecaptionskip}{0.1cm}
-		\setlength{\belowcaptionskip}{-0.15cm}
+		\setlength{\abovecaptionskip}{0.15cm}
+		\setlength{\belowcaptionskip}{-0.10cm}
 		
 		\caption{Performance of Different Attribute Selectivity (AS) under the Same Algorithm}
 		\label{fig:exp_5_2_combined}
@@ -866,7 +866,7 @@ textcolor{black}{
 
 \begin{figure*}
 	\centering
-	\setlength{\abovecaptionskip}{0.0cm}
+%	\setlength{\abovecaptionskip}{0.0cm}
 	\begin{minipage}[t]{0.37\textwidth}
 		\centering
 		\setlength{\abovecaptionskip}{-0.2cm}
@@ -1192,7 +1192,7 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 
 \footnotesize{
 	\begin{minipage}{\linewidth}
-		\vspace{0.1cm}
+%		\vspace{0.1cm}
 		\textit{Performance Levels:} \textbf{B} = Best, G = Good , M = Moderate, P = Poor, - = Not Supported;
 		\textit{Performance-Critical}: Requires low latency and high recall;
 		\textit{Index-Efficient}: Emphasizes lightweight index construction;

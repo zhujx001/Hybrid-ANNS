@@ -197,12 +197,12 @@
 
 %Entries
 
-@misc{VectorDBBench,
-	author       = {Zilliz Tech},
-	title        = {VectorDBBench: A Benchmark for Vector Databases},
-	year         = {2024},
-	howpublished = {\url{https://github.com/zilliztech/VectorDBBench}}
-}
+%@misc{VectorDBBench,
+%	author       = {Zilliz Tech},
+%	title        = {VectorDBBench: A Benchmark for Vector Databases},
+%	year         = {2024},
+%	howpublished = {\url{https://github.com/zilliztech/VectorDBBench}}
+%}
 
 @inproceedings{vbase,
 	author       = {Qianxi Zhang and
@@ -242,7 +242,8 @@
   author       = {Zilliz Tech},
   title        = {VectorDBBench: A Benchmark for Vector Databases},
   year         = {2024},
-  howpublished = {\url{https://github.com/zilliztech/VectorDBBench}}
+  howpublished = {\url{https://github.com/zilliztech/VectorDBBench}},
+  urldate = {2025-10-28}
 }
 
 
@@ -284,13 +285,17 @@
 }
 
 
-@article{diskann,
-  title={Diskann: Fast accurate billion-point nearest neighbor search on a single node},
 
-  author={Jayaram Subramanya and Suhas Devvrit and Harsha Vardhan Simhadri and et al.},
-  journal={Advances in neural information processing Systems},
-  volume={32},
-  year={2019}
+
+@inproceedings{diskann,
+	author={Jayaram Subramanya and Suhas Devvrit and Harsha Vardhan Simhadri and et al.},
+	title = {DiskANN: Fast Accurate Billion-point Nearest Neighbor Search on a Single Node},
+	booktitle = {Advances in Neural Information Processing Systems},
+	volume = {32},
+	year = {2019},
+	pages = {13766 - 13776}, 
+	publisher = {Curran Associates, Inc.},
+	url = {https://proceedings.neurips.cc/paper_files/paper/2019/file/09853c7fb1d3f8ee67a61b6bf4a7f8e6-Paper.pdf},
 }
 
 @article{PQ,
@@ -304,15 +309,16 @@
   publisher={IEEE}
 }
 
-@article{faiss,
-  author       = {Matthijs Douze and
-                  Alexandr Guzhva and
-                  Chengqi Deng and
-                  et al.},
-  title        = {The Faiss library},
-  journal      = {CoRR},
-  volume       = {abs/2401.08281},
-  year         = {2024}
+
+@article{faiss, 
+	title={The Faiss library}, 
+	author={Matthijs Douze and Alexandr Guzhva and Chengqi Deng and et al.},
+	year={2025},
+	archivePrefix={arXiv},
+	eprint={2401.08281},
+	primaryClass={cs.LG},
+	url={https://arxiv.org/abs/2401.08281},
+	urldate = {2025-10-28} 
 }
 
 @article{HQI,
@@ -389,54 +395,30 @@
 	year         = {2023}
 }
 
-%@inproceedings{Filtered-diskann,
-%  author       = {Siddharth Gollapudi and
-%                  Neel Karia and
-%                  Varun Sivashankar and
-%                  Ravishankar Krishnaswamy and
-%                  Nikit Begwani and
-%                  Swapnil Raz and
-%                  Yiyong Lin and
-%                  Yin Zhang and
-%                  Neelam Mahapatro and
-%                  Premkumar Srinivasan and
-%                  Amit Singh and
-%                  Harsha Vardhan Simhadri},
-%  title        = {Filtered-DiskANN: Graph Algorithms for Approximate Nearest Neighbor
-%                  Search with Filters},
-%  booktitle    = {{WWW}},
-%  pages        = {3406--3416},
-%  publisher    = {{ACM}},
-%  year         = {2023}
-%}
 
-@article{CAPS,
-  author       = {Gaurav Gupta and
-                  Jonah Yi and
-                  Benjamin Coleman and
-                  Chen Luo and
-                  Vihan Lakshman and
-                  Anshumali Shrivastava},
-  title        = {{CAPS:} {A} Practical Partition Index for Filtered Similarity Search},
-  journal      = {CoRR},
-  volume       = {abs/2308.15014},
-  year         = {2023}
+
+@article{CAPS, 
+	author = {Gaurav Gupta and Jonah Yi and Benjamin Coleman and et al.},
+	title = {{CAPS:} {A} Practical Partition Index for Filtered Similarity Search},
+	archivePrefix={arXiv},
+	eprint={2308.15014},
+	primaryClass={cs.IR},
+	year = {2023},
+	url = {https://arxiv.org/abs/2308.15014},
+	urldate = {2025-10-28} 
 }
 
-@article{UNIFY,
-  author       = {Anqi Liang and
-                  Pengcheng Zhang and
-                  Bin Yao and
-                  Zhongpu Chen and
-                  Yitong Song and
-                  Guangxu Cheng},
-  title        = {{UNIFY:} Unified Index for Range Filtered Approximate Nearest Neighbors
-                  Search},
-  journal      = {CoRR},
-  volume       = {abs/2412.02448},
-  year         = {2024}
+@article{UNIFY, 
+	author = {Liang, Anqi and Zhang, Pengcheng and Yao, Bin and et al.},
+	title = {UNIFY: Unified Index for Range Filtered Approximate Nearest Neighbors Search},
+	journal = {Proc. {VLDB} Endow.},
+	volume = {18},
+	number = {4},
+	pages = {1118--1130},
+	year = {2025},
+	doi = {10.14778/3717755.3717770},
+	url = {https://doi.org/10.14778/3717755.3717770},
 }
-
 
 @inproceedings{LID2,
   author       = {Laurent Amsaleg and
@@ -480,33 +462,27 @@
 	booktitle    = {NeurIPS},
 	year         = {2023}
 }
-%@inproceedings{NHQ,
-%  author       = {Mengzhao Wang and
-%                  Lingwei Lv and
-%                  Xiaoliang Xu and
-%                  Yuxiang Wang and
-%                  Qiang Yue and
-%                  Jiongkang Ni},
-%  title        = {An Efficient and Robust Framework for Approximate Nearest Neighbor
-%                  Search with Attribute Constraint},
-%  booktitle    = {NeurIPS},
-%  year         = {2023}
-%}
+
 @inproceedings{winFilter,
-  author       = {Mengzhao Wang and
-                  Lingwei Lv and
-                  Xiaoliang Xu and
-                  Yuxiang Wang and
-                  Qiang Yue and
-                  Jiongkang Ni},
-  title        = {An Efficient and Robust Framework for Approximate Nearest Neighbor
-                  Search with Attribute Constraint},
-  booktitle    = {NeurIPS},
-  year         = {2023}
+	author = {Engels, Joshua and Landrum, Benjamin and Yu, Shangdi and et al.},
+	title = {Approximate nearest neighbor search with window filters},
+	booktitle = {Proceedings of the 41st International Conference on Machine Learning (ICML)},
+	year = {2024},
+	publisher = {JMLR.org},
+	pages = {12469 - 12490}, 
+	series = {ICML'24},
+	
 }
-@article{DSG,
-  title={Dynamic Range-Filtering Approximate Nearest Neighbor Search},
-  author={Peng, Zhencan and Qiao, Miao and Zhou, Wenchao and Li, Feifei and Deng, Dong}
+@article{DSG, 
+	author = {Peng, Zhencan and Qiao, Miao and Zhou, Wenchao and et al.},
+	title = {Dynamic Range-Filtering Approximate Nearest Neighbor Search},
+	journal = {Proc. {VLDB} Endow.},
+	volume = {18},
+	number = {10},
+	pages = {3256--3268},
+	year = {2025},
+	doi = {10.14778/3748191.3748193},
+	url = {https://doi.org/10.14778/3748191.3748193},
 }
 @inproceedings{dimcurse,
   author       = {Piotr Indyk and
@@ -570,6 +546,7 @@
   title = {Puck: A High-Performance ANN Search Framework},
   howpublished = {\url{https://github.com/baidu/puck}},
   year = {2023},
+  urldate = {2025-10-28}
 }
 
 
@@ -969,7 +946,8 @@
   title = {{PostgreSQL}},
   version = {13.4},
   howpublished = {\url{https://github.com/postgres/postgres/tree/REL_13_4}},
-  year = {2020}
+  year = {2020},
+  urldate = {2025-10-28}
 }
 
 @article{glove,
@@ -1089,40 +1067,49 @@
   author = {{Anon}},
   year = {2011},
   title = {Million Song Dataset Benchmarks},
-  howpublished = {\url{http://www.ifs.tuwien.ac.at/mir/msd/}}
+  howpublished = {\url{http://www.ifs.tuwien.ac.at/mir/msd/}},
+  urldate = {2025-10-28}
 }
 
 @misc{audio_unknown,
   author = {{Anon}},
   year = {unknown},
   title = {TIMIT Audio},
-  howpublished = {\url{https://www.cs.princeton.edu/cass/demos.htm}}
+  howpublished = {\url{https://www.cs.princeton.edu/cass/demos.htm}},
+  urldate = {2025-10-28}
 }
 
 @misc{sift2010,
   author = {{Anon}},
   year = {2010},
   title = {Datasets for approximate nearest neighbor search},
-  howpublished = {\url{http://corpus-texmex.irisa.fr/}}
+  howpublished = {\url{http://corpus-texmex.irisa.fr/}},
+    urldate = {2025-10-28}
 }
 
 @misc{glove2015,
   author = {Pennington, Jeffrey and Socher, Richard and Manning, Christopher D.},
   year = {2015},
   title = {GloVe: Global Vectors for Word Representation},
-  howpublished = {\url{https://nlp.stanford.edu/projects/glove/}}
+  howpublished = {\url{https://nlp.stanford.edu/projects/glove/}},
+  urldate = {2025-10-28}
+  
 }
 
 @misc{enron2015,
   author = {Stewart, Russell and Manning, Christopher and Pennington, Jeffrey},
   year = {2015},
   title = {Enron Email Dataset},
-  howpublished = {\url{https://www.cs.cmu.edu/~./enron/}}
+  howpublished = {\url{https://www.cs.cmu.edu/~./enron/}},
+  urldate = {2025-10-28}
+  
 }
 
 @misc{wit_dataset,
   title={WIT: Wikipedia-based Image Text Dataset},
-  url={https://github.com/google-research-datasets/wit}
+  url={https://github.com/google-research-datasets/wit},
+  urldate = {2025-10-28}
+  
 }
 
 @article{youtube8m_dataset,
@@ -1142,7 +1129,8 @@
 @misc{yandex_deep_dataset,
   title={Benchmarks for Billion-Scale Similarity Search},
   author={Babenko, Artem and Lempitsky, Victor},
-  year={2023}
+  year={2023},
+    urldate = {2025-10-28}
 }
 
 
