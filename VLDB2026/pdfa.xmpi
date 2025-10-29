@@ -62,6 +62,22 @@
   </rdf:Description> 
   <rdf:Description rdf:about="" xmlns:dc="http://purl.org/dc/elements/1.1/"> 
    <dc:format>application/pdf</dc:format> 
+   <dc:title><rdf:Alt><rdf:li xml:lang="x-default">An Experimental Evaluation of Hybrid Querying on Vectors</rdf:li></rdf:Alt></dc:title>
+   <dc:creator><rdf:Seq><rdf:li>Jiaxu Zhu</rdf:li>
+     <rdf:li>Jiayu Yuan</rdf:li>
+     <rdf:li>Kaiwen Yang</rdf:li>
+     <rdf:li>Xiaobao Chen</rdf:li>
+     <rdf:li>Shihuan Yu</rdf:li>
+     <rdf:li>Hongchang Lv</rdf:li>
+     <rdf:li>Yan Li</rdf:li>
+     <rdf:li>Bolong Zheng</rdf:li></rdf:Seq></dc:creator>
+   <dc:rights><rdf:Alt><rdf:li xml:lang="x-default">Copyright © 2025 Jiaxu Zhu et al.</rdf:li></rdf:Alt></dc:rights>
+   <dc:description><rdf:Alt><rdf:li xml:lang="x-default">Recent studies demonstrate the significant practical value of hybrid queries, which integrate vector search with structured filters (e.g., attribute and range filtering) for refined retrieval. However, current evaluations lack unified benchmarking standards and systematic assessment methodologies. Existing studies either fail to cover mainstream algorithms or omit systematic comparisons or in-depth analysis on different methods. To address this issue, we design a comprehensive evaluation framework for hybrid queries. Our study introduces 15 hybrid query algorithms and systematically classifies them based on multiple dimensions, such as index organization and filtering strategy, providing a reference for the categorization of hybrid queries. In the experiments, we construct standardized attribute and range sets for attribute filtering and range filtering, respectively, enabling a unified comparison of algorithms in terms of index construction efficiency and query performance. Furthermore, we evaluate the robustness of the algorithms across multiple dimensions, including data distributions, platforms, and scalability on a 100-million-scale dataset. Additionally, we conduct an in-depth analysis of the experimental results based on the underlying principles of algorithms. Extensive experimental results reveal the strengths and weaknesses of each algorithm. Based on the findings, we develop a set of practical guidelines for algorithm selection, offering reliable references for different application scenarios. Furthermore, we identify potential directions for improvement to address the current limitations of these algorithms.</rdf:li></rdf:Alt></dc:description>
+   <dc:subject><rdf:Bag><rdf:li>Hybrid Querying</rdf:li>
+     <rdf:li>Approximate Nearest Neighbor Search</rdf:li>
+     <rdf:li>Vector Databases</rdf:li>
+     <rdf:li>Attribute Filtering</rdf:li>
+     <rdf:li>Range Filtering</rdf:li></rdf:Bag></dc:subject>
   </rdf:Description> 
   <rdf:Description rdf:about="" xmlns:prism="http://prismstandard.org/namespaces/basic/2.2/"> 
   </rdf:Description> 
@@ -73,15 +89,17 @@
   </rdf:Description> 
   <rdf:Description rdf:about="" xmlns:xmp="http://ns.adobe.com/xap/1.0/"> 
    <xmp:CreatorTool>LaTeX with hyperref</xmp:CreatorTool> 
-   <xmp:ModifyDate>2025-10-28T16:22:10+08:00</xmp:ModifyDate> 
-   <xmp:CreateDate>2025-10-28T16:22:10+08:00</xmp:CreateDate> 
-   <xmp:MetadataDate>2025-10-28T16:22:10+08:00</xmp:MetadataDate> 
+   <xmp:ModifyDate>2025-10-29T10:24:18+08:00</xmp:ModifyDate> 
+   <xmp:CreateDate>2025-10-29T10:24:18+08:00</xmp:CreateDate> 
+   <xmp:MetadataDate>2025-10-29T10:24:18+08:00</xmp:MetadataDate> 
   </rdf:Description> 
   <rdf:Description rdf:about="" xmlns:xmpRights = "http://ns.adobe.com/xap/1.0/rights/"> 
+   <xmpRights:Marked>True</xmpRights:Marked>
+   <xmpRights:UsageTerms><rdf:Alt><rdf:li xml:lang="x-default">Copyright © 2025 Jiaxu Zhu et al.</rdf:li></rdf:Alt></xmpRights:UsageTerms>
   </rdf:Description> 
   <rdf:Description rdf:about="" xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/"> 
    <xmpMM:DocumentID>uuid:DF005B57-2A06-8753-7167-92D8CE935460</xmpMM:DocumentID> 
-   <xmpMM:InstanceID>uuid:FC53B1F0-A57A-1273-B0DF-1CEAE0FAB05F</xmpMM:InstanceID> 
+   <xmpMM:InstanceID>uuid:7E70C2CA-D0F0-E814-39B2-D23E39A3BFD0</xmpMM:InstanceID> 
   </rdf:Description> 
  </rdf:RDF> 
 </x:xmpmeta> 

@@ -503,8 +503,16 @@
     \else
     \hypersetup{hidelinks}
   \fi
-  \hypersetup{pdflang={en},
-    pdfdisplaydoctitle}}
+\@ifpackageloaded{pdfx}{%
+	% pdfx 已加载：它会负责 PDF/A 的元数据写入
+	% 所以不再执行 hyperref 的 pdflang / pdfdisplaydoctitle
+}{%
+	% 未加载 pdfx：仍由 acmart 控制语言与 ViewerPreferences
+	\hypersetup{%
+		pdflang={en},
+		pdfdisplaydoctitle
+	}%
+}}
 \if@ACM@natbib
   \let\citeN\cite
   \let\cite\citep
