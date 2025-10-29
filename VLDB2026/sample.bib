@@ -195,14 +195,6 @@
  @String{VanNostrand = "Van Nostrand" }
  @String{WHFreeman = "W. H. Freeman and Co." }
 
-%Entries
-
-%@misc{VectorDBBench,
-%	author       = {Zilliz Tech},
-%	title        = {VectorDBBench: A Benchmark for Vector Databases},
-%	year         = {2024},
-%	howpublished = {\url{https://github.com/zilliztech/VectorDBBench}}
-%}
 
 @inproceedings{vbase,
 	author       = {Qianxi Zhang and
@@ -217,26 +209,6 @@
 	year         = {2023}
 }
 
-%@inproceedings{vbase,
-%  author       = {Qianxi Zhang and
-%                  Shuotao Xu and
-%                  Qi Chen and
-%                  Guoxin Sui and
-%                  Jiadong Xie and
-%                  Zhizhen Cai and
-%                  Yaoqi Chen and
-%                  Yinxuan He and
-%                  Yuqing Yang and
-%                  Fan Yang and
-%                  Mao Yang and
-%                  Lidong Zhou},
-%  title        = {{VBASE:} Unifying Online Vector Similarity Search and Relational Queries
-%                  via Relaxed Monotonicity},
-%  booktitle    = {{OSDI}},
-%  pages        = {377--395},
-%  publisher    = {{USENIX} Association},
-%  year         = {2023}
-%}
 
 @misc{VectorDBBench,
   author       = {Zilliz Tech},
@@ -290,18 +262,19 @@
 @inproceedings{diskann,
 	author={Jayaram Subramanya and Suhas Devvrit and Harsha Vardhan Simhadri and et al.},
 	title = {DiskANN: Fast Accurate Billion-point Nearest Neighbor Search on a Single Node},
-	booktitle = {Advances in Neural Information Processing Systems},
+	booktitle    = {NeurIPS},
 	volume = {32},
 	year = {2019},
 	pages = {13766 - 13776}, 
-	publisher = {Curran Associates, Inc.},
-	url = {https://proceedings.neurips.cc/paper_files/paper/2019/file/09853c7fb1d3f8ee67a61b6bf4a7f8e6-Paper.pdf},
+
+
 }
 
 @article{PQ,
   title={Product quantization for nearest neighbor search},
   author={Jegou, Herve and Douze, Matthijs and Schmid, Cordelia},
-  journal={IEEE transactions on pattern analysis and machine intelligence},
+ journal = {{IEEE} Trans. Pattern Anal. Mach. Intell.},
+ 
   volume={33},
   number={1},
   pages={117--128},
@@ -310,16 +283,16 @@
 }
 
 
-@article{faiss, 
-	title={The Faiss library}, 
-	author={Matthijs Douze and Alexandr Guzhva and Chengqi Deng and et al.},
-	year={2025},
-	archivePrefix={arXiv},
-	eprint={2401.08281},
-	primaryClass={cs.LG},
-	url={https://arxiv.org/abs/2401.08281},
-	urldate = {2025-10-28} 
+
+@online{faiss,
+	author =       "Johnson, Jeff and Douze, Matthijs and J{\'e}gou, Herv{\'e} and Hosseini Lucas",
+	year =         "2017",
+	title =        "FAISS: Facebook AI Similarity Search",
+	url =          "https://github.com/facebookresearch/faiss",
+	lastaccessed = "June 13, 2024",
 }
+
+
 
 @article{HQI,
   author       = {Jason Mohoney and
@@ -331,7 +304,7 @@
                   Jeffrey Pound and
                   Theodoros Rekatsinas},
   title        = {High-Throughput Vector Similarity Search in Knowledge Graphs},
-  journal      = {Proc. {ACM} Manag. Data},
+  journal      = {{SIGMOD} Conference},
   volume       = {1},
   number       = {2},
   pages        = {197:1--197:25},
@@ -346,7 +319,7 @@
                   Christian S. Jensen},
   title        = {iRangeGraph: Improvising Range-dedicated Graphs for Range-filtering
                   Nearest Neighbor Search},
-  journal      = {Proc. {ACM} Manag. Data},
+  journal      = {{SIGMOD} Conference},
   volume       = {2},
   number       = {6},
   pages        = {239:1--239:26},
@@ -361,7 +334,7 @@
                   Dong Deng},
   title        = {SeRF: Segment Graph for Range-Filtering Approximate Nearest Neighbor
                   Search},
-  journal      = {Proc. {ACM} Manag. Data},
+  journal      = {{SIGMOD} Conference},
   volume       = {2},
   number       = {1},
   pages        = {69:1--69:26},
@@ -375,7 +348,7 @@
                   Weiguo Zheng},
   title        = {Navigating Labels and Vectors: {A} Unified Approach to Filtered Approximate
                   Nearest Neighbor Search},
-  journal      = {Proc. {ACM} Manag. Data},
+  journal      = {{SIGMOD} Conference},
   volume       = {2},
   number       = {6},
   pages        = {246:1--246:27},
@@ -397,16 +370,14 @@
 
 
 
-@article{CAPS, 
-	author = {Gaurav Gupta and Jonah Yi and Benjamin Coleman and et al.},
-	title = {{CAPS:} {A} Practical Partition Index for Filtered Similarity Search},
-	archivePrefix={arXiv},
-	eprint={2308.15014},
-	primaryClass={cs.IR},
-	year = {2023},
-	url = {https://arxiv.org/abs/2308.15014},
-	urldate = {2025-10-28} 
+@article{CAPS,
+author = {Gaurav Gupta and Jonah Yi and Benjamin Coleman and et al.},
+	title   = {{CAPS:} A Practical Partition Index for Filtered Similarity Search},
+	journal = {arXiv preprint arXiv:2308.15014},
+	year    = {2023},
+	
 }
+
 
 @article{UNIFY, 
 	author = {Liang, Anqi and Zhang, Pengcheng and Yao, Bin and et al.},
@@ -460,17 +431,18 @@
 	title        = {An Efficient and Robust Framework for Approximate Nearest Neighbor
 	Search with Attribute Constraint},
 	booktitle    = {NeurIPS},
+	numpages = {14},
 	year         = {2023}
 }
 
 @inproceedings{winFilter,
 	author = {Engels, Joshua and Landrum, Benjamin and Yu, Shangdi and et al.},
 	title = {Approximate nearest neighbor search with window filters},
-	booktitle = {Proceedings of the 41st International Conference on Machine Learning (ICML)},
+	booktitle = {ICML},
 	year = {2024},
 	publisher = {JMLR.org},
 	pages = {12469 - 12490}, 
-	series = {ICML'24},
+
 	
 }
 @article{DSG, 
@@ -551,15 +523,16 @@
 
 
 @article{bigann2023,
-  author       = {Harsha Vardhan Simhadri and
-                  Martin Aum{\"{u}}ller and
-                  Amir Ingber and
-                   et al.},
-  title        = {Results of the Big {ANN:} NeurIPS'23 competition},
-  journal      = {CoRR},
-  volume       = {abs/2409.17424},
-  year         = {2024}
+	 author       = {Harsha Vardhan Simhadri and
+	Martin Aum{\"{u}}ller and
+	Amir Ingber and
+	et al.},
+	title   = {Results of the Big {ANN:} NeurIPS'23 Competition},
+	journal = {arXiv preprint arXiv:2409.17424},
+	year    = {2024},
+	
 }
+
 
 @article{ACORN,
   author       = {Liana Patel and
@@ -568,7 +541,7 @@
                   Matei Zaharia},
   title        = {{ACORN:} Performant and Predicate-Agnostic Search Over Vector Embeddings
                   and Structured Data},
-  journal      = {Proc. {ACM} Manag. Data},
+  journal      =  {{SIGMOD} Conference},
   volume       = {2},
   number       = {3},
   pages        = {120},
@@ -588,22 +561,7 @@
 	pages        = {3152--3165},
 	year         = {2020}
 }
-%@article{analyticdb,
-%  author       = {Chuangxian Wei and
-%                  Bin Wu and
-%                  Sheng Wang and
-%                  Renjie Lou and
-%                  Chaoqun Zhan and
-%                  Feifei Li and
-%                  Yuanzhe Cai},
-%  title        = {AnalyticDB-V: {A} Hybrid Analytical Engine Towards Query Fusion for
-%                  Structured and Unstructured Data},
-%  journal      = {Proc. {VLDB} Endow.},
-%  volume       = {13},
-%  number       = {12},
-%  pages        = {3152--3165},
-%  year         = {2020}
-%}
+
 
 @misc{filteredVectorSearch,
   title={Filtered Vector Search},
@@ -613,23 +571,23 @@
   note={Accessed: 2023-03-21}
 }
 @article{monolith,
-  author       = {Zhuoran Liu and
-                  Leqi Zou and
-                  Xuan Zou and
-                  Caihua Wang and
-                  Biao Zhang and
-                  Da Tang and
-                  Bolin Zhu and
-                  Yijie Zhu and
-                  Peng Wu and
-                  Ke Wang and
-                  Youlong Cheng},
-  title        = {Monolith: Real Time Recommendation System With Collisionless Embedding
-                  Table},
-  journal      = {CoRR},
-  volume       = {abs/2209.07663},
-  year         = {2022}
+ author       = {Zhuoran Liu and
+Leqi Zou and
+Xuan Zou and
+Caihua Wang and
+Biao Zhang and
+Da Tang and
+Bolin Zhu and
+Yijie Zhu and
+Peng Wu and
+Ke Wang and
+Youlong Cheng},
+	title   = {{Monolith:} Real-Time Recommendation System with Collisionless Embedding Table},
+	journal = {arXiv preprint arXiv:2209.07663},
+	year    = {2022},
+
 }
+
 
 
 @inproceedings{Airbnb,
@@ -721,20 +679,23 @@
 }
 
 @inproceedings{JD-e-commerce,
-  author       = {Jie Li and
-                  Haifeng Liu and
-                  Chuanghua Gui and
-                  Jianyu Chen and
-                  Zhenyuan Ni and
-                  Ning Wang and
-                  Yuan Chen},
-  title        = {The Design and Implementation of a Real Time Visual Search System
-                  on {JD} E-commerce Platform},
-  booktitle    = {Middleware Industry},
-  pages        = {9--16},
-  publisher    = {{ACM}},
-  year         = {2018}
+author       = {Jie Li and
+Haifeng Liu and
+Chuanghua Gui and
+Jianyu Chen and
+Zhenyuan Ni and
+Ning Wang and
+Yuan Chen},
+	title     = {The Design and Implementation of a Real Time Visual Search System on {JD} E-commerce Platform},
+	booktitle = {Proc. 19th Int. Middleware Conf. Industry},
+	pages     = {9--16},
+	publisher = {ACM},
+	address   = {New York, NY, USA},
+	year      = {2018},
+	doi       = {10.1145/3284028.3284030},
+	url       = {https://doi.org/10.1145/3284028.3284030}
 }
+
 @inproceedings{vo2019composing,
   author       = {Nam Vo and
                   Lu Jiang and
@@ -850,7 +811,6 @@
   title        = {Benchmarking Nearest Neighbor Search: Influence of Local Intrinsic
                   Dimensionality and Result Diversity in Real-World Datasets},
   booktitle    = {EDML@SDM},
-  series       = {{CEUR} Workshop Proceedings},
   volume       = {2436},
   pages        = {14--23},
   publisher    = {CEUR-WS.org},
@@ -1105,26 +1065,38 @@
   
 }
 
-@misc{wit_dataset,
-  title={WIT: Wikipedia-based Image Text Dataset},
-  url={https://github.com/google-research-datasets/wit},
-  urldate = {2025-10-28}
-  
+
+
+@inproceedings{wit_dataset,
+	author    = {K. Srinivasan and K. Raman and J. Chen and M. Bendersky and M. Najork},
+	title     = {{WIT:} Wikipedia-Based Image Text Dataset for Multimodal Multilingual Machine Learning},
+	booktitle = {Proc. 44th ACM SIGIR Conf. on Research and Development in Information Retrieval},
+	year      = {2021},
+	pages     = {2443--2449},
+	publisher = {ACM},
+	address   = {New York, NY, USA},
+	doi       = {10.1145/3404835.3463257},
+	url       = {https://doi.org/10.1145/3404835.3463257}
 }
 
+
+
+
 @article{youtube8m_dataset,
-  author       = {Sami Abu{-}El{-}Haija and
-                  Nisarg Kothari and
-                  Joonseok Lee and
-                  Paul Natsev and
-                  George Toderici and
-                  Balakrishnan Varadarajan and
-                  Sudheendra Vijayanarasimhan},
-  title        = {YouTube-8M: {A} Large-Scale Video Classification Benchmark},
-  journal      = {CoRR},
-  volume       = {abs/1609.08675},
-  year         = {2016}
+	author       = {Sami Abu{-}El{-}Haija and
+	Nisarg Kothari and
+	Joonseok Lee and
+	Paul Natsev and
+	George Toderici and
+	Balakrishnan Varadarajan and
+	Sudheendra Vijayanarasimhan},
+	title   = {{YouTube-8M:} A Large-Scale Video Classification Benchmark},
+	journal = {arXiv preprint arXiv:1609.08675},
+	year    = {2016},
+	
 }
+
+
 
 @misc{yandex_deep_dataset,
   title={Benchmarks for Billion-Scale Similarity Search},
@@ -1174,7 +1146,7 @@
   author       = {Masajiro Iwasaki},
   title        = {Pruned Bi-directed K-nearest Neighbor Graph for Proximity Search},
   booktitle    = {{SISAP}},
-  series       = {Lecture Notes in Computer Science},
+ 
   volume       = {9939},
   pages        = {20--33},
   year         = {2016}
@@ -1182,7 +1154,8 @@
 @article{cover1967nearest,
   title={Nearest neighbor pattern classification},
   author={Cover, Thomas and Hart, Peter},
-  journal={IEEE transactions on information theory},
+journal = {{IEEE} Trans. Inf. Theory},
+
   volume={13},
   number={1},
   pages={21--27},
@@ -1267,7 +1240,7 @@
 @article{azizi2025graph,
 	author       = {Ilias Azizi and Karima Echihabi and Themis Palpanas},
 	title        = {Graph-based Vector Search: An Experimental Evaluation of the State-of-the-Art},
-	journal      = {Proc. {ACM} Manag. Data},
+	journal      = {{SIGMOD} Conference}},
 	volume       = {3},
 	number       = {1},
 	pages        = {1--31},

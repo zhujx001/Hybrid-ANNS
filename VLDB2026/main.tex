@@ -19,7 +19,7 @@
 \usepackage{fontawesome}
 \usepackage{makecell}
 \usepackage{array}
-
+\usepackage[all]{nowidow}
 
 % \newtheorem{definition}{DEFINITION} % 定义“定义”环境
 % % \newtheorem{example}{例} % 定义“例”环境，不与“定义”共享编号
@@ -41,6 +41,8 @@
 \newcommand\vldbpagestyle{empty} 
 
 \usepackage[a-2b,mathxmp]{pdfx}
+
+
 
 \begin{document}
 	%\begin{sloppypar}
@@ -78,7 +80,7 @@
 	
 	\author{Yan Li}
 	\affiliation{%
-		\institution{Huazhong University of Science and Technology}
+		\institution{Wuhan University of Technology}
 	}
 	
 	\author{Bolong Zheng}
@@ -322,7 +324,7 @@ Graph indexes are widely used in hybrid ANN search due to their efficiency. To s
 		\centering
 		\footnotesize{
 			\begin{minipage}{\linewidth}
-%				\vspace{0.1cm}
+
 
 		\textcolor{black}{
 		\textit{Filtered}: FilteredVamana, \textit{Stitched}: StitchedVamana, \textit{Win}: WinFilter.
@@ -351,7 +353,7 @@ Graph indexes are widely used in hybrid ANN search due to their efficiency. To s
 
 
 
-	\noindent\textbf{\underline{NHQ} \footnote{\textcolor{black}{https://github.com/KGLab-HDU/TKDE-under-review-Native-Hybrid-Queries-via-ANNS}} \cite{NHQ}}
+	\noindent\textbf{\underline{NHQ} \footnote{https://github.com/KGLab-HDU/TKDE-under-review-Native-Hybrid-Queries-via-ANNS} \cite{NHQ}}
 	Traditional attribute filtering algorithms usually perform attribute constraints and ANN search separately. In contrast, NHQ is the first to implement simultaneous filtering, integrating both aspects into a unified framework. NHQ constructs an index based on a nearest neighbor graph and introduces a fusion distance that jointly captures vector similarity and attribute similarity. Leveraging this fusion distance, NHQ unifies vector similarity and attribute matching into a single comprehensive similarity measure and builds the graph accordingly. During the query process, NHQ efficiently prunes irrelevant edges via this composite index, enabling fast retrieval of results that satisfy both vector similarity and attribute constraints.
 	
 	\noindent\textbf{\underline{Filtered-DiskANN} \footnote{\textcolor{black}{https://github.com/microsoft/DiskANN}} \cite{Filtered-diskann}}
@@ -414,35 +416,19 @@ Graph indexes are widely used in hybrid ANN search due to their efficiency. To s
 	\subsection{Vector Libraries and Databases}
 The vector library and databases discussed in the following are not explicitly designed for hybrid query, but they support both attribute filtering and range filtering. 
 
-\noindent\textbf{\underline{Faiss}\footnote{\textcolor{black}{https://github.com/facebookresearch/faiss}} \cite{Faiss}}
+\noindent\textbf{\underline{Faiss}\footnote{\url{https://github.com/facebookresearch/faiss}} \cite{Faiss}}
 Faiss is an efficient similarity search library. It supports hybrid search by using an ID selector to filter data before performing ANN search.
 In Faiss, we use the HQI batch optimization strategy in the IVF index. It groups queries with the same filter conditions. Each group only runs the filter once. It uses efficient matrix operations to compute vector similarity in batches.
 
-\noindent\textbf{\underline{PASE} \footnote{\textcolor{black}{https://github.com/alipay/PASE}} \cite{pase}} PASE is a vector index plugin for PostgreSQL. It uses a post-filtering strategy. Since the candidate set size is fixed, it may fail to return enough top-k results.
+\noindent\textbf{\underline{PASE}\footnote{\url{https://github.com/alipay/PASE}} \cite{pase}}  PASE is a vector index plugin for PostgreSQL. It uses a post-filtering strategy. Since the candidate set size is fixed, it may fail to return enough top-k results.
 
-\noindent\textbf{\underline{VBASE} \footnote{\textcolor{black}{https://github.com/microsoft/MSVBASE}} \cite{vbase}} VBASE is also a vector plugin for PostgreSQL. Unlike PASE, it applies filters during the HNSW index traversal, discarding unmatched nodes on the fly. This strategy ensures that enough valid results are returned .
+\noindent\textbf{\underline{VBASE} \footnote{\url{https://github.com/microsoft/MSVBASE}} \cite{vbase}} VBASE is also a vector plugin for PostgreSQL. Unlike PASE, it applies filters during the HNSW index traversal, discarding unmatched nodes on the fly. This strategy ensures that enough valid results are returned .
 
 
 
-\noindent\textbf{\underline{Milvus} \footnote{\textcolor{black}{https://github.com/milvus-io/milvus}} \cite{milvus}} Milvus is a vector database designed for large-scale similarity search. In hybrid queries, it adopts a pre-filtering strategy, similar to the ID selector mechanism used in Faiss.
+\noindent\textbf{\underline{Milvus} \footnote{\url{https://github.com/milvus-io/milvus}} \cite{milvus}} Milvus is a vector database designed for large-scale similarity search. In hybrid queries, it adopts a pre-filtering strategy, similar to the ID selector mechanism used in Faiss.
 %It filters data first, then performs approximate nearest neighbor search. This supports hybrid search.
 
-	
-%	The vector libraries and databases discussed in the following are not explicitly designed for hybrid queries, but they support both attribute filtering and range filtering. Additionally, all the functionalities shown in Table 1 are also supported.
-%	
-%	\noindent\textbf{\underline{Faiss} \footnote{\textcolor{black}{https://github.com/facebookresearch/faiss}} \cite{Faiss}}
-%	Faiss is a library designed for efficient similarity search. It supports various indexing structures, including IVF, Product Quantization (PQ) \cite{PQ}, and HNSW. In hybrid query scenarios, Faiss supports vector search with an ID selector, which is a bitmap aligned with the dataset size. Users can generate this selector by first applying custom attribute filtering methods. During the query process, Faiss excludes vectors based on the selector, enabling efficient integration of attribute filtering with ANN search. In addition, we adopt the batch optimization strategy of HQI~\cite{HQI} for the IVF index in Faiss. This strategy groups queries with the same filter conditions, performs filtering once per group, and then uses efficient matrix operations to perform batch vector similarity calculations.
-%	
-%	
-%	\noindent\textbf{\underline{PASE} \footnote{\textcolor{black}{https://github.com/alipay/PASE}} \cite{pase}}
-%	PASE is a vector indexing plugin for the PostgreSQL database \cite{postgresql13.4}, supporting two index types: IVF\_Flat \cite{johnson2019billion} and HNSW. By leveraging database capabilities, PASE enables both attribute filtering and range filtering. We focus on the post-filtering strategy based on HNSW, which facilitate comparison with other methods. When a query request is received, PASE first obtains a candidate set using the HNSW index. It then applies the filtering conditions from the WHERE clause to refine the results. However, since the candidate set has a fixed size, low-selectivity filters may result in fewer than $k$ results being returned.
-%	
-%	
-%	\noindent\textbf{\underline{VBASE} \footnote{\textcolor{black}{https://github.com/microsoft/MSVBASE}} \cite{vbase}}
-%	Similar to PASE, VBASE is a PostgreSQL-based vector indexing plugin supporting HNSW, SPTAG~\cite{sptag}, and SPANN~\cite{spann}. We focus on HNSW-based search because SPTAG and SPANN have poorer performance and their source code does not fully implement index-building functionality. VBASE adopts a post-filtering strategy. However, it employs an iterative filtering mechanism: during index traversal, each node is checked against the WHERE clause, and non-matching nodes are discarded. This avoids the issue in PASE where the final result set may contain fewer than $k$ results.
-%	
-%	\noindent\textbf{\underline{Milvus} \footnote{\textcolor{black}{https://github.com/milvus-io/milvus}} \cite{milvus}}
-%	Unlike PASE and VBASE, which are database extensions, Milvus is an vector database purpose-built for large-scale similarity search. It supports multiple index types, including HNSW, IVF\_Flat, and IVF\_PQ, and provides extensive optimization for real-world deployment. Among its indexes, IVF\_Flat is commonly used due to its balance between performance and simplicity. In hybrid queries, Milvus first pre-filters the dataset using user-specified conditions, then traverses only the corresponding clusters for ANN search—similar to the ID selector mechanism of Faiss.
 	
 	\section{Experiments}
 	\subsection{Experimental Setup}
@@ -1192,7 +1178,7 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 
 \footnotesize{
 	\begin{minipage}{\linewidth}
-%		\vspace{0.1cm}
+
 		\textit{Performance Levels:} \textbf{B} = Best, G = Good , M = Moderate, P = Poor, - = Not Supported;
 		\textit{Performance-Critical}: Requires low latency and high recall;
 		\textit{Index-Efficient}: Emphasizes lightweight index construction;
