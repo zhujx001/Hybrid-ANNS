@@ -197,15 +197,23 @@
 
 
 @inproceedings{vbase,
-	author       = {Qianxi Zhang and
-		Shuotao Xu and
-		Qi Chen and
-		et al},
+author       = {Qianxi Zhang and
+Shuotao Xu and
+Qi Chen and
+Guoxin Sui and
+Jiadong Xie and
+Zhizhen Cai and
+Yaoqi Chen and
+Yinxuan He and
+Yuqing Yang and
+Fan Yang and
+Mao Yang and
+Lidong Zhou},
 	title        = {{VBASE:} Unifying Online Vector Similarity Search and Relational Queries
 	via Relaxed Monotonicity},
 	booktitle    = {{OSDI}},
 	pages        = {377--395},
-	publisher    = {{USENIX} Association},
+
 	year         = {2023}
 }
 
@@ -220,19 +228,37 @@
                   Search Extension},
   booktitle    = {{SIGMOD} Conference},
   pages        = {2241--2253},
-  publisher    = {{ACM}},
+ 
   year         = {2020}
 }
 
 @inproceedings{milvus,
   author       = {Jianguo Wang and
-                  Xiaomeng Yi and
-                  Rentong Guo and
-                   et al.},
+  Xiaomeng Yi and
+  Rentong Guo and
+  Hai Jin and
+  Peng Xu and
+  Shengjun Li and
+  Xiangyu Wang and
+  Xiangzhou Guo and
+  Chengming Li and
+  Xiaohai Xu and
+  Kun Yu and
+  Yuxing Yuan and
+  Yinghao Zou and
+  Jiquan Long and
+  Yudong Cai and
+  Zhenxiang Li and
+  Zhifeng Zhang and
+  Yihua Mo and
+  Jun Gu and
+  Ruiyi Jiang and
+  Yi Wei and
+  Charles Xie},
   title        = {Milvus: {A} Purpose-Built Vector Data Management System},
   booktitle    = {{SIGMOD} Conference},
   pages        = {2614--2627},
-  publisher    = {{ACM}},
+ 
   year         = {2021}
 }
 
@@ -252,7 +278,7 @@
 
 
 @inproceedings{diskann,
-	author={Jayaram Subramanya and Suhas Devvrit and Harsha Vardhan Simhadri and et al.},
+author = {Subramanya, Suhas Jayaram and Devvrit and Kadekodi, Rohan and Krishaswamy, Ravishankar and Simhadri, Harsha Vardhan},
 	title = {DiskANN: Fast Accurate Billion-point Nearest Neighbor Search on a Single Node},
 	booktitle    = {NeurIPS},
 	volume = {32},
@@ -271,7 +297,7 @@
   number={1},
   pages={117--128},
   year={2010},
-  publisher={IEEE}
+
 }
 
 
@@ -286,7 +312,7 @@
 
 
 
-@article{HQI,
+@inproceedings{HQI,
   author       = {Jason Mohoney and
                   Anil Pacaci and
                   Shihabur Rahman Chowdhury and
@@ -296,29 +322,28 @@
                   Jeffrey Pound and
                   Theodoros Rekatsinas},
   title        = {High-Throughput Vector Similarity Search in Knowledge Graphs},
-  journal      = {{SIGMOD} Conference},
+  booktitle      = {{SIGMOD} Conference},
   volume       = {1},
   number       = {2},
   pages        = {197:1--197:25},
   year         = {2023}
 }
 
-@article{iRangeGraph,
+@inproceedings{iRangeGraph,
   author       = {Yuexuan Xu and
                   Jianyang Gao and
                   Yutong Gou and
                   Cheng Long and
                   Christian S. Jensen},
-  title        = {iRangeGraph: Improvising Range-dedicated Graphs for Range-filtering
-                  Nearest Neighbor Search},
-  journal      = {{SIGMOD} Conference},
+  title        = {iRangeGraph: Improvising Range-dedicated Graphs for Range-filtering Nearest Neighbor Search},
+  booktitle      = {{SIGMOD} Conference},
   volume       = {2},
   number       = {6},
   pages        = {239:1--239:26},
   year         = {2024}
 }
 
-@article{serf,
+@inproceedings{serf,
   author       = {Chaoji Zuo and
                   Miao Qiao and
                   Wenchao Zhou and
@@ -326,21 +351,21 @@
                   Dong Deng},
   title        = {SeRF: Segment Graph for Range-Filtering Approximate Nearest Neighbor
                   Search},
-  journal      = {{SIGMOD} Conference},
+  booktitle      = {{SIGMOD} Conference},
   volume       = {2},
   number       = {1},
   pages        = {69:1--69:26},
   year         = {2024}
 }
 
-@article{UNG,
+@inproceedings{UNG,
   author       = {Yuzheng Cai and
                   Jiayang Shi and
                   Yizhuo Chen and
                   Weiguo Zheng},
   title        = {Navigating Labels and Vectors: {A} Unified Approach to Filtered Approximate
                   Nearest Neighbor Search},
-  journal      = {{SIGMOD} Conference},
+  booktitle      = {{SIGMOD} Conference},
   volume       = {2},
   number       = {6},
   pages        = {246:1--246:27},
@@ -348,39 +373,48 @@
 }
 
 @inproceedings{Filtered-diskann,
-	author       = {Siddharth Gollapudi and
-	Neel Karia and
-	Varun Sivashankar and
-	et al},
+ author       = {Siddharth Gollapudi and
+Neel Karia and
+Varun Sivashankar and
+Ravishankar Krishnaswamy and
+Nikit Begwani and
+Swapnil Raz and
+Yiyong Lin and
+Yin Zhang and
+Neelam Mahapatro and
+Premkumar Srinivasan and
+Amit Singh and
+Harsha Vardhan Simhadri},
 	title        = {Filtered-DiskANN: Graph Algorithms for Approximate Nearest Neighbor
 	Search with Filters},
 	booktitle    = {{WWW}},
 	pages        = {3406--3416},
-	publisher    = {{ACM}},
+
 	year         = {2023}
 }
 
 
 
-@article{CAPS,
-author = {Gaurav Gupta and Jonah Yi and Benjamin Coleman and et al.},
-	title   = {{CAPS:} A Practical Partition Index for Filtered Similarity Search},
-	journal = {arXiv preprint arXiv:2308.15014},
-	year    = {2023},
-	
+@misc{CAPS,
+	title={CAPS: A Practical Partition Index for Filtered Similarity Search}, 
+	author={Gaurav Gupta and Jonah Yi and Benjamin Coleman and Chen Luo and Vihan Lakshman and Anshumali Shrivastava},
+	year={2023},
+	eprint={2308.15014},
+	archivePrefix={arXiv},
+
+
 }
 
 
-@article{UNIFY, 
-	author = {Liang, Anqi and Zhang, Pengcheng and Yao, Bin and et al.},
+@inproceedings{UNIFY, 
+author = {Liang, Anqi and Zhang, Pengcheng and Yao, Bin and Chen, Zhongpu and Song, Yitong and Cheng, Guangxu},
 	title = {UNIFY: Unified Index for Range Filtered Approximate Nearest Neighbors Search},
-	journal = {Proc. {VLDB} Endow.},
+	booktitle = {VLDB},
 	volume = {18},
 	number = {4},
 	pages = {1118--1130},
 	year = {2025},
-	doi = {10.14778/3717755.3717770},
-	url = {https://doi.org/10.14778/3717755.3717770},
+
 }
 
 @inproceedings{LID2,
@@ -394,7 +428,7 @@ author = {Gaurav Gupta and Jonah Yi and Benjamin Coleman and et al.},
   title        = {Estimating Local Intrinsic Dimensionality},
   booktitle    = {{KDD}},
   pages        = {29--38},
-  publisher    = {{ACM}},
+ 
   year         = {2015}
 }
 
@@ -416,10 +450,12 @@ author = {Gaurav Gupta and Jonah Yi and Benjamin Coleman and et al.},
 }
 
 @inproceedings{NHQ,
-	author       = {Mengzhao Wang and
-	Lingwei Lv and
-	Xiaoliang Xu and
-	et al},
+ author       = {Mengzhao Wang and
+Lingwei Lv and
+Xiaoliang Xu and
+Yuxiang Wang and
+Qiang Yue and
+Jiongkang Ni},
 	title        = {An Efficient and Robust Framework for Approximate Nearest Neighbor
 	Search with Attribute Constraint},
 	booktitle    = {NeurIPS},
@@ -428,25 +464,32 @@ author = {Gaurav Gupta and Jonah Yi and Benjamin Coleman and et al.},
 }
 
 @inproceedings{winFilter,
-	author = {Engels, Joshua and Landrum, Benjamin and Yu, Shangdi and et al.},
+author       = {Joshua Engels and
+Benjamin Landrum and
+Shangdi Yu and
+Laxman Dhulipala and
+Julian Shun},
 	title = {Approximate nearest neighbor search with window filters},
 	booktitle = {ICML},
 	year = {2024},
-	publisher = {JMLR.org},
+
 	pages = {12469 - 12490}, 
 
 	
 }
-@article{DSG, 
-	author = {Peng, Zhencan and Qiao, Miao and Zhou, Wenchao and et al.},
+@inproceedings{DSG, 
+	 author       = {Zhencan Peng and
+	Miao Qiao and
+	Wenchao Zhou and
+	Feifei Li and
+	Dong Deng},
 	title = {Dynamic Range-Filtering Approximate Nearest Neighbor Search},
-	journal = {Proc. {VLDB} Endow.},
+	booktitle = {VLDB},
 	volume = {18},
 	number = {10},
 	pages = {3256--3268},
 	year = {2025},
-	doi = {10.14778/3748191.3748193},
-	url = {https://doi.org/10.14778/3748191.3748193},
+
 }
 @inproceedings{dimcurse,
   author       = {Piotr Indyk and
@@ -454,7 +497,7 @@ author = {Gaurav Gupta and Jonah Yi and Benjamin Coleman and et al.},
   title        = {Approximate Nearest Neighbors: Towards Removing the Curse of Dimensionality},
   booktitle    = {{STOC}},
   pages        = {604--613},
-  publisher    = {{ACM}},
+ 
   year         = {1998}
 }
 @inproceedings{oodgap,
@@ -469,17 +512,7 @@ author = {Gaurav Gupta and Jonah Yi and Benjamin Coleman and et al.},
   year         = {2022}
 }
 
-@article{ood-yourdataisnotperfect,
-  author       = {Xiang Fang and
-                  Arvind Easwaran and
-                  Blaise Genest and
-                  Ponnuthurai Nagaratnam Suganthan},
-  title        = {Your Data Is Not Perfect: Towards Cross-Domain Out-of-Distribution
-                  Detection in Class-Imbalanced Data},
-  journal      = {CoRR},
-  volume       = {abs/2412.06284},
-  year         = {2024}
-}
+
 
 @article{ood-mindthegap,
   title={Mind the gap: Understanding the modality gap in multi-modal contrastive representation learning},
@@ -514,65 +547,47 @@ author = {Gaurav Gupta and Jonah Yi and Benjamin Coleman and et al.},
 }
 
 
-@article{bigann2023,
-	 author       = {Harsha Vardhan Simhadri and
-	Martin Aum{\"{u}}ller and
-	Amir Ingber and
-	et al.},
+@msic{bigann2023,
+	 author={Harsha Vardhan Simhadri and Martin Aumüller and Amir Ingber and Matthijs Douze and George Williams and Magdalen Dobson Manohar and Dmitry Baranchuk and Edo Liberty and Frank Liu and Ben Landrum and Mazin Karjikar and Laxman Dhulipala and Meng Chen and Yue Chen and Rui Ma and Kai Zhang and Yuzheng Cai and Jiayang Shi and Yizhuo Chen and Weiguo Zheng and Zihao Wan and Jie Yin and Ben Huang},
 	title   = {Results of the Big {ANN:} NeurIPS'23 Competition},
-	journal = {arXiv preprint arXiv:2409.17424},
-	year    = {2024},
+year={2024},
+eprint={2409.17424},
+archivePrefix={arXiv},
 	
 }
 
 
-@article{ACORN,
+@inproceedings{ACORN,
   author       = {Liana Patel and
                   Peter Kraft and
                   Carlos Guestrin and
                   Matei Zaharia},
   title        = {{ACORN:} Performant and Predicate-Agnostic Search Over Vector Embeddings
                   and Structured Data},
-  journal      =  {{SIGMOD} Conference},
+  booktitle      =  {{SIGMOD} Conference},
   volume       = {2},
   number       = {3},
   pages        = {120},
   year         = {2024}
 }
 
-@article{analyticdb,
-	author       = {Chuangxian Wei and
-	Bin Wu and
-	Sheng Wang and
-	et al},
+@inproceedings{analyticdb,
+ author       = {Chuangxian Wei and
+Bin Wu and
+Sheng Wang and
+Renjie Lou and
+Chaoqun Zhan and
+Feifei Li and
+Yuanzhe Cai},
 	title        = {AnalyticDB-V: {A} Hybrid Analytical Engine Towards Query Fusion for
 	Structured and Unstructured Data},
-	journal      = {Proc. {VLDB} Endow.},
+	booktitle      = {VLDB},
 	volume       = {13},
 	number       = {12},
 	pages        = {3152--3165},
 	year         = {2020}
 }
 
-
-
-@article{monolith,
- author       = {Zhuoran Liu and
-Leqi Zou and
-Xuan Zou and
-Caihua Wang and
-Biao Zhang and
-Da Tang and
-Bolin Zhu and
-Yijie Zhu and
-Peng Wu and
-Ke Wang and
-Youlong Cheng},
-	title   = {{Monolith:} Real-Time Recommendation System with Collisionless Embedding Table},
-	journal = {arXiv preprint arXiv:2209.07663},
-	year    = {2022},
-
-}
 
 
 
@@ -591,7 +606,7 @@ Youlong Cheng},
   title        = {Applying Deep Learning to Airbnb Search},
   booktitle    = {{KDD}},
   pages        = {1927--1935},
-  publisher    = {{ACM}},
+ 
   year         = {2019}
 }
 
@@ -610,7 +625,7 @@ Youlong Cheng},
                   System},
   booktitle    = {{WWW} (Companion Volume)},
   pages        = {583--592},
-  publisher    = {{ACM}},
+ 
   year         = {2017}
 }
 @inproceedings{okura2017embedding,
@@ -621,7 +636,7 @@ Youlong Cheng},
   title        = {Embedding-based News Recommendation for Millions of Users},
   booktitle    = {{KDD}},
   pages        = {1933--1942},
-  publisher    = {{ACM}},
+ 
   year         = {2017}
 }
 @article{pal2020pinnersage,
@@ -660,7 +675,7 @@ Youlong Cheng},
   title        = {Scalable k-NN graph construction for visual descriptors},
   booktitle    = {{CVPR}},
   pages        = {1106--1113},
-  publisher    = {{IEEE} Computer Society},
+ 
   year         = {2012}
 }
 
@@ -675,11 +690,10 @@ Yuan Chen},
 	title     = {The Design and Implementation of a Real Time Visual Search System on {JD} E-commerce Platform},
 	booktitle = {Proc. 19th Int. Middleware Conf. Industry},
 	pages     = {9--16},
-	publisher = {ACM},
-	address   = {New York, NY, USA},
+
+
 	year      = {2018},
-	doi       = {10.1145/3284028.3284030},
-	url       = {https://doi.org/10.1145/3284028.3284030}
+
 }
 
 @inproceedings{vo2019composing,
@@ -693,7 +707,7 @@ Yuan Chen},
   title        = {Composing Text and Image for Image Retrieval - an Empirical Odyssey},
   booktitle    = {{CVPR}},
   pages        = {6439--6448},
-  publisher    = {Computer Vision Foundation / {IEEE}},
+ 
   year         = {2019}
 }
 
@@ -706,7 +720,7 @@ Yuan Chen},
   title        = {High-Dimensional Similarity Query Processing for Data Science},
   booktitle    = {{KDD}},
   pages        = {4062--4063},
-  publisher    = {{ACM}},
+ 
   year         = {2021}
 }
 @inproceedings{silpaanan2008optimised,
@@ -714,17 +728,17 @@ Yuan Chen},
                   Richard I. Hartley},
   title        = {Optimised KD-trees for fast image descriptor matching},
   booktitle    = {{CVPR}},
-  publisher    = {{IEEE} Computer Society},
+ 
   year         = {2008}
 }
-@article{arora2018hdindex,
+@inproceedings{arora2018hdindex,
   author       = {Akhil Arora and
                   Sakshi Sinha and
                   Piyush Kumar and
                   Arnab Bhattacharya},
   title        = {HD-Index: Pushing the Scalability-Accuracy Boundary for Approximate
                   kNN Search in High-Dimensional Spaces},
-  journal      = {Proc. {VLDB} Endow.},
+  booktitle      = {VLDB},
   volume       = {11},
   number       = {8},
   pages        = {906--919},
@@ -740,14 +754,14 @@ Yuan Chen},
   pages        = {2227--2240},
   year         = {2014}
 }
-@article{gong2020idec,
+@inproceedings{gong2020idec,
   author       = {Long Gong and
                   Huayi Wang and
                   Mitsunori Ogihara and
                   Jun Xu},
   title        = {iDEC: Indexable Distance Estimating Codes for Approximate Nearest
                   Neighbor Search},
-  journal      = {Proc. {VLDB} Endow.},
+  booktitle      = {VLDB},
   volume       = {13},
   number       = {9},
   pages        = {1483--1497},
@@ -757,7 +771,7 @@ Yuan Chen},
 @inproceedings{li2020ioefficient,
   title={I/O efﬁcient approximate nearest neighbour search based on learned functions},
   author={Li, M. and Zhang, Y. and Sun, Y. and Wang, W. and Tsang, I. W. and Lin, X.},
-  booktitle={Proceedings of the IEEE International Conference on Data Engineering (ICDE)},
+  booktitle={ICDE},
   pages={289--300},
   year={2020}
 }
@@ -775,33 +789,23 @@ Yuan Chen},
   series       = {Proceedings of Machine Learning Research},
   volume       = {119},
   pages        = {3887--3896},
-  publisher    = {{PMLR}},
+ 
   year         = {2020}
 }
-@article{andre2015cache,
+@inproceedings{andre2015cache,
   author       = {Fabien Andr{\'{e}} and
                   Anne{-}Marie Kermarrec and
                   Nicolas Le Scouarnec},
   title        = {Cache locality is not enough: High-Performance Nearest Neighbor Search
                   with Product Quantization Fast Scan},
-  journal      = {Proc. {VLDB} Endow.},
+  booktitle      = {VLDB},
   volume       = {9},
   number       = {4},
   pages        = {288--299},
   year         = {2015}
 }
 
-@inproceedings{benchmarkindex,
-  author       = {Martin Aum{\"{u}}ller and
-                  Matteo Ceccarello},
-  title        = {Benchmarking Nearest Neighbor Search: Influence of Local Intrinsic
-                  Dimensionality and Result Diversity in Real-World Datasets},
-  booktitle    = {EDML@SDM},
-  volume       = {2436},
-  pages        = {14--23},
-  publisher    = {CEUR-WS.org},
-  year         = {2019}
-}
+
 
 
 @article{fu2021high,
@@ -839,14 +843,14 @@ Yuan Chen},
   year         = {2020}
 }
 
-@article{compare,
+@inproceedings{compare,
   author       = {Mengzhao Wang and
                   Xiaoliang Xu and
                   Qiang Yue and
                   Yuxiang Wang},
   title        = {A Comprehensive Survey and Experimental Comparison of Graph-Based
                   Approximate Nearest Neighbor Search},
-  journal      = {Proc. {VLDB} Endow.},
+  booktitle      = {VLDB},
   volume       = {14},
   number       = {11},
   pages        = {1964--1978},
@@ -863,15 +867,8 @@ Yuan Chen},
   pages        = {1591--1615},
   year         = {2024}
 }
-@article{AIRSHIP,
-  author       = {Weijie Zhao and
-                  Shulong Tan and
-                  Ping Li},
-  title        = {Constrained Approximate Similarity Search on Proximity Graph},
-  journal      = {CoRR},
-  volume       = {abs/2210.14958},
-  year         = {2022}
-}
+
+
 @inproceedings{HQANN,
   author       = {Wei Wu and
                   Junlin He and
@@ -883,28 +880,13 @@ Yuan Chen},
                   with Structured and Unstructured Constraints},
   booktitle    = {{CIKM}},
   pages        = {4580--4584},
-  publisher    = {{ACM}},
+ 
   year         = {2022}
 }
 
 
 
-@article{glove,
-  author       = {Wen Li and
-                  Ying Zhang and
-                  Yifang Sun and
-                  Wei Wang and
-                  Mingjie Li and
-                  Wenjie Zhang and
-                  Xuemin Lin},
-  title        = {Approximate Nearest Neighbor Search on High Dimensional Data - Experiments,
-                  Analyses, and Improvement},
-  journal      = {{IEEE} Trans. Knowl. Data Eng.},
-  volume       = {32},
-  number       = {8},
-  pages        = {1475--1488},
-  year         = {2020}
-}
+
 
 @article{nsw,
   author       = {Yury Malkov and
@@ -949,19 +931,11 @@ Yuan Chen},
   title        = {Approximate Nearest Neighbors: Towards Removing the Curse of Dimensionality},
   booktitle    = {{STOC}},
   pages        = {604--613},
-  publisher    = {{ACM}},
+ 
   year         = {1998}
 }
 
-@inproceedings{1998approximate,
-  author       = {Piotr Indyk and
-                  Rajeev Motwani},
-  title        = {Approximate Nearest Neighbors: Towards Removing the Curse of Dimensionality},
-  booktitle    = {{STOC}},
-  pages        = {604--613},
-  publisher    = {{ACM}},
-  year         = {1998}
-}
+
 
 @inproceedings{1998quantitative,
   author       = {Roger Weber and
@@ -971,7 +945,7 @@ Yuan Chen},
                   Methods in High-Dimensional Spaces},
   booktitle    = {{VLDB}},
   pages        = {194--205},
-  publisher    = {Morgan Kaufmann},
+ 
   year         = {1998}
 }
 
@@ -985,12 +959,7 @@ Yuan Chen},
   year         = {1975}
 }
 
-@article{balltree,
-  title={Five balltree construction algorithms},
-  author={Omohundro, Stephen M},
-  year={1989},
-  publisher={Citeseer}
-}
+
 
 @article{2017billion,
   author       = {Jeff Johnson and
@@ -1003,28 +972,28 @@ Yuan Chen},
   pages        = {535--547},
   year         = {2021}
 }
-@misc{msong2011,
+@online{msong2011,
   author = {{Anon}},
   year = {2011},
   title = {Million Song Dataset Benchmarks},
-  howpublished = {\url{http://www.ifs.tuwien.ac.at/mir/msd/}},
-  urldate = {2025-10-28}
+  url = {http://www.ifs.tuwien.ac.at/mir/msd/},
+	lastaccessed = {June 23, 2025}
 }
 
-@misc{audio_unknown,
+@online{audio_unknown,
   author = {{Anon}},
   year = {unknown},
   title = {TIMIT Audio},
-  howpublished = {\url{https://www.cs.princeton.edu/cass/demos.htm}},
+ url ={https://www.cs.princeton.edu/cass/demos.htm},
  	lastaccessed = {June 23, 2025}
 }
 
-@misc{sift2010,
+@online{sift2010,
   author = {{Anon}},
   year = {2010},
   title = {Datasets for approximate nearest neighbor search},
-  howpublished = {\url{http://corpus-texmex.irisa.fr/}},
-    urldate = {2025-10-28}
+  url ={http://corpus-texmex.irisa.fr/},
+   	lastaccessed = {June 23, 2025}
 }
 
 @online{glove2015,
@@ -1048,21 +1017,22 @@ Yuan Chen},
 
 
 @inproceedings{wit_dataset,
-	author    = {K. Srinivasan and K. Raman and J. Chen and M. Bendersky and M. Najork},
+ author       = {Krishna Srinivasan and
+Karthik Raman and
+Jiecao Chen and
+Michael Bendersky and
+Marc Najork},
 	title     = {{WIT:} Wikipedia-Based Image Text Dataset for Multimodal Multilingual Machine Learning},
-	booktitle = {Proc. 44th ACM SIGIR Conf. on Research and Development in Information Retrieval},
+	booktitle = {SIGIR},
 	year      = {2021},
 	pages     = {2443--2449},
-	publisher = {ACM},
-	address   = {New York, NY, USA},
-	doi       = {10.1145/3404835.3463257},
-	url       = {https://doi.org/10.1145/3404835.3463257}
+
 }
 
 
 
 
-@article{youtube8m_dataset,
+@msic{youtube8m_dataset,
 	author       = {Sami Abu{-}El{-}Haija and
 	Nisarg Kothari and
 	Joonseok Lee and
@@ -1071,8 +1041,9 @@ Yuan Chen},
 	Balakrishnan Varadarajan and
 	Sudheendra Vijayanarasimhan},
 	title   = {{YouTube-8M:} A Large-Scale Video Classification Benchmark},
-	journal = {arXiv preprint arXiv:1609.08675},
-	year    = {2016},
+	year={2016},
+	eprint={1609.08675},
+	archivePrefix={arXiv},
 	
 }
 
@@ -1095,18 +1066,18 @@ Yuan Chen},
                   measures},
   booktitle    = {{WWW}},
   pages        = {577--586},
-  publisher    = {{ACM}},
+ 
   year         = {2011}
 }
 
-@article{nsg,
+@inproceedings{nsg,
   author       = {Cong Fu and
                   Chao Xiang and
                   Changxu Wang and
                   Deng Cai},
   title        = {Fast Approximate Nearest Neighbor Search With The Navigating Spreading-out
                   Graph},
-  journal      = {Proc. {VLDB} Endow.},
+  booktitle      = {VLDB},
   volume       = {12},
   number       = {5},
   pages        = {461--474},
@@ -1119,7 +1090,7 @@ Yuan Chen},
   title        = {{FANNG:} Fast Approximate Nearest Neighbour Graphs},
   booktitle    = {{CVPR}},
   pages        = {5713--5722},
-  publisher    = {{IEEE} Computer Society},
+ 
   year         = {2016}
 }
 
@@ -1141,7 +1112,7 @@ journal = {{IEEE} Trans. Inf. Theory},
   number={1},
   pages={21--27},
   year={1967},
-  publisher={IEEE}
+ 
 }
 
 @inproceedings{weber1998quantitative,
@@ -1152,7 +1123,7 @@ journal = {{IEEE} Trans. Inf. Theory},
                   Methods in High-Dimensional Spaces},
   booktitle    = {{VLDB}},
   pages        = {194--205},
-  publisher    = {Morgan Kaufmann},
+ 
   year         = {1998}
 }
 @article{arya1998optimal,
@@ -1163,7 +1134,7 @@ journal = {{IEEE} Trans. Inf. Theory},
                   Angela Y. Wu},
   title        = {An Optimal Algorithm for Approximate Nearest Neighbor Searching Fixed
                   Dimensions},
-  journal      = {J. {ACM}},
+  journal      = {J. ACM},
   volume       = {45},
   number       = {6},
   pages        = {891--923},
@@ -1176,7 +1147,7 @@ journal = {{IEEE} Trans. Inf. Theory},
                   Spaces},
   booktitle    = {{CVPR}},
   pages        = {1000--1006},
-  publisher    = {{IEEE} Computer Society},
+ 
   year         = {1997}
 }
 @inproceedings{gionis1999similarity,
@@ -1186,9 +1157,10 @@ journal = {{IEEE} Trans. Inf. Theory},
   title        = {Similarity Search in High Dimensions via Hashing},
   booktitle    = {{VLDB}},
   pages        = {518--529},
-  publisher    = {Morgan Kaufmann},
+ 
   year         = {1999}
 }
+
 @article{malkov2018efficient,
   author       = {Yury A. Malkov and
                   Dmitry A. Yashunin},
@@ -1200,17 +1172,7 @@ journal = {{IEEE} Trans. Inf. Theory},
   pages        = {824--836},
   year         = {2020}
 }
-@article{johnson2019billion,
-  author       = {Jeff Johnson and
-                  Matthijs Douze and
-                  Herv{\'{e}} J{\'{e}}gou},
-  title        = {Billion-Scale Similarity Search with GPUs},
-  journal      = {{IEEE} Trans. Big Data},
-  volume       = {7},
-  number       = {3},
-  pages        = {535--547},
-  year         = {2021}
-}
+
 @online{texttoimage,
 	author={Dmitry Baranchuk, Artem Babenko},
 	url={https://research.yandex.com/datasets/text-to-image-dataset-for-billion-scale-similarity-search},
@@ -1219,15 +1181,15 @@ journal = {{IEEE} Trans. Inf. Theory},
 
 	lastaccessed = {June 23, 2025}
 }
-@article{azizi2025graph,
+@inproceedings{compare2,
 	author       = {Ilias Azizi and Karima Echihabi and Themis Palpanas},
 	title        = {Graph-based Vector Search: An Experimental Evaluation of the State-of-the-Art},
-	journal      = {{SIGMOD} Conference}},
-	volume       = {3},
-	number       = {1},
-	pages        = {1--31},
-	year         = {2025},
-	publisher    = {{ACM}}
+	booktitle    = {{SIGMOD} Conference},
+volume 			= {3},
+number = {1},
+numpages = {31},
+year         = {2025},
 }
+
 
 

@@ -5,24 +5,22 @@
 
 \documentclass[sigconf, nonacm, pdfa]{acmart}
 
-%\usepackage{fontspec}
+
 \usepackage{balance}
 \usepackage{enumitem}
 
 \usepackage{multirow}
-% \usepackage{svg} % For SVG support
+
 \usepackage{graphicx}
-\usepackage{ulem}  % 导言区加上这一行
+
 \usepackage{microtype}  %处理换行
 \usepackage{subcaption} % 需要subcaption宏包支持子图
 \usepackage{caption}
-\usepackage{fontawesome}
-\usepackage{makecell}
-\usepackage{array}
-\usepackage[all]{nowidow}
 
-% \newtheorem{definition}{DEFINITION} % 定义“定义”环境
-% % \newtheorem{example}{例} % 定义“例”环境，不与“定义”共享编号
+\usepackage{array}
+%\usepackage[all]{nowidow}
+\usepackage{times}
+
 % %% The following content must be adapted for the final version
 % % paper-specific
 \newcommand\vldbdoi{XX.XX/XXX.XX}
@@ -149,7 +147,7 @@ In the experiments, we construct standardized attribute and range sets for attri
 	
 	\section{Introduction}
 	
-	Nearest Neighbor (NN) search \cite{cover1967nearest} aims to find the closest vector in a given space and serves as a fundamental algorithm in vector retrieval, with widespread applications in recommendation systems  \cite{monolith}  and image retrieval \cite{wang2012scalable}.
+	Nearest Neighbor (NN) search \cite{cover1967nearest} aims to find the closest vector in a given space and serves as a fundamental algorithm in vector retrieval, with widespread applications in recommendation systems   and image retrieval \cite{wang2012scalable}.
 	However, with the exponential growth of data volume and the increasing dimensionality of vectors \cite{weber1998quantitative}, traditional NN search methods struggle to meet the demands of real-time search. To address this issue, studies turn to more efficient approaches - Approximate NN (ANN) search ~\cite{arya1998optimal,beis1997shape,gionis1999similarity,malkov2018efficient}, which significantly improve search efficiency by constructing effective indexing structures, albeit at the cost of reduced accuracy.
 	
 	Nevertheless, as application scenarios grow increasingly complex, simple ANN search can no longer satisfy all practical needs. For instance, Figure~\ref{fig:hybrid ANNS} illustrates a case where users on e-commerce platforms search for clothing items by retrieving visually similar products based on an image. Additionally, users may impose further requirements such as price, color, or brand preferences. Such scenarios necessitate a retrieval system capable of simultaneously addressing vector similarity (e.g., product image) and attribute constraints (e.g., brand name) \cite{tian2023approximate}. When the constraint involves a specific attribute value, this problem refers to Attribute Filtering Approximate Nearest Neighbor (AF-ANN) search ~\cite{NHQ,Filtered-diskann}. For example, a user may seek a green piece of clothing. If the constraint involves a range condition, the problem is known as Range Filtering Approximate Nearest Neighbor (RF-ANN) search ~\cite{serf,iRangeGraph}. For instance, filtering clothes priced between 100 and 200. To meet these application demands, hybrid querying techniques \cite{JD-e-commerce, analyticdb} emerge. Hybrid queries integrate vector retrieval with conditional filtering, optimizing their interaction to significantly enhance efficiency and flexibility in complex query scenarios.
@@ -167,7 +165,7 @@ In the experiments, we construct standardized attribute and range sets for attri
 	\subsection{Motivation}
 	In recent years, hybrid query algorithms develop rapidly, giving rise to numerous attribute filtering algorithms~\cite{NHQ,diskann} and range filtering algorithms~\cite{serf,iRangeGraph}. In practical applications, the performance of hybrid query algorithms is influenced not only by unstructured data but also closely relates to structured data. For attribute filtering algorithms, factors such as the number of attributes, attribute distribution \cite{UNG}, and attribute selectivity ~\cite{analyticdb,milvus} significantly impact algorithm performance. As for range filtering algorithms, the width of the query range and the characteristics of different datasets play an important role in determining algorithm performance.
 	
-Although existing studies~\cite{compare,azizi2025graph} conduct benchmark evaluations of ANN methods, a systematic experimental study specifically targeting hybrid query algorithms is still lacking. Despite BigANN 2023~\cite{bigann2023} evaluates the performance of some hybrid query algorithms, it still presents the following notable limitations:
+Although existing studies~\cite{compare,compare2} conduct benchmark evaluations of ANN methods, a systematic experimental study specifically targeting hybrid query algorithms is still lacking. Despite BigANN 2023~\cite{bigann2023} evaluates the performance of some hybrid query algorithms, it still presents the following notable limitations:
 	1) The evaluation covers a limited number of algorithms and fails to comprehensively include mainstream methods.
 	2) It only uses a single dataset and focuses solely on single-attribute and dual-attribute query scenarios, while not considering the impact of attribute selectivity on query performance.
 	3) It only simply compares the query speed and recall of different algorithms, but does not consider key metrics such as the time and space overhead of each algorithm, and it lacks an in-depth analysis of the specific reasons for algorithm performance.
@@ -353,10 +351,10 @@ Graph indexes are widely used in hybrid ANN search due to their efficiency. To s
 
 
 
-	\noindent\textbf{\underline{NHQ} \footnote{https://github.com/KGLab-HDU/TKDE-under-review-Native-Hybrid-Queries-via-ANNS} \cite{NHQ}}
+	\noindent\textbf{\underline{NHQ} \footnote{https://github.com/KGLab-HDU/TKDE-under-review-Native-Hybrid-Queries-via-ANNS}}  \cite{NHQ}
 	Traditional attribute filtering algorithms usually perform attribute constraints and ANN search separately. In contrast, NHQ is the first to implement simultaneous filtering, integrating both aspects into a unified framework. NHQ constructs an index based on a nearest neighbor graph and introduces a fusion distance that jointly captures vector similarity and attribute similarity. Leveraging this fusion distance, NHQ unifies vector similarity and attribute matching into a single comprehensive similarity measure and builds the graph accordingly. During the query process, NHQ efficiently prunes irrelevant edges via this composite index, enabling fast retrieval of results that satisfy both vector similarity and attribute constraints.
 	
-	\noindent\textbf{\underline{Filtered-DiskANN} \footnote{\textcolor{black}{https://github.com/microsoft/DiskANN}} \cite{Filtered-diskann}}
+	\noindent\textbf{\underline{Filtered-DiskANN} \footnote{\textcolor{black}{https://github.com/microsoft/DiskANN}}} \cite{Filtered-diskann}
 	Filtered-DiskANN also supports simultaneous filtering. Built upon the Vamana \cite{diskann} graph-based ANN index, it incorporates attribute information directly into the graph during index construction. This integration ensures that the index reflects both vector similarity and attribute constraints. 
 	Filtered-DiskANN proposes two indexes:  
 	1) \textbf{FilteredVamana}, which incrementally builds the graph index by inserting data points and dynamically adding edges, allowing adaptive expansion.  
@@ -364,23 +362,24 @@ Graph indexes are widely used in hybrid ANN search due to their efficiency. To s
 
 	
 	
-	\noindent\textbf{\underline{CAPS} \footnote{\textcolor{black}{https://github.com/gaurav16gupta/constrainedANN}} \cite{CAPS}}
+	\noindent\textbf{\underline{CAPS} \footnote{\textcolor{black}{https://github.com/gaurav16gupta/constrainedANN}}}\cite{CAPS}
 	CAPS introduces a hierarchical sub-partitioning algorithm inspired by Huffman trees, termed the Attribute Frequency Tree (AFT), to overcome the coarse granularity of traditional IVF-based methods. It adopts a two-level partitioning strategy:  
 	1) The first level clusters vectors based on similarity using K-Means or learning-based methods such as BLISS. 2) Within each cluster, AFT partitions data further based on attribute frequencies, enabling finer-grained indexing and improving query efficiency.
 	
-	\noindent\textbf{\underline{ACORN} \footnote{\textcolor{black}{https://github.com/stanford-futuredata/ACORN}} \cite{ACORN}}
+	\noindent\textbf{\underline{ACORN} \footnote{\textcolor{black}{https://github.com/stanford-futuredata/ACORN}}}
+	\cite{ACORN}
 	\textcolor{black}{ACORN adopts a predicate-agnostic indexing framework. It is based on Hierarchical Navigable Small World (HNSW) \cite{hnsw} and builds a denser hierarchical graph through neighborhood expansion and edge pruning.}
 	During search, it filters out nodes violating constraints, maintaining a valid nearest neighbor graph.
 	ACORN includes two indexes: 1) \textbf{ACORN-$\gamma$}, which expands neighbor lists during construction, trading memory for higher performance; 
 	2) \textbf{ACORN-1}, which extends neighbor lists via second-hop neighbors during search, reducing index size with minor performance loss.
 	
-	\noindent\textbf{\underline{UNG} \footnote{\textcolor{black}{https://github.com/YZ-Cai/Unified-Navigating-Graph}} \cite{UNG}} 
+	\noindent\textbf{\underline{UNG} \footnote{\textcolor{black}{https://github.com/YZ-Cai/Unified-Navigating-Graph}}} \cite{UNG}
 	UNG serves as a unified framework that integrates various graph-based ANN indexes to support hybrid queries. It first groups the dataset by attribute sets, ensuring that vectors in each group share identical attributes. Then, it constructs a Label Navigating Graph (LNG) to encode inclusion relationships among attribute sets. Within each group, UNG builds graph-based ANN indexes (e.g., Vamana, HNSW) and connects them via cross-group edges to enable efficient cross-group search.
 
 	
 	
 	
-	\noindent\textbf{\underline{Puck} \footnote{\textcolor{black}{https://github.com/baidu/puck}} \cite{puck}} 
+	\noindent\textbf{\underline{Puck} \footnote{\textcolor{black}{https://github.com/baidu/puck}}} \cite{puck}
 	Puck utilizes two-level quantization for indexing. It maintains an attribute set for each cluster to track vector attributes. During the query process, it employs pre-filtering to exclude clusters without required attributes, thereby reducing the search space.
 
 	
@@ -388,26 +387,26 @@ Graph indexes are widely used in hybrid ANN search due to their efficiency. To s
 	
 	\subsection{Range Filtering Algorithms}
 	
-	\noindent\textbf{\underline{SeRF} \footnote{\textcolor{black}{https://github.com/rutgers-db/SeRF}} \cite{serf}} 
+	\noindent\textbf{\underline{SeRF} \footnote{\textcolor{black}{https://github.com/rutgers-db/SeRF}}} \cite{serf} 
 %	Conventional RF-ANN search approaches typically follow one of two paradigms: 1) Conducting ANN search first followed by attribute-based filtering. 2) Filtering the dataset based on attribute ranges before performing ANN search. 
 	Building a separate neighbor graph (e.g., HNSW) for each attribute range could ensure efficient querying but incurs an $O(n^2)$ cost in constructing and storing $n$ graphs. Since many edges are shared across these graphs, SeRF introduces a validity-range aware design where each edge records the interval in which it is valid, indicating in which subgraphs the edge remains valid. This compresses $n$ graphs into a single unified graph, maintaining search effectiveness while significantly reducing memory and index construction overhead.
 	
-	\noindent\textbf{\underline{WinFilter} \footnote{\textcolor{black}{https://github.com/JoshEngels/RangeFilteredANN}} \cite{winFilter}}
+	\noindent\textbf{\underline{WinFilter} \footnote{\textcolor{black}{https://github.com/JoshEngels/RangeFilteredANN}}} \cite{winFilter}
 %	Unlike SeRF, which focuses on graph compression, 
 	WinFilter proposes a structural partitioning framework called the $\beta$-Window Search Tree ($\beta$-WST). After the dataset is sorted by attribute values, it is partitioned into multiple intervals and organized into a tree structure. Each node in the tree corresponds to an attribute range and maintains a local ANN index (e.g., Vamana). For a range filtering query, WinFilter only searches within nodes overlapping the query range and merges partial results. With a tree height of $O(\log n)$, each query accesses at most $O(\log n)$ sub-indexes, resulting in significant speedups.
 	
-	\noindent\textbf{\underline{iRange} \footnote{\textcolor{black}{https://github.com/YuexuanXu7/iRangeGraph}} \cite{iRangeGraph}}
+	\noindent\textbf{\underline{iRange} \footnote{\textcolor{black}{https://github.com/YuexuanXu7/iRangeGraph}}} \cite{iRangeGraph}
 %	To address the query efficiency degradation caused by the graph compression in SeRF, iRange adopts a more flexible strategy.
 	%Rather than prebuilding indexes for all possible ranges, it dynamically assembles a query-specific subgraph at runtime.
 	iRange partitions the dataset into intervals based on attribute values and independently constructs a local graph for each interval, storing only edge information. During the query process, the relevant local graphs overlapping with the query range are merged into a temporary search graph, and a pruning strategy is applied to enable efficient search.
 	
-	\noindent\textbf{\underline{DSG} \footnote{\textcolor{black}{https://github.com/rutgers-db/DynamicSegmentGraph}} \cite{DSG}}
+	\noindent\textbf{\underline{DSG} \footnote{\textcolor{black}{https://github.com/rutgers-db/DynamicSegmentGraph}}}  \cite{DSG}
 %	Most RF-ANN search methods, such as iRange and WinFilter, are designed for static datasets. SeRF allows incremental insertion but requires ordered attributes. 
 	DSG introduces the first dynamic RF-ANN framework supporting data insertion with unordered attributes while maintaining efficient range filtering.
 	DSG relies on two data structures: 1) A rectangle tree partitions query space into rectangular regions, each corresponding to a group of queries sharing nearest neighbors. 2) A dynamic segment graph is a neighbor graph where each edge is annotated with its valid attribute range.
 	With these structures, only few regions need updates when inserting new data. The system considers only edges valid for current attribute range to boost efficiency during search.
 	
-	\noindent\textbf{\underline{UNIFY} \footnote{\textcolor{black}{https://github.com/sjtu-dbgroup/UNIFY}} \cite{UNIFY}}
+	\noindent\textbf{\underline{UNIFY} \footnote{\textcolor{black}{https://github.com/sjtu-dbgroup/UNIFY}}} \cite{UNIFY}
 %	Unlike DSG, which relies on rectangle trees and range-aware edges, UNIFY adopts a segmentation-based approach and proposes a range query index structure. 
 	UNIFY introduces the Segmented Inclusive Graph (SIG), which partitions the dataset into segments by attribute and constructs an independent neighbor graph for each segment. These segment graphs are then integrated into a unified global graph. Its hierarchical variant, HSIG, enhances SIG by incorporating the multilayer design of HNSW, skip lists, and edge bitmaps for efficient range localization and post-filtering pruning. UNIFY supports 3 filtering strategies—pre-filtering, post-filtering, and  simultaneous filtering—enabling robust and flexible performance.
 	
@@ -416,17 +415,17 @@ Graph indexes are widely used in hybrid ANN search due to their efficiency. To s
 	\subsection{Vector Libraries and Databases}
 The vector library and databases discussed in the following are not explicitly designed for hybrid query, but they support both attribute filtering and range filtering. 
 
-\noindent\textbf{\underline{Faiss}\footnote{\url{https://github.com/facebookresearch/faiss}} \cite{Faiss}}
+\noindent\textbf{\underline{Faiss}\footnote{\url{https://github.com/facebookresearch/faiss}}}  \cite{Faiss}
 Faiss is an efficient similarity search library. It supports hybrid search by using an ID selector to filter data before performing ANN search.
 In Faiss, we use the HQI batch optimization strategy in the IVF index. It groups queries with the same filter conditions. Each group only runs the filter once. It uses efficient matrix operations to compute vector similarity in batches.
 
-\noindent\textbf{\underline{PASE}\footnote{\url{https://github.com/alipay/PASE}} \cite{pase}}  PASE is a vector index plugin for PostgreSQL. It uses a post-filtering strategy. Since the candidate set size is fixed, it may fail to return enough top-k results.
+\noindent\textbf{\underline{PASE}\footnote{\url{https://github.com/alipay/PASE}}} \cite{pase}  PASE is a vector index plugin for PostgreSQL. It uses a post-filtering strategy. Since the candidate set size is fixed, it may fail to return enough top-k results.
 
-\noindent\textbf{\underline{VBASE} \footnote{\url{https://github.com/microsoft/MSVBASE}} \cite{vbase}} VBASE is also a vector plugin for PostgreSQL. Unlike PASE, it applies filters during the HNSW index traversal, discarding unmatched nodes on the fly. This strategy ensures that enough valid results are returned .
+\noindent\textbf{\underline{VBASE} \footnote{\url{https://github.com/microsoft/MSVBASE}}} \cite{vbase} VBASE is also a vector plugin for PostgreSQL. Unlike PASE, it applies filters during the HNSW index traversal, discarding unmatched nodes on the fly. This strategy ensures that enough valid results are returned .
 
 
 
-\noindent\textbf{\underline{Milvus} \footnote{\url{https://github.com/milvus-io/milvus}} \cite{milvus}} Milvus is a vector database designed for large-scale similarity search. In hybrid queries, it adopts a pre-filtering strategy, similar to the ID selector mechanism used in Faiss.
+\noindent\textbf{\underline{Milvus} \footnote{\url{https://github.com/milvus-io/milvus}}}  \cite{milvus} Milvus is a vector database designed for large-scale similarity search. In hybrid queries, it adopts a pre-filtering strategy, similar to the ID selector mechanism used in Faiss.
 %It filters data first, then performs approximate nearest neighbor search. This supports hybrid search.
 
 	
@@ -434,7 +433,7 @@ In Faiss, we use the HQI batch optimization strategy in the IVF index. It groups
 	\subsection{Experimental Setup}
 	\subsubsection{Datasets}
 	
-	\textcolor{black}{Our experiments employ 12 real-world datasets covering diverse domains: Audio~\cite{audio_unknown},  Enron~\cite{enron2015}, GIST1M~\cite{sift2010}, GloV-\\e~\cite{GloVe2015}, Msong~\cite{msong2011}, SIFT1M~\cite{sift2010}, Deep1M~\cite{yandex_deep_dataset}, WIT-Real~\cite{wit_dataset}, YT-Audio-Real~\cite{youtube8m_dataset}, Text2image~\cite{texttoimage}, Text2image-Mix, and Deep100M.}
+	\textcolor{black}{Our experiments employ 12 real-world datasets: Audio~\cite{audio_unknown},  Enron~\cite{enron2015}, GIST1M~\cite{sift2010}, GloVe~\cite{GloVe2015}, Msong~\cite{msong2011}, SIFT1M\\~\cite{sift2010}, Deep1M~\cite{yandex_deep_dataset}, WIT-Real~\cite{wit_dataset}, YT-Audio-Real~\cite{youtube8m_dataset}, Text2image~\cite{texttoimage}, Text2image-Mix, and Deep100M.}
 	
 	Table~\ref{tab:datasets_combined} summarizes the key characteristics of all datasets and their applicable filtering scenarios. In particular, we report the Local Intrinsic Dimensionality (LID)~\cite{Lid}, which is a commonly used metric to quantify dataset hardness. Following the standard evaluation protocol~\cite{LID2}, we randomly sample 10,000 data points from each dataset to compute LID.  A higher LID value indicates a more complex dataset.
 	
@@ -509,7 +508,7 @@ In Faiss, we use the HQI batch optimization strategy in the IVF index. It groups
 	
 	We conduct most experiments on a server running Ubuntu 20.04, equipped with an AMD EPYC 7K62 processor (2.6GHz) featuring 256GB of RAM and 192 MiB of L3 cache. \textcolor{black}{We test on  large-scale dataset using a server with 2×AMD 7Y43 processors and 1TB RAM.}
 %	\textcolor{cyan}{Additionally, to investigate the impact of different server configurations on algorithm performance, we also conducted partial experiments on a server equipped with dual Intel(R) Xeon(R) Gold 6330 CPU @ 2.00GHz and 128GB of RAM. For clarity and conciseness, we hereafter refer to the former as Server A and the latter as Server B. Unless otherwise specified, all experiments were conducted on Server A.} 
-	Unless otherwise stated, we execute index construction with 32 threads to accelerate the process~\cite{benchmarkindex}. The queries are all executed on a single thread. 
+	Unless otherwise stated, we execute index construction with 32 threads to accelerate the process. The queries are all executed on a single thread. 
 %	In addition, We summarize the multi-threading capabilities of each algorithm in Table~\ref{tab:compair_1}. 	For vector database systems, we adopt a multi-process evaluation scheme (rather than multi-threaded execution), following the methodology proposed in VectorDBBench~\cite{VectorDBBench}, to better reflect their real-world performance.
 	
 	\textcolor{black}{
@@ -738,10 +737,10 @@ During querying, CAPS maintains a large candidate set dynamically, which signifi
 	As illustrated in Figure~\ref{fig:exp_3_1}, the evaluated algorithms exhibit varying degrees of sensitivity to attribute distribution shifts. PASE is excluded due to poor past performance. \textcolor{black}{The proximity of the curves in the figure reflects algorithm sensitivity to attribute distributional variations. When the curves converge closely, it demonstrates that the algorithm maintains stable performance when attribute distributions change.} 
 %	Specifically, ACORN, Milvus, Puck, CAPS, StitchedVamana, and UNG demonstrate strong robustness to such shifts. In contrast, Faiss, FilteredVamana, NHQ, VBASE, and PASE show notable sensitivity.
 
-textcolor{black}{
+
 	Algorithms that are highly sensitive to attribute distribution tend to rely passively on the statistical characteristics of the attributes in their design. For instance, graph-based indexing methods like FilteredVamana and NHQ are prone to degraded connectivity or distorted structures under power-law distributions, where label frequencies are highly imbalanced. Similarly, VBASE, which employs a post-filtering strategy, shows efficiency that directly correlates with attribute selectivity—the more selective the filter, the more computational resources are wasted on retrieving irrelevant vectors. Faiss, which searches within the nearest clusters, may need to traverse more clusters to find sufficient results when relevant data points are unevenly distributed across clusters due to attribute skew, which impacts performance.
 
-	In contrast, algorithms with low sensitivity to attribute distribution incorporate smarter indexing designs or adaptive query strategies to mitigate these challenges. Milvus, for example, leverages a built-in query optimizer that dynamically determines whether to filter by attributes or search vectors first, based on the selectivity of the query, thus ensuring more robust performance. Other approaches enhance robustness by separating attribute and vector indexing into distinct stages: UNG uses a logical graph to navigate attribute relationships, while CAPS employs an attribute frequency tree to adapt to power-law patterns. For ACORN--\(\gamma\), during index construction, attributes are primarily used for pruning in the lowest-layer graph, while the upper-layer hierarchical navigation graphs remain largely unaffected. Consequently, changes in attribute distribution have minimal impact on overall performance.}
+	In contrast, algorithms with low sensitivity to attribute distribution incorporate smarter indexing designs or adaptive query strategies to mitigate these challenges. Milvus, for example, leverages a built-in query optimizer that dynamically determines whether to filter by attributes or search vectors first, based on the selectivity of the query, thus ensuring more robust performance. Other approaches enhance robustness by separating attribute and vector indexing into distinct stages: UNG uses a logical graph to navigate attribute relationships, while CAPS employs an attribute frequency tree to adapt to power-law patterns. For ACORN--\(\gamma\), during index construction, attributes are primarily used for pruning in the lowest-layer graph, while the upper-layer hierarchical navigation graphs remain largely unaffected. Consequently, changes in attribute distribution have minimal impact on overall performance.
 		
 
 	
@@ -957,15 +956,6 @@ Although the dataset contains two modalities, due to the significant differences
 	}
 	
 	\textit{\textbf{Index construction time.}}
-
-
-
-
-
-
-
-
-
 	\textcolor{black}{
 	As shown in Figure~\ref{fig:rangeFilter_build_time}, Faiss and Milvus, based on the IVF architecture, require less time. This indexing structure enables fast construction through subset sampling and centroid computation, thereby reducing computational cost. Milvus performs particularly well on large-scale datasets, mainly due to its cache-aware optimizations, which significantly reduce CPU cache misses.}
 
