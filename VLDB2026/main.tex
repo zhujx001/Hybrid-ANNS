@@ -1073,7 +1073,7 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 	\begin{minipage}[t]{0.37\textwidth}
 		\centering
 		\setlength{\abovecaptionskip}{-0.2cm}
-		\setlength{\belowcaptionskip}{-0.3cm}
+%		\setlength{\belowcaptionskip}{-0.15cm}
 		\caption{Multi-Modal Datasets (RF)}
 		\label{fig:range-multimodal} 
 	\end{minipage}%
@@ -1081,7 +1081,7 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 	\begin{minipage}[t]{0.27\textwidth}
 		\centering
 		\setlength{\abovecaptionskip}{-0.2cm}
-		\setlength{\belowcaptionskip}{-0.3cm}
+%		\setlength{\belowcaptionskip}{-0.3cm}
 		\caption{Large-Scale Dataset (RF)}
 		\label{fig: range big dataset}
 	\end{minipage}
@@ -1089,7 +1089,7 @@ WinFilter also incurs high construction cost, as it relies on a tree structure a
 	\begin{minipage}[t]{0.35\textwidth}
 		\centering
 		\setlength{\abovecaptionskip}{-0.2cm}
-		\setlength{\belowcaptionskip}{-0.3cm}
+%		\setlength{\belowcaptionskip}{-0.3cm}
 		\caption{Different Platforms (RF)}
 		\label{fig:range-cross-platform}
 	\end{minipage}%
@@ -1226,13 +1226,9 @@ Faiss, Milvus and VBASE effectively handle complex filtering by employing versat
 	\subsubsection{Attribute Filtering}
 	Most existing attribute filtering algorithms are graph-based, they typically outperform other methods in terms of query accuracy and efficiency. Filtered-DiskANN leverages disk-based storage, making it suitable for  large-scale datasets even in memory-constrained environments. Moreover, the index construction phase of graph-based algorithms is computationally intensive. Therefore, exploring GPU-based acceleration for graph construction and vector computation during indexing is promising. It can significantly improve the performance of graph-based methods.
 	
-	\textcolor{black}{In addition, existing attribute filtering algorithms face two major limitations: strict requirements on attribute format and limited support for complex filtering conditions. }
-
-
-
-		\textcolor{black}{
+In addition, existing attribute filtering algorithms face two major limitations: strict requirements on attribute format and limited support for complex filtering conditions. 
 For example, in multi-attribute scenarios, some algorithms only support Boolean OR logic (e.g., FilterDiskANN), while others only support Boolean AND logic (e.g., NHQ and CAPS). Although algorithms such as ACORN, UNG, and Puck support both AND and OR logic across multiple attributes, they still struggle to handle complex Boolean expressions that involve nested combinations of conjunctions (AND) and disjunctions (OR). In contrast, while databases and the vector search library Faiss support more expressive Boolean logic, their performance is often suboptimal in queries involving only basic attribute filtering.
-Therefore, designing algorithms that can support complex filtering expressions while maintaining high query efficiency remains a key challenge to be addressed. }
+Therefore, designing algorithms that can support complex filtering expressions while maintaining high query efficiency remains a key challenge to be addressed. 
 
 \textcolor{black}{Notably, we find that IVF-based methods are easily extendable to support joint query scenarios of attribute filtering and range filtering, and are compatible with arbitrary combinations of Boolean logic. Our experiments also indicate that IVF-based methods (CAPS, Puck) achieve performance comparable to graph algorithms, while having the lowest time and space overhead, making them highly suitable for large-scale data processing. Therefore, IVF-based hybrid query methods represent a very promising research direction.}
 		
