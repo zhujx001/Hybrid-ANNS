@@ -8,18 +8,15 @@
 
 \usepackage{balance}
 \usepackage{enumitem}
-
 \usepackage{multirow}
-
 \usepackage{graphicx}
-
 \usepackage{microtype}  %处理换行
 \usepackage{subcaption} % 需要subcaption宏包支持子图
 \usepackage{caption}
-
 \usepackage{array}
 \usepackage[all]{nowidow}
 \usepackage{times}
+\usepackage[a-2b,mathxmp]{pdfx}
 
 % %% The following content must be adapted for the final version
 % % paper-specific
@@ -31,19 +28,16 @@
 \newcommand\vldbissue{2}
 \newcommand\vldbyear{2025}
 % should be fine as it is
-\newcommand\vldbauthors{\authors}
+\newcommand\vldbauthors{Jiaxu Zhu, Jiayu Yuan, Kaiwen Yang, Xiaobao Chen, Shihuan Yu, Hongchang Lv, Yan Li, and Bolong Zheng}
 \newcommand\vldbtitle{\shorttitle} 
 % leave empty if no availability url should be set
 \newcommand\vldbavailabilityurl{https://github.com/zhujx001/Hybrid-ANNS-Experiment}
 % whether page numbers should be shown or not, use 'plain' for review versions, 'empty' for camera ready
 \newcommand\vldbpagestyle{empty} 
 
-\usepackage[a-2b,mathxmp]{pdfx}
-
-
 
 \begin{document}
-	%\begin{sloppypar}
+
 	\title{An Experimental Evaluation of Hybrid Querying on Vectors}
 	
 	\author{Jiaxu Zhu}
@@ -76,16 +70,16 @@
 		\institution{Huazhong University of Science and Technology}
 	}
 	
-	\author{Yan Li}
+	\author{Yan Li$^{*}$}
 	\affiliation{%
 		\institution{Wuhan University of Technology}
 	}
-	\authornote{Yan Li is the corresponding author}
+	
 	\author{Bolong Zheng}
 	\affiliation{%
 		\institution{Huazhong University of Science and Technology}
 	}
-	\authornote{Bolong Zheng is the corresponding author}
+	\authornote{Yan Li and Bolong Zheng are the corresponding authors}
 	%%
 	%% The "author" command and its associated commands are used to define the authors and their affiliations.
 	
@@ -108,15 +102,12 @@
 	%
 	% The abstract is a short summary of the work to be presented in the
 	% article.
-	\begin{abstract}
-		Recent studies demonstrate the significant practical value of hybrid queries, which integrate vector search with structured filters (e.g., attribute and range filtering) for refined retrieval.
-		However, current evaluations lack unified benchmarking standards and systematic assessment methodologies. Existing studies either fail to cover mainstream algorithms or omit systematic comparisons or in-depth analysis on different methods. To address this issue, we design a comprehensive evaluation framework for hybrid queries. Our study introduces 15 hybrid query algorithms and systematically classifies them based on multiple dimensions, such as index organization and filtering strategy, providing a reference for the categorization of hybrid queries. 
-
+\begin{abstract}
+Recent studies demonstrate the significant practical value of hybrid queries, which integrate vector search with structured filters (e.g., attribute and range filtering) for refined retrieval.
+However, current evaluations lack unified benchmark standards and systematic assessment methodologies. Existing studies either fail to cover mainstream algorithms or omit systematic comparisons or in-depth analysis on different methods. To address this issue, we design a comprehensive evaluation framework for hybrid queries. Our study introduces 15 hybrid query algorithms and systematically classifies them based on multiple dimensions, such as index organization and filtering strategy, providing a reference for the categorization of hybrid queries. 
 In the experiments, we construct standardized attribute and range sets for attribute filtering and range filtering, respectively, enabling a unified comparison of algorithms in terms of index construction efficiency and query performance. Furthermore, we evaluate the robustness of the algorithms across multiple dimensions, including data distributions, platforms, and scalability on a 100-million-scale dataset.
-	 Additionally, we conduct an in-depth analysis of the experimental results based on the underlying principles of algorithms. Extensive experimental results reveal the strengths and weaknesses of each algorithm. Based on the findings, we develop a set of practical guidelines for algorithm selection, offering reliable references for different application scenarios. Furthermore, we identify potential directions for improvement to address the current limitations of these algorithms.
-		
-	\end{abstract}
-	
+Additionally, we conduct an in-depth analysis of the experimental results based on the underlying principles of algorithms. Extensive experimental results reveal the strengths and weaknesses of each algorithm. Based on the findings, we develop a set of practical guidelines for algorithm selection, offering reliable references for different application scenarios. Furthermore, we identify potential directions for improvement to address the current limitations of these algorithms.
+\end{abstract}
 	
 	\maketitle
 	
@@ -1260,7 +1251,9 @@ It is also worth noting that range filtering and attribute filtering are both fo
 	
 	\section{CONCLUSION}
 %In this paper, we systematically evaluate various hybrid query methods, including multiple algorithms, vector databases, and libraries. We enrich the attribute information of the dataset and design a variety of experimental scenarios, and comprehensively analyze the performance of each algorithm. Experiments show that existing algorithms still have significant shortcomings in scenarios such as large-scale data, complex queries, and resource constraints. There are still significant deficiencies in the flexibility and Boolean logic support of attribute filtering algorithms. Furthermore, the performance of range filtering algorithms remains limited under high-recall requirements and lacks support for multi-attribute queries. Notably, in some high-recall scenarios, some algorithms even perform worse than the baseline method (e.g., Faiss). In the future, it is necessary to further explore the flexibility and robustness of attribute filtering algorithms, while improving the performance of range filtering algorithms is also an important direction. Additionally, exploring algorithms that support a combination of attribute and range filtering is also an important research topic.
-In this paper, we systematically evaluate hybrid query methods across multiple algorithms, vector databases, and libraries. We enrich dataset attributes, design diverse scenarios, and analyze overall performance. Experiments show that existing algorithms still have significant shortcomings in scenarios such as large-scale data, complex queries, and resource constraints. Attribute filtering lacks flexibility and Boolean logic support, while range filtering remains weak under high-recall or multi-attribute conditions. Some even underperform the baseline (e.g., Faiss). Future work will focus on improving the flexibility and efficiency of filtering algorithms and exploring unified algorithms that integrate attribute and range filtering.
+In this paper, we systematically evaluate hybrid query methods across multiple algorithms, vector databases, and libraries. We enrich dataset attributes, design diverse scenarios, and analyze overall performance. Experiments show that existing algorithms still have significant shortcomings in scenarios such as large-scale data, complex queries, and resource constraints. Attribute filtering lacks flexibility and Boolean logic support, while range filtering remains weak under high-recall or multi-attribute conditions. Some even underperform the baseline (e.g., Faiss). 
+
+In the future, we will focus on improving the flexibility and efficiency of filtering algorithms and exploring unified algorithms that integrate attribute and range filtering.
 
 
 \begin{acks}
