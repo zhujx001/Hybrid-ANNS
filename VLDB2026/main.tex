@@ -302,7 +302,7 @@ Graph indexes are widely used in hybrid ANN search due to their efficiency. To s
 		
 		\multicolumn{2}{|l|}{\textbf{RF}}             & N & N & N & N & Y & N & N & Y & Y & Y & Y & Y \\ \hline
 			\multicolumn{2}{|l|}{\textbf{Filter Type }}             & C & C & C & C & B & B & B & B & B & B & A/B/C & A \\ \hline
-		\multicolumn{2}{|l|}{\textbf{Dynamic Insert}} & N & Y & N & Y & Y & Y & Y & N & Y & Y & Y & Y \\ \hline
+		\multicolumn{2}{|l|}{\textbf{Dynamic Insert}} & Y & Y & N & Y & Y & Y & Y & Y & N & N & Y & N \\ \hline
 		\multicolumn{2}{|l|}{\textbf{Multi Thread}}   & N & Y & Y & Y & Y & Y & Y & N & Y & Y & Y & Y \\ \hline
 		\multicolumn{2}{|l|}{\textbf{Disk Support}}           &N  & Y& N & N & N & N & N & N & N & N & N & N \\ \hline
 		\multicolumn{2}{|l|}{\textbf{Base}}           & Graph & Graph & Graph & IVF & Graph & Graph & IVF & Graph & Graph & Graph & Graph & Graph \\ \hline
@@ -321,7 +321,7 @@ Graph indexes are widely used in hybrid ANN search due to their efficiency. To s
 		\textit{AND} / \textit{OR}: Whether the algorithm supports the corresponding logical operations.
 		\textit{Flexible Attributes}: Allows the number of query attributes to differ from that in index construction.
 		\textit{Complex Boolean}: Supports NOT or nested Boolean expressions.
-		\textit{Dynamic Insert}: Supports dynamic data insertion.
+		\textit{Dynamic Insert}: Supports dynamic unordered data insertion;SeRF requires ordered insertion.
 		\textit{Multi Thread}: Supports multi-threaded search.
 		\textit{Disk Support}: Supports disk-based storage.
 		\textit{Base}: Underlying ANN index structure used.}
